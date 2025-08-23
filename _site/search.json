@@ -1,0 +1,548 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "lectures",
+    "section": "",
+    "text": "Lectures by Edward A. Roualdes."
+  },
+  {
+    "objectID": "315/introductionData/main.html#data-set-email",
+    "href": "315/introductionData/main.html#data-set-email",
+    "title": "Introduction to Data",
+    "section": "Data Set: email",
+    "text": "Data Set: email\nConsider the email data set, found in OS4 Section 2.2 and in the R library openintro.\n\n\n\n\n\n\nspam\nnum_char\nformat\nnumber\n\n\n\n\n0\n11.370\n1\nbig\n\n\n0\n10.504\n1\nsmall\n\n\n0\n7.773\n1\nsmall\n\n\n0\n14.431\n1\nsmall\n\n\n\n\n\nTable 1: Four rows of data from the email data set"
+  },
+  {
+    "objectID": "315/introductionData/main.html#data-set-email-organization",
+    "href": "315/introductionData/main.html#data-set-email-organization",
+    "title": "Introduction to Data",
+    "section": "Data Set: email, organization",
+    "text": "Data Set: email, organization\nThe data in Table 1 represent a data matrix tibble data frame, which is The way to organize data for statistical analysis.\nEach row represents a new observation (individual or case) and each column represents a new variable.\nMore observations are added to the data set by appending rows, and more variables are added by appending columns."
+  },
+  {
+    "objectID": "315/introductionData/main.html#data-set-email-words",
+    "href": "315/introductionData/main.html#data-set-email-words",
+    "title": "Introduction to Data",
+    "section": "Data Set: email, words",
+    "text": "Data Set: email, words\nTable 1 displays rows 1, 2, 3, and 50 of a data set containing emails received during early 2012.\nIt is important to know the units of each variable, and understand what each variable means.\nFor example, the first row represents the first email of this data set, which is not spam, contains 21,705 characters, was written in HTML format, and contains only numbers larger than one million."
+  },
+  {
+    "objectID": "315/introductionData/main.html#type-of-variables",
+    "href": "315/introductionData/main.html#type-of-variables",
+    "title": "Introduction to Data",
+    "section": "Type of Variables",
+    "text": "Type of Variables\nIn Table 1, there are multiple types of variables.\n\nNumerical data is quantitative, e.g. it takes on numerical values and all mathematical operations \\((+, -, *, /, &lt;, &gt;, =, ... )\\) make sense with these values.\nCategorical data can be categorized, or placed into non-overlapping groups. Possible values of a categorical variables are called levels."
+  },
+  {
+    "objectID": "315/introductionData/main.html#types-of-variables-sub-types-of-numerical",
+    "href": "315/introductionData/main.html#types-of-variables-sub-types-of-numerical",
+    "title": "Introduction to Data",
+    "section": "Types of Variables, sub-types of numerical",
+    "text": "Types of Variables, sub-types of numerical\nThere are two general sub-types of numerical variables.\n\nContinuous data can take on any value within a specified range.\nDiscrete data can take on only a countable number of values."
+  },
+  {
+    "objectID": "315/introductionData/main.html#types-of-variables-a-combo",
+    "href": "315/introductionData/main.html#types-of-variables-a-combo",
+    "title": "Introduction to Data",
+    "section": "Types of Variables, a combo",
+    "text": "Types of Variables, a combo\nAnother good to know, but less common, variable type is ordinal.\n\nOrdinal data can be considered a hybrid of numerical and categorical variables: it is a categorical variable but the levels have a natural ordering."
+  },
+  {
+    "objectID": "315/introductionData/main.html#types-of-variables-examples",
+    "href": "315/introductionData/main.html#types-of-variables-examples",
+    "title": "Introduction to Data",
+    "section": "Types of Variables, examples",
+    "text": "Types of Variables, examples\n\ncontinuous: money, height, …\ndiscrete: sides of dice, number of words in book, …\ncategorical: names of fertilizers, gender, …\nordinal: race positions, …"
+  },
+  {
+    "objectID": "315/introductionData/main.html#u.s.-counties",
+    "href": "315/introductionData/main.html#u.s.-counties",
+    "title": "Introduction to Data",
+    "section": "U.S. Counties",
+    "text": "U.S. Counties\nUse the words we just learned to explain the following table.\n\n\n\n\n\n\n\n\nstate\nname\npop2010\nmedian_edu\n\n\n\n\nMaryland\nKent County\n20197\nsome_college\n\n\nTexas\nLampasas County\n19677\nsome_college\n\n\nOklahoma\nKingfisher County\n15034\nsome_college\n\n\nVirginia\nRoanoke County\n92376\nsome_college\n\n\nMichigan\nOttawa County\n263801\nsome_college\n\n\nOhio\nSeneca County\n56745\nhs_diploma\n\n\n\n\n\n\nTable 2: Sample of data from the county dataset."
+  },
+  {
+    "objectID": "315/introductionData/main.html#data-frames-in-r",
+    "href": "315/introductionData/main.html#data-frames-in-r",
+    "title": "Introduction to Data",
+    "section": "Data Frames in R",
+    "text": "Data Frames in R\nRun these commands in R\n\n\nCode\nsuppressMessages(library(openintro))\ndata(email) # load dataset email\nstr(email)  # ensure we're looking at a df\nhead(email) # top 6 rows; try tail\nemail$spam  # just one variable\nnames(email) # column names\nsome_cols &lt;- c(\"spam\", \"num_char\", \"format\", \"number\")\nemail[ , some_cols] # specified variables/columns\nemail[c(1,2,3,50), some_cols] # Table 1"
+  },
+  {
+    "objectID": "315/introductionData/main.html#population",
+    "href": "315/introductionData/main.html#population",
+    "title": "Introduction to Data",
+    "section": "Population",
+    "text": "Population\n\nA population is the complete set of observatons of interest.\nIt is often too difficult to survey an entire popluation of interest:\n\nprohibitively expensive\nphysically impossible or nearly so\ntoo time consuming\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#identifying-the-population",
+    "href": "315/introductionData/main.html#identifying-the-population",
+    "title": "Introduction to Data",
+    "section": "Identifying the Population",
+    "text": "Identifying the Population\nTo which population do the following research questions refer?\n\nWhat is the average mercury content in swordfish?\nOver the last 5 years, what is the average time to complete a degree for Chico State undergraduate students?\nDoes a new drug reduce the number of deaths in patients with severe heart disease?"
+  },
+  {
+    "objectID": "315/introductionData/main.html#population-out-of-reach",
+    "href": "315/introductionData/main.html#population-out-of-reach",
+    "title": "Introduction to Data",
+    "section": "Population Out of Reach",
+    "text": "Population Out of Reach\nA sample represents a subset of the cases and is often a small fraction of the population. For instance, 60 swordfish in the population might be selected. Statistics based on this sample provide estimates (best guesses) about the population."
+  },
+  {
+    "objectID": "315/introductionData/main.html#sampling-from-a-population-good",
+    "href": "315/introductionData/main.html#sampling-from-a-population-good",
+    "title": "Introduction to Data",
+    "section": "Sampling From a Population, good",
+    "text": "Sampling From a Population, good\nIn general, we always seek to randomly select a sample from a population. How might we do this?\n\nFive graduates are randomly selected from the population to be included in the sample."
+  },
+  {
+    "objectID": "315/introductionData/main.html#sampling-from-a-population-bad",
+    "href": "315/introductionData/main.html#sampling-from-a-population-bad",
+    "title": "Introduction to Data",
+    "section": "Sampling From a Population, bad",
+    "text": "Sampling From a Population, bad\nBias occurs in samples that over/under represent specific sub-groups of the population. We seek to avoid bias in our samples.\n\nInstead of sampling from all graduates equally, a nutrition major might inadvertently pick graduates with health-related majors disproportionately often."
+  },
+  {
+    "objectID": "315/introductionData/main.html#the-most-common-forms-of-bias",
+    "href": "315/introductionData/main.html#the-most-common-forms-of-bias",
+    "title": "Introduction to Data",
+    "section": "The Most Common Forms of Bias",
+    "text": "The Most Common Forms of Bias\nConsider the following anecdotes.\n\nA man on the news got mercury poisoning from eating a swordfish, so the average mercury concentration in swordfish must be dangerously high.\nI met two students who took more than 7 years to graduate from Chico State, so it must take longer to graduate at Chico State than at many other colleges.\nMy friend’s dad had a heart attack and died after they gave him a new heart disease drug, so the drug must not work.\nIn February 2010, some media pundits cited one large snow storm as valid evidence against global warming, so climate change is obviously fake."
+  },
+  {
+    "objectID": "315/introductionData/main.html#avoid-anecdotal-evidence",
+    "href": "315/introductionData/main.html#avoid-anecdotal-evidence",
+    "title": "Introduction to Data",
+    "section": "Avoid Anecdotal Evidence",
+    "text": "Avoid Anecdotal Evidence\nAnecdotal evidence typically is composed of unusual cases that stand out in our memory. For instance, we are more likely to remember two people we met who took 7 years to graduate, than the six others who graduated in four years. Instead of looking at the most unusual cases, we should examine a sample of many cases that represent the population."
+  },
+  {
+    "objectID": "315/introductionData/main.html#another-example-of-bias",
+    "href": "315/introductionData/main.html#another-example-of-bias",
+    "title": "Introduction to Data",
+    "section": "Another Example of Bias",
+    "text": "Another Example of Bias\nSay we are interested in estimating the average gas mileage of all cars.\n\nA graphical depiction of sample bias."
+  },
+  {
+    "objectID": "315/introductionData/main.html#origins-of-bias",
+    "href": "315/introductionData/main.html#origins-of-bias",
+    "title": "Introduction to Data",
+    "section": "Origins of Bias",
+    "text": "Origins of Bias\nBias can come from a number of different places:\n\nConvenience Sampling occurs when a sample is chosen based on ease of access to the individuals. Examples?\nNon-response occurs when some respondents refuse to answer survey questions. Examples?\nSelf-selection occurs when some individuals of a study eagerly participate while others are generally uninterested. Examples?\nExclusion occurs when a sub-group of the population is generally unreachable. Examples?\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#proper-ways-to-sample",
+    "href": "315/introductionData/main.html#proper-ways-to-sample",
+    "title": "Introduction to Data",
+    "section": "Proper Ways to Sample",
+    "text": "Proper Ways to Sample\n\nsample with replacement. Draw members from the population one at a time such that each member has equal probability of being selected, returning the selected member to the population for the next draw. If any member is selected more than once, put that selection back and select again. Repeat the process until you have a sample of the desired size.\nsampling without replacement. Draw members from the population one at a time such that each member has equal probability of being selected at each draw. Repeat the process until you have a sample of the desired size."
+  },
+  {
+    "objectID": "315/introductionData/main.html#using-a-computer-to-sample-homework-02",
+    "href": "315/introductionData/main.html#using-a-computer-to-sample-homework-02",
+    "title": "Introduction to Data",
+    "section": "Using a Computer to Sample, Homework 02",
+    "text": "Using a Computer to Sample, Homework 02\nSampling in R1 with or without replcement is easy.\n\n\nCode\nx &lt;- c(\"Diego\", \"Andrea\", \"Sargentini\", \"Chewbaca\", \"Fido\")\nsample(x, 3) # without replacement\n\n\n[1] \"Chewbaca\"   \"Sargentini\" \"Fido\"      \n\n\nCode\nsample(x, 7, replace=TRUE)\n\n\n[1] \"Sargentini\" \"Sargentini\" \"Fido\"       \"Sargentini\" \"Chewbaca\"  \n[6] \"Fido\"       \"Diego\"     \n\n\nCome back to this slide for Homework 02."
+  },
+  {
+    "objectID": "315/introductionData/main.html#statistics-in-general",
+    "href": "315/introductionData/main.html#statistics-in-general",
+    "title": "Introduction to Data",
+    "section": "Statistics in General",
+    "text": "Statistics in General\n\n\n\nPopulation: characteristics called parameters\n\nSample: characteristics called statistics\n\nCharacteristics of both can be numeric, categorical, \\(\\ldots\\)"
+  },
+  {
+    "objectID": "315/introductionData/main.html#observational-and-experimental-studies",
+    "href": "315/introductionData/main.html#observational-and-experimental-studies",
+    "title": "Introduction to Data",
+    "section": "Observational and Experimental Studies",
+    "text": "Observational and Experimental Studies\nThere are two primary types of data collection: observational studies and experiments.\n\nobservational study. The researcher simply monitors and collects data on things as they are, by observing. There is no manipulation of the study by the researcher.\nexperiment. The researcher assigns the value of the explanatory/independent variable for each unit. In other words, the researcher controls which subjects go into which treatment groups."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experimental-studies-examples",
+    "href": "315/introductionData/main.html#experimental-studies-examples",
+    "title": "Introduction to Data",
+    "section": "Experimental Studies, examples",
+    "text": "Experimental Studies, examples\nExperimental studies, through the direct manipulation from the researcher, can provide cause-and-effect relationships between the response/dependent and explanatory/independent variable.\n\n(insert context) … researchers collect a sample of individuals and split them into groups. The individuals in each group assign a treatment, one group per level of the explanatory/independent variable.\nTo study the effect of tar contained in cigarettes researchers painted tobacco tar on the back of some mice but not others, and recorded if the painted mice had cancer at a higher rate than those not exposed to the tar TODO add cition Wynder:1953"
+  },
+  {
+    "objectID": "315/introductionData/main.html#observational-and-experimental-studies-identify",
+    "href": "315/introductionData/main.html#observational-and-experimental-studies-identify",
+    "title": "Introduction to Data",
+    "section": "Observational and Experimental Studies, identify",
+    "text": "Observational and Experimental Studies, identify\nFor each of the following situations, identify if it is an observational study or an experiment.\n\nReview medical or company records to attempt to identify fraud.\nFollow a group of many similar individuals to study why certain diseases might develop.\nPlant a specific type of native grass in select areas to see if the native species will out-compete an invasive species."
+  },
+  {
+    "objectID": "315/introductionData/main.html#independentexplanatory-and-dependentresponse-variables",
+    "href": "315/introductionData/main.html#independentexplanatory-and-dependentresponse-variables",
+    "title": "Introduction to Data",
+    "section": "Independent/Explanatory and Dependent/Response Variables",
+    "text": "Independent/Explanatory and Dependent/Response Variables\nIn studying the relationship between two variables, the variables are often viewed as either a response/dependent variable or an explanatory/idependent variable.\nTo identify the explanatory variable in a pair of variables, ask yourself which of the two explains the other. Often, many variables will explain/predict the response/dependent variable."
+  },
+  {
+    "objectID": "315/introductionData/main.html#explanatory-and-response-variables",
+    "href": "315/introductionData/main.html#explanatory-and-response-variables",
+    "title": "Introduction to Data",
+    "section": "Explanatory and Response Variables",
+    "text": "Explanatory and Response Variables\n\nresponse/dependent variable. The response/dependent variable is the variable or characteristic of the data that we are wanting to learn about (to explain, to predict, or to estimate), or that depends on other variables.\nexplanatory/independent variable. The explanatory/independent variable is the variable that does the explaining, or whose effect on the response variables is of interest."
+  },
+  {
+    "objectID": "315/introductionData/main.html#explanatory-and-response-examples",
+    "href": "315/introductionData/main.html#explanatory-and-response-examples",
+    "title": "Introduction to Data",
+    "section": "Explanatory and Response, examples",
+    "text": "Explanatory and Response, examples\nIdentify the explanatory/independent and response/dependent variables from the following.\n\nfertilizer and growth\ncollege grade point average and high school grade point average\naverage federal spending and counties with high rates of poverty\npolice department budget and crime rate\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#explanatoryindependent-and-response-caution",
+    "href": "315/introductionData/main.html#explanatoryindependent-and-response-caution",
+    "title": "Introduction to Data",
+    "section": "Explanatory/independent and Response, caution",
+    "text": "Explanatory/independent and Response, caution\nLabeling variables as explanatory/independent and response/dependent does not guarantee the relationship between the two is actually causal, even if there is an association identified between the two variables. We use these labels only to keep track of which variable we suspect affects the other.\n\n\n\n\n\nflowchart LR\n    A(Explanatory variables ) -- might affect --&gt; B(Response variable )"
+  },
+  {
+    "objectID": "315/introductionData/main.html#confounding-variables",
+    "href": "315/introductionData/main.html#confounding-variables",
+    "title": "Introduction to Data",
+    "section": "Confounding Variables",
+    "text": "Confounding Variables\nSuppose an observational study tracked sunscreen use and skin cancer, and it was found that the more sunscreen someone used, the more likely the person was to have skin cancer. Does this mean sunscreen causes skin cancer? Or is there another variable we aren’t accounting for?\n\n\n\n\n\nflowchart LR\n    A(sun exposure) --&gt; B(skin cancer)\n    A --&gt; C(use sunscreen)\n    C -- ? --&gt; B"
+  },
+  {
+    "objectID": "315/introductionData/main.html#stents-study",
+    "href": "315/introductionData/main.html#stents-study",
+    "title": "Introduction to Data",
+    "section": "Stents Study",
+    "text": "Stents Study\nTODO cite this Chimowitz:2011 collected data on 451 at-risk patients. Two time points were measured 30 days after enrollment and 365 days after enrollment.\nEach volunteer patient was randomly assigned to one of two groups:\nTreatment group 224 patients in the treatment group received a stent and medical management.\nControl group 227 patients in the control group received the same medical management as the treatment group, but they did not receive stents."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments",
+    "href": "315/introductionData/main.html#experiments",
+    "title": "Introduction to Data",
+    "section": "Experiments",
+    "text": "Experiments\nStudies where the researchers assign treatments to cases are called experiments.\nWhen this assignment includes randomization, e.g. using a coin flip to decide which treatment a patient receives, it is called a randomized experiment. Randomized experiments are fundamentally important when trying to show a causal connection between two variables."
+  },
+  {
+    "objectID": "315/introductionData/main.html#stents-study-data",
+    "href": "315/introductionData/main.html#stents-study-data",
+    "title": "Introduction to Data",
+    "section": "Stents Study, data",
+    "text": "Stents Study, data\nOS 4 Case study 1.1. Of the 224 patients in the treatment group, 45 had a stroke by the end of the first year. Using these two numbers, compute the proportion of patients in the treatment group who had a stroke by the end of their first year. Compute the proportion of patients in the control group who had a stroke by the end of their first year.\n\n\n\n\n\nstroke\n\n\nno event\n\n\n\n\ntreatment\n\n\n45\n\n\n179\n\n\n\n\ncontrol\n\n\n28\n\n\n199"
+  },
+  {
+    "objectID": "315/introductionData/main.html#stents-study-r-is-a-calculator",
+    "href": "315/introductionData/main.html#stents-study-r-is-a-calculator",
+    "title": "Introduction to Data",
+    "section": "Stents Study, R is a calculator",
+    "text": "Stents Study, R is a calculator\nWe do the calculations in R.\n\n\nCode\n45 / (45+179)   # treatment, had stroke\n\n\n[1] 0.2008929\n\n\nCode\n28 / (28 + 199) # control, had stroke\n\n\n[1] 0.123348"
+  },
+  {
+    "objectID": "315/introductionData/main.html#stents-study-careful-with-conclusions",
+    "href": "315/introductionData/main.html#stents-study-careful-with-conclusions",
+    "title": "Introduction to Data",
+    "section": "Stents Study, careful with conclusions",
+    "text": "Stents Study, careful with conclusions\nOur findings are a bit surprising, and since this is a randomized experiment we may be ready to draw causal connections, but don’t!\n\nDid you happen to see the words “volunteer patient”?\nAre there other reasons, confounding variables, that might explain these findings?\nDoes our sample generalize to all stroke patients?\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-principles",
+    "href": "315/introductionData/main.html#experiments-principles",
+    "title": "Introduction to Data",
+    "section": "Experiments, principles",
+    "text": "Experiments, principles\nTo better ensure proper randomized experiments, there are some basic principles that all experiments aim to perfect.\n\nControl. Researchers assign treatments to cases (or experimental units), and they do their best to control any other differences in the groups.\nRandomization. Researchers randomize patients into treatment groups to account for variables that cannot be controlled.\nReplication. The more cases researchers observe, the more accurately they can estimate the effect of the explanatory/independent variable(s) on the response/dependent variable.\nMeasurement error. Science is beyond the easy to measure. Exact measurements are not always available, instead assumptions/guesses/best efforsts are often made."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-control",
+    "href": "315/introductionData/main.html#experiments-control",
+    "title": "Introduction to Data",
+    "section": "Experiments, control",
+    "text": "Experiments, control\nExamples of control in experiments.\n\nWhen patients take a drug in pill form, some patients take the pill with only a sip of water while others may have it with an entire glass of water. To control for the effect of water consumption, a doctor may ask all patients to drink a 12 ounce glass of water with the pill.\nResearchers assigning levels of certain fertilizers.\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-randomization",
+    "href": "315/introductionData/main.html#experiments-randomization",
+    "title": "Introduction to Data",
+    "section": "Experiments, randomization",
+    "text": "Experiments, randomization\nExamples of randomization in experiments.\n\nSome patients may be more susceptible to a disease than others due to their dietary habits. Randomizing patients into the treatment or control group helps even out such differences, and it also prevents accidental bias from entering the study.\nOrder of foods/drinks eaten in taste tests.\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-replication",
+    "href": "315/introductionData/main.html#experiments-replication",
+    "title": "Introduction to Data",
+    "section": "Experiments, replication",
+    "text": "Experiments, replication\nExamples of replication in experiments.\n\nIn a single study, we replicate by collecting a sufficiently large sample.\nAsk multiple people to taste test a food/drink.\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-measurement-error",
+    "href": "315/introductionData/main.html#experiments-measurement-error",
+    "title": "Introduction to Data",
+    "section": "Experiments, measurement error",
+    "text": "Experiments, measurement error\nExample of measurement error.\n\nCounting salmon populations in the Sacramento River.\nMeasuring unemployment at the census tract, county, state, nation.\nyada yada yada physics.\n…"
+  },
+  {
+    "objectID": "315/introductionData/main.html#identify-basic-principles-rats",
+    "href": "315/introductionData/main.html#identify-basic-principles-rats",
+    "title": "Introduction to Data",
+    "section": "Identify Basic Principles, Rats",
+    "text": "Identify Basic Principles, Rats\nTo study the effect of tar contained in cigarettes, TODO cite Wynder:1953 painted tobacco tar on the back of some mice but not others, and recorded if the painted mice had cancer at a higher rate than those not exposed to the tar."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-blocking-can-help",
+    "href": "315/introductionData/main.html#experiments-blocking-can-help",
+    "title": "Introduction to Data",
+    "section": "Experiments, blocking can help",
+    "text": "Experiments, blocking can help\nResearchers sometimes know or suspect that variables, other than the treatment, influence the response. Under these circumstances, they may first group individuals based on this variable into blocks and then randomize cases within each block to the treatment groups.\n\nBlocking. The grouping of similar individuals. They are grouped into blocks."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-blocking-can-help-picture",
+    "href": "315/introductionData/main.html#experiments-blocking-can-help-picture",
+    "title": "Introduction to Data",
+    "section": "Experiments, blocking can help picture",
+    "text": "Experiments, blocking can help picture\n\nExample of blocking"
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-blocking-example",
+    "href": "315/introductionData/main.html#experiments-blocking-example",
+    "title": "Introduction to Data",
+    "section": "Experiments, blocking example",
+    "text": "Experiments, blocking example\nFigure 1 shows blocking using a variable depicting patient risk. Patients are first divided into low-risk and high-risk blocks, then each block is evenly separated into the treatment groups using randomization. This strategy ensures an equal representation of patients in each treatment group from both the low-risk and high-risk categories."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-specific-keywords",
+    "href": "315/introductionData/main.html#experiments-specific-keywords",
+    "title": "Introduction to Data",
+    "section": "Experiments, specific keywords",
+    "text": "Experiments, specific keywords\nTime to clear up some commonly used keywords that are specific to experiments.\n\nTreatment. A specific experimental condition applied to each case.\nLevels. Unique set of values that the Treatment (or any categorical variable) takes on.\nExperimental Units. The observation/case/subject to which a treatment is applied."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-specific-keywords-by-example",
+    "href": "315/introductionData/main.html#experiments-specific-keywords-by-example",
+    "title": "Introduction to Data",
+    "section": "Experiments, specific keywords by example",
+    "text": "Experiments, specific keywords by example\nConsider the dataset ChickWeight by TODO cite Crowder:1990.\n\n\n\n\n\n\n\n\nweight\nChick\nDiet\n\n\n\n\n64\n15\n1\n\n\n96\n43\n4\n\n\n67\n4\n1\n\n\n74\n29\n2\n\n\n63\n10\n1\n\n\n85\n34\n3\n\n\n67\n3\n1\n\n\n77\n22\n2\n\n\n\n\n\n\nTable 3: 8 randomly chosen rows of ChickWeight dataset."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-already-known-keywords",
+    "href": "315/introductionData/main.html#experiments-already-known-keywords",
+    "title": "Introduction to Data",
+    "section": "Experiments, already? known keywords",
+    "text": "Experiments, already? known keywords\nAnd let’s just be clear about a few other keywords.\n\nPlacebo. A fake treatment.\nBlind. When researchers keep their patients uninformed about their treatment.\nDouble Blind. When both researchers and patients do not know which patient receives which treatment."
+  },
+  {
+    "objectID": "315/introductionData/main.html#experiments-homework-02",
+    "href": "315/introductionData/main.html#experiments-homework-02",
+    "title": "Introduction to Data",
+    "section": "Experiments, homework 02",
+    "text": "Experiments, homework 02\nA researcher is conducting an experiment to see the effect of diet and exercise on weight gain in baby hamsters. Two different diets (low fat and high fat) and three different levels of exercise (high, moderate, or none) will be used. Eight baby hamsters will be raised under each combination of diet and exercise and their weight gain after 4 weeks will be measured.\n\nWhat are the experimental units here?\nWhat are the categorical variables? List the levels of each.\nHow many different treatments are there? List them.\nHow many experimental units will this experiment require?"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-point-estimates",
+    "href": "315/anova/main.html#recap-point-estimates",
+    "title": "ANOVA",
+    "section": "recap: point estimates",
+    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
+  },
+  {
+    "objectID": "315/anova/main.html#recap-central-limit-theorem",
+    "href": "315/anova/main.html#recap-central-limit-theorem",
+    "title": "ANOVA",
+    "section": "recap: central limit theorem",
+    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-confidence-intervals",
+    "href": "315/anova/main.html#recap-confidence-intervals",
+    "title": "ANOVA",
+    "section": "recap: confidence intervals",
+    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-hypothesis-tests",
+    "href": "315/anova/main.html#recap-hypothesis-tests",
+    "title": "ANOVA",
+    "section": "recap: hypothesis tests",
+    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
+    "href": "315/anova/main.html#recap-two-sample-t-tests",
+    "title": "ANOVA",
+    "section": "recap: two sample t-tests",
+    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
+  },
+  {
+    "objectID": "315/anova/main.html#analaysis-of-variance",
+    "href": "315/anova/main.html#analaysis-of-variance",
+    "title": "ANOVA",
+    "section": "Analaysis of Variance",
+    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis",
+    "href": "315/anova/main.html#anova-hypothesis",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis",
+    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis-examples",
+    "href": "315/anova/main.html#anova-hypothesis-examples",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis examples",
+    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-picture",
+    "href": "315/anova/main.html#anova-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, picture",
+    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition",
+    "href": "315/anova/main.html#anova-intuition",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition",
+    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition-in-picture",
+    "href": "315/anova/main.html#anova-intuition-in-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition in picture",
+    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intution-via-picture",
+    "href": "315/anova/main.html#anova-intution-via-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intution via picture",
+    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-test-statistic",
+    "href": "315/anova/main.html#anova-test-statistic",
+    "title": "ANOVA",
+    "section": "ANOVA, test statistic",
+    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-hypotheses",
+    "href": "315/anova/main.html#baseball-example-hypotheses",
+    "title": "ANOVA",
+    "section": "Baseball example, hypotheses",
+    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-plot",
+    "href": "315/anova/main.html#baseball-example-plot",
+    "title": "ANOVA",
+    "section": "Baseball example, plot",
+    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code",
+    "href": "315/anova/main.html#baseball-example-r-code",
+    "title": "ANOVA",
+    "section": "Baseball example, R code",
+    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code-details",
+    "href": "315/anova/main.html#baseball-example-r-code-details",
+    "title": "ANOVA",
+    "section": "Baseball example, R code details",
+    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-output",
+    "href": "315/anova/main.html#baseball-example-r-output",
+    "title": "ANOVA",
+    "section": "Baseball example, R output",
+    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-conclusion",
+    "href": "315/anova/main.html#baseball-example-conclusion",
+    "title": "ANOVA",
+    "section": "Baseball example, conclusion",
+    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, how bad a problem",
+    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
+    "href": "315/anova/main.html#multiple-comparisons-a-solution",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, a solution",
+    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, plot",
+    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, not all groups",
+    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, hypotheses",
+    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, R code",
+    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, conclusion",
+    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
+    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#take-away",
+    "href": "315/anova/main.html#take-away",
+    "title": "ANOVA",
+    "section": "Take Away",
+    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
+  }
+]

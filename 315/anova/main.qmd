@@ -1,0 +1,392 @@
+---
+title: "ANOVA"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: true
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## recap: point estimates
+
+Point estimates are random variables.  Random variables follow shapes, called
+distributions.  Therefore, point estimates follow distributions (and have
+shapes).
+
+## recap: central limit theorem
+
+The Central Limit Theorem says, "If our sample size is large enough, the sample
+mean will be approximately Normally distributed."
+
+
+## recap: confidence intervals
+
+From the CLT, we can approximate confidence intervals
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x<qnorm(0.975) & x>qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## recap: hypothesis tests
+
+From the CLT, we can approximate area in tails (p-values)
+
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x>qnorm(0.975)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    geom_area(data=subset(d, x<qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## recap: two sample t-tests
+
+The two sample $t$-test, compares the means of two groups with the hypothesis
+
+$$
+\begin{align*}
+H_0: \quad & \mu_1 = \mu_2 \\
+H_A: \quad & \mu_1 \ne \mu_2. \\
+\end{align*}
+$$
+
+R's function `t.test()` did all the hard work for us.
+
+
+# Analysis of Variance
+
+## Analaysis of Variance
+
+If there were three or more groups, the two sample $t$-test would not work.  We
+could force the test on the data by comparing two groups at a time, but this has
+dangerous implications.  We thus require a new statistical method, **analysis of
+variance**.
+
+* **Analysis of variance (ANOVA)** uses a single hypothesis to check whether the
+  *means* across two or more groups are equal.
+
+## ANOVA, hypothesis
+
+The ANOVA hypothesis test for $k$ groups is
+
+$$
+\begin{align*}
+H_0: \quad & \mu_1 = \mu_2 = \mu_3 = \ldots = \mu_k \\
+H_A: \quad & \text{at least one mean is different.}
+\end{align*}
+$$
+
+:::{.callout-note}
+ANOVA tests equality of means across groups, despite its name.
+:::
+
+
+## ANOVA, hypothesis examples
+
+With ANOVA you can compare the means by groups for many different data sets.
+
+
+* mean batting average by position,
+* mean movie budget by genre, (or year),
+* mean CO2 intake by treatment, or location, (or concentration)
+* mean rem sleep by conservation status,
+* mean birth/body weight by family,
+* ...
+
+
+## ANOVA, picture
+
+Let's visualize what is going on with ANOVA.  It starts
+with box plots by groups -- draw more pictures on board.
+
+```{r}
+#| echo: false
+
+df = data.frame(numvar = c(rnorm(35, -3), rnorm(35, 3), rnorm(35, 8)),
+                fctr = rep(c("A", "B", "C"), each=35))
+
+ggplot(data = df, aes(fctr, numvar)) +
+    geom_boxplot()
+```
+
+
+## ANOVA, intuition
+
+Analysis of variance tells us about means by groups, despite its name.  Large
+variation amongst the groups relative to small variation within the groups
+indicates different population means.
+
+## ANOVA, intuition in picture
+
+What do you think of these means -- think of variation within and amongst
+groups?
+
+```{r}
+#| echo: false
+
+df <- data.frame(y=c(rnorm(35, 0.1), rnorm(35, 0.05), rnorm(35, 0.15)),
+                 f = rep(c("A", "B", "C"), each=35))
+ggplot(data = df, aes(f, y)) +
+    geom_boxplot() +
+    stat_summary(fun.y=mean, colour="red", geom="point", size = 4)
+```
+
+
+## ANOVA, intution via picture
+
+What do you think of these means -- think of variation within and amongst
+groups?
+
+```{r}
+#| echo: false
+
+df = data.frame(x=c(rnorm(35, 10), rnorm(35, -2), rnorm(35, 5)),
+                f = rep(c("A", "B", "C"), each=35))
+ggplot(data = df, aes(f, x)) +
+    geom_boxplot() +
+    stat_summary(fun.y=mean, colour="red", geom="point", size = 4)
+```
+
+
+## ANOVA, test statistic
+
+ANOVA calculates one fraction based on two numbers, variation amongst (between)
+groups and variation within groups.  These two numbers are generally referred to
+as mean square values.
+
+
+* mean squared amongst groups
+    * **MSG** is a strictly positive measure of the variation across all groups.
+
+* mean squared error/residuals
+    * **MSE** is a strictly positive measure of the variation within groups.
+
+* Test statistic
+    * $F = \frac{MSG}{MSE}$
+
+
+# First Example
+
+## Baseball example, hypotheses
+
+Are baseball players paid on average differently by position?
+
+$$
+\begin{align*}
+  H_0: \quad & \mu_{catcher} = \mu_{dh} = \mu_{first} = \ldots = \mu_{third} \\
+  H_A: \quad & \text{at least one mean salary is different.}
+\end{align*}
+$$
+
+with $\alpha = 0.05$.
+
+## Baseball example, plot
+
+Load the data and make a plot.
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/master/mlb.csv"
+mlb <- read.csv(url)
+suppressMessages(library(tidyverse))
+ggplot(data = mlb, aes(position, salary)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 45, hjust=1))
+```
+
+
+## Baseball example, R code
+
+The R code to run ANOVA
+
+```{r}
+#| output: false
+
+linear_model <- lm(salary ~ position, data = mlb)
+anova(linear_model)
+```
+
+
+## Baseball example, R code details
+
+The tilde $\sim$ is meant to be read as, predict the left hand side with the
+right hand side.  Hence, we read the following as, predict salary by different
+levels of position.
+
+
+```{r}
+#| eval: false
+linear_model <- lm(salary ~ position, data = mlb)
+```
+
+## Baseball example, R output
+
+The degrees of freedom, F-statistic, and p-value are the most important pieces
+of information to extract from an ANOVA table.
+
+```{r}
+anova(linear_model)
+```
+
+
+## Baseball example, conclusion
+
+Because the p-value $= `r round(anova(linear_model)[[5]][1], 4)` < \alpha =
+0.05$ we reject the null in favor of the alternative.  There is sufficient
+evidence to claim that the population of mean salaray of baseball players
+probably varies by position.
+
+
+# Multiple Comparisons
+
+## Multiple Comparisons, the problem
+
+Say you've got some data and you want to test equality of the means. What to do?
+ANOVA!
+
+```{r}
+ggplot(data = mlb, aes(position, salary)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 45, hjust=1))
+```
+
+## Multiple Comparisons, the problem
+
+What not to do?  Immediately compare all pairwise combinations of the $k = 9$
+groups.  That would result in `r choose(9, 2)` tests, and an increase in your
+Type I Error rate.
+
+
+##  Multiple Comparisons, how bad a problem
+
+Suppose you chose a level of significance of $\alpha = 0.05$.  What's the
+probability of observing at least one significant result just by chance?
+
+This is just a binomial distribution, $X \sim$ Binomial$(28, 0.05)$, and we want to know $P(X \ge 1)$.
+
+```{r}
+#| echo: false
+1 - pbinom(0, 28, 0.05)
+```
+
+
+## Multiple Comparisons, a solution
+
+Many solutions exist.  A simple one, in R, is Tukey's honest significant
+difference (HSD).  Only use this if you have first run ANOVA and rejected $H_0$.
+
+```{r}
+#| eval: false
+
+model <- lm(salary ~ position, data = mlb) # if reject H0
+TukeyHSD(aov(model)) # do in R
+```
+
+
+# Last Example
+
+## Carnivora Brain Weights by Family, plot
+
+Consider brain weights of the Families of the order Carnivora.  Let's compare
+mean brain weights by Family.
+
+```{r}
+suppressMessages({library(tidyverse)
+  library(ape)
+  data(carnivora)})
+ggplot(data = carnivora, aes(Family, SB)) +
+    geom_boxplot() +
+    labs(y="Brain weights (g)") +
+    theme(axis.text.x=element_text(angle=45, hjust=1))
+
+```
+
+## Carnivora Brain Weights by Family, not all groups
+
+Since some groups don't have enough data, let's remove them.
+
+```{r}
+carnivs <- filter(carnivora,
+                  !(Family %in% c("Ailuridae",
+                                  "Procyonidae",
+                                  "Viverridae")))
+```
+
+## Carnivora Brain Weights by Family, hypotheses
+
+$$
+\begin{align*}
+  H_0: \quad & \mu_c = \mu_f = \mu_h = \mu_m = \mu_u \\
+  H_A: \quad & \text{at least one mean is different.}
+\end{align*}
+$$
+
+with $\alpha = 0.01$.
+
+
+## Carnivora Brain Weights by Family, R code
+
+```{r}
+mod <- lm(SB ~ Family, data = carnivs)
+anova(mod)
+```
+
+
+## Carnivora Brain Weights by Family, conclusion
+
+Because the p-value is tiny, we reject $H_0$ in favor of the alternative.
+There is sufficient evidence to say that at least one mean is different from the
+rest.
+
+
+
+## Carnivora Brain Weights by Family, post-hoc analysis
+
+```{r}
+#| eval: false
+
+TukeyHSD(aov(mod), conf.level = 0.99) # do in R
+```
+
+
+## Take Away
+
+* ANOVA breaks up the response variable into groups, chosen by you.
+* ANOVA essentially calculates group means
+    * average error within groups and average error amongst the groups.
+* Understand the general ANOVA table
+* Conclusions from ANOVA tables are easy
+    * compare p-value to level of significance
+* Interpretation of such conclusions is trickier, practice
