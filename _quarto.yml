@@ -12,6 +12,7 @@ format:
       - cosmo
       - brand
     css: styles.css
+  ipynb: default
 
 execute:
   freeze: auto
