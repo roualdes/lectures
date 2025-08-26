@@ -2,9 +2,9 @@
   {
     "objectID": "314/intropython.html",
     "href": "314/intropython.html",
-    "title": "lectures",
+    "title": "Types",
     "section": "",
-    "text": "import numpy as np\n\n\n2 + 2\n\n4\n\n\n\ns = \"hello, world\"\n\n\nx = 2\ntype(x)\n\nint\n\n\n\ntype(s)\n\nstr\n\n\n\ny = 2.2\ntype(y)\n\nfloat\n\n\n\nb = True\ntype(b)\n\nbool\n\n\n\ntype(None)\n\nNoneType\n\n\n\nc = 'c'\ntype(c)\n\nstr\n\n\n\ns = 2\ntype(s)\n\nint"
+    "text": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\n\n2 + 2\n\n4\n\n\n\ns = \"hello, world\"\n\n\nx = 2\ntype(x)\n\nint\n\n\n\ntype(s)\n\nstr\n\n\n\ny = 2.2\ntype(y)\n\nfloat\n\n\n\nb = True\ntype(b)\n\nbool\n\n\n\ntype(None)\n\nNoneType\n\n\n\nc = 'c'\ntype(c)\n\nstr\n\n\n\ns = 2\ntype(s)\n\nint\n\n\n\nData Structures\n\nl = [1, 2.2, \"edward\", True] # list\nl\n\n[1, 2.2, 'edward', True]\n\n\n\nl.append(5)\nl\n\n[1, 2.2, 'edward', True, 5]\n\n\n\nd = {\"key\": 1} # dictionary or dict\nd\n\n{'key': 1}\n\n\n\nd[\"key\"]\n\n1\n\n\n\nd[\"math314\"] = \"is cool\"\nd\n\n{'key': 1, 'math314': 'is cool'}\n\n\n\nt = (1, 2, 3.4)\nt\n\n(1, 2, 3.4)\n\n\n\n\nControl Flow\n\nif True:\n    print(\"yay\")\nelse:\n    print(\"nay\")\n\nyay\n\n\n\nif l:\n    print(\"what\")\n\nwhat\n\n\n\nif ():\n    print(\"ah I get it\")\n\n\nfor i in range(len(l)):\n    print(i, l[i])\n\n0 1\n1 2.2\n2 edward\n3 True\n4 5\n\n\n\nd.keys()\n\ndict_keys(['key', 'math314'])\n\n\n\nd.values()\n\ndict_values([1, 'is cool'])\n\n\n\nd.items()\n\ndict_items([('key', 1), ('math314', 'is cool')])\n\n\n\nfor k, v in d.items():\n    print(k, v)\n\nkey 1\nmath314 is cool\n\n\n\nc = 0\nwhile True:\n    print(c)\n    if c &gt; 10:\n        break\n    c += 1\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\nc *= 2\nc /= 1.5\nc **= 3\nc\n\n3154.9629629629626\n\n\n\nx = 2\nx **= 2\nx\n\n4\n\n\n\nif False:\n    print(\"a\")\nelif True:\n    print(\"b\")\nelse:\n    print(\"c\")\n\nb\n\n\n\n\nFunctions\n\ndef f(h, j = 5, k = 6):\n    return h + j\nf(1, 8)\n\n9\n\n\n\nf(1)\n\n6\n\n\n\nf(1, k = 2, j = 3)\n\n4\n\n\n\nf(2)\n\n7\n\n\n\n\nClass"
   },
   {
     "objectID": "315/anova/main.html#recap-point-estimates",
