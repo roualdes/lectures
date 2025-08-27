@@ -4,7 +4,217 @@
     "href": "314/intropython.html",
     "title": "Types",
     "section": "",
-    "text": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\n\n2 + 2\n\n4\n\n\n\ns = \"hello, world\"\n\n\nx = 2\ntype(x)\n\nint\n\n\n\ntype(s)\n\nstr\n\n\n\ny = 2.2\ntype(y)\n\nfloat\n\n\n\nb = True\ntype(b)\n\nbool\n\n\n\ntype(None)\n\nNoneType\n\n\n\nc = 'c'\ntype(c)\n\nstr\n\n\n\ns = 2\ntype(s)\n\nint\n\n\n\nData Structures\n\nl = [1, 2.2, \"edward\", True] # list\nl\n\n[1, 2.2, 'edward', True]\n\n\n\nl.append(5)\nl\n\n[1, 2.2, 'edward', True, 5]\n\n\n\nd = {\"key\": 1} # dictionary or dict\nd\n\n{'key': 1}\n\n\n\nd[\"key\"]\n\n1\n\n\n\nd[\"math314\"] = \"is cool\"\nd\n\n{'key': 1, 'math314': 'is cool'}\n\n\n\nt = (1, 2, 3.4)\nt\n\n(1, 2, 3.4)\n\n\n\n\nControl Flow\n\nif True:\n    print(\"yay\")\nelse:\n    print(\"nay\")\n\nyay\n\n\n\nif l:\n    print(\"what\")\n\nwhat\n\n\n\nif ():\n    print(\"ah I get it\")\n\n\nfor i in range(len(l)):\n    print(i, l[i])\n\n0 1\n1 2.2\n2 edward\n3 True\n4 5\n\n\n\nd.keys()\n\ndict_keys(['key', 'math314'])\n\n\n\nd.values()\n\ndict_values([1, 'is cool'])\n\n\n\nd.items()\n\ndict_items([('key', 1), ('math314', 'is cool')])\n\n\n\nfor k, v in d.items():\n    print(k, v)\n\nkey 1\nmath314 is cool\n\n\n\nc = 0\nwhile True:\n    print(c)\n    if c &gt; 10:\n        break\n    c += 1\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\nc *= 2\nc /= 1.5\nc **= 3\nc\n\n3154.9629629629626\n\n\n\nx = 2\nx **= 2\nx\n\n4\n\n\n\nif False:\n    print(\"a\")\nelif True:\n    print(\"b\")\nelse:\n    print(\"c\")\n\nb\n\n\n\n\nFunctions\n\ndef f(h, j = 5, k = 6):\n    return h + j\nf(1, 8)\n\n9\n\n\n\nf(1)\n\n6\n\n\n\nf(1, k = 2, j = 3)\n\n4\n\n\n\nf(2)\n\n7\n\n\n\n\nClass"
+    "text": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\n\n2 + 2\n\n4\n\n\n\ns = \"hello, world\"\n\n\nx = 2\ntype(x)\n\nint\n\n\n\ntype(s)\n\nstr\n\n\n\ny = 2.2\ntype(y)\n\nfloat\n\n\n\nb = True\ntype(b)\n\nbool\n\n\n\ntype(None)\n\nNoneType\n\n\n\nc = 'c'\ntype(c)\n\nstr\n\n\n\ns = 2\ntype(s)\n\nint\n\n\n\nData Structures\n\nl = [1, 2.2, \"edward\", True] # list\nl\n\n[1, 2.2, 'edward', True]\n\n\n\nl.append(5)\nl\n\n[1, 2.2, 'edward', True, 5]\n\n\n\nl[4]\n\n5\n\n\n\nd = {\"key\": 1, 1: \"value\", (1, 2): \"wow\"} # dictionary or dict\nd[(1,2)]\n\n'wow'\n\n\n\nd[\"key\"]\n\n1\n\n\n\nd[\"math314\"] = \"is cool\"\nd\n\n{'key': 1, 'math314': 'is cool'}\n\n\n\nt = (1, 2, 3.4)\nt\n\n(1, 2, 3.4)\n\n\n\n\nControl Flow\n\nif True:\n    print(\"yay\")\nelse:\n    print(\"nay\")\n\nyay\n\n\n\nif l:\n    print(\"what\")\n\nwhat\n\n\n\nif ():\n    print(\"ah I get it\")\n\n\nfor i in range(len(l)):\n    print(i, l[i])\n\n0 1\n1 2.2\n2 edward\n3 True\n4 5\n\n\n\nd.keys()\n\ndict_keys(['key', 'math314'])\n\n\n\nd.values()\n\ndict_values([1, 'is cool'])\n\n\n\nd.items()\n\ndict_items([('key', 1), ('math314', 'is cool')])\n\n\n\nfor k, v in d.items():\n    print(k, v)\n\nkey 1\n1 value\n(1, 2) wow\n\n\n\nc = 0\nwhile True:\n    print(c)\n    if c &gt; 10:\n        break\n    c += 1\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\nc *= 2\nc /= 1.5\nc **= 3\nc\n\n3154.9629629629626\n\n\n\nx = 2\nx **= 2\nx\n\n4\n\n\n\nif False:\n    print(\"a\")\nelif True:\n    print(\"b\")\nelse:\n    print(\"c\")\n\nb\n\n\n\n\nFunctions\n\ndef f(h, j = 5, k = 6):\n    return h + j\nf(1, j = 8)\n\n9\n\n\n\nf(1)\n\n6\n\n\n\nf(1, k = 2, j = 3)\n\n4\n\n\n\nf(2)\n\n7\n\n\n\n\nClass\n\nclass Table():\n    def __init__(self, num_legs = 4):\n        self.legs = num_legs\n\n    def num_legs(self):\n        return self.legs\n\n\nt = Table()\nx = t.num_legs()\n\n\ns = Table(num_legs = 7)\ns.num_legs()\n\n7\n\n\n\n\nNumpy\n\n((np.zeros(3) + 3) * 2 ) / 6\n\narray([1., 1., 1.])\n\n\n\nrng = np.random.default_rng(seed = 789427834294)\nrng.normal(size = 10)\n\narray([ 0.03031846, -0.21712337,  1.08939295, -0.9303379 , -1.63610356,\n       -0.292538  ,  1.43350868,  1.52297047,  0.50107155, -0.93256178])"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-point-estimates",
+    "href": "315/anova/main.html#recap-point-estimates",
+    "title": "ANOVA",
+    "section": "recap: point estimates",
+    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
+  },
+  {
+    "objectID": "315/anova/main.html#recap-central-limit-theorem",
+    "href": "315/anova/main.html#recap-central-limit-theorem",
+    "title": "ANOVA",
+    "section": "recap: central limit theorem",
+    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-confidence-intervals",
+    "href": "315/anova/main.html#recap-confidence-intervals",
+    "title": "ANOVA",
+    "section": "recap: confidence intervals",
+    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-hypothesis-tests",
+    "href": "315/anova/main.html#recap-hypothesis-tests",
+    "title": "ANOVA",
+    "section": "recap: hypothesis tests",
+    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
+    "href": "315/anova/main.html#recap-two-sample-t-tests",
+    "title": "ANOVA",
+    "section": "recap: two sample t-tests",
+    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
+  },
+  {
+    "objectID": "315/anova/main.html#analaysis-of-variance",
+    "href": "315/anova/main.html#analaysis-of-variance",
+    "title": "ANOVA",
+    "section": "Analaysis of Variance",
+    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis",
+    "href": "315/anova/main.html#anova-hypothesis",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis",
+    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis-examples",
+    "href": "315/anova/main.html#anova-hypothesis-examples",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis examples",
+    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-picture",
+    "href": "315/anova/main.html#anova-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, picture",
+    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition",
+    "href": "315/anova/main.html#anova-intuition",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition",
+    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition-in-picture",
+    "href": "315/anova/main.html#anova-intuition-in-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition in picture",
+    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intution-via-picture",
+    "href": "315/anova/main.html#anova-intution-via-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intution via picture",
+    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-test-statistic",
+    "href": "315/anova/main.html#anova-test-statistic",
+    "title": "ANOVA",
+    "section": "ANOVA, test statistic",
+    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-hypotheses",
+    "href": "315/anova/main.html#baseball-example-hypotheses",
+    "title": "ANOVA",
+    "section": "Baseball example, hypotheses",
+    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-plot",
+    "href": "315/anova/main.html#baseball-example-plot",
+    "title": "ANOVA",
+    "section": "Baseball example, plot",
+    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code",
+    "href": "315/anova/main.html#baseball-example-r-code",
+    "title": "ANOVA",
+    "section": "Baseball example, R code",
+    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code-details",
+    "href": "315/anova/main.html#baseball-example-r-code-details",
+    "title": "ANOVA",
+    "section": "Baseball example, R code details",
+    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-output",
+    "href": "315/anova/main.html#baseball-example-r-output",
+    "title": "ANOVA",
+    "section": "Baseball example, R output",
+    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-conclusion",
+    "href": "315/anova/main.html#baseball-example-conclusion",
+    "title": "ANOVA",
+    "section": "Baseball example, conclusion",
+    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, how bad a problem",
+    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
+    "href": "315/anova/main.html#multiple-comparisons-a-solution",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, a solution",
+    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, plot",
+    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, not all groups",
+    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, hypotheses",
+    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, R code",
+    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, conclusion",
+    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
+    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#take-away",
+    "href": "315/anova/main.html#take-away",
+    "title": "ANOVA",
+    "section": "Take Away",
+    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
   },
   {
     "objectID": "315/introductionData/main.html#data-set-email",
@@ -334,216 +544,6 @@
     "title": "Introduction to Data",
     "section": "Experiments, homework 02",
     "text": "Experiments, homework 02\nA researcher is conducting an experiment to see the effect of diet and exercise on weight gain in baby hamsters. Two different diets (low fat and high fat) and three different levels of exercise (high, moderate, or none) will be used. Eight baby hamsters will be raised under each combination of diet and exercise and their weight gain after 4 weeks will be measured.\n\nWhat are the experimental units here?\nWhat are the categorical variables? List the levels of each.\nHow many different treatments are there? List them.\nHow many experimental units will this experiment require?"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-point-estimates",
-    "href": "315/anova/main.html#recap-point-estimates",
-    "title": "ANOVA",
-    "section": "recap: point estimates",
-    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
-  },
-  {
-    "objectID": "315/anova/main.html#recap-central-limit-theorem",
-    "href": "315/anova/main.html#recap-central-limit-theorem",
-    "title": "ANOVA",
-    "section": "recap: central limit theorem",
-    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-confidence-intervals",
-    "href": "315/anova/main.html#recap-confidence-intervals",
-    "title": "ANOVA",
-    "section": "recap: confidence intervals",
-    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-hypothesis-tests",
-    "href": "315/anova/main.html#recap-hypothesis-tests",
-    "title": "ANOVA",
-    "section": "recap: hypothesis tests",
-    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
-    "href": "315/anova/main.html#recap-two-sample-t-tests",
-    "title": "ANOVA",
-    "section": "recap: two sample t-tests",
-    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
-  },
-  {
-    "objectID": "315/anova/main.html#analaysis-of-variance",
-    "href": "315/anova/main.html#analaysis-of-variance",
-    "title": "ANOVA",
-    "section": "Analaysis of Variance",
-    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-hypothesis",
-    "href": "315/anova/main.html#anova-hypothesis",
-    "title": "ANOVA",
-    "section": "ANOVA, hypothesis",
-    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-hypothesis-examples",
-    "href": "315/anova/main.html#anova-hypothesis-examples",
-    "title": "ANOVA",
-    "section": "ANOVA, hypothesis examples",
-    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-picture",
-    "href": "315/anova/main.html#anova-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, picture",
-    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intuition",
-    "href": "315/anova/main.html#anova-intuition",
-    "title": "ANOVA",
-    "section": "ANOVA, intuition",
-    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intuition-in-picture",
-    "href": "315/anova/main.html#anova-intuition-in-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, intuition in picture",
-    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intution-via-picture",
-    "href": "315/anova/main.html#anova-intution-via-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, intution via picture",
-    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-test-statistic",
-    "href": "315/anova/main.html#anova-test-statistic",
-    "title": "ANOVA",
-    "section": "ANOVA, test statistic",
-    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-hypotheses",
-    "href": "315/anova/main.html#baseball-example-hypotheses",
-    "title": "ANOVA",
-    "section": "Baseball example, hypotheses",
-    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-plot",
-    "href": "315/anova/main.html#baseball-example-plot",
-    "title": "ANOVA",
-    "section": "Baseball example, plot",
-    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-code",
-    "href": "315/anova/main.html#baseball-example-r-code",
-    "title": "ANOVA",
-    "section": "Baseball example, R code",
-    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-code-details",
-    "href": "315/anova/main.html#baseball-example-r-code-details",
-    "title": "ANOVA",
-    "section": "Baseball example, R code details",
-    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-output",
-    "href": "315/anova/main.html#baseball-example-r-output",
-    "title": "ANOVA",
-    "section": "Baseball example, R output",
-    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-conclusion",
-    "href": "315/anova/main.html#baseball-example-conclusion",
-    "title": "ANOVA",
-    "section": "Baseball example, conclusion",
-    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
-    "href": "315/anova/main.html#multiple-comparisons-the-problem",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
-    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
-    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, how bad a problem",
-    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
-    "href": "315/anova/main.html#multiple-comparisons-a-solution",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, a solution",
-    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, plot",
-    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, not all groups",
-    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, hypotheses",
-    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, R code",
-    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, conclusion",
-    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
-    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
-  },
-  {
-    "objectID": "315/anova/main.html#take-away",
-    "href": "315/anova/main.html#take-away",
-    "title": "ANOVA",
-    "section": "Take Away",
-    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
   },
   {
     "objectID": "index.html",
