@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://roualdes.github.io/lectures/314/intropython.html</loc>
-    <lastmod>2025-08-28T21:28:37.294Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
-    <lastmod>2025-08-28T21:28:37.294Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
-    <lastmod>2025-08-28T21:28:37.301Z</lastmod>
+    <loc>https://roualdes.github.io/lectures/314/plot_densities.html</loc>
+    <lastmod>2025-09-04T14:54:21.898Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/index.html</loc>
-    <lastmod>2025-08-28T21:28:37.409Z</lastmod>
+    <lastmod>2025-09-04T14:54:22.014Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
+    <lastmod>2025-09-04T14:54:21.904Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
+    <lastmod>2025-09-04T14:54:21.898Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/intropython.html</loc>
+    <lastmod>2025-09-04T14:54:21.898Z</lastmod>
   </url>
 </urlset>
