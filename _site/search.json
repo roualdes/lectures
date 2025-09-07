@@ -343,6 +343,258 @@
     "text": "Experiments, homework 02\nA researcher is conducting an experiment to see the effect of diet and exercise on weight gain in baby hamsters. Two different diets (low fat and high fat) and three different levels of exercise (high, moderate, or none) will be used. Eight baby hamsters will be raised under each combination of diet and exercise and their weight gain after 4 weeks will be measured.\n\nWhat are the experimental units here?\nWhat are the categorical variables? List the levels of each.\nHow many different treatments are there? List them.\nHow many experimental units will this experiment require?"
   },
   {
+    "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
+    "href": "315/plottingData/main.html#visualizing-categorical-variables",
+    "title": "Plotting Data",
+    "section": "Visualizing Categorical Variables",
+    "text": "Visualizing Categorical Variables\nWith categorial data we can make bar charts.\n\n\nCode\nsuppressMessages(library(tidyverse))\nsuppressMessages(library(openintro))\ndata(email)\nggplot(data = email, aes(number)) +\n    geom_bar() +\n    labs(title = \"email 'Number' Frequency\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#county",
+    "href": "315/plottingData/main.html#county",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\nRecall the county data set? How big?\n\n\nCode\ndata(county)\ntail(county[, c(\"state\", \"name\")])\n\n\n# A tibble: 6 × 2\n  state   name             \n  &lt;fct&gt;   &lt;chr&gt;            \n1 Wyoming Sublette County  \n2 Wyoming Sweetwater County\n3 Wyoming Teton County     \n4 Wyoming Uinta County     \n5 Wyoming Washakie County  \n6 Wyoming Weston County"
+  },
+  {
+    "objectID": "315/plottingData/main.html#county-1",
+    "href": "315/plottingData/main.html#county-1",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\nFrequency table of county data.\n\n\nCode\ntable(county$state)\n\n\n\n             Alabama               Alaska              Arizona \n                  67                   29                   15 \n            Arkansas           California             Colorado \n                  75                   58                   64 \n         Connecticut             Delaware District of Columbia \n                   8                    3                    1 \n             Florida              Georgia               Hawaii \n                  67                  159                    5 \n               Idaho             Illinois              Indiana \n                  44                  102                   92 \n                Iowa               Kansas             Kentucky \n                  99                  105                  120 \n           Louisiana                Maine             Maryland \n                  64                   16                   24 \n       Massachusetts             Michigan            Minnesota \n                  14                   83                   87 \n         Mississippi             Missouri              Montana \n                  82                  115                   56 \n            Nebraska               Nevada        New Hampshire \n                  93                   17                   10 \n          New Jersey           New Mexico             New York \n                  21                   33                   62 \n      North Carolina         North Dakota                 Ohio \n                 100                   53                   88 \n            Oklahoma               Oregon         Pennsylvania \n                  77                   36                   67 \n        Rhode Island       South Carolina         South Dakota \n                   5                   46                   66 \n           Tennessee                Texas                 Utah \n                  95                  254                   29 \n             Vermont             Virginia           Washington \n                  14                  133                   39 \n       West Virginia            Wisconsin              Wyoming \n                  55                   72                   23"
+  },
+  {
+    "objectID": "315/plottingData/main.html#county-2",
+    "href": "315/plottingData/main.html#county-2",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\nBar chart of county data.\n\n\nCode\n(pl &lt;- ggplot(data = county, aes(state)) +\n     geom_bar() +\n     labs(title = \"?\", x = \"States\"))"
+  },
+  {
+    "objectID": "315/plottingData/main.html#county-3",
+    "href": "315/plottingData/main.html#county-3",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\n\n\nCode\npl + theme(axis.text.x = element_text(angle = 45,\n    hjust=1))"
+  },
+  {
+    "objectID": "315/plottingData/main.html#towards-histograms",
+    "href": "315/plottingData/main.html#towards-histograms",
+    "title": "Plotting Data",
+    "section": "Towards Histograms",
+    "text": "Towards Histograms\nWhat do we give up by finding a mean? Consider county\n\n\nCode\nmean(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 26093.12\n\n\nCode\nmin(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 10466.84\n\n\nCode\nmax(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 69532.86"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms",
+    "href": "315/plottingData/main.html#histograms",
+    "title": "Plotting Data",
+    "section": "Histograms",
+    "text": "Histograms\nA histogram helps summarize tails of the data:\n\n\nCode\n(p &lt;- ggplot(data = county, aes(per_capita_income)) +\n     geom_histogram(bins = 21) +\n     labs(x = \"Per capita income\"))"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-in-words",
+    "href": "315/plottingData/main.html#histograms-in-words",
+    "title": "Plotting Data",
+    "section": "Histograms, in words",
+    "text": "Histograms, in words\nThink of each observation as belonging to a bin. These binned observations are plotted as bars to form a histogram. That is, the height of each bar depicts the number of observations within each bin.\n\nThe county$per_capita_income data has data from $10,466.84 up to $69,532.86. Setting binwidth = 1800 creates bins of width 1,800 and places the appropriate observations in each. Observations on the boundary of a bin are allocated to the lower bin."
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-picking-bins",
+    "href": "315/plottingData/main.html#histograms-picking-bins",
+    "title": "Plotting Data",
+    "section": "Histograms, picking bins",
+    "text": "Histograms, picking bins\nSince the researcher has to choose the bin width, we should learn the difference between bins that are too small and bins that are too wide."
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-too-many",
+    "href": "315/plottingData/main.html#histograms-too-many",
+    "title": "Plotting Data",
+    "section": "Histograms, too many",
+    "text": "Histograms, too many\nExtremely small bins\n\n\nCode\nggplot(data = county, aes(per_capita_income)) +\n    geom_histogram(binwidth = 3) +\n    labs(x = \"Per capita income\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-too-few",
+    "href": "315/plottingData/main.html#histograms-too-few",
+    "title": "Plotting Data",
+    "section": "Histograms, too few",
+    "text": "Histograms, too few\nExtremely large bins\n\n\nCode\nggplot(data = county, aes(per_capita_income)) +\n    geom_histogram(binwidth = 80000) +\n    labs(x = \"Per capita income\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-by-group",
+    "href": "315/plottingData/main.html#histograms-by-group",
+    "title": "Plotting Data",
+    "section": "Histograms, by group",
+    "text": "Histograms, by group\nCompare chicken weights by diet.\n\n\nCode\nggplot(data=ChickWeight, aes(weight)) +\n    geom_histogram(bins = 21) +\n    facet_wrap(Diet ~ ., ncol = 1)"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-keywords",
+    "href": "315/plottingData/main.html#histograms-keywords",
+    "title": "Plotting Data",
+    "section": "Histograms, keywords",
+    "text": "Histograms, keywords\n\nright skewed. When data trail to the right and have a longer right tail, the shape is said to be right skewed.\nleft skewed. Data with the reverse characteristic – a long, thin tail to the left – are said to be left skewed.\nsymmetric. Data that show roughly equal tails in both directions are called symmetric."
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-and-measures-of-center",
+    "href": "315/plottingData/main.html#histograms-and-measures-of-center",
+    "title": "Plotting Data",
+    "section": "Histograms, and measures of center",
+    "text": "Histograms, and measures of center\nWhere is the mean on a histogram? Median?\n\n\nCode\nmn &lt;- mean(county$per_capita_income, na.rm = TRUE)\nmdn &lt;- median(county$per_capita_income, na.rm = TRUE)\np + geom_vline(aes(xintercept=mn), color=\"red\", size=1) +\n    geom_vline(aes(xintercept=mdn), color=\"blue\", size=1)"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-they-tell-us-more",
+    "href": "315/plottingData/main.html#histograms-they-tell-us-more",
+    "title": "Plotting Data",
+    "section": "Histograms, they tell us more",
+    "text": "Histograms, they tell us more\nWhat more, other than the center of the data, do histograms tell us? Consider a histogram from the email data set.\n\n\nCode\nem &lt;- mean(email$num_char)\nggplot(data=email, aes(num_char)) +\n    geom_histogram(bins = 21) +\n    geom_vline(aes(xintercept = em), color = \"blue\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#histograms-an-ideal",
+    "href": "315/plottingData/main.html#histograms-an-ideal",
+    "title": "Plotting Data",
+    "section": "Histograms, an ideal",
+    "text": "Histograms, an ideal"
+  },
+  {
+    "objectID": "315/plottingData/main.html#data-width-1-standard-deviation",
+    "href": "315/plottingData/main.html#data-width-1-standard-deviation",
+    "title": "Plotting Data",
+    "section": "Data Width, 1 standard deviation",
+    "text": "Data Width, 1 standard deviation\nHistograms naturally connect with standard deviations. If the data are unimodal (ish) and symmetric (ish), roughly 68% of the data will be within one standard deviation of the mean."
+  },
+  {
+    "objectID": "315/plottingData/main.html#data-width-2-standard-deviations",
+    "href": "315/plottingData/main.html#data-width-2-standard-deviations",
+    "title": "Plotting Data",
+    "section": "Data Width, 2 standard deviations",
+    "text": "Data Width, 2 standard deviations\nIf the data are unimodal (ish) and symmetric (ish), roughly 95% of the data will be within two standard deviations of the mean."
+  },
+  {
+    "objectID": "315/plottingData/main.html#data-width-3-standard-deviations",
+    "href": "315/plottingData/main.html#data-width-3-standard-deviations",
+    "title": "Plotting Data",
+    "section": "Data Width, 3 standard deviations",
+    "text": "Data Width, 3 standard deviations\nIf the data are unimodal (ish) and symmetric (ish), roughly 99.7% of the data will be within three standard deviations of the mean."
+  },
+  {
+    "objectID": "315/plottingData/main.html#standard-deviations-be-careful",
+    "href": "315/plottingData/main.html#standard-deviations-be-careful",
+    "title": "Plotting Data",
+    "section": "Standard Deviations, be careful",
+    "text": "Standard Deviations, be careful\nThree different population distributions with the same (population) mean \\(\\mu\\) = 0 and (population) standard deviation \\(\\sigma = 1\\)."
+  },
+  {
+    "objectID": "315/plottingData/main.html#towards-box-plots",
+    "href": "315/plottingData/main.html#towards-box-plots",
+    "title": "Plotting Data",
+    "section": "Towards Box plots",
+    "text": "Towards Box plots\nWe will use the data set carnivora found within the library ape.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\n# ?carnivora"
+  },
+  {
+    "objectID": "315/plottingData/main.html#recap-summary-statistics",
+    "href": "315/plottingData/main.html#recap-summary-statistics",
+    "title": "Plotting Data",
+    "section": "recap: summary statistics",
+    "text": "recap: summary statistics\nR will fairly easily produce six number summaries for us. Here’s the variable for average brain weight amongst male and female animals from the order Carnivora.\n\n\nCode\nsummary(carnivora$SB)\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   15.68   33.75   56.43   57.17  459.50"
+  },
+  {
+    "objectID": "315/plottingData/main.html#box-plots",
+    "href": "315/plottingData/main.html#box-plots",
+    "title": "Plotting Data",
+    "section": "Box Plots",
+    "text": "Box Plots\nA box plot summarizes a data set using five (standard) statistics while also plotting unusual observations."
+  },
+  {
+    "objectID": "315/plottingData/main.html#box-plot-explained",
+    "href": "315/plottingData/main.html#box-plot-explained",
+    "title": "Plotting Data",
+    "section": "Box Plot, explained",
+    "text": "Box Plot, explained"
+  },
+  {
+    "objectID": "315/plottingData/main.html#box-plot-carnivora-example",
+    "href": "315/plottingData/main.html#box-plot-carnivora-example",
+    "title": "Plotting Data",
+    "section": "Box Plot, carnivora example",
+    "text": "Box Plot, carnivora example\n\n\nCode\nggplot(data = carnivora, aes(Order, SB)) +\n    geom_boxplot() +\n    labs(y = \"Average brain weight (g)\",\n         x = \"Order\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#box-plot-better-carnivora-example",
+    "href": "315/plottingData/main.html#box-plot-better-carnivora-example",
+    "title": "Plotting Data",
+    "section": "Box Plot, better carnivora example",
+    "text": "Box Plot, better carnivora example\nHave you seen some of the families in carnivora? From adorable, Ailuridae, to huge, Ursidae.\n\n\nCode\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(x = \"Family\", y = \"Average brain weight (g)\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#towards-scatter-plots",
+    "href": "315/plottingData/main.html#towards-scatter-plots",
+    "title": "Plotting Data",
+    "section": "Towards scatter plots",
+    "text": "Towards scatter plots\nThe most common bivariate plot is the scatter plot.\nA scatterplot provides a case-by-case view of data for two numerical variables."
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatterplot-carnivora-example",
+    "href": "315/plottingData/main.html#scatterplot-carnivora-example",
+    "title": "Plotting Data",
+    "section": "Scatterplot, carnivora example",
+    "text": "Scatterplot, carnivora example\n\n\nCode\nggplot(data = carnivora, aes(SW, SB)) +\n    geom_point() +\n    labs(x = \"Average body weight (kg)\",\n         y = \"Average brain weight (g)\")"
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatter-plots-keywords",
+    "href": "315/plottingData/main.html#scatter-plots-keywords",
+    "title": "Plotting Data",
+    "section": "Scatter plots, keywords",
+    "text": "Scatter plots, keywords\n\nassociated. When two variables show some connection with one another, they are called associated variables.\nindependent. If two variables are not associated, then they are said to be independent."
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatter-plots-keywords-1",
+    "href": "315/plottingData/main.html#scatter-plots-keywords-1",
+    "title": "Plotting Data",
+    "section": "Scatter plots, keywords",
+    "text": "Scatter plots, keywords\nDirection of association can be described as\n\npositive association. When two variables have an upward/positive trend, they are called positively associated.\nnegative association. When two variables have a downward/negative trend, they are called negatively associated."
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatter-plots-keywords-2",
+    "href": "315/plottingData/main.html#scatter-plots-keywords-2",
+    "title": "Plotting Data",
+    "section": "Scatter plots, keywords",
+    "text": "Scatter plots, keywords\nStructure of association can be described as linear or non-linear."
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatter-plot-indometh-example",
+    "href": "315/plottingData/main.html#scatter-plot-indometh-example",
+    "title": "Plotting Data",
+    "section": "Scatter plot, Indometh example",
+    "text": "Scatter plot, Indometh example\n\n\nCode\nlibrary(datasets)\n# ?Indometh\nggplot(data = Indometh, aes(time, conc)) +\n    geom_point()"
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatter-plot-co2-example",
+    "href": "315/plottingData/main.html#scatter-plot-co2-example",
+    "title": "Plotting Data",
+    "section": "Scatter plot, CO2 example",
+    "text": "Scatter plot, CO2 example\n\n\nCode\n# ?CO2\nggplot(data = CO2, aes(conc, uptake, colour = Type)) +\n    geom_point()"
+  },
+  {
+    "objectID": "315/plottingData/main.html#scatter-plots-careful",
+    "href": "315/plottingData/main.html#scatter-plots-careful",
+    "title": "Plotting Data",
+    "section": "Scatter plots, careful",
+    "text": "Scatter plots, careful\n\n\nCode\n# x: Australian residents, quarterly 03/1971 - 03/1994\n# y: WI beaver body temps, 10 min intervals\ndf &lt;- data.frame(x = as.vector(austres),\n                 y = beaver1[1:length(austres), \"temp\"])\nggplot(data = df, aes(x, y)) +\n    geom_point()"
+  },
+  {
+    "objectID": "315/plottingData/main.html#for-fun",
+    "href": "315/plottingData/main.html#for-fun",
+    "title": "Plotting Data",
+    "section": "for fun",
+    "text": "for fun\n\nhttps://xkcd.com/552/"
+  },
+  {
+    "objectID": "315/plottingData/main.html#take-away",
+    "href": "315/plottingData/main.html#take-away",
+    "title": "Plotting Data",
+    "section": "Take Away",
+    "text": "Take Away\n\ncategorical variable -&gt; bar chart\none numerical variable -&gt; histogram\none numerical and one categorical -&gt; box plot\ntwo numerical -&gt; scatter plot\n… many variations"
+  },
+  {
     "objectID": "315/anova/main.html#recap-point-estimates",
     "href": "315/anova/main.html#recap-point-estimates",
     "title": "ANOVA",
