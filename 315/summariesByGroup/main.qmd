@@ -1,0 +1,228 @@
+---
+title: "Summaries By Group"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: show
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+# Basic Idea
+
+## Means by Group
+
+Consider the \texttt{datasets::ChickWeight} dataset.
+
+```{r}
+suppressMessages(library(datasets))
+# random 6 rows of ChickWeight
+ChickWeight[sample(1:nrow(ChickWeight), 6),]
+```
+
+
+## Means by Group
+
+Means of chicks's weight by diet.
+
+```{r}
+suppressMessages(library(dplyr))
+summarise(group_by(ChickWeight, Diet),
+          Mean=mean(weight))
+```
+
+
+## Chicken Weight by Diet, means and more
+
+Mean and standard deviations of chicks's weight by diet.
+
+```{r}
+(df <- summarise(group_by(ChickWeight, Diet),
+                 Mn = mean(weight),
+                 StDev = sd(weight),
+                 q1 = quantile(weight, .25),
+                 q3 = quantile(weight, .75)))
+```
+
+
+# Workhorses
+
+## Group Summary Statistics, the workhorses
+
+The underlying ideas behind so much of statistics rely on three
+ideas/functions and one sentence enhancer.
+
+* **group_by** -- groups a data frame by some variables
+* **summarise** -- summarizes many observations into one number
+* **mutate** -- mutate variables of a data frame into new variables
+* `%>%` -- make code read (almost) like English
+
+## group_by
+
+The function `group_by` is incredibly helpful, but not that exciting.
+
+```{r}
+# ?group_by
+head(ChickWeight) # start with this
+```
+
+
+## group_by
+
+If we group the dataset ChickWeight by Diet, things change only
+slightly.  But what `group_by` returns is now ready to be passed into
+`summarise`.
+
+```{r}
+group_by(ChickWeight, Diet)
+```
+
+
+## summarise
+
+The function `summarise` collapses multiple observations down into one
+number, for instance into a summary statistic.  As we saw before, we
+can summarize multiple variables at once.
+
+```{r}
+# ?summarise
+```
+
+## summarise
+
+What does the following code do?
+
+```{r}
+summarise(ChickWeight,
+          Mn = mean(weight, na.rm=TRUE))
+# hint
+mean(ChickWeight$weight, na.rm=TRUE)
+```
+
+
+## summarise
+
+We can also summarize multiple variables at once -- by group or not.
+
+```{r}
+summarise(ChickWeight,
+          mn = mean(weight),
+          sd = sd(weight),
+          mdn = median(weight),
+          iqr = IQR(weight))
+```
+
+
+## mutate
+
+The function `mutate` allows us to create new variables and add them to
+the data frame.  Recall our summarized data named
+
+```{r}
+df
+```
+
+## mutate
+
+We can create a new variable (column)
+
+```{r}
+(newdf <- mutate(df, iqr=q3-q1))
+```
+
+
+## mutate
+
+In case our new variable isn't automatically printed, remember we can make R
+print things for us.
+
+```{r}
+newdf[,c("Diet", "iqr")]
+```
+
+
+## mutate
+
+`mutate` works on any data frame.  For instance, you might have two variables
+that are obviously better off as a ratio.
+
+
+* miles driven and time (hours) $\Rightarrow$ miles/hr.
+* state income and state population $\Rightarrow$ per capita income
+* or any state total, $x$, and state population $\Rightarrow$ per capita x
+* surface area and volume $\Rightarrow$ surface-area-to-volume ratio, SA:V
+* ...
+
+
+## Group Summary Statistics
+
+Summary statistics and a lesson about missing values in R.
+
+```{r}
+library(ape)
+data(carnivora)
+summarise(
+    group_by(carnivora, Family),
+        Mn = mean(LS), # litter size
+        Total = n(),   # counts
+        Sm = sum(LS, na.rm=TRUE))
+```
+
+## Group Summary Statistics, take 2
+
+We removed NAs from mean calculation and made code (almost) read like
+English
+
+```{r}
+carnivora %>%
+    group_by(Family) %>%
+    summarise(Mn = mean(LS, na.rm = TRUE)) # Litter Size
+```
+
+## Group Summary Statistics, take 3
+
+```{r}
+carnivora %>%
+    group_by(Family) %>%
+    summarise(
+        Mn = mean(LS, na.rm = TRUE),
+        Total = n(),
+        Sm = sum(LS, na.rm = TRUE)
+    )
+```
+
+
+# My Favorite Example
+
+## mutate
+
+Maybe relative brain size matters to you, i.e. heaviest brain
+relative to body weight.
+
+```{r}
+heavy <- carnivora %>%
+    group_by(Family) %>%
+    mutate(brbo = SB/SW) # brain/body
+```
+
+
+## mutate and summarise
+
+Then throw in some `summarise` and find which family has greatest mean
+brain to body weight ratio.
+
+```{r}
+heavy %>%
+    summarise(Mn_brbo = mean(brbo, na.rm=TRUE))
+```
+
+
+## who?
+
+* These guys [Procyonidae](https://en.wikipedia.org/wiki/Procyonidae)
+* But also [PNAS article](http://www.pnas.org/content/early/2016/01/20/1505913113)

@@ -1,0 +1,364 @@
+---
+title: "Summary Statistics"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: show
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+# Basic R
+
+## Data Frames in R
+
+Run these commands in R
+
+```{r}
+#| output: false
+suppressMessages(library(openintro))
+data(email) # load dataset email
+str(email)  # ensure we're looking at a df
+head(email) # top 6 rows; try tail
+head(email, n = 10) # use n = x, for head/tail
+email$spam  # just one variable
+names(email) # column names
+some_cols <- c("spam", "num_char", "format", "number")
+email[ , some_cols] # specified variables/columns
+email[c(1,2,3,50), some_cols] # Table 1
+```
+
+
+# Categorical Data
+
+## recap: `email`
+
+Recall the `email` data set.
+
+```{r}
+data(email)
+head(email[, c("spam", "format", "number")])
+```
+
+## `email`, table
+
+A good start
+
+```{r}
+table(email$number)
+```
+
+## `email`, contingency table
+
+A **contingency table** is a table that summarizes data for two categorical
+variables.
+
+```{r}
+(t <- table(email$spam, email$number))
+```
+
+## `email`, contingency table of proportions
+
+```{r}
+round(prop.table(t), 2)
+```
+
+# Numerical Data
+
+## `county` data
+
+Consider U.S. county data.  Which of these variables is/are numerical?
+
+```{r}
+data(county)
+tail(county[, c("name", "state", "pop2010", "per_capita_income")], n=4)
+```
+
+9# Measures of Center
+
+## Summary Statistics, mean
+
+
+The **sample mean**, denoted $\bar{x}$, is the sum of a sample of numbers
+divided by how many numbers are in the sample.  Mathematically, we write
+
+$$
+\begin{align*}
+    \bar{x} & =  \frac{x_1 + x_2 + \ldots + x_n}{n} \\
+        & = \frac{\sum_{i=1}^n x_i}{n} \\
+        & = \frac{1}{n} \sum_{i=1}^n x_i
+\end{align*}
+$$
+
+## Summary Statistics, mean: example by hand
+
+Find the mean of the following numbers
+
+```{r}
+x <- sample(0:100, 10)
+x
+```
+
+## Summary Statistics, mean: example by R (computer)
+
+```{r}
+x
+(m <- mean(x))
+```
+
+## Mean, by picture
+
+Where is the mean relative to the data?
+
+```{r}
+#| echo: false
+suppressMessages(library(ggplot2))
+(p <- qplot(x, y = 0, geom="dotplot", binwidth=1, ylab="") +
+     coord_cartesian(ylim=c(-0.05, 0.05)) +
+     scale_y_continuous(breaks=NULL) +
+     theme_minimal())
+```
+
+## Mean, by picture
+
+Where is the mean relative to the data?
+
+```{r}
+#| echo: false
+
+p + geom_point(data=data.frame(x=m, y=0), aes(x,y),
+                   colour="red", size=4)
+```
+
+## Mean, an example
+
+Find the mean of a variable stored in a data frame.
+
+```{r}
+mean(county$pop2010)
+```
+
+## Mean, another example
+
+Find the mean of a variable stored in a data frame.
+
+```{r}
+mean(email$num_char)
+```
+
+## Mean, point estimator
+
+We call the sample mean a **point estimator**.  What is it estimating?
+
+## Summary Statistics, median
+
+**median**. If the data are ordered from smallest to largest, the **median** is
+the observation right in the middle. If there are an even number of
+observations, there will be two values in the middle, and the median is taken as
+their mean.  There is no *simple* mathematical expression for this statistic.
+
+
+## Summary Statistics, median: examples by R
+
+Find the median of the following numbers:
+
+```{r}
+median(x)
+```
+
+## Summary Statistics: comparing measures of center
+
+Both the mean and the median measure the center of a dataset.  Thus, they are
+jointly referred to as measures of center.
+
+
+```{r}
+mean(x)
+median(x)
+```
+
+Though they measure different centers.
+
+## What does more data do?
+
+If we add a number to the previous variable `x`, what will be the effect
+on the
+
+* mean?
+* median?
+
+
+## What does more data do?
+
+... join $100$ to `x`
+
+```{r}
+mean(x)
+mean(c(x, 100))
+median(x)
+median(c(x, 100))
+```
+
+
+## What does more data do?
+
+How about joining $10000$ to `x`.
+
+```{r}
+mean(x)
+mean(c(x, 10000))
+median(x)
+median(c(x, 10000))
+```
+
+## Summary Statistics, outliers
+
+An **outlier** is an observation that appears extreme relative to the rest of the data.
+
+Note
+
+* The number $10000$ in the datasets above appears to be an outlier.
+* What effect did this value have on the mean? On the median?
+* What would have happened if we added $-100$? mean? median?
+
+
+# Measures of Spread/Width
+
+## Summarizing Data, data width
+
+Means and medians help summarize the center of the data.  The statisticians
+rigorous description of the width of data uses the idea of **deviations**. See
+OS4 section $2.1.4$.
+
+## Deviations, defined
+
+**deviation**. We call the distance between an observation and the mean its
+deviation.  Mathematically, we write
+
+$$ d_i = x_i - \bar{x} $$
+
+
+
+## Variance and Standard Deviation
+
+The two most common measures of spread are the sample **variance** and the
+sample **standard deviation**.
+
+
+The **sample variance** is (almost) the average of the squared deviations.
+
+
+$$ s^2 = \frac{d_1^2 + d_2^2 + \ldots + d_n^2}{n-1} = \frac{1}{n-1}\sum_{i=1}^n d_i^2 $$
+
+
+The **sample standard deviation** is the square root of the variance.
+
+$$s = \sqrt{s^2}$$
+
+
+## Standard Deviation in R, a simple example
+
+```{r}
+sd(email$num_char)
+```
+
+
+## Notation of Populations
+
+Recall, sample datasets provide information about the population.
+
+* The sample mean $\bar{x}$ estimates the population mean $\mu$.
+* The sample standard deviation $s$ estimates the population standard deviation
+  $\sigma$.
+
+
+
+## Standard Deviation Describes Variability
+
+Focus on the conceptual meaning of the standard deviation as a descriptor of
+variability rather than the formulas.
+
+
+# Other Measures of Spread
+
+
+## Towards Other Measures of Spread
+
+The median is also called the 50th quantile, or $Q_2$.  There are other
+quantiles.
+
+The **$q$th quantile** is the value that puts $q$\% of the observations below
+this number.  Also **percentile**.
+
+
+* The 25th quantile is also known as the first quartile, or $Q_1$.
+* The 75th quantile is also known as the third quartile, or $Q_3$.
+
+
+## Towards Other Measures of Spread, continued
+
+Another way to think about the 25/75th quantile.
+
+* The 25th quantile is the median of the dataset that consists of the
+  smallest number up to the median.
+
+* The 75th quantile is the median of the dataset that consists of the
+   median up to the largest number.
+
+
+## Interquartile Range
+
+The **IQR** is calculated the the difference between the 75th and the 25th
+quantile, $Q_3$ and $Q_1$, respectively:
+
+$$ IQR = Q_3 - Q_1 $$
+
+
+## Quantiles and IQR in R
+
+```{r}
+quantile(email$num_char, 0.25)
+q <- quantile(email$num_char, c(0.75, 0.25))
+q[1] - q[2]
+IQR(email$num_char)
+```
+
+
+# Mixing Types
+
+
+## Mixing Variable Types
+
+Often with binary categorical data, it's advantageous to encode the variable
+numerically.  For example,
+
+
+* female $\Rightarrow 1=$ female, $0=$ other
+* high school educated $\Rightarrow 1=$ yes, $0=$ other (no)
+* took pill $\Rightarrow 1=$ yes, $0=$ no
+* ...
+
+
+## Mixing Variable Types
+
+Consider the variable `spam` in the dataset `email`.  We are likely interested
+in the proportion of emails that are spam, $\hat{p}$.
+
+```{r}
+spam_number <- ifelse(email$spam == 1, 1, 0)
+(phat <- mean(spam_number))
+```
+
+
+## Take Away
+
+* Summarizing data is crucial to statistics
+* Mean and standard deviation are by far most important
+    * study their interpretations and intuitions
+    * see OS4 section 2.1.2 and 2.1.4
+* we would prefer everything to be a mean, of sorts.
