@@ -2,26 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://roualdes.github.io/lectures/314/plot_densities.html</loc>
-    <lastmod>2025-09-07T16:20:52.169Z</lastmod>
+    <lastmod>2025-09-10T04:03:54.697Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/index.html</loc>
-    <lastmod>2025-09-07T16:20:52.331Z</lastmod>
+    <lastmod>2025-09-10T04:03:54.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/summariesByGroup/main.html</loc>
+    <lastmod>2025-09-10T04:03:54.710Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
-    <lastmod>2025-09-07T16:20:52.169Z</lastmod>
+    <lastmod>2025-09-10T04:03:54.697Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
-    <lastmod>2025-09-07T16:20:52.176Z</lastmod>
+    <lastmod>2025-09-10T04:03:54.704Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/summaryStats/main.html</loc>
+    <lastmod>2025-09-10T04:03:54.711Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/315/plottingData/main.html</loc>
-    <lastmod>2025-09-07T16:20:52.177Z</lastmod>
+    <lastmod>2025-09-10T04:03:54.705Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/intropython.html</loc>
-    <lastmod>2025-09-07T16:20:52.169Z</lastmod>
+    <lastmod>2025-09-10T04:03:54.697Z</lastmod>
   </url>
 </urlset>
