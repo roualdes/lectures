@@ -7,6 +7,13 @@
     "text": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\n\n2 + 2\n\n4\n\n\n\ns = \"hello, world\"\n\n\nx = 2\ntype(x)\n\nint\n\n\n\ntype(s)\n\nstr\n\n\n\ny = 2.2\ntype(y)\n\nfloat\n\n\n\nb = True\ntype(b)\n\nbool\n\n\n\ntype(None)\n\nNoneType\n\n\n\nc = 'c'\ntype(c)\n\nstr\n\n\n\ns = 2\ntype(s)\n\nint\n\n\n\nData Structures\n\nl = [1, 2.2, \"edward\", True] # list\nl\n\n[1, 2.2, 'edward', True]\n\n\n\nl.append(5)\nl\n\n[1, 2.2, 'edward', True, 5]\n\n\n\nl[4]\n\n5\n\n\n\nd = {\"key\": 1, 1: \"value\", (1, 2): \"wow\"} # dictionary or dict\nd[(1,2)]\n\n'wow'\n\n\n\nd[\"key\"]\n\n1\n\n\n\nd[\"math314\"] = \"is cool\"\nd\n\n{'key': 1, 1: 'value', (1, 2): 'wow', 'math314': 'is cool'}\n\n\n\nt = (1, 2, 3.4)\nt\n\n(1, 2, 3.4)\n\n\n\n\nControl Flow\n\nif True:\n    print(\"yay\")\nelse:\n    print(\"nay\")\n\nyay\n\n\n\nif l:\n    print(\"what\")\n\nwhat\n\n\n\nif ():\n    print(\"ah I get it\")\n\n\nfor i in range(len(l)):\n    print(i, l[i])\n\n0 1\n1 2.2\n2 edward\n3 True\n4 5\n\n\n\nd.keys()\n\ndict_keys(['key', 1, (1, 2), 'math314'])\n\n\n\nd.values()\n\ndict_values([1, 'value', 'wow', 'is cool'])\n\n\n\nd.items()\n\ndict_items([('key', 1), (1, 'value'), ((1, 2), 'wow'), ('math314', 'is cool')])\n\n\n\nfor k, v in d.items():\n    print(k, v)\n\nkey 1\n1 value\n(1, 2) wow\nmath314 is cool\n\n\n\nc = 0\nwhile True:\n    print(c)\n    if c &gt; 10:\n        break\n    c += 1\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\nc *= 2\nc /= 1.5\nc **= 3\nc\n\n3154.9629629629626\n\n\n\nx = 2\nx **= 2\nx\n\n4\n\n\n\nif False:\n    print(\"a\")\nelif True:\n    print(\"b\")\nelse:\n    print(\"c\")\n\nb\n\n\n\n\nFunctions\n\ndef f(h, j = 5, k = 6):\n    return h + j\nf(1, j = 8)\n\n9\n\n\n\nf(1)\n\n6\n\n\n\nf(1, k = 2, j = 3)\n\n4\n\n\n\nf(2)\n\n7\n\n\n\n\nClass\n\nclass Table():\n    def __init__(self, num_legs = 4):\n        self.legs = num_legs\n\n    def num_legs(self):\n        return self.legs\n\n\nt = Table()\nx = t.num_legs()\n\n\ns = Table(num_legs = 7)\ns.num_legs()\n\n7\n\n\n\n\nNumpy\n\nnp.exp(((np.zeros(3) + 3) * 2 ) / 6)\n\narray([2.71828183, 2.71828183, 2.71828183])\n\n\n\nrng = np.random.default_rng(seed = 789427834294)\nx = rng.normal(size = 10)\n\n\nnp.mean(x)\n\n0.05685974974670359\n\n\n\nnp.std(x)\n\n1.0161486486393296\n\n\n\nX = rng.normal(size = (3, 5))\nnp.mean(X, axis = 1)\n\narray([ 0.10255819, -0.85520091, -0.56674674])\n\n\n\nnp.std(X, axis = 1)\n\narray([0.41042252, 0.72211726, 0.57281818])"
   },
   {
+    "objectID": "314/convergence_probability.html",
+    "href": "314/convergence_probability.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\nN = 10000\nrng = np.random.default_rng()\nx = rng.normal(size = N)\nxbar = np.mean(x)\nnp.var(x)\n\n1.0116761420756855\n\n\n\nndx = np.arange(N) + 1\ncm = np.cumsum(x) / ndx\nplt.plot(ndx, cm)\n\n\n\n\n\n\n\n\n\ncv = np.cumsum((x - xbar) ** 2) / ndx\nplt.plot(ndx, cv)\n\n\n\n\n\n\n\n\n\nnp.mean(x &gt;= 0) # P[X &gt;= 0] = P[X in R^+]\n\n0.4934\n\n\n\ncp = np.cumsum(x &gt;= 0) / ndx\nplt.plot(ndx, cp)"
+  },
+  {
     "objectID": "314/means_expectations.html",
     "href": "314/means_expectations.html",
     "title": "lectures",
@@ -791,46 +798,102 @@
     "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
   },
   {
-    "objectID": "misc/klhr.html#metropolis-hastings",
-    "href": "misc/klhr.html#metropolis-hastings",
+    "objectID": "misc/klhr/main.html#metropolis-hastings",
+    "href": "misc/klhr/main.html#metropolis-hastings",
     "title": "KLHR Sampler",
     "section": "Metropolis-Hastings",
     "text": "Metropolis-Hastings\n\\[\n\\begin{align}\n\\theta^* & \\sim \\text{Normal}(\\theta^{(m)}, \\Sigma)  \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{normal}(\\theta^{(m)} | \\theta^*, \\Sigma)}{p(\\theta^{(m)}) \\cdot \\text{normal}(\\theta^* | \\theta^{(m)}, \\Sigma)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
   },
   {
-    "objectID": "misc/klhr.html#hit-and-run-sampler",
-    "href": "misc/klhr.html#hit-and-run-sampler",
+    "objectID": "misc/klhr/main.html#hit-and-run-sampler",
+    "href": "misc/klhr/main.html#hit-and-run-sampler",
     "title": "KLHR Sampler",
     "section": "Hit and Run Sampler",
-    "text": "Hit and Run Sampler\n\\[\n\\begin{align}\n\\rho & \\sim D \\quad \\# \\in \\mathbb{R}^d; \\text{ direction} \\\\\n\\xi^* & \\sim f(\\xi) = \\frac{p(\\rho\\xi + \\theta^{(m)})}{\\int p(\\rho x + \\theta^{(m)}) dx}  \\\\\n\\theta^{(m + 1)} & = \\rho \\xi^* + \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+    "text": "Hit and Run Sampler\n\\[\n\\begin{align}\n\\rho & \\sim G \\quad \\# \\in \\mathbb{R}^D; \\text{ direction} \\\\\n\\xi^* & \\sim f(\\xi) = \\frac{p(\\rho\\xi + \\theta^{(m)})}{\\int p(\\rho \\xi + \\theta^{(m)}) d\\xi}  \\\\\n\\theta^{(m + 1)} & = \\rho \\xi^* + \\theta^{(m)} \\\\\n\\end{align}\n\\]\n\nA Hit and Run sampler reference\nNo-Underrun Sampler"
   },
   {
-    "objectID": "misc/klhr.html#klhr-sampler",
-    "href": "misc/klhr.html#klhr-sampler",
+    "objectID": "misc/klhr/main.html#klhr-sampler",
+    "href": "misc/klhr/main.html#klhr-sampler",
     "title": "KLHR Sampler",
     "section": "KLHR Sampler",
-    "text": "KLHR Sampler\nKullback–Leibler Hit and Run\n\\[\n\\begin{align}\n\\rho & \\sim Normal(...) \\\\\n\\rho & = \\rho / ||\\rho|| \\quad \\# \\text{ unit direction}\\\\\n\\eta & = \\text{argmin}_{\\eta} \\text{KL}(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n\\xi^* & \\sim Q(\\eta) \\\\\n\\theta^* &= \\rho \\xi^* + \\theta^{(m)} \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{q}(0 | \\eta)}{p(\\theta^{(m)}) \\cdot \\text{q}(\\xi^* | \\eta)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+    "text": "KLHR Sampler\nKullback–Leibler Hit and Run\n\\[\n\\begin{align}\n\\rho & \\sim Normal(...) \\\\\n\\rho & = \\rho / ||\\rho|| \\quad \\# \\text{ unit direction}\\\\\n\\eta^* & = \\text{argmin}_{\\eta} \\text{KL}(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n\\xi^* & \\sim Q(\\eta^*) \\\\\n\\theta^* &= \\rho \\xi^* + \\theta^{(m)} \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{q}(0 | \\eta^*)}{p(\\theta^{(m)}) \\cdot \\text{q}(\\xi^* | \\eta^*)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
   },
   {
-    "objectID": "misc/klhr.html#approximate-kl",
-    "href": "misc/klhr.html#approximate-kl",
+    "objectID": "misc/klhr/main.html#approximate-kl",
+    "href": "misc/klhr/main.html#approximate-kl",
     "title": "KLHR Sampler",
     "section": "approximate KL",
-    "text": "approximate KL\nSuppose \\(Q\\) is the family of one dimensional Normal distirbutions with density function \\(q\\), where \\(\\eta = (\\mu, \\sigma)\\)\n\\[\n\\begin{align}\n\\text{KL}&(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n& = \\int_{\\mathbb{R}} (\\log{q(\\xi | \\eta)} - \\log{p(\\rho \\xi + \\theta^{(m)})}) q(\\xi | \\eta) d\\xi\\\\\n& \\approx -\\log{\\sigma} - \\sum_{n} w_n \\log{p( \\, l(x_n | \\eta) \\, )} \\\\\n& =: L(\\eta)\n\\end{align}\n\\]\nwhere \\(x_n, w_n\\) are the roots of the Hermite polynomials and associated weights from Gauss-Hermite quadrature."
+    "text": "approximate KL\nWhen \\(Q\\) represents the family of one dimensional Normal distirbutions with density function \\(q\\), where \\(\\eta = (\\mu, \\sigma)\\)\n\\[\n\\begin{align}\n\\text{KL}&(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n& = \\int_{\\mathbb{R}} (\\log{q(\\xi | \\eta)} - \\log{p(\\rho \\xi + \\theta^{(m)})}) q(\\xi | \\eta) d\\xi\\\\\n& \\approx -\\log{\\sigma} - \\sum_{n} w_n \\log{p( \\, l(x_n | \\eta) \\, )} \\\\\n& =: L(\\eta)\n\\end{align}\n\\]\nwhere \\(x_n, w_n\\) are the roots of the Hermite polynomials and associated weights from Gauss-Hermite quadrature."
   },
   {
-    "objectID": "misc/klhr.html#approximate-kl-take-2",
-    "href": "misc/klhr.html#approximate-kl-take-2",
+    "objectID": "misc/klhr/main.html#approximate-kl-take-2",
+    "href": "misc/klhr/main.html#approximate-kl-take-2",
     "title": "KLHR Sampler",
     "section": "approximate KL, take 2",
-    "text": "approximate KL, take 2\n\\(Q\\) is the family sinh-arcsinh distributions, where \\(\\eta = (\\mu,\n\\sigma, \\delta, \\epsilon)\\)\n\n\\(\\delta \\in \\mathbb{R}^+ \\Rightarrow\\) tail weight\n\\(\\epsilon \\in \\mathbb{R} \\Rightarrow\\) skew\n\nLet \\(Z \\sim \\text{Normal}(0, 1)\\). Then \\(Q \\sim T(Z)\\) where\n\\[T(z) = m + \\sigma \\text{sinh}\\left( \\frac{\\text{arsinh}(z) + \\epsilon}{\\delta} \\right)\\]"
+    "text": "approximate KL, take 2\n\\(Q\\) represents the family of sinh-arcsinh distributions, where \\(\\eta = (\\mu, \\sigma, \\delta, \\epsilon)\\)\n\n\\(\\delta \\in \\mathbb{R}^+ \\Rightarrow\\) tail weight\n\\(\\epsilon \\in \\mathbb{R} \\Rightarrow\\) skew\n\nLet \\(Z \\sim \\text{Normal}(0, 1)\\). Then \\(Q \\sim T(Z)\\) where\n\\[T(z) = \\mu + \\sigma \\text{sinh}\\left( \\frac{\\text{arsinh}(z) + \\epsilon}{\\delta} \\right)\\]"
   },
   {
-    "objectID": "misc/klhr.html#minimize-leta",
-    "href": "misc/klhr.html#minimize-leta",
+    "objectID": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
+    "href": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
+    "title": "KLHR Sampler",
+    "section": "sinh-arcsinh vs normal",
+    "text": "sinh-arcsinh vs normal"
+  },
+  {
+    "objectID": "misc/klhr/main.html#minimize-leta",
+    "href": "misc/klhr/main.html#minimize-leta",
     "title": "KLHR Sampler",
     "section": "minimize \\(L(\\eta)\\)",
     "text": "minimize \\(L(\\eta)\\)\n\\(\\eta \\in \\mathbb{R}^d\\) where \\(d \\in \\{2, 4\\}\\). Use scipy and Bridgestan JAX Bridgestan\n\nBFGS\ntrust-{ncg, krylov, exact}\n?"
+  },
+  {
+    "objectID": "misc/klhr/main.html#generate-qeta",
+    "href": "misc/klhr/main.html#generate-qeta",
+    "title": "KLHR Sampler",
+    "section": "generate \\(Q(\\eta^*)\\)",
+    "text": "generate \\(Q(\\eta^*)\\)\n\nindependent draw from \\(Q(\\eta^*)\\)\nRadford Neal’s Ordered over-relaxation\n?"
+  },
+  {
+    "objectID": "misc/klhr/main.html#generate-random-direction-rho",
+    "href": "misc/klhr/main.html#generate-random-direction-rho",
+    "title": "KLHR Sampler",
+    "section": "generate random direction \\(\\rho\\)",
+    "text": "generate random direction \\(\\rho\\)\n\nlearn \\(\\Sigma\\) during warmup\n\n\\(\\rho \\sim \\text{Normal}(\\mathbf{0}_D, \\Sigma)\\)\n\nlearn \\(J\\) PCAs/eigenvectors \\(\\mathbf{v}_j \\in \\mathbb{R}^D\\) and values \\(\\lambda_j\\) during warmup\n\n\\(j' \\sim \\text{Multinoulli}\\left(\\{ 1,\\ldots, J \\}, \\mathbf{p} = \\frac{\\mathbf{\\lambda}}{\\sum_{j=1}^J \\lambda_j}\\right)\\) \\(\\rho \\sim \\text{Normal}(\\mathbf{v}_{j'}, \\Sigma)\\); or\n\\(\\rho \\sim \\text{Normal}\\left(\\sum_{j=1}^J \\lambda_j \\mathbf{v}_j, \\Sigma\\right)\\)\n\n?"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results",
+    "href": "misc/klhr/main.html#preliminary-results",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nfunnel.stan: 11 dimensional funnel; \\(10^7\\) iterations"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results-1",
+    "href": "misc/klhr/main.html#preliminary-results-1",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nearnings.stan: poorly scaled linear regression"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results-2",
+    "href": "misc/klhr/main.html#preliminary-results-2",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nnormal.stan: 100 dimensional isotropic Gaussian\nvs hand tuned MH"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results-3",
+    "href": "misc/klhr/main.html#preliminary-results-3",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nar1.stan: 100 dimensional AR(1); \\(10^5\\) iterations"
+  },
+  {
+    "objectID": "misc/klhr/main.html#feedback-welcome",
+    "href": "misc/klhr/main.html#feedback-welcome",
+    "title": "KLHR Sampler",
+    "section": "feedback welcome",
+    "text": "feedback welcome\nany thoughts on\n\nminimize \\(L(\\eta)\\) faster\ngenerate \\(\\xi^* \\sim Q(\\eta^*)\\) to increase MSJD\ngenerate \\(\\rho \\sim ?\\) to focus on important directions\nother"
   },
   {
     "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
@@ -1230,5 +1293,12 @@
     "title": "lectures",
     "section": "",
     "text": "import matplotlib.pyplot as plt\nimport numpy as np\n\n\nx = np.arange(6) + 1\nfx = np.ones(6) * 1/6\n\n(array([1, 2, 3, 4, 5, 6]),\n array([0.16666667, 0.16666667, 0.16666667, 0.16666667, 0.16666667,\n        0.16666667]))\n\n\n\nplt.scatter(x, fx, color = \"orange\", label = \"uniform density\")\nplt.scatter(np.arange(5) + 1, np.ones(5) / 5, label = \"other\")\nplt.ylabel(\"density\")\nplt.xlabel(\"support\")\nplt.legend()\n\n\n\n\n\n\n\n\n\nrng = np.random.default_rng()\nrng.integers(5, size = 10)\n\narray([3, 2, 3, 2, 0, 1, 3, 1, 1, 2])"
+  },
+  {
+    "objectID": "314/quiz04.html",
+    "href": "314/quiz04.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\n\nNot a bad idea to solve this one in pieces/two functions.\n\ndef mean(x):\n    s = 0.0\n    N = np.size(x)\n    for n in range(N):\n        s += x[n]\n    return s / N\n\n\ndef var(x):\n    s = 0.0\n    N = np.size(x)\n    m = mean(x)\n    invN = 1 / N # minimizing division is a good idea, even if ineffective here\n    for n in range(N):\n        d = x[n] - m\n        s += d * d # multiplication is faster than powers\n    return s * invN\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\nnp.isclose(np.var(x), var(x))\n\nTrue"
   }
 ]
