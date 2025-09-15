@@ -305,7 +305,7 @@
     "href": "315/summaryStats/main.html#county-data",
     "title": "Summary Statistics",
     "section": "county data",
-    "text": "county data\nConsider U.S. county data. Which of these variables is/are numerical?\n\n\nCode\ndata(county)\ntail(county[, c(\"name\", \"state\", \"pop2010\", \"per_capita_income\")], n=4)\n\n\n# A tibble: 4 × 4\n  name            state   pop2010 per_capita_income\n  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;             &lt;dbl&gt;\n1 Teton County    Wyoming   21294            48557.\n2 Uinta County    Wyoming   21118            27048.\n3 Washakie County Wyoming    8533            27495.\n4 Weston County   Wyoming    7208            33297.\n\n\n9# Measures of Center"
+    "text": "county data\nConsider U.S. county data. Which of these variables is/are numerical?\n\n\nCode\ndata(county)\ntail(county[, c(\"name\", \"state\", \"pop2010\", \"per_capita_income\")], n=4)\n\n\n# A tibble: 4 × 4\n  name            state   pop2010 per_capita_income\n  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;             &lt;dbl&gt;\n1 Teton County    Wyoming   21294            48557.\n2 Uinta County    Wyoming   21118            27048.\n3 Washakie County Wyoming    8533            27495.\n4 Weston County   Wyoming    7208            33297."
   },
   {
     "objectID": "315/summaryStats/main.html#summary-statistics-mean",
@@ -319,14 +319,14 @@
     "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
     "title": "Summary Statistics",
     "section": "Summary Statistics, mean: example by hand",
-    "text": "Summary Statistics, mean: example by hand\nFind the mean of the following numbers\n\n\nCode\nx &lt;- sample(0:100, 10)\nx\n\n\n [1] 11 75 50 99 43  2 80 72 62 28"
+    "text": "Summary Statistics, mean: example by hand\nFind the mean of the following numbers\n\n\nCode\nx &lt;- sample(0:100, 10)\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97"
   },
   {
     "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
     "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
     "title": "Summary Statistics",
     "section": "Summary Statistics, mean: example by R (computer)",
-    "text": "Summary Statistics, mean: example by R (computer)\n\n\nCode\nx\n\n\n [1] 11 75 50 99 43  2 80 72 62 28\n\n\nCode\n(m &lt;- mean(x))\n\n\n[1] 52.2"
+    "text": "Summary Statistics, mean: example by R (computer)\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\n(m &lt;- mean(x))\n\n\n[1] 71.5"
   },
   {
     "objectID": "315/summaryStats/main.html#mean-by-picture",
@@ -375,14 +375,14 @@
     "href": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
     "title": "Summary Statistics",
     "section": "Summary Statistics, median: examples by R",
-    "text": "Summary Statistics, median: examples by R\nFind the median of the following numbers:\n\n\nCode\nmedian(x)\n\n\n[1] 56"
+    "text": "Summary Statistics, median: examples by R\nFind the median of the following numbers:\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\nmedian(x)\n\n\n[1] 77.5"
   },
   {
     "objectID": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
     "href": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
     "title": "Summary Statistics",
     "section": "Summary Statistics: comparing measures of center",
-    "text": "Summary Statistics: comparing measures of center\nBoth the mean and the median measure the center of a dataset. Thus, they are jointly referred to as measures of center.\n\n\nCode\nmean(x)\n\n\n[1] 52.2\n\n\nCode\nmedian(x)\n\n\n[1] 56\n\n\nThough they measure different centers."
+    "text": "Summary Statistics: comparing measures of center\nBoth the mean and the median measure the center of a dataset. Thus, they are jointly referred to as measures of center.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nThough they measure different centers."
   },
   {
     "objectID": "315/summaryStats/main.html#what-does-more-data-do",
@@ -396,21 +396,21 @@
     "href": "315/summaryStats/main.html#what-does-more-data-do-1",
     "title": "Summary Statistics",
     "section": "What does more data do?",
-    "text": "What does more data do?\n… join \\(100\\) to x\n\n\nCode\nmean(x)\n\n\n[1] 52.2\n\n\nCode\nmean(c(x, 100))\n\n\n[1] 56.54545\n\n\nCode\nmedian(x)\n\n\n[1] 56\n\n\nCode\nmedian(c(x, 100))\n\n\n[1] 62"
+    "text": "What does more data do?\n… join \\(100\\) to x\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 100))\n\n\n[1] 74.09091\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 100))\n\n\n[1] 78"
   },
   {
     "objectID": "315/summaryStats/main.html#what-does-more-data-do-2",
     "href": "315/summaryStats/main.html#what-does-more-data-do-2",
     "title": "Summary Statistics",
     "section": "What does more data do?",
-    "text": "What does more data do?\nHow about joining \\(10000\\) to x.\n\n\nCode\nmean(x)\n\n\n[1] 52.2\n\n\nCode\nmean(c(x, 10000))\n\n\n[1] 956.5455\n\n\nCode\nmedian(x)\n\n\n[1] 56\n\n\nCode\nmedian(c(x, 10000))\n\n\n[1] 62"
+    "text": "What does more data do?\nHow about joining \\(10000\\) to x.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 10000))\n\n\n[1] 974.0909\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 10000))\n\n\n[1] 78"
   },
   {
     "objectID": "315/summaryStats/main.html#summary-statistics-outliers",
     "href": "315/summaryStats/main.html#summary-statistics-outliers",
     "title": "Summary Statistics",
     "section": "Summary Statistics, outliers",
-    "text": "Summary Statistics, outliers\nAn outlier is an observation that appears extreme relative to the rest of the data.\nNote\n\nThe number \\(10000\\) in the datasets above appears to be an outlier.\nWhat effect did this value have on the mean? On the median?\nWhat would have happened if we added \\(-100\\)? mean? median?"
+    "text": "Summary Statistics, outliers\nAn outlier is an observation that appears extreme relative to the rest of the data.\nNote\n\nThe number \\(10000\\) in the datasets above appears to be an outlier.\nWhat effect did this value have on the mean? On the median?\nWhat would have happened if we added \\(-100\\)? mean? median?\nOutliers are often the outcome of a confounding variable."
   },
   {
     "objectID": "315/summaryStats/main.html#summarizing-data-data-width",
@@ -831,6 +831,48 @@
     "title": "Introduction to Data",
     "section": "Experiments, homework 02",
     "text": "Experiments, homework 02\nA researcher is conducting an experiment to see the effect of diet and exercise on weight gain in baby hamsters. Two different diets (low fat and high fat) and three different levels of exercise (high, moderate, or none) will be used. Eight baby hamsters will be raised under each combination of diet and exercise and their weight gain after 4 weeks will be measured.\n\nWhat are the experimental units here?\nWhat are the categorical variables? List the levels of each.\nHow many different treatments are there? List them.\nHow many experimental units will this experiment require?"
+  },
+  {
+    "objectID": "misc/klhr.html#metropolis-hastings",
+    "href": "misc/klhr.html#metropolis-hastings",
+    "title": "KLHR Sampler",
+    "section": "Metropolis-Hastings",
+    "text": "Metropolis-Hastings\n\\[\n\\begin{align}\n\\theta^* & \\sim \\text{Normal}(\\theta^{(m)}, \\Sigma)  \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{normal}(\\theta^{(m)} | \\theta^*, \\Sigma)}{p(\\theta^{(m)}) \\cdot \\text{normal}(\\theta^* | \\theta^{(m)}, \\Sigma)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "misc/klhr.html#hit-and-run-sampler",
+    "href": "misc/klhr.html#hit-and-run-sampler",
+    "title": "KLHR Sampler",
+    "section": "Hit and Run Sampler",
+    "text": "Hit and Run Sampler\n\\[\n\\begin{align}\n\\rho & \\sim D \\quad \\# \\in \\mathbb{R}^d; \\text{ direction} \\\\\n\\xi^* & \\sim f(\\xi) = \\frac{p(\\rho\\xi + \\theta^{(m)})}{\\int p(\\rho x + \\theta^{(m)}) dx}  \\\\\n\\theta^{(m + 1)} & = \\rho \\xi^* + \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "misc/klhr.html#klhr-sampler",
+    "href": "misc/klhr.html#klhr-sampler",
+    "title": "KLHR Sampler",
+    "section": "KLHR Sampler",
+    "text": "KLHR Sampler\nKullback–Leibler Hit and Run\n\\[\n\\begin{align}\n\\rho & \\sim Normal(...) \\\\\n\\rho & = \\rho / ||\\rho|| \\quad \\# \\text{ unit direction}\\\\\n\\eta & = \\text{argmin}_{\\eta} \\text{KL}(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n\\xi^* & \\sim Q(\\eta) \\\\\n\\theta^* &= \\rho \\xi^* + \\theta^{(m)} \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{q}(0 | \\eta)}{p(\\theta^{(m)}) \\cdot \\text{q}(\\xi^* | \\eta)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "misc/klhr.html#approximate-kl",
+    "href": "misc/klhr.html#approximate-kl",
+    "title": "KLHR Sampler",
+    "section": "approximate KL",
+    "text": "approximate KL\nSuppose \\(Q\\) is the family of one dimensional Normal distirbutions with density function \\(q\\), where \\(\\eta = (\\mu, \\sigma)\\)\n\\[\n\\begin{align}\n\\text{KL}&(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n& = \\int_{\\mathbb{R}} (\\log{q(\\xi | \\eta)} - \\log{p(\\rho \\xi + \\theta^{(m)})}) q(\\xi | \\eta) d\\xi\\\\\n& \\approx -\\log{\\sigma} - \\sum_{n} w_n \\log{p( \\, l(x_n | \\eta) \\, )} \\\\\n& =: L(\\eta)\n\\end{align}\n\\]\nwhere \\(x_n, w_n\\) are the roots of the Hermite polynomials and associated weights from Gauss-Hermite quadrature."
+  },
+  {
+    "objectID": "misc/klhr.html#approximate-kl-take-2",
+    "href": "misc/klhr.html#approximate-kl-take-2",
+    "title": "KLHR Sampler",
+    "section": "approximate KL, take 2",
+    "text": "approximate KL, take 2\n\\(Q\\) is the family sinh-arcsinh distributions, where \\(\\eta = (\\mu,\n\\sigma, \\delta, \\epsilon)\\)\n\n\\(\\delta \\in \\mathbb{R}^+ \\Rightarrow\\) tail weight\n\\(\\epsilon \\in \\mathbb{R} \\Rightarrow\\) skew\n\nLet \\(Z \\sim \\text{Normal}(0, 1)\\). Then \\(Q \\sim T(Z)\\) where\n\\[T(z) = m + \\sigma \\text{sinh}\\left( \\frac{\\text{arsinh}(z) + \\epsilon}{\\delta} \\right)\\]"
+  },
+  {
+    "objectID": "misc/klhr.html#minimize-leta",
+    "href": "misc/klhr.html#minimize-leta",
+    "title": "KLHR Sampler",
+    "section": "minimize \\(L(\\eta)\\)",
+    "text": "minimize \\(L(\\eta)\\)\n\\(\\eta \\in \\mathbb{R}^d\\) where \\(d \\in \\{2, 4\\}\\). Use scipy and Bridgestan JAX Bridgestan\n\nBFGS\ntrust-{ncg, krylov, exact}\n?"
   },
   {
     "objectID": "315/anova/main.html#recap-point-estimates",
