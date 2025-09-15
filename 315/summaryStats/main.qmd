@@ -79,7 +79,7 @@ data(county)
 tail(county[, c("name", "state", "pop2010", "per_capita_income")], n=4)
 ```
 
-9# Measures of Center
+# Measures of Center
 
 ## Summary Statistics, mean
 
@@ -157,10 +157,11 @@ We call the sample mean a **point estimator**.  What is it estimating?
 
 ## Summary Statistics, median
 
-**median**. If the data are ordered from smallest to largest, the **median** is
-the observation right in the middle. If there are an even number of
-observations, there will be two values in the middle, and the median is taken as
-their mean.  There is no *simple* mathematical expression for this statistic.
+**median**. If the data are ordered from smallest to largest, the
+**median** is the observation right in the middle. If there are an
+even number of observations, there will be two values in the middle,
+and the median is taken as their mean.  There is no *simple*
+mathematical expression for this statistic.
 
 
 ## Summary Statistics, median: examples by R
@@ -168,13 +169,14 @@ their mean.  There is no *simple* mathematical expression for this statistic.
 Find the median of the following numbers:
 
 ```{r}
+x
 median(x)
 ```
 
 ## Summary Statistics: comparing measures of center
 
-Both the mean and the median measure the center of a dataset.  Thus, they are
-jointly referred to as measures of center.
+Both the mean and the median measure the center of a dataset.  Thus,
+they are jointly referred to as measures of center.
 
 
 ```{r}
@@ -186,8 +188,8 @@ Though they measure different centers.
 
 ## What does more data do?
 
-If we add a number to the previous variable `x`, what will be the effect
-on the
+If we add a number to the previous variable `x`, what will be the
+effect on the
 
 * mean?
 * median?
@@ -218,27 +220,29 @@ median(c(x, 10000))
 
 ## Summary Statistics, outliers
 
-An **outlier** is an observation that appears extreme relative to the rest of the data.
+An **outlier** is an observation that appears extreme relative to the
+rest of the data.
 
 Note
 
 * The number $10000$ in the datasets above appears to be an outlier.
 * What effect did this value have on the mean? On the median?
 * What would have happened if we added $-100$? mean? median?
+* Outliers are often the outcome of a confounding variable.
 
 
 # Measures of Spread/Width
 
 ## Summarizing Data, data width
 
-Means and medians help summarize the center of the data.  The statisticians
-rigorous description of the width of data uses the idea of **deviations**. See
-OS4 section $2.1.4$.
+Means and medians help summarize the center of the data.  The
+statisticians rigorous description of the width of data uses the idea
+of **deviations**. See OS4 section $2.1.4$.
 
 ## Deviations, defined
 
-**deviation**. We call the distance between an observation and the mean its
-deviation.  Mathematically, we write
+**deviation**. We call the distance between an observation and the
+mean its deviation.  Mathematically, we write
 
 $$ d_i = x_i - \bar{x} $$
 
@@ -273,15 +277,15 @@ sd(email$num_char)
 Recall, sample datasets provide information about the population.
 
 * The sample mean $\bar{x}$ estimates the population mean $\mu$.
-* The sample standard deviation $s$ estimates the population standard deviation
-  $\sigma$.
+* The sample standard deviation $s$ estimates the population standard
+  deviation $\sigma$.
 
 
 
 ## Standard Deviation Describes Variability
 
-Focus on the conceptual meaning of the standard deviation as a descriptor of
-variability rather than the formulas.
+Focus on the conceptual meaning of the standard deviation as a
+descriptor of variability rather than the formulas.
 
 
 # Other Measures of Spread
@@ -346,8 +350,8 @@ numerically.  For example,
 
 ## Mixing Variable Types
 
-Consider the variable `spam` in the dataset `email`.  We are likely interested
-in the proportion of emails that are spam, $\hat{p}$.
+Consider the variable `spam` in the dataset `email`.  We are likely
+interested in the proportion of emails that are spam, $\hat{p}$.
 
 ```{r}
 spam_number <- ifelse(email$spam == 1, 1, 0)
