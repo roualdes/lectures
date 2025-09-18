@@ -11,7 +11,7 @@
     "href": "314/quiz04.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\n\ndef mean(x):\n    N = np.size(x) # x.size\n    s = 0.0\n    for i in range(N):\n        s += x[i]\n    return s / N\n\n\nrng = np.random.default_rng() # instantiating an RNG class\nx = rng.normal(size = 10) # use rng instance to generate random numbers =&gt; ndarray\nx\n\narray([ 0.53768287,  0.48044289,  0.41968892,  0.53617612,  0.12008546,\n        2.36768986,  0.17752883,  0.68915822,  0.07121943, -0.29874026])\n\n\n\nnp.isclose(mean(x), np.mean(x)) # don't == floats/doubles\n\nTrue"
+    "text": "import numpy as np\n\nNot a bad idea to solve this one in pieces/two functions.\n\ndef mean(x):\n    s = 0.0\n    N = np.size(x)\n    for n in range(N):\n        s += x[n]\n    return s / N\n\n\ndef var(x):\n    s = 0.0\n    N = np.size(x)\n    m = mean(x)\n    invN = 1 / N # minimizing division is a good idea, even if ineffective here\n    for n in range(N):\n        d = x[n] - m\n        s += d * d # multiplication is faster than powers\n    return s * invN\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\nnp.isclose(np.var(x), var(x))\n\nTrue"
   },
   {
     "objectID": "314/intropython.html",
@@ -1243,6 +1243,6 @@
     "href": "314/convergence_probability.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\nN = 10000\nrng = np.random.default_rng()\nx = rng.normal(size = N)\nxbar = np.mean(x)\nnp.var(x)\n\n0.9926945605171044\n\n\n\nndx = np.arange(N) + 1\ncm = np.cumsum(x) / ndx\nplt.plot(ndx, cm)\n\n\n\n\n\n\n\n\n\ncv = np.cumsum((x - xbar) ** 2) / ndx\nplt.plot(ndx, cv)"
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\nN = 10000\nrng = np.random.default_rng()\nx = rng.normal(size = N)\nxbar = np.mean(x)\nnp.var(x)\n\n1.0116761420756855\n\n\n\nndx = np.arange(N) + 1\ncm = np.cumsum(x) / ndx\nplt.plot(ndx, cm)\n\n\n\n\n\n\n\n\n\ncv = np.cumsum((x - xbar) ** 2) / ndx\nplt.plot(ndx, cv)\n\n\n\n\n\n\n\n\n\nnp.mean(x &gt;= 0) # P[X &gt;= 0] = P[X in R^+]\n\n0.4934\n\n\n\ncp = np.cumsum(x &gt;= 0) / ndx\nplt.plot(ndx, cp)"
   }
 ]
