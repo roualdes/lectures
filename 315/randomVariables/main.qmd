@@ -290,7 +290,7 @@ rolling be denoted by $X$, then $X \sim U(1, 6)$.
 Suppose you work for the IRS and you are interested in the probability that a
 randomly selected tax payer is attempting to commit fraud on their tax
 return.  So you and your boss decide to test this.  From a sample of 900 tax
-payers, you perform an in deep search through each of the 900 tax forms.
+payers, you perform an in depth search through each of the 900 tax forms.
 
 
 ## Bernoulli Distribution, motivation II
