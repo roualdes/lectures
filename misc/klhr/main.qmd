@@ -1,7 +1,7 @@
 ---
 title: "KLHR Sampler"
 author: "Edward A. Roualdes"
-institute: "Chico State"
+institute: "joint work with Barbara Grigg and Chase Wilson"
 format:
   revealjs:
     scrollable: true
@@ -97,7 +97,7 @@ $\eta \in \mathbb{R}^d$ where $d \in \{2, 4\}$. Use scipy and ~~Bridgestan~~ ~~J
 * trust-{ncg, krylov, exact}
 * ?
 
-## generate $Q(\eta^*)$
+## generate $\xi^*$ from $Q(\eta^*)$
 
 * independent draw from $Q(\eta^*)$
 * Radford Neal's [Ordered over-relaxation](https://arxiv.org/pdf/bayes-an/9506004)
@@ -107,8 +107,8 @@ $\eta \in \mathbb{R}^d$ where $d \in \{2, 4\}$. Use scipy and ~~Bridgestan~~ ~~J
 
 * learn $\Sigma$ during warmup
   - $\rho \sim \text{Normal}(\mathbf{0}_D, \Sigma)$
-* learn $J$ PCAs/eigenvectors $\mathbf{v}_j \in \mathbb{R}^D$ and values $\lambda_j$ during warmup
-  - $j' \sim \text{Multinoulli}\left(\{ 1,\ldots, J \}, \mathbf{p} = \frac{\mathbf{\lambda}}{\sum_{j=1}^J \lambda_j}\right)$
+* [learn $J$ PCAs](https://www.cse.msu.edu/~weng/research/CCIPCApami.pdf)/eigenvectors $\mathbf{v}_j \in \mathbb{R}^D$ and values $\lambda_j$ during warmup
+  - $j' \sim \text{Multinoulli}\left(\{1,\ldots, J \}, \mathbf{p} = \frac{\mathbf{\lambda}}{\sum_{j=1}^J \lambda_j}\right)$
     $\rho \sim \text{Normal}(\mathbf{v}_{j'}, \Sigma)$; or
   - $\rho \sim \text{Normal}\left(\sum_{j=1}^J \lambda_j \mathbf{v}_j, \Sigma\right)$
 * ?

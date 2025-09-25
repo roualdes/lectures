@@ -763,18 +763,18 @@
     "text": "minimize \\(L(\\eta)\\)\n\\(\\eta \\in \\mathbb{R}^d\\) where \\(d \\in \\{2, 4\\}\\). Use scipy and Bridgestan JAX Bridgestan\n\nBFGS\ntrust-{ncg, krylov, exact}\n?"
   },
   {
-    "objectID": "misc/klhr/main.html#generate-qeta",
-    "href": "misc/klhr/main.html#generate-qeta",
+    "objectID": "misc/klhr/main.html#generate-xi-from-qeta",
+    "href": "misc/klhr/main.html#generate-xi-from-qeta",
     "title": "KLHR Sampler",
-    "section": "generate \\(Q(\\eta^*)\\)",
-    "text": "generate \\(Q(\\eta^*)\\)\n\nindependent draw from \\(Q(\\eta^*)\\)\nRadford Neal’s Ordered over-relaxation\n?"
+    "section": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)",
+    "text": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)\n\nindependent draw from \\(Q(\\eta^*)\\)\nRadford Neal’s Ordered over-relaxation\n?"
   },
   {
     "objectID": "misc/klhr/main.html#generate-random-direction-rho",
     "href": "misc/klhr/main.html#generate-random-direction-rho",
     "title": "KLHR Sampler",
     "section": "generate random direction \\(\\rho\\)",
-    "text": "generate random direction \\(\\rho\\)\n\nlearn \\(\\Sigma\\) during warmup\n\n\\(\\rho \\sim \\text{Normal}(\\mathbf{0}_D, \\Sigma)\\)\n\nlearn \\(J\\) PCAs/eigenvectors \\(\\mathbf{v}_j \\in \\mathbb{R}^D\\) and values \\(\\lambda_j\\) during warmup\n\n\\(j' \\sim \\text{Multinoulli}\\left(\\{ 1,\\ldots, J \\}, \\mathbf{p} = \\frac{\\mathbf{\\lambda}}{\\sum_{j=1}^J \\lambda_j}\\right)\\) \\(\\rho \\sim \\text{Normal}(\\mathbf{v}_{j'}, \\Sigma)\\); or\n\\(\\rho \\sim \\text{Normal}\\left(\\sum_{j=1}^J \\lambda_j \\mathbf{v}_j, \\Sigma\\right)\\)\n\n?"
+    "text": "generate random direction \\(\\rho\\)\n\nlearn \\(\\Sigma\\) during warmup\n\n\\(\\rho \\sim \\text{Normal}(\\mathbf{0}_D, \\Sigma)\\)\n\nlearn \\(J\\) PCAs/eigenvectors \\(\\mathbf{v}_j \\in \\mathbb{R}^D\\) and values \\(\\lambda_j\\) during warmup\n\n\\(j' \\sim \\text{Multinoulli}\\left(\\{1,\\ldots, J \\}, \\mathbf{p} = \\frac{\\mathbf{\\lambda}}{\\sum_{j=1}^J \\lambda_j}\\right)\\) \\(\\rho \\sim \\text{Normal}(\\mathbf{v}_{j'}, \\Sigma)\\); or\n\\(\\rho \\sim \\text{Normal}\\left(\\sum_{j=1}^J \\lambda_j \\mathbf{v}_j, \\Sigma\\right)\\)\n\n?"
   },
   {
     "objectID": "misc/klhr/main.html#preliminary-results",
@@ -1614,7 +1614,7 @@
     "href": "314/binomial.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([1, 2, 3, 1, 3, 4, 3, 3, 2, 1])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)"
+    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
   },
   {
     "objectID": "314/quiz06.html",
