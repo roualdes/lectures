@@ -995,7 +995,7 @@ margin-right: 0; }
 Edward A. Roualdes 
 </div>
         <p class="quarto-title-affiliation">
-            Chico State
+            joint work with Barbara Grigg and Chase Wilson
           </p>
     </div>
 </div>
@@ -1080,8 +1080,8 @@ a &amp; = u &lt;= r \\
 <li>?</li>
 </ul>
 </section>
-<section id="generate-qeta" class="slide level2">
-<h2>generate <span class="math inline">\(Q(\eta^*)\)</span></h2>
+<section id="generate-xi-from-qeta" class="slide level2">
+<h2>generate <span class="math inline">\(\xi^*\)</span> from <span class="math inline">\(Q(\eta^*)\)</span></h2>
 <ul>
 <li>independent draw from <span class="math inline">\(Q(\eta^*)\)</span></li>
 <li>Radford Neal’s <a href="https://arxiv.org/pdf/bayes-an/9506004">Ordered over-relaxation</a></li>
@@ -1095,9 +1095,9 @@ a &amp; = u &lt;= r \\
 <ul>
 <li><span class="math inline">\(\rho \sim \text{Normal}(\mathbf{0}_D, \Sigma)\)</span></li>
 </ul></li>
-<li>learn <span class="math inline">\(J\)</span> PCAs/eigenvectors <span class="math inline">\(\mathbf{v}_j \in \mathbb{R}^D\)</span> and values <span class="math inline">\(\lambda_j\)</span> during warmup
+<li><a href="https://www.cse.msu.edu/~weng/research/CCIPCApami.pdf">learn <span class="math inline">\(J\)</span> PCAs</a>/eigenvectors <span class="math inline">\(\mathbf{v}_j \in \mathbb{R}^D\)</span> and values <span class="math inline">\(\lambda_j\)</span> during warmup
 <ul>
-<li><span class="math inline">\(j&#39; \sim \text{Multinoulli}\left(\{ 1,\ldots, J \}, \mathbf{p} = \frac{\mathbf{\lambda}}{\sum_{j=1}^J \lambda_j}\right)\)</span> <span class="math inline">\(\rho \sim \text{Normal}(\mathbf{v}_{j&#39;}, \Sigma)\)</span>; or</li>
+<li><span class="math inline">\(j&#39; \sim \text{Multinoulli}\left(\{1,\ldots, J \}, \mathbf{p} = \frac{\mathbf{\lambda}}{\sum_{j=1}^J \lambda_j}\right)\)</span> <span class="math inline">\(\rho \sim \text{Normal}(\mathbf{v}_{j&#39;}, \Sigma)\)</span>; or</li>
 <li><span class="math inline">\(\rho \sim \text{Normal}\left(\sum_{j=1}^J \lambda_j \mathbf{v}_j, \Sigma\right)\)</span></li>
 </ul></li>
 <li>?</li>
