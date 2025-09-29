@@ -1,0 +1,93 @@
+---
+title: "Exam 01 Practice, solutions"
+author: "Edward (if the answer are right, otherwise not Edward)"
+format: html
+editor: visual
+---
+
+1.
+```{r}
+horse <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/horse_prices.csv")
+```
+
+2. observational study, because horse prices were likely not assigned by the researcher
+
+3.
+```{r}
+suppressMessages(library(dplyr))
+library(ggplot2)
+```
+
+4.
+quantitative/numeric: Price, Age, Height
+qualitative/categorical/factor: Sex
+
+5.
+explanatory: Age or Height
+response: Price
+
+6.
+```{r}
+ggplot(horse, aes(Price)) + geom_histogram(bins=11)
+```
+7.
+```{r}
+mean(horse$Price, na.rm = TRUE)
+median(horse$Price, na.rm = TRUE)
+```
+
+The histogram looks more or less symmetric, but because of the one
+potential outlier near $60,000, the mean is larger than the median.
+
+8.
+```{r}
+ggplot(horse, aes(Sex, Price)) + geom_boxplot()
+```
+
+The median horse price for male horses is higher than the female
+median price.  There is one potential outlier for the female horse
+prices.  The mean does not show up on box plots.
+
+9.
+```{r}
+horse %>%
+  group_by(Sex) %>%
+  summarize(m = mean(Price),
+            s = sd(Price),
+            n())
+```
+
+The variability in horse prices is greater for male horses, than it is
+for female horses, as is seen by the larger standard deviation of male
+horse prices.  In this dataset, there were 20 female horses and 30
+male horses.
+
+10.
+
+  a. The mean and standard deviation for dataset 2. is larger, because
+  of the relatively large value 20 pulling up the mean and the
+  standard deviation.
+
+```{r}
+x <- c(3,5,5,5,8,11,11,11,13)
+y <- c(3,5,5,5,8,11,11,11,20)
+mean(x)
+sd(x)
+mean(y)
+sd(y)
+```
+
+
+  b. The mean is smaller for dataset 2., because of the relatively
+  extreme negative value -40. However, the standard deviation is
+  larger for 2., because the -40 is further from the mean in this
+  dataset.
+
+```{r}
+x <- c(-20,0,0,0,15,25,30,30)
+y <- c(-40,0,0,0,15,25,30,30)
+mean(x)
+sd(x)
+mean(y)
+sd(y)
+```
