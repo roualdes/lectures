@@ -105,277 +105,928 @@
     "text": "import matplotlib.pyplot as plt\nimport numpy as np\n\n\nx = np.arange(6) + 1\nfx = np.ones(6) * 1/6\n\n(array([1, 2, 3, 4, 5, 6]),\n array([0.16666667, 0.16666667, 0.16666667, 0.16666667, 0.16666667,\n        0.16666667]))\n\n\n\nplt.scatter(x, fx, color = \"orange\", label = \"uniform density\")\nplt.scatter(np.arange(5) + 1, np.ones(5) / 5, label = \"other\")\nplt.ylabel(\"density\")\nplt.xlabel(\"support\")\nplt.legend()\n\n\n\n\n\n\n\n\n\nrng = np.random.default_rng()\nrng.integers(5, size = 10)\n\narray([3, 2, 3, 2, 0, 1, 3, 1, 1, 2])"
   },
   {
-    "objectID": "314/quiz04.html",
-    "href": "314/quiz04.html",
+    "objectID": "314/quiz07.html",
+    "href": "314/quiz07.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\n\ndef mean(x):\n    N = np.size(x) # x.size\n    s = 0.0\n    for i in range(N):\n        s += x[i]\n    return s / N\n\n\nrng = np.random.default_rng() # instantiating an RNG class\nx = rng.normal(size = 10) # use rng instance to generate random numbers =&gt; ndarray\nx\n\narray([ 0.53768287,  0.48044289,  0.41968892,  0.53617612,  0.12008546,\n        2.36768986,  0.17752883,  0.68915822,  0.07121943, -0.29874026])\n\n\n\nnp.isclose(mean(x), np.mean(x)) # don't == floats/doubles\n\nTrue"
+    "text": "import numpy as np\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\n\n\nm = np.mean(x)\nnp.var(x)\nnp.mean(x &gt; 2)\n\n0.02\n\n\n\nnp.mean(x), np.mean((x - m) ** 2), np.mean(x &gt; 2)\n\n(0.041916703859957584, 1.077890480291087, 0.02)"
   },
   {
-    "objectID": "314/quiz05.html",
-    "href": "314/quiz05.html",
+    "objectID": "314/quiz06.html",
+    "href": "314/quiz06.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\nNot a bad idea to solve this one in pieces/two functions.\n\ndef mean(x):\n    s = 0.0\n    N = np.size(x)\n    for n in range(N):\n        s += x[n]\n    return s / N\n\n\ndef var(x):\n    s = 0.0\n    N = np.size(x)\n    m = mean(x)\n    invN = 1 / N # minimizing division is a good idea, even if ineffective here\n    for n in range(N):\n        d = x[n] - m\n        s += d * d # multiplication is faster than powers\n    return s * invN\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\nnp.isclose(np.var(x), var(x))\n\nTrue"
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\ndef cummean(x):\n    N = np.size(x)\n    out = np.zeros(N) # np.zeros_like(x)\n    s = 0\n    for n in range(N):\n        s += x[n]\n        out[n] = s / (n + 1)\n    return out\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\n\n\nplt.plot(np.arange(100), cummean(x))"
   },
   {
-    "objectID": "314/binomial.html",
-    "href": "314/binomial.html",
+    "objectID": "314/means_expectations.html",
+    "href": "314/means_expectations.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
+    "text": "import numpy as np\n\nThe formula for a mean \\(\\frac{1}{N} \\sum_{n=1}^N x_n\\) naturally relates to the definition of an expectation\n\\[\\mathbb{E}[X] = \\sum_{x \\in S} x \\cdot f(x)\\]\nyou just have to squint.\n\n# X ~ Uniform(1, 6)\nx = np.arange(6) + 1\nfx = 1/6\n\n\nnp.sum(x * fx) # E[X]\n\n3.5\n\n\n\nrng = np.random.default_rng()\nx = rng.integers(1, 7, size = 1000000)\n\n\nnp.mean(x)\n\n3.500221\n\n\n\nnp.mean(x == 4) # proportion of x values equal to 4, estimates 1/6\n\n0.166322\n\n\nThe formula for the mean estimates the density function at each value of \\(x\\), e.g. \\(x = 4\\). As such, here are various (numerically inefficient) ways to think about the formula for a mean.\n\ns = 0\nfor i in range(1, 7): # Python for-loop\n    s += np.mean(x == i) * i # s = s + np.mean(x == i) * i\ns\n\n3.500221\n\n\n\nnp.sum([np.mean(x == i) * i for i in range(1, 7)]) # list comprehension\n\n3.500221\n\n\n\nsum(np.mean(x == i) * i for i in range(1, 7)) # generator\n\n3.500221\n\n\n\np = np.zeros(6)\nN = np.size(x)\nfor xi in x:\n    p[xi-1] += 1 / N\nnp.sum(np.arange(1, 7) * p) \n# we should be able to re-use variables from above to simplify this, but I used x for both\n# the random numbers and the values in the support of the Uniform(1, 6) distribution.\n# For shame, Edward.\n\n3.500221000003066"
   },
   {
-    "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
-    "href": "315/plottingData/main.html#visualizing-categorical-variables",
-    "title": "Plotting Data",
-    "section": "Visualizing Categorical Variables",
-    "text": "Visualizing Categorical Variables\nWith categorial data we can make bar charts.\n\n\nCode\nsuppressMessages(library(tidyverse))\nsuppressMessages(library(openintro))\ndata(email)\nggplot(data = email, aes(number)) +\n    geom_bar() +\n    labs(title = \"email 'Number' Frequency\")"
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "",
+    "section": "",
+    "text": "Code\n\n\n\n\nLectures by Edward A. Roualdes"
   },
   {
-    "objectID": "315/plottingData/main.html#county",
-    "href": "315/plottingData/main.html#county",
-    "title": "Plotting Data",
-    "section": "county",
-    "text": "county\nRecall the county data set? How big?\n\n\nCode\ndata(county)\ntail(county[, c(\"state\", \"name\")])\n\n\n# A tibble: 6 × 2\n  state   name             \n  &lt;fct&gt;   &lt;chr&gt;            \n1 Wyoming Sublette County  \n2 Wyoming Sweetwater County\n3 Wyoming Teton County     \n4 Wyoming Uinta County     \n5 Wyoming Washakie County  \n6 Wyoming Weston County"
+    "objectID": "315/exams/exam01practice.html",
+    "href": "315/exams/exam01practice.html",
+    "title": "Exam 01 Practice, solutions",
+    "section": "",
+    "text": "horse &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/horse_prices.csv\")\n\n\nobservational study, because horse prices were likely not assigned by the researcher\n\n\n\nsuppressMessages(library(dplyr))\nlibrary(ggplot2)\n\n\nquantitative/numeric: Price, Age, Height qualitative/categorical/factor: Sex\nexplanatory: Age or Height response: Price\n\n\n\nggplot(horse, aes(Price)) + geom_histogram(bins=11)\n\n\n\n\n\n\n\n\n\n\n\n\nmean(horse$Price, na.rm = TRUE)\n\n[1] 26840\n\nmedian(horse$Price, na.rm = TRUE)\n\n[1] 25000\n\n\nThe histogram looks more or less symmetric, but because of the one potential outlier near $60,000, the mean is larger than the median.\n\n\n\n\nggplot(horse, aes(Sex, Price)) + geom_boxplot()\n\n\n\n\n\n\n\n\nThe median horse price for male horses is higher than the female median price. There is one potential outlier for the female horse prices. The mean does not show up on box plots.\n\n\n\n\nhorse %&gt;%\n  group_by(Sex) %&gt;%\n  summarize(m = mean(Price),\n            s = sd(Price),\n            n())\n\n# A tibble: 2 × 4\n  Sex       m      s `n()`\n  &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;\n1 f     16505 11043.    20\n2 m     33730 13285.    30\n\n\nThe variability in horse prices is greater for male horses, than it is for female horses, as is seen by the larger standard deviation of male horse prices. In this dataset, there were 20 female horses and 30 male horses.\n\n\n\n\nThe mean and standard deviation for dataset 2. is larger, because of the relatively large value 20 pulling up the mean and the standard deviation.\n\n\nx &lt;- c(3,5,5,5,8,11,11,11,13)\ny &lt;- c(3,5,5,5,8,11,11,11,20)\nmean(x)\n\n[1] 8\n\nsd(x)\n\n[1] 3.605551\n\nmean(y)\n\n[1] 8.777778\n\nsd(y)\n\n[1] 5.214829\n\n\n\nThe mean is smaller for dataset 2., because of the relatively extreme negative value -40. However, the standard deviation is larger for 2., because the -40 is further from the mean in this dataset.\n\n\nx &lt;- c(-20,0,0,0,15,25,30,30)\ny &lt;- c(-40,0,0,0,15,25,30,30)\nmean(x)\n\n[1] 10\n\nsd(x)\n\n[1] 17.92843\n\nmean(y)\n\n[1] 7.5\n\nsd(y)\n\n[1] 23.29929"
   },
   {
-    "objectID": "315/plottingData/main.html#county-1",
-    "href": "315/plottingData/main.html#county-1",
-    "title": "Plotting Data",
-    "section": "county",
-    "text": "county\nFrequency table of county data.\n\n\nCode\ntable(county$state)\n\n\n\n             Alabama               Alaska              Arizona \n                  67                   29                   15 \n            Arkansas           California             Colorado \n                  75                   58                   64 \n         Connecticut             Delaware District of Columbia \n                   8                    3                    1 \n             Florida              Georgia               Hawaii \n                  67                  159                    5 \n               Idaho             Illinois              Indiana \n                  44                  102                   92 \n                Iowa               Kansas             Kentucky \n                  99                  105                  120 \n           Louisiana                Maine             Maryland \n                  64                   16                   24 \n       Massachusetts             Michigan            Minnesota \n                  14                   83                   87 \n         Mississippi             Missouri              Montana \n                  82                  115                   56 \n            Nebraska               Nevada        New Hampshire \n                  93                   17                   10 \n          New Jersey           New Mexico             New York \n                  21                   33                   62 \n      North Carolina         North Dakota                 Ohio \n                 100                   53                   88 \n            Oklahoma               Oregon         Pennsylvania \n                  77                   36                   67 \n        Rhode Island       South Carolina         South Dakota \n                   5                   46                   66 \n           Tennessee                Texas                 Utah \n                  95                  254                   29 \n             Vermont             Virginia           Washington \n                  14                  133                   39 \n       West Virginia            Wisconsin              Wyoming \n                  55                   72                   23"
+    "objectID": "315/randomVariables/main.html#recap-best-guesses",
+    "href": "315/randomVariables/main.html#recap-best-guesses",
+    "title": "Random Variables",
+    "section": "recap: best guesses",
+    "text": "recap: best guesses\nSample statistics are best guesses about characterstics of the population; we estiamte unknown population parameters with sample statistics, respectively.\n\n\n\nPopulation Parameter\nSample Statistic\n\n\n\n\n\\(\\mu\\)\n\\(\\bar{x}\\)\n\n\n\\(\\sigma, s\\)\n\\(\\hat{\\sigma}, \\hat{s}\\)\n\n\n\\(\\sigma^2, v\\)\n\\(\\hat{\\sigma}^2, \\hat{v}\\)\n\n\n\\(p\\)\n\\(\\hat{p}\\)\n\n\n…\n…"
   },
   {
-    "objectID": "315/plottingData/main.html#county-2",
-    "href": "315/plottingData/main.html#county-2",
-    "title": "Plotting Data",
-    "section": "county",
-    "text": "county\nBar chart of county data.\n\n\nCode\n(pl &lt;- ggplot(data = county, aes(state)) +\n     geom_bar() +\n     labs(title = \"?\", x = \"States\"))"
+    "objectID": "315/randomVariables/main.html#distributions-proportions-from-histogram",
+    "href": "315/randomVariables/main.html#distributions-proportions-from-histogram",
+    "title": "Random Variables",
+    "section": "Distributions, proportions from histogram",
+    "text": "Distributions, proportions from histogram\nWe can use a sample (visualized as a histogram) to estimate the proportion of people\n\nbetween 180 and 190cm tall, or\ntaller than 220cm,\nshorter than 201cm."
   },
   {
-    "objectID": "315/plottingData/main.html#county-3",
-    "href": "315/plottingData/main.html#county-3",
-    "title": "Plotting Data",
-    "section": "county",
-    "text": "county\n\n\nCode\npl + theme(axis.text.x = element_text(angle = 45,\n    hjust=1))"
+    "objectID": "315/randomVariables/main.html#distributions-proprotions-from-histogram",
+    "href": "315/randomVariables/main.html#distributions-proprotions-from-histogram",
+    "title": "Random Variables",
+    "section": "Distributions, proprotions from histogram",
+    "text": "Distributions, proprotions from histogram\nProportion of sample between 180 and 190cm tall?\n\\(\\frac{\\text{# people between 180 and 190}}{n} =\\) 0.3411"
   },
   {
-    "objectID": "315/plottingData/main.html#towards-histograms",
-    "href": "315/plottingData/main.html#towards-histograms",
-    "title": "Plotting Data",
-    "section": "Towards Histograms",
-    "text": "Towards Histograms\nWhat do we give up by finding a mean? Consider county\n\n\nCode\nmean(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 26093.12\n\n\nCode\nmin(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 10466.84\n\n\nCode\nmax(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 69532.86"
+    "objectID": "315/randomVariables/main.html#distributions-connecting-to-histograms",
+    "href": "315/randomVariables/main.html#distributions-connecting-to-histograms",
+    "title": "Random Variables",
+    "section": "Distributions, connecting to histograms",
+    "text": "Distributions, connecting to histograms\nWe are still estimating things about the popluation. Now we are estimating proportions between two numbers, instead of where the distribution is centered (\\(\\mu\\)) or how wide the distribution is (\\(\\sigma\\))."
   },
   {
-    "objectID": "315/plottingData/main.html#histograms",
-    "href": "315/plottingData/main.html#histograms",
-    "title": "Plotting Data",
-    "section": "Histograms",
-    "text": "Histograms\nA histogram helps summarize tails of the data:\n\n\nCode\n(p &lt;- ggplot(data = county, aes(per_capita_income)) +\n     geom_histogram(bins = 21) +\n     labs(x = \"Per capita income\"))"
+    "objectID": "315/randomVariables/main.html#distributions-in-simple-language",
+    "href": "315/randomVariables/main.html#distributions-in-simple-language",
+    "title": "Random Variables",
+    "section": "Distributions, in simple language",
+    "text": "Distributions, in simple language\nDistributions are the population analogue to histograms, just as \\(\\mu\\) is the population analogue to \\(\\bar{X}\\). Distributions are mathematical descriptions of populations, defined by a function that has a measure of center \\(\\mu\\) and a measure of spread \\(\\sigma\\)."
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-in-words",
-    "href": "315/plottingData/main.html#histograms-in-words",
-    "title": "Plotting Data",
-    "section": "Histograms, in words",
-    "text": "Histograms, in words\nThink of each observation as belonging to a bin. These binned observations are plotted as bars to form a histogram. That is, the height of each bar depicts the number of observations within each bin.\n\nThe county$per_capita_income data has data from $10,466.84 up to $69,532.86. Setting binwidth = 1800 creates bins of width 1,800 and places the appropriate observations in each. Observations on the boundary of a bin are allocated to the lower bin."
+    "objectID": "315/randomVariables/main.html#distributions-an-example",
+    "href": "315/randomVariables/main.html#distributions-an-example",
+    "title": "Random Variables",
+    "section": "Distributions, an example",
+    "text": "Distributions, an example\nWe often model adult male heights with a continuous distribution. Simplified, this means we draw a curve over a histogram with decreasing binwidths of an infinite set heights."
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-picking-bins",
-    "href": "315/plottingData/main.html#histograms-picking-bins",
-    "title": "Plotting Data",
-    "section": "Histograms, picking bins",
-    "text": "Histograms, picking bins\nSince the researcher has to choose the bin width, we should learn the difference between bins that are too small and bins that are too wide."
+    "objectID": "315/randomVariables/main.html#distributions-an-example-1",
+    "href": "315/randomVariables/main.html#distributions-an-example-1",
+    "title": "Random Variables",
+    "section": "Distributions, an example",
+    "text": "Distributions, an example"
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-too-many",
-    "href": "315/plottingData/main.html#histograms-too-many",
-    "title": "Plotting Data",
-    "section": "Histograms, too many",
-    "text": "Histograms, too many\nExtremely small bins\n\n\nCode\nggplot(data = county, aes(per_capita_income)) +\n    geom_histogram(binwidth = 3) +\n    labs(x = \"Per capita income\")"
+    "objectID": "315/randomVariables/main.html#distributions-an-example-2",
+    "href": "315/randomVariables/main.html#distributions-an-example-2",
+    "title": "Random Variables",
+    "section": "Distributions, an example",
+    "text": "Distributions, an example"
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-too-few",
-    "href": "315/plottingData/main.html#histograms-too-few",
-    "title": "Plotting Data",
-    "section": "Histograms, too few",
-    "text": "Histograms, too few\nExtremely large bins\n\n\nCode\nggplot(data = county, aes(per_capita_income)) +\n    geom_histogram(binwidth = 80000) +\n    labs(x = \"Per capita income\")"
+    "objectID": "315/randomVariables/main.html#distributions-an-example-3",
+    "href": "315/randomVariables/main.html#distributions-an-example-3",
+    "title": "Random Variables",
+    "section": "Distributions, an example",
+    "text": "Distributions, an example"
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-by-group",
-    "href": "315/plottingData/main.html#histograms-by-group",
-    "title": "Plotting Data",
-    "section": "Histograms, by group",
-    "text": "Histograms, by group\nCompare chicken weights by diet.\n\n\nCode\nggplot(data=ChickWeight, aes(weight)) +\n    geom_histogram(bins = 21) +\n    facet_wrap(Diet ~ ., ncol = 1)"
+    "objectID": "315/randomVariables/main.html#distributions-an-example-4",
+    "href": "315/randomVariables/main.html#distributions-an-example-4",
+    "title": "Random Variables",
+    "section": "Distributions, an example",
+    "text": "Distributions, an example\nWithout a sample, we hypothesize the (population) distribution of heights to have a nice mathematical form."
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-keywords",
-    "href": "315/plottingData/main.html#histograms-keywords",
-    "title": "Plotting Data",
-    "section": "Histograms, keywords",
-    "text": "Histograms, keywords\n\nright skewed. When data trail to the right and have a longer right tail, the shape is said to be right skewed.\nleft skewed. Data with the reverse characteristic – a long, thin tail to the left – are said to be left skewed.\nsymmetric. Data that show roughly equal tails in both directions are called symmetric."
+    "objectID": "315/randomVariables/main.html#continuous-distribution",
+    "href": "315/randomVariables/main.html#continuous-distribution",
+    "title": "Random Variables",
+    "section": "Continuous Distribution",
+    "text": "Continuous Distribution\nThis smooth curve represents a probability density function (also called a density or distribution). The toal area under the density function is equal to 1."
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-and-measures-of-center",
-    "href": "315/plottingData/main.html#histograms-and-measures-of-center",
-    "title": "Plotting Data",
-    "section": "Histograms, and measures of center",
-    "text": "Histograms, and measures of center\nWhere is the mean on a histogram? Median?\n\n\nCode\nmn &lt;- mean(county$per_capita_income, na.rm = TRUE)\nmdn &lt;- median(county$per_capita_income, na.rm = TRUE)\np + geom_vline(aes(xintercept=mn), color=\"red\", size=1) +\n    geom_vline(aes(xintercept=mdn), color=\"blue\", size=1)"
+    "objectID": "315/randomVariables/main.html#distributions-probability",
+    "href": "315/randomVariables/main.html#distributions-probability",
+    "title": "Random Variables",
+    "section": "Distributions, probability",
+    "text": "Distributions, probability\nWhat is the probability that a randomly selected adult is between 180 and 190cm tall?\n\\(P(180 &lt; X &lt; 190) =\\) 0.3413"
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-they-tell-us-more",
-    "href": "315/plottingData/main.html#histograms-they-tell-us-more",
-    "title": "Plotting Data",
-    "section": "Histograms, they tell us more",
-    "text": "Histograms, they tell us more\nWhat more, other than the center of the data, do histograms tell us? Consider a histogram from the email data set.\n\n\nCode\nem &lt;- mean(email$num_char)\nggplot(data=email, aes(num_char)) +\n    geom_histogram(bins = 21) +\n    geom_vline(aes(xintercept = em), color = \"blue\")"
+    "objectID": "315/randomVariables/main.html#distributions-sample-estimates-population",
+    "href": "315/randomVariables/main.html#distributions-sample-estimates-population",
+    "title": "Random Variables",
+    "section": "Distributions, sample estimates population",
+    "text": "Distributions, sample estimates population\nThe proportion of people within the sample in between 180cm and 190cm 0.3411 is a close estimate of the population probability that a randomly chosen person is between those same heights 0.3413."
   },
   {
-    "objectID": "315/plottingData/main.html#histograms-an-ideal",
-    "href": "315/plottingData/main.html#histograms-an-ideal",
-    "title": "Plotting Data",
-    "section": "Histograms, an ideal",
-    "text": "Histograms, an ideal"
+    "objectID": "315/randomVariables/main.html#distributions-proprotions-from-histogram-1",
+    "href": "315/randomVariables/main.html#distributions-proprotions-from-histogram-1",
+    "title": "Random Variables",
+    "section": "Distributions, proprotions from histogram",
+    "text": "Distributions, proprotions from histogram\nProportion of sample less than 201?\n\\(\\frac{\\# \\text{people} &lt; 201}{n} =\\) 0.8641"
   },
   {
-    "objectID": "315/plottingData/main.html#data-width-1-standard-deviation",
-    "href": "315/plottingData/main.html#data-width-1-standard-deviation",
-    "title": "Plotting Data",
-    "section": "Data Width, 1 standard deviation",
-    "text": "Data Width, 1 standard deviation\nHistograms naturally connect with standard deviations. If the data are unimodal (ish) and symmetric (ish), roughly 68% of the data will be within one standard deviation of the mean."
+    "objectID": "315/randomVariables/main.html#distributions-probability-1",
+    "href": "315/randomVariables/main.html#distributions-probability-1",
+    "title": "Random Variables",
+    "section": "Distributions, probability",
+    "text": "Distributions, probability\nWhat is the probability that a randomly selected adult is shorter than 201?\n\\(P(X &lt; 201) =\\) 0.864"
   },
   {
-    "objectID": "315/plottingData/main.html#data-width-2-standard-deviations",
-    "href": "315/plottingData/main.html#data-width-2-standard-deviations",
-    "title": "Plotting Data",
-    "section": "Data Width, 2 standard deviations",
-    "text": "Data Width, 2 standard deviations\nIf the data are unimodal (ish) and symmetric (ish), roughly 95% of the data will be within two standard deviations of the mean."
+    "objectID": "315/randomVariables/main.html#distributions-sample-estimates-population-1",
+    "href": "315/randomVariables/main.html#distributions-sample-estimates-population-1",
+    "title": "Random Variables",
+    "section": "Distributions, sample estimates population",
+    "text": "Distributions, sample estimates population\nAgain, the proportion of people within the sample that are shorter than 201cm 0.8641 is a close estimate of the population probability that a randomly chosen person is shorter than \\(201\\)cm 0.864."
   },
   {
-    "objectID": "315/plottingData/main.html#data-width-3-standard-deviations",
-    "href": "315/plottingData/main.html#data-width-3-standard-deviations",
-    "title": "Plotting Data",
-    "section": "Data Width, 3 standard deviations",
-    "text": "Data Width, 3 standard deviations\nIf the data are unimodal (ish) and symmetric (ish), roughly 99.7% of the data will be within three standard deviations of the mean."
+    "objectID": "315/randomVariables/main.html#distributions-population-known",
+    "href": "315/randomVariables/main.html#distributions-population-known",
+    "title": "Random Variables",
+    "section": "Distributions, population known?",
+    "text": "Distributions, population known?\nThough, there is something odd going on. We’ve assumed we know the population distribution; it’s shape, it’s mean, and it’s standard deviation."
   },
   {
-    "objectID": "315/plottingData/main.html#standard-deviations-be-careful",
-    "href": "315/plottingData/main.html#standard-deviations-be-careful",
-    "title": "Plotting Data",
-    "section": "Standard Deviations, be careful",
-    "text": "Standard Deviations, be careful\nThree different population distributions with the same (population) mean \\(\\mu\\) = 0 and (population) standard deviation \\(\\sigma = 1\\)."
+    "objectID": "315/randomVariables/main.html#distributions-in-practice",
+    "href": "315/randomVariables/main.html#distributions-in-practice",
+    "title": "Random Variables",
+    "section": "Distributions, in practice",
+    "text": "Distributions, in practice\nIn practice, we don’t and won’t know the population distribution. Nevertheless, we can learn things about it via a sample. Soon we’ll find out that this lack of knowledge about the population, really just doesn’t matter."
   },
   {
-    "objectID": "315/plottingData/main.html#towards-box-plots",
-    "href": "315/plottingData/main.html#towards-box-plots",
-    "title": "Plotting Data",
-    "section": "Towards Box plots",
-    "text": "Towards Box plots\nWe will use the data set carnivora found within the library ape.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\n# ?carnivora"
+    "objectID": "315/randomVariables/main.html#random-variables-an-example",
+    "href": "315/randomVariables/main.html#random-variables-an-example",
+    "title": "Random Variables",
+    "section": "Random Variables, an example",
+    "text": "Random Variables, an example\nContinuing our height example: in the case of randomly selected individuals and their height, the random variable \\(X\\) is the height of an unknown (to be randomly selected) individual."
   },
   {
-    "objectID": "315/plottingData/main.html#recap-summary-statistics",
-    "href": "315/plottingData/main.html#recap-summary-statistics",
-    "title": "Plotting Data",
-    "section": "recap: summary statistics",
-    "text": "recap: summary statistics\nR will fairly easily produce six number summaries for us. Here’s the variable for average brain weight amongst male and female animals from the order Carnivora.\n\n\nCode\nsummary(carnivora$SB)\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   15.68   33.75   56.43   57.17  459.50"
+    "objectID": "315/randomVariables/main.html#random-variables-an-example-1",
+    "href": "315/randomVariables/main.html#random-variables-an-example-1",
+    "title": "Random Variables",
+    "section": "Random Variables, an example",
+    "text": "Random Variables, an example\nIn this example, the random variable is an adult’s height. Since we don’t yet know how tall a to be randomly selected adult is, we denote the to be determined value by \\(X\\). Once we observe the variable’s outcome, we write the value of the adult as \\(x\\)."
   },
   {
-    "objectID": "315/plottingData/main.html#box-plots",
-    "href": "315/plottingData/main.html#box-plots",
-    "title": "Plotting Data",
-    "section": "Box Plots",
-    "text": "Box Plots\nA box plot summarizes a data set using five (standard) statistics while also plotting unusual observations."
+    "objectID": "315/randomVariables/main.html#random-variables-definition",
+    "href": "315/randomVariables/main.html#random-variables-definition",
+    "title": "Random Variables",
+    "section": "Random Variables, definition",
+    "text": "Random Variables, definition\nA random process or variable with a numerical outcome, see OS4 Section 3.4.1."
   },
   {
-    "objectID": "315/plottingData/main.html#box-plot-explained",
-    "href": "315/plottingData/main.html#box-plot-explained",
-    "title": "Plotting Data",
-    "section": "Box Plot, explained",
-    "text": "Box Plot, explained"
+    "objectID": "315/randomVariables/main.html#random-variables-note",
+    "href": "315/randomVariables/main.html#random-variables-note",
+    "title": "Random Variables",
+    "section": "Random Variables, note",
+    "text": "Random Variables, note\nEach random variable has a distribution function that describes the form of the random variable. Tying the pieces together, we say that each random variable (via its distribution function) has a measure of center \\(\\mu\\) and a measure of spread \\(\\sigma\\)."
   },
   {
-    "objectID": "315/plottingData/main.html#box-plot-carnivora-example",
-    "href": "315/plottingData/main.html#box-plot-carnivora-example",
-    "title": "Plotting Data",
-    "section": "Box Plot, carnivora example",
-    "text": "Box Plot, carnivora example\n\n\nCode\nggplot(data = carnivora, aes(Order, SB)) +\n    geom_boxplot() +\n    labs(y = \"Average brain weight (g)\",\n         x = \"Order\")"
+    "objectID": "315/randomVariables/main.html#uniform-distribution",
+    "href": "315/randomVariables/main.html#uniform-distribution",
+    "title": "Random Variables",
+    "section": "Uniform Distribution",
+    "text": "Uniform Distribution\nThe discrete uniform distribution is the simplest of discrete distributions. We write \\(X \\sim U(a, b)\\), meaning the random variable \\(X\\) is distributed uniformly on the interval \\([a, b]\\)."
   },
   {
-    "objectID": "315/plottingData/main.html#box-plot-better-carnivora-example",
-    "href": "315/plottingData/main.html#box-plot-better-carnivora-example",
-    "title": "Plotting Data",
-    "section": "Box Plot, better carnivora example",
-    "text": "Box Plot, better carnivora example\nHave you seen some of the families in carnivora? From adorable, Ailuridae, to huge, Ursidae.\n\n\nCode\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(x = \"Family\", y = \"Average brain weight (g)\")"
+    "objectID": "315/randomVariables/main.html#uniform-distribution-example",
+    "href": "315/randomVariables/main.html#uniform-distribution-example",
+    "title": "Random Variables",
+    "section": "Uniform Distribution, example",
+    "text": "Uniform Distribution, example\nThe canonical example is die rolling. If we let the random process of die rolling be denoted by \\(X\\), then \\(X \\sim U(1, 6)\\)."
   },
   {
-    "objectID": "315/plottingData/main.html#towards-scatter-plots",
-    "href": "315/plottingData/main.html#towards-scatter-plots",
-    "title": "Plotting Data",
-    "section": "Towards scatter plots",
-    "text": "Towards scatter plots\nThe most common bivariate plot is the scatter plot.\nA scatterplot provides a case-by-case view of data for two numerical variables."
+    "objectID": "315/randomVariables/main.html#bernoulli-distribution-motivation-i",
+    "href": "315/randomVariables/main.html#bernoulli-distribution-motivation-i",
+    "title": "Random Variables",
+    "section": "Bernoulli Distribution, motivation I",
+    "text": "Bernoulli Distribution, motivation I\nSuppose you work for the IRS and you are interested in the probability that a randomly selected tax payer is attempting to commit fraud on their tax return. So you and your boss decide to test this. From a sample of 900 tax payers, you perform an in depth search through each of the 900 tax forms."
   },
   {
-    "objectID": "315/plottingData/main.html#scatterplot-carnivora-example",
-    "href": "315/plottingData/main.html#scatterplot-carnivora-example",
-    "title": "Plotting Data",
-    "section": "Scatterplot, carnivora example",
-    "text": "Scatterplot, carnivora example\n\n\nCode\nggplot(data = carnivora, aes(SW, SB)) +\n    geom_point() +\n    labs(x = \"Average body weight (kg)\",\n         y = \"Average brain weight (g)\")"
+    "objectID": "315/randomVariables/main.html#bernoulli-distribution-motivation-ii",
+    "href": "315/randomVariables/main.html#bernoulli-distribution-motivation-ii",
+    "title": "Random Variables",
+    "section": "Bernoulli Distribution, motivation II",
+    "text": "Bernoulli Distribution, motivation II\nSuppose you want to know the frequency of a dominant gene, say A, in a population1. You draw 50 members of the population at random and find that 12 of them display the dominant phenotype.\nWe assume that the population is sufficiently large that removing 50 individuals is without effect and that the population is in Hardy-Weinberg equilibrium."
   },
   {
-    "objectID": "315/plottingData/main.html#scatter-plots-keywords",
-    "href": "315/plottingData/main.html#scatter-plots-keywords",
-    "title": "Plotting Data",
-    "section": "Scatter plots, keywords",
-    "text": "Scatter plots, keywords\n\nassociated. When two variables show some connection with one another, they are called associated variables.\nindependent. If two variables are not associated, then they are said to be independent."
+    "objectID": "315/randomVariables/main.html#bernoulli-distribution-motivation-iii",
+    "href": "315/randomVariables/main.html#bernoulli-distribution-motivation-iii",
+    "title": "Random Variables",
+    "section": "Bernoulli Distribution, motivation III",
+    "text": "Bernoulli Distribution, motivation III\nYou are interested in calculating the average G/C fraction of Human genomic DNA across the whole genome. You sample \\(50\\) individuals, sequence their genome …"
   },
   {
-    "objectID": "315/plottingData/main.html#scatter-plots-keywords-1",
-    "href": "315/plottingData/main.html#scatter-plots-keywords-1",
-    "title": "Plotting Data",
-    "section": "Scatter plots, keywords",
-    "text": "Scatter plots, keywords\nDirection of association can be described as\n\npositive association. When two variables have an upward/positive trend, they are called positively associated.\nnegative association. When two variables have a downward/negative trend, they are called negatively associated."
+    "objectID": "315/randomVariables/main.html#bernoulli-distribution-introduction",
+    "href": "315/randomVariables/main.html#bernoulli-distribution-introduction",
+    "title": "Random Variables",
+    "section": "Bernoulli Distribution, introduction",
+    "text": "Bernoulli Distribution, introduction\nNotice what is common to all of these scenarios\n\nrandom variable has just two outcomes: “success” or “failure”\n\ncommit fraud or not, dominant or not, G/C base or not\n\nindependent trials\n\nyour not paying taxes does not (necessarily) determine your neighbor’s willingness to pay taxes, …, G/C base here does not dictate next base\n\nprobability of “success,” \\(p\\), stays the same\n\nBill through Ted have 0.62% chance of commiting fraud, …, dominant gene A shows with frequency of 0.1"
   },
   {
-    "objectID": "315/plottingData/main.html#scatter-plots-keywords-2",
-    "href": "315/plottingData/main.html#scatter-plots-keywords-2",
-    "title": "Plotting Data",
-    "section": "Scatter plots, keywords",
-    "text": "Scatter plots, keywords\nStructure of association can be described as linear or non-linear."
+    "objectID": "315/randomVariables/main.html#bernoulli-distribution-more-formally",
+    "href": "315/randomVariables/main.html#bernoulli-distribution-more-formally",
+    "title": "Random Variables",
+    "section": "Bernoulli Distribution, more formally",
+    "text": "Bernoulli Distribution, more formally\nThe Bernoulli distribution describes the probability of seeing a successes, calculated from \\(n\\) independent trials with probability of a success \\(p\\)."
   },
   {
-    "objectID": "315/plottingData/main.html#scatter-plot-indometh-example",
-    "href": "315/plottingData/main.html#scatter-plot-indometh-example",
-    "title": "Plotting Data",
-    "section": "Scatter plot, Indometh example",
-    "text": "Scatter plot, Indometh example\n\n\nCode\nlibrary(datasets)\n# ?Indometh\nggplot(data = Indometh, aes(time, conc)) +\n    geom_point()"
+    "objectID": "315/randomVariables/main.html#bernoulli-distribution-conditions-met",
+    "href": "315/randomVariables/main.html#bernoulli-distribution-conditions-met",
+    "title": "Random Variables",
+    "section": "Bernoulli Distribution, conditions met?",
+    "text": "Bernoulli Distribution, conditions met?\nLet’s discuss: suppose you work for the IRS and you are interested in the probability that a randomly selected tax payer is attempting to commit fraud on their tax return. So you and your boss decide to test this. From a sample of 900 tax payers, you perform an in depth search through each of the 900 tax forms."
   },
   {
-    "objectID": "315/plottingData/main.html#scatter-plot-co2-example",
-    "href": "315/plottingData/main.html#scatter-plot-co2-example",
-    "title": "Plotting Data",
-    "section": "Scatter plot, CO2 example",
-    "text": "Scatter plot, CO2 example\n\n\nCode\n# ?CO2\nggplot(data = CO2, aes(conc, uptake, colour = Type)) +\n    geom_point()"
+    "objectID": "315/randomVariables/main.html#binomial-distribution",
+    "href": "315/randomVariables/main.html#binomial-distribution",
+    "title": "Random Variables",
+    "section": "Binomial Distribution",
+    "text": "Binomial Distribution\nIf we can estimate \\(p\\) from a sample of Bernoulli random variables, we can then answer questions of the sort\n\nWhat is the probability that 3 of the next 9 tax forms are found to be fradulent?\nWhat is the probability that 20 of 50 randomly sampled individuals will display the dominant phenotype?\n…"
   },
   {
-    "objectID": "315/plottingData/main.html#scatter-plots-careful",
-    "href": "315/plottingData/main.html#scatter-plots-careful",
-    "title": "Plotting Data",
-    "section": "Scatter plots, careful",
-    "text": "Scatter plots, careful\n\n\nCode\n# x: Australian residents, quarterly 03/1971 - 03/1994\n# y: WI beaver body temps, 10 min intervals\ndf &lt;- data.frame(x = as.vector(austres),\n                 y = beaver1[1:length(austres), \"temp\"])\nggplot(data = df, aes(x, y)) +\n    geom_point()"
+    "objectID": "315/randomVariables/main.html#binomial-distribution-1",
+    "href": "315/randomVariables/main.html#binomial-distribution-1",
+    "title": "Random Variables",
+    "section": "Binomial Distribution",
+    "text": "Binomial Distribution"
   },
   {
-    "objectID": "315/plottingData/main.html#for-fun",
-    "href": "315/plottingData/main.html#for-fun",
-    "title": "Plotting Data",
-    "section": "for fun",
-    "text": "for fun\n\nhttps://xkcd.com/552/"
+    "objectID": "315/randomVariables/main.html#normal-distribution",
+    "href": "315/randomVariables/main.html#normal-distribution",
+    "title": "Random Variables",
+    "section": "Normal Distribution",
+    "text": "Normal Distribution\nThe normal distribution is ubiquitous in statistics."
   },
   {
-    "objectID": "315/plottingData/main.html#take-away",
-    "href": "315/plottingData/main.html#take-away",
-    "title": "Plotting Data",
+    "objectID": "315/randomVariables/main.html#normal-distribution-1",
+    "href": "315/randomVariables/main.html#normal-distribution-1",
+    "title": "Random Variables",
+    "section": "Normal Distribution",
+    "text": "Normal Distribution\nThe normal distribution is a probability density function that is symmetric, unimodal, and bell shaped.\nNotes\n\narea under the curve is equal to 1,\nperfectly symmetric about \\(\\mu\\),\nparameters: centered at \\(\\mu\\) with standard deviation \\(\\sigma\\),\noften \\(\\mu = 0\\), shifts the distribution,\noften \\(\\sigma = 1\\), scales the distribution,\nwe write in short hand \\(N(\\mu, \\sigma)\\),\nuse \\(Z\\) to denote \\(N(0,1)\\)\nGau\\(\\beta\\)ian distribution"
+  },
+  {
+    "objectID": "315/randomVariables/main.html#interlude-z-score",
+    "href": "315/randomVariables/main.html#interlude-z-score",
+    "title": "Random Variables",
+    "section": "Interlude, z-score",
+    "text": "Interlude, z-score\nThe z-score of an observation is the number of standard deviations the observation lies above or below the mean. We compute the z-score for an observation \\(x\\) that follows a distribution with mean \\(\\mu\\) and standard deviation \\(\\sigma\\) using \\[z = \\frac{x - \\mu}{\\sigma}\\]"
+  },
+  {
+    "objectID": "315/randomVariables/main.html#z-score-notes",
+    "href": "315/randomVariables/main.html#z-score-notes",
+    "title": "Random Variables",
+    "section": "z-score notes",
+    "text": "z-score notes\n\nThe Z-score is a unitless number. Why?\nBy definition, if an observation is 1 standard deviation above its mean, the z-score is 1. If an observation is 1.5 standard deviations below the mean, its z-score is -1.5."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#z-score-example",
+    "href": "315/randomVariables/main.html#z-score-example",
+    "title": "Random Variables",
+    "section": "Z-score, example",
+    "text": "Z-score, example\n\nSuppose SAT scores are distributed \\(X \\sim N(1500, 300)\\) and ACT scores are distributed \\(N(21, 5)\\). If Ann scored 1800 on the SAT and Tom scored 24 on the ACT, who performed better?\n\\(z_A = \\frac{1800 - 1500}{300} =\\) 1\n\\(z_T = \\frac{24 - 21}{5} =\\) 0.6\nThese are effectively quantiles/percentiles. Picture?"
+  },
+  {
+    "objectID": "315/randomVariables/main.html#rule",
+    "href": "315/randomVariables/main.html#rule",
+    "title": "Random Variables",
+    "section": "68, 95, 99.7 Rule",
+    "text": "68, 95, 99.7 Rule\nUse R to justify the following approximate numbers."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#random-variables-expected-value",
+    "href": "315/randomVariables/main.html#random-variables-expected-value",
+    "title": "Random Variables",
+    "section": "Random Variables, expected value",
+    "text": "Random Variables, expected value\nAll random variables have a theoretical mean, called the expected value. The sample mean \\(\\bar{X}\\) is the sample analogue of this quantity.\n\nThe expected value of \\(X\\), written \\(\\mu = E(X)\\), is the value we’d expect to get out of \\(X\\) is we infinitely repeated the process that generated \\(X\\) and calculated the mean."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#random-variables-expected-value-example",
+    "href": "315/randomVariables/main.html#random-variables-expected-value-example",
+    "title": "Random Variables",
+    "section": "Random Variables, expected value example",
+    "text": "Random Variables, expected value example\nLet \\(Y\\) take on the values \\(0,1\\) with equal probability – think coin flip. We can use R to simulate this random variable. We generate a sequence \\(y_1, y_2, ..., y_{10000}\\), each of which will be \\(0\\) or \\(1\\) once observed, and calculate the running mean. That is,\n\n\\(Y_1\\) evaluates to \\(y_1\\), with mean \\(y_1 / 1\\)\n\\(Y_1, Y_2\\) evaluate to \\(y_1, y_2\\), with mean \\((y_1 + y_2)/2\\)\n\\(Y_1, Y_2, Y_3\\) evaluate to \\(y_1, y_2, y_3\\), with mean \\((y_1 + y_2 + y_3)/3\\)\n…\n\\(Y_1, ..., Y_{10000}\\) evaluate to \\(y_1, ..., y_{10000}\\), with mean \\(\\sum_{i=1}^{10000} y_i /10000\\)."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#random-variables-variance",
+    "href": "315/randomVariables/main.html#random-variables-variance",
+    "title": "Random Variables",
+    "section": "Random Variables, variance",
+    "text": "Random Variables, variance\nRandom variables also have a common measure of spread, called the variance. The squared sample standard deviation, \\(s^2\\), is the sample analogue of this quantity.\n\nThe variance of \\(X\\), written \\(\\sigma^2 = Var(X)\\), is the mean of squared deviations about \\(E(X)\\) if we infinitely repeated the process that generated \\(X\\)."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#random-variables-variance-example",
+    "href": "315/randomVariables/main.html#random-variables-variance-example",
+    "title": "Random Variables",
+    "section": "Random Variables, variance example",
+    "text": "Random Variables, variance example\nConsider \\(Y\\) a random variable following a Bernoulli distribution with probability of “success” \\(p\\)."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#random-variables-distributions",
+    "href": "315/randomVariables/main.html#random-variables-distributions",
+    "title": "Random Variables",
+    "section": "Random Variables, distributions",
+    "text": "Random Variables, distributions\nRandom variables are said to follow specific distribution functions, eg \\(X\\) is distributed as [some name].\nWe calculate the expected value and variance of random variables from these distribution functions. When we calculate statistics, it is these mathematical quantities that we are estimating."
+  },
+  {
+    "objectID": "315/randomVariables/main.html#take-away",
+    "href": "315/randomVariables/main.html#take-away",
+    "title": "Random Variables",
     "section": "Take Away",
-    "text": "Take Away\n\ncategorical variable -&gt; bar chart\none numerical variable -&gt; histogram\none numerical and one categorical -&gt; box plot\ntwo numerical -&gt; scatter plot\n… many variations"
+    "text": "Take Away\n\nWe assume distributions describe populations of interest\n\ndistributions describe the shape of our data\n\nDistributions have parameters: mean, variance, percentiles, …\nUse data to estimate parameters\n\nuse data to learn about population"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-point-estimates",
+    "href": "315/anova/main.html#recap-point-estimates",
+    "title": "ANOVA",
+    "section": "recap: point estimates",
+    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
+  },
+  {
+    "objectID": "315/anova/main.html#recap-central-limit-theorem",
+    "href": "315/anova/main.html#recap-central-limit-theorem",
+    "title": "ANOVA",
+    "section": "recap: central limit theorem",
+    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-confidence-intervals",
+    "href": "315/anova/main.html#recap-confidence-intervals",
+    "title": "ANOVA",
+    "section": "recap: confidence intervals",
+    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-hypothesis-tests",
+    "href": "315/anova/main.html#recap-hypothesis-tests",
+    "title": "ANOVA",
+    "section": "recap: hypothesis tests",
+    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
+    "href": "315/anova/main.html#recap-two-sample-t-tests",
+    "title": "ANOVA",
+    "section": "recap: two sample t-tests",
+    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
+  },
+  {
+    "objectID": "315/anova/main.html#analaysis-of-variance",
+    "href": "315/anova/main.html#analaysis-of-variance",
+    "title": "ANOVA",
+    "section": "Analaysis of Variance",
+    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis",
+    "href": "315/anova/main.html#anova-hypothesis",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis",
+    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis-examples",
+    "href": "315/anova/main.html#anova-hypothesis-examples",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis examples",
+    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-picture",
+    "href": "315/anova/main.html#anova-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, picture",
+    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition",
+    "href": "315/anova/main.html#anova-intuition",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition",
+    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition-in-picture",
+    "href": "315/anova/main.html#anova-intuition-in-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition in picture",
+    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intution-via-picture",
+    "href": "315/anova/main.html#anova-intution-via-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intution via picture",
+    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-test-statistic",
+    "href": "315/anova/main.html#anova-test-statistic",
+    "title": "ANOVA",
+    "section": "ANOVA, test statistic",
+    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-hypotheses",
+    "href": "315/anova/main.html#baseball-example-hypotheses",
+    "title": "ANOVA",
+    "section": "Baseball example, hypotheses",
+    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-plot",
+    "href": "315/anova/main.html#baseball-example-plot",
+    "title": "ANOVA",
+    "section": "Baseball example, plot",
+    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code",
+    "href": "315/anova/main.html#baseball-example-r-code",
+    "title": "ANOVA",
+    "section": "Baseball example, R code",
+    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code-details",
+    "href": "315/anova/main.html#baseball-example-r-code-details",
+    "title": "ANOVA",
+    "section": "Baseball example, R code details",
+    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-output",
+    "href": "315/anova/main.html#baseball-example-r-output",
+    "title": "ANOVA",
+    "section": "Baseball example, R output",
+    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-conclusion",
+    "href": "315/anova/main.html#baseball-example-conclusion",
+    "title": "ANOVA",
+    "section": "Baseball example, conclusion",
+    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, how bad a problem",
+    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
+    "href": "315/anova/main.html#multiple-comparisons-a-solution",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, a solution",
+    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, plot",
+    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, not all groups",
+    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, hypotheses",
+    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, R code",
+    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, conclusion",
+    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
+    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#take-away",
+    "href": "315/anova/main.html#take-away",
+    "title": "ANOVA",
+    "section": "Take Away",
+    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#means-by-group",
+    "href": "315/summariesByGroup/main.html#means-by-group",
+    "title": "Summaries By Group",
+    "section": "Means by Group",
+    "text": "Means by Group\nConsider the dataset.\n\n\nCode\nsuppressMessages(library(datasets))\n# random 6 rows of ChickWeight\nChickWeight[sample(1:nrow(ChickWeight), 6),]\n\n\n    weight Time Chick Diet\n159     79    6    14    1\n126    168   12    11    1\n269     40    0    25    2\n215     77   12    20    1\n252    135   14    23    2\n10     171   18     1    1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#means-by-group-1",
+    "href": "315/summariesByGroup/main.html#means-by-group-1",
+    "title": "Summaries By Group",
+    "section": "Means by Group",
+    "text": "Means by Group\nMeans of chicks’s weight by diet.\n\n\nCode\nsuppressMessages(library(dplyr))\nsummarise(group_by(ChickWeight, Diet),\n          Mean=mean(weight))\n\n\n# A tibble: 4 × 2\n  Diet   Mean\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      103.\n2 2      123.\n3 3      143.\n4 4      135."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
+    "href": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
+    "title": "Summaries By Group",
+    "section": "Chicken Weight by Diet, means and more",
+    "text": "Chicken Weight by Diet, means and more\nMean and standard deviations of chicks’s weight by diet.\n\n\nCode\n(df &lt;- summarise(group_by(ChickWeight, Diet),\n                 Mn = mean(weight),\n                 StDev = sd(weight),\n                 q1 = quantile(weight, .25),\n                 q3 = quantile(weight, .75)))\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics, the workhorses",
+    "text": "Group Summary Statistics, the workhorses\nThe underlying ideas behind so much of statistics rely on three ideas/functions and one sentence enhancer.\n\ngroup_by – groups a data frame by some variables\nsummarise – summarizes many observations into one number\nmutate – mutate variables of a data frame into new variables\n%&gt;% – make code read (almost) like English"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group_by",
+    "href": "315/summariesByGroup/main.html#group_by",
+    "title": "Summaries By Group",
+    "section": "group_by",
+    "text": "group_by\nThe function group_by is incredibly helpful, but not that exciting.\n\n\nCode\n# ?group_by\nhead(ChickWeight) # start with this\n\n\n  weight Time Chick Diet\n1     42    0     1    1\n2     51    2     1    1\n3     59    4     1    1\n4     64    6     1    1\n5     76    8     1    1\n6     93   10     1    1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group_by-1",
+    "href": "315/summariesByGroup/main.html#group_by-1",
+    "title": "Summaries By Group",
+    "section": "group_by",
+    "text": "group_by\nIf we group the dataset ChickWeight by Diet, things change only slightly. But what group_by returns is now ready to be passed into summarise.\n\n\nCode\ngroup_by(ChickWeight, Diet)\n\n\n# A tibble: 578 × 4\n# Groups:   Diet [4]\n   weight  Time Chick Diet \n    &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt; &lt;fct&gt;\n 1     42     0 1     1    \n 2     51     2 1     1    \n 3     59     4 1     1    \n 4     64     6 1     1    \n 5     76     8 1     1    \n 6     93    10 1     1    \n 7    106    12 1     1    \n 8    125    14 1     1    \n 9    149    16 1     1    \n10    171    18 1     1    \n# ℹ 568 more rows"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#summarise",
+    "href": "315/summariesByGroup/main.html#summarise",
+    "title": "Summaries By Group",
+    "section": "summarise",
+    "text": "summarise\nThe function summarise collapses multiple observations down into one number, for instance into a summary statistic. As we saw before, we can summarize multiple variables at once.\n\n\nCode\n# ?summarise"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#summarise-1",
+    "href": "315/summariesByGroup/main.html#summarise-1",
+    "title": "Summaries By Group",
+    "section": "summarise",
+    "text": "summarise\nWhat does the following code do?\n\n\nCode\nsummarise(ChickWeight,\n          Mn = mean(weight, na.rm=TRUE))\n\n\n        Mn\n1 121.8183\n\n\nCode\n# hint\nmean(ChickWeight$weight, na.rm=TRUE)\n\n\n[1] 121.8183"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#summarise-2",
+    "href": "315/summariesByGroup/main.html#summarise-2",
+    "title": "Summaries By Group",
+    "section": "summarise",
+    "text": "summarise\nWe can also summarize multiple variables at once – by group or not.\n\n\nCode\nsummarise(ChickWeight,\n          mn = mean(weight),\n          sd = sd(weight),\n          mdn = median(weight),\n          iqr = IQR(weight))\n\n\n        mn       sd mdn    iqr\n1 121.8183 71.07196 103 100.75"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate",
+    "href": "315/summariesByGroup/main.html#mutate",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nThe function mutate allows us to create new variables and add them to the data frame. Recall our summarized data named\n\n\nCode\ndf\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-1",
+    "href": "315/summariesByGroup/main.html#mutate-1",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nWe can create a new variable (column)\n\n\nCode\n(newdf &lt;- mutate(df, iqr=q3-q1))\n\n\n# A tibble: 4 × 6\n  Diet     Mn StDev    q1    q3   iqr\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.  78.8\n2 2      123.  71.6  65.5  163   97.5\n3 3      143.  86.5  67.5  199. 131. \n4 4      135.  68.8  71.2  185. 114."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-2",
+    "href": "315/summariesByGroup/main.html#mutate-2",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nIn case our new variable isn’t automatically printed, remember we can make R print things for us.\n\n\nCode\nnewdf[,c(\"Diet\", \"iqr\")]\n\n\n# A tibble: 4 × 2\n  Diet    iqr\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      78.8\n2 2      97.5\n3 3     131. \n4 4     114."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-3",
+    "href": "315/summariesByGroup/main.html#mutate-3",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nmutate works on any data frame. For instance, you might have two variables that are obviously better off as a ratio.\n\nmiles driven and time (hours) \\(\\Rightarrow\\) miles/hr.\nstate income and state population \\(\\Rightarrow\\) per capita income\nor any state total, \\(x\\), and state population \\(\\Rightarrow\\) per capita x\nsurface area and volume \\(\\Rightarrow\\) surface-area-to-volume ratio, SA:V\n…"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics",
+    "text": "Group Summary Statistics\nSummary statistics and a lesson about missing values in R.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\nsummarise(\n    group_by(carnivora, Family),\n        Mn = mean(LS), # litter size\n        Total = n(),   # counts\n        Sm = sum(LS, na.rm=TRUE))\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae  NA       32  83.1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics, take 2",
+    "text": "Group Summary Statistics, take 2\nWe removed NAs from mean calculation and made code (almost) read like English\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(Mn = mean(LS, na.rm = TRUE)) # Litter Size\n\n\n# A tibble: 8 × 2\n  Family         Mn\n  &lt;fct&gt;       &lt;dbl&gt;\n1 Ailuridae    1.5 \n2 Canidae      4.43\n3 Felidae      2.69\n4 Hyaenidae    2.4 \n5 Mustelidae   3.65\n6 Procyonidae  3.08\n7 Ursidae      2.1 \n8 Viverridae   2.77"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics, take 3",
+    "text": "Group Summary Statistics, take 3\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(\n        Mn = mean(LS, na.rm = TRUE),\n        Total = n(),\n        Sm = sum(LS, na.rm = TRUE)\n    )\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae   2.77    32  83.1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-4",
+    "href": "315/summariesByGroup/main.html#mutate-4",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nMaybe relative brain size matters to you, i.e. heaviest brain relative to body weight.\n\n\nCode\nheavy &lt;- carnivora %&gt;%\n    group_by(Family) %&gt;%\n    mutate(brbo = SB/SW) # brain/body"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-and-summarise",
+    "href": "315/summariesByGroup/main.html#mutate-and-summarise",
+    "title": "Summaries By Group",
+    "section": "mutate and summarise",
+    "text": "mutate and summarise\nThen throw in some summarise and find which family has greatest mean brain to body weight ratio.\n\n\nCode\nheavy %&gt;%\n    summarise(Mn_brbo = mean(brbo, na.rm=TRUE))\n\n\n# A tibble: 8 × 2\n  Family      Mn_brbo\n  &lt;fct&gt;         &lt;dbl&gt;\n1 Ailuridae      1.74\n2 Canidae        7.90\n3 Felidae        5.50\n4 Hyaenidae      3.28\n5 Mustelidae    10.5 \n6 Procyonidae   10.8 \n7 Ursidae        1.94\n8 Viverridae     9.45"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#who",
+    "href": "315/summariesByGroup/main.html#who",
+    "title": "Summaries By Group",
+    "section": "who?",
+    "text": "who?\n\nThese guys Procyonidae\nBut also PNAS article"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#data-frames-in-r",
+    "href": "315/summaryStats/main.html#data-frames-in-r",
+    "title": "Summary Statistics",
+    "section": "Data Frames in R",
+    "text": "Data Frames in R\nRun these commands in R\n\n\nCode\nsuppressMessages(library(openintro))\ndata(email) # load dataset email\nstr(email)  # ensure we're looking at a df\nhead(email) # top 6 rows; try tail\nhead(email, n = 10) # use n = x, for head/tail\nemail$spam  # just one variable\nnames(email) # column names\nsome_cols &lt;- c(\"spam\", \"num_char\", \"format\", \"number\")\nemail[ , some_cols] # specified variables/columns\nemail[c(1,2,3,50), some_cols] # Table 1"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#recap-email",
+    "href": "315/summaryStats/main.html#recap-email",
+    "title": "Summary Statistics",
+    "section": "recap: email",
+    "text": "recap: email\nRecall the email data set.\n\n\nCode\ndata(email)\nhead(email[, c(\"spam\", \"format\", \"number\")])\n\n\n# A tibble: 6 × 3\n  spam  format number\n  &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt; \n1 0     1      big   \n2 0     1      small \n3 0     1      small \n4 0     1      small \n5 0     0      none  \n6 0     0      none"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#email-table",
+    "href": "315/summaryStats/main.html#email-table",
+    "title": "Summary Statistics",
+    "section": "email, table",
+    "text": "email, table\nA good start\n\n\nCode\ntable(email$number)\n\n\n\n none small   big \n  549  2827   545"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#email-contingency-table",
+    "href": "315/summaryStats/main.html#email-contingency-table",
+    "title": "Summary Statistics",
+    "section": "email, contingency table",
+    "text": "email, contingency table\nA contingency table is a table that summarizes data for two categorical variables.\n\n\nCode\n(t &lt;- table(email$spam, email$number))\n\n\n   \n    none small  big\n  0  400  2659  495\n  1  149   168   50"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#email-contingency-table-of-proportions",
+    "href": "315/summaryStats/main.html#email-contingency-table-of-proportions",
+    "title": "Summary Statistics",
+    "section": "email, contingency table of proportions",
+    "text": "email, contingency table of proportions\n\n\nCode\nround(prop.table(t), 2)\n\n\n   \n    none small  big\n  0 0.10  0.68 0.13\n  1 0.04  0.04 0.01"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#county-data",
+    "href": "315/summaryStats/main.html#county-data",
+    "title": "Summary Statistics",
+    "section": "county data",
+    "text": "county data\nConsider U.S. county data. Which of these variables is/are numerical?\n\n\nCode\ndata(county)\ntail(county[, c(\"name\", \"state\", \"pop2010\", \"per_capita_income\")], n=4)\n\n\n# A tibble: 4 × 4\n  name            state   pop2010 per_capita_income\n  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;             &lt;dbl&gt;\n1 Teton County    Wyoming   21294            48557.\n2 Uinta County    Wyoming   21118            27048.\n3 Washakie County Wyoming    8533            27495.\n4 Weston County   Wyoming    7208            33297."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-mean",
+    "href": "315/summaryStats/main.html#summary-statistics-mean",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, mean",
+    "text": "Summary Statistics, mean\nThe sample mean, denoted \\(\\bar{x}\\), is the sum of a sample of numbers divided by how many numbers are in the sample. Mathematically, we write\n\\[\n\\begin{align*}\n    \\bar{x} & =  \\frac{x_1 + x_2 + \\ldots + x_n}{n} \\\\\n        & = \\frac{\\sum_{i=1}^n x_i}{n} \\\\\n        & = \\frac{1}{n} \\sum_{i=1}^n x_i\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
+    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, mean: example by hand",
+    "text": "Summary Statistics, mean: example by hand\nFind the mean of the following numbers\n\n\nCode\nx &lt;- sample(0:100, 10)\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
+    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, mean: example by R (computer)",
+    "text": "Summary Statistics, mean: example by R (computer)\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\n(m &lt;- mean(x))\n\n\n[1] 71.5"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-by-picture",
+    "href": "315/summaryStats/main.html#mean-by-picture",
+    "title": "Summary Statistics",
+    "section": "Mean, by picture",
+    "text": "Mean, by picture\nWhere is the mean relative to the data?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-by-picture-1",
+    "href": "315/summaryStats/main.html#mean-by-picture-1",
+    "title": "Summary Statistics",
+    "section": "Mean, by picture",
+    "text": "Mean, by picture\nWhere is the mean relative to the data?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-an-example",
+    "href": "315/summaryStats/main.html#mean-an-example",
+    "title": "Summary Statistics",
+    "section": "Mean, an example",
+    "text": "Mean, an example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(county$pop2010)\n\n\n[1] 98262.04"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-another-example",
+    "href": "315/summaryStats/main.html#mean-another-example",
+    "title": "Summary Statistics",
+    "section": "Mean, another example",
+    "text": "Mean, another example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(email$num_char)\n\n\n[1] 10.70659"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-point-estimator",
+    "href": "315/summaryStats/main.html#mean-point-estimator",
+    "title": "Summary Statistics",
+    "section": "Mean, point estimator",
+    "text": "Mean, point estimator\nWe call the sample mean a point estimator. What is it estimating?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-median",
+    "href": "315/summaryStats/main.html#summary-statistics-median",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, median",
+    "text": "Summary Statistics, median\nmedian. If the data are ordered from smallest to largest, the median is the observation right in the middle. If there are an even number of observations, there will be two values in the middle, and the median is taken as their mean. There is no simple mathematical expression for this statistic."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
+    "href": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, median: examples by R",
+    "text": "Summary Statistics, median: examples by R\nFind the median of the following numbers:\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\nmedian(x)\n\n\n[1] 77.5"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
+    "href": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics: comparing measures of center",
+    "text": "Summary Statistics: comparing measures of center\nBoth the mean and the median measure the center of a dataset. Thus, they are jointly referred to as measures of center.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nThough they measure different centers."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#what-does-more-data-do",
+    "href": "315/summaryStats/main.html#what-does-more-data-do",
+    "title": "Summary Statistics",
+    "section": "What does more data do?",
+    "text": "What does more data do?\nIf we add a number to the previous variable x, what will be the effect on the\n\nmean?\nmedian?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#what-does-more-data-do-1",
+    "href": "315/summaryStats/main.html#what-does-more-data-do-1",
+    "title": "Summary Statistics",
+    "section": "What does more data do?",
+    "text": "What does more data do?\n… join \\(100\\) to x\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 100))\n\n\n[1] 74.09091\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 100))\n\n\n[1] 78"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#what-does-more-data-do-2",
+    "href": "315/summaryStats/main.html#what-does-more-data-do-2",
+    "title": "Summary Statistics",
+    "section": "What does more data do?",
+    "text": "What does more data do?\nHow about joining \\(10000\\) to x.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 10000))\n\n\n[1] 974.0909\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 10000))\n\n\n[1] 78"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-outliers",
+    "href": "315/summaryStats/main.html#summary-statistics-outliers",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, outliers",
+    "text": "Summary Statistics, outliers\nAn outlier is an observation that appears extreme relative to the rest of the data.\nNote\n\nThe number \\(10000\\) in the datasets above appears to be an outlier.\nWhat effect did this value have on the mean? On the median?\nWhat would have happened if we added \\(-100\\)? mean? median?\nOutliers are often the outcome of a confounding variable."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summarizing-data-data-width",
+    "href": "315/summaryStats/main.html#summarizing-data-data-width",
+    "title": "Summary Statistics",
+    "section": "Summarizing Data, data width",
+    "text": "Summarizing Data, data width\nMeans and medians help summarize the center of the data. The statisticians rigorous description of the width of data uses the idea of deviations. See OS4 section \\(2.1.4\\)."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#deviations-defined",
+    "href": "315/summaryStats/main.html#deviations-defined",
+    "title": "Summary Statistics",
+    "section": "Deviations, defined",
+    "text": "Deviations, defined\ndeviation. We call the distance between an observation and the mean its deviation. Mathematically, we write\n\\[ d_i = x_i - \\bar{x} \\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#variance-and-standard-deviation",
+    "href": "315/summaryStats/main.html#variance-and-standard-deviation",
+    "title": "Summary Statistics",
+    "section": "Variance and Standard Deviation",
+    "text": "Variance and Standard Deviation\nThe two most common measures of spread are the sample variance and the sample standard deviation.\nThe sample variance is (almost) the average of the squared deviations.\n\\[ s^2 = \\frac{d_1^2 + d_2^2 + \\ldots + d_n^2}{n-1} = \\frac{1}{n-1}\\sum_{i=1}^n d_i^2 \\]\nThe sample standard deviation is the square root of the variance.\n\\[s = \\sqrt{s^2}\\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
+    "href": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
+    "title": "Summary Statistics",
+    "section": "Standard Deviation in R, a simple example",
+    "text": "Standard Deviation in R, a simple example\n\n\nCode\nsd(email$num_char)\n\n\n[1] 14.64579"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#notation-of-populations",
+    "href": "315/summaryStats/main.html#notation-of-populations",
+    "title": "Summary Statistics",
+    "section": "Notation of Populations",
+    "text": "Notation of Populations\nRecall, sample datasets provide information about the population.\n\nThe sample mean \\(\\bar{x}\\) estimates the population mean \\(\\mu\\).\nThe sample standard deviation \\(s\\) estimates the population standard deviation \\(\\sigma\\)."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#standard-deviation-describes-variability",
+    "href": "315/summaryStats/main.html#standard-deviation-describes-variability",
+    "title": "Summary Statistics",
+    "section": "Standard Deviation Describes Variability",
+    "text": "Standard Deviation Describes Variability\nFocus on the conceptual meaning of the standard deviation as a descriptor of variability rather than the formulas."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread",
+    "href": "315/summaryStats/main.html#towards-other-measures-of-spread",
+    "title": "Summary Statistics",
+    "section": "Towards Other Measures of Spread",
+    "text": "Towards Other Measures of Spread\nThe median is also called the 50th quantile, or \\(Q_2\\). There are other quantiles.\nThe \\(q\\)th quantile is the value that puts \\(q\\)% of the observations below this number. Also percentile.\n\nThe 25th quantile is also known as the first quartile, or \\(Q_1\\).\nThe 75th quantile is also known as the third quartile, or \\(Q_3\\)."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
+    "href": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
+    "title": "Summary Statistics",
+    "section": "Towards Other Measures of Spread, continued",
+    "text": "Towards Other Measures of Spread, continued\nAnother way to think about the 25/75th quantile.\n\nThe 25th quantile is the median of the dataset that consists of the smallest number up to the median.\nThe 75th quantile is the median of the dataset that consists of the median up to the largest number."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#interquartile-range",
+    "href": "315/summaryStats/main.html#interquartile-range",
+    "title": "Summary Statistics",
+    "section": "Interquartile Range",
+    "text": "Interquartile Range\nThe IQR is calculated the the difference between the 75th and the 25th quantile, \\(Q_3\\) and \\(Q_1\\), respectively:\n\\[ IQR = Q_3 - Q_1 \\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
+    "href": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
+    "title": "Summary Statistics",
+    "section": "Quantiles and IQR in R",
+    "text": "Quantiles and IQR in R\n\n\nCode\nquantile(email$num_char, 0.25)\n\n\n  25% \n1.459 \n\n\nCode\nq &lt;- quantile(email$num_char, c(0.75, 0.25))\nq[1] - q[2]\n\n\n   75% \n12.625 \n\n\nCode\nIQR(email$num_char)\n\n\n[1] 12.625"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mixing-variable-types",
+    "href": "315/summaryStats/main.html#mixing-variable-types",
+    "title": "Summary Statistics",
+    "section": "Mixing Variable Types",
+    "text": "Mixing Variable Types\nOften with binary categorical data, it’s advantageous to encode the variable numerically. For example,\n\nfemale \\(\\Rightarrow 1=\\) female, \\(0=\\) other\nhigh school educated \\(\\Rightarrow 1=\\) yes, \\(0=\\) other (no)\ntook pill \\(\\Rightarrow 1=\\) yes, \\(0=\\) no\n…"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mixing-variable-types-1",
+    "href": "315/summaryStats/main.html#mixing-variable-types-1",
+    "title": "Summary Statistics",
+    "section": "Mixing Variable Types",
+    "text": "Mixing Variable Types\nConsider the variable spam in the dataset email. We are likely interested in the proportion of emails that are spam, \\(\\hat{p}\\).\n\n\nCode\nspam_number &lt;- ifelse(email$spam == 1, 1, 0)\n(phat &lt;- mean(spam_number))\n\n\n[1] 0.09359857"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#take-away",
+    "href": "315/summaryStats/main.html#take-away",
+    "title": "Summary Statistics",
+    "section": "Take Away",
+    "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
   },
   {
     "objectID": "315/introductionData/main.html#data-set-email",
@@ -707,921 +1358,277 @@
     "text": "Experiments, homework 02\nA researcher is conducting an experiment to see the effect of diet and exercise on weight gain in baby hamsters. Two different diets (low fat and high fat) and three different levels of exercise (high, moderate, or none) will be used. Eight baby hamsters will be raised under each combination of diet and exercise and their weight gain after 4 weeks will be measured.\n\nWhat are the experimental units here?\nWhat are the categorical variables? List the levels of each.\nHow many different treatments are there? List them.\nHow many experimental units will this experiment require?"
   },
   {
-    "objectID": "315/summaryStats/main.html#data-frames-in-r",
-    "href": "315/summaryStats/main.html#data-frames-in-r",
-    "title": "Summary Statistics",
-    "section": "Data Frames in R",
-    "text": "Data Frames in R\nRun these commands in R\n\n\nCode\nsuppressMessages(library(openintro))\ndata(email) # load dataset email\nstr(email)  # ensure we're looking at a df\nhead(email) # top 6 rows; try tail\nhead(email, n = 10) # use n = x, for head/tail\nemail$spam  # just one variable\nnames(email) # column names\nsome_cols &lt;- c(\"spam\", \"num_char\", \"format\", \"number\")\nemail[ , some_cols] # specified variables/columns\nemail[c(1,2,3,50), some_cols] # Table 1"
+    "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
+    "href": "315/plottingData/main.html#visualizing-categorical-variables",
+    "title": "Plotting Data",
+    "section": "Visualizing Categorical Variables",
+    "text": "Visualizing Categorical Variables\nWith categorial data we can make bar charts.\n\n\nCode\nsuppressMessages(library(tidyverse))\nsuppressMessages(library(openintro))\ndata(email)\nggplot(data = email, aes(number)) +\n    geom_bar() +\n    labs(title = \"email 'Number' Frequency\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#recap-email",
-    "href": "315/summaryStats/main.html#recap-email",
-    "title": "Summary Statistics",
-    "section": "recap: email",
-    "text": "recap: email\nRecall the email data set.\n\n\nCode\ndata(email)\nhead(email[, c(\"spam\", \"format\", \"number\")])\n\n\n# A tibble: 6 × 3\n  spam  format number\n  &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt; \n1 0     1      big   \n2 0     1      small \n3 0     1      small \n4 0     1      small \n5 0     0      none  \n6 0     0      none"
+    "objectID": "315/plottingData/main.html#county",
+    "href": "315/plottingData/main.html#county",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\nRecall the county data set? How big?\n\n\nCode\ndata(county)\ntail(county[, c(\"state\", \"name\")])\n\n\n# A tibble: 6 × 2\n  state   name             \n  &lt;fct&gt;   &lt;chr&gt;            \n1 Wyoming Sublette County  \n2 Wyoming Sweetwater County\n3 Wyoming Teton County     \n4 Wyoming Uinta County     \n5 Wyoming Washakie County  \n6 Wyoming Weston County"
   },
   {
-    "objectID": "315/summaryStats/main.html#email-table",
-    "href": "315/summaryStats/main.html#email-table",
-    "title": "Summary Statistics",
-    "section": "email, table",
-    "text": "email, table\nA good start\n\n\nCode\ntable(email$number)\n\n\n\n none small   big \n  549  2827   545"
+    "objectID": "315/plottingData/main.html#county-1",
+    "href": "315/plottingData/main.html#county-1",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\nFrequency table of county data.\n\n\nCode\ntable(county$state)\n\n\n\n             Alabama               Alaska              Arizona \n                  67                   29                   15 \n            Arkansas           California             Colorado \n                  75                   58                   64 \n         Connecticut             Delaware District of Columbia \n                   8                    3                    1 \n             Florida              Georgia               Hawaii \n                  67                  159                    5 \n               Idaho             Illinois              Indiana \n                  44                  102                   92 \n                Iowa               Kansas             Kentucky \n                  99                  105                  120 \n           Louisiana                Maine             Maryland \n                  64                   16                   24 \n       Massachusetts             Michigan            Minnesota \n                  14                   83                   87 \n         Mississippi             Missouri              Montana \n                  82                  115                   56 \n            Nebraska               Nevada        New Hampshire \n                  93                   17                   10 \n          New Jersey           New Mexico             New York \n                  21                   33                   62 \n      North Carolina         North Dakota                 Ohio \n                 100                   53                   88 \n            Oklahoma               Oregon         Pennsylvania \n                  77                   36                   67 \n        Rhode Island       South Carolina         South Dakota \n                   5                   46                   66 \n           Tennessee                Texas                 Utah \n                  95                  254                   29 \n             Vermont             Virginia           Washington \n                  14                  133                   39 \n       West Virginia            Wisconsin              Wyoming \n                  55                   72                   23"
   },
   {
-    "objectID": "315/summaryStats/main.html#email-contingency-table",
-    "href": "315/summaryStats/main.html#email-contingency-table",
-    "title": "Summary Statistics",
-    "section": "email, contingency table",
-    "text": "email, contingency table\nA contingency table is a table that summarizes data for two categorical variables.\n\n\nCode\n(t &lt;- table(email$spam, email$number))\n\n\n   \n    none small  big\n  0  400  2659  495\n  1  149   168   50"
+    "objectID": "315/plottingData/main.html#county-2",
+    "href": "315/plottingData/main.html#county-2",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\nBar chart of county data.\n\n\nCode\n(pl &lt;- ggplot(data = county, aes(state)) +\n     geom_bar() +\n     labs(title = \"?\", x = \"States\"))"
   },
   {
-    "objectID": "315/summaryStats/main.html#email-contingency-table-of-proportions",
-    "href": "315/summaryStats/main.html#email-contingency-table-of-proportions",
-    "title": "Summary Statistics",
-    "section": "email, contingency table of proportions",
-    "text": "email, contingency table of proportions\n\n\nCode\nround(prop.table(t), 2)\n\n\n   \n    none small  big\n  0 0.10  0.68 0.13\n  1 0.04  0.04 0.01"
+    "objectID": "315/plottingData/main.html#county-3",
+    "href": "315/plottingData/main.html#county-3",
+    "title": "Plotting Data",
+    "section": "county",
+    "text": "county\n\n\nCode\npl + theme(axis.text.x = element_text(angle = 45,\n    hjust=1))"
   },
   {
-    "objectID": "315/summaryStats/main.html#county-data",
-    "href": "315/summaryStats/main.html#county-data",
-    "title": "Summary Statistics",
-    "section": "county data",
-    "text": "county data\nConsider U.S. county data. Which of these variables is/are numerical?\n\n\nCode\ndata(county)\ntail(county[, c(\"name\", \"state\", \"pop2010\", \"per_capita_income\")], n=4)\n\n\n# A tibble: 4 × 4\n  name            state   pop2010 per_capita_income\n  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;             &lt;dbl&gt;\n1 Teton County    Wyoming   21294            48557.\n2 Uinta County    Wyoming   21118            27048.\n3 Washakie County Wyoming    8533            27495.\n4 Weston County   Wyoming    7208            33297."
+    "objectID": "315/plottingData/main.html#towards-histograms",
+    "href": "315/plottingData/main.html#towards-histograms",
+    "title": "Plotting Data",
+    "section": "Towards Histograms",
+    "text": "Towards Histograms\nWhat do we give up by finding a mean? Consider county\n\n\nCode\nmean(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 26093.12\n\n\nCode\nmin(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 10466.84\n\n\nCode\nmax(county$per_capita_income, na.rm = TRUE)\n\n\n[1] 69532.86"
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-mean",
-    "href": "315/summaryStats/main.html#summary-statistics-mean",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, mean",
-    "text": "Summary Statistics, mean\nThe sample mean, denoted \\(\\bar{x}\\), is the sum of a sample of numbers divided by how many numbers are in the sample. Mathematically, we write\n\\[\n\\begin{align*}\n    \\bar{x} & =  \\frac{x_1 + x_2 + \\ldots + x_n}{n} \\\\\n        & = \\frac{\\sum_{i=1}^n x_i}{n} \\\\\n        & = \\frac{1}{n} \\sum_{i=1}^n x_i\n\\end{align*}\n\\]"
+    "objectID": "315/plottingData/main.html#histograms",
+    "href": "315/plottingData/main.html#histograms",
+    "title": "Plotting Data",
+    "section": "Histograms",
+    "text": "Histograms\nA histogram helps summarize tails of the data:\n\n\nCode\n(p &lt;- ggplot(data = county, aes(per_capita_income)) +\n     geom_histogram(bins = 21) +\n     labs(x = \"Per capita income\"))"
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
-    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, mean: example by hand",
-    "text": "Summary Statistics, mean: example by hand\nFind the mean of the following numbers\n\n\nCode\nx &lt;- sample(0:100, 10)\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97"
+    "objectID": "315/plottingData/main.html#histograms-in-words",
+    "href": "315/plottingData/main.html#histograms-in-words",
+    "title": "Plotting Data",
+    "section": "Histograms, in words",
+    "text": "Histograms, in words\nThink of each observation as belonging to a bin. These binned observations are plotted as bars to form a histogram. That is, the height of each bar depicts the number of observations within each bin.\n\nThe county$per_capita_income data has data from $10,466.84 up to $69,532.86. Setting binwidth = 1800 creates bins of width 1,800 and places the appropriate observations in each. Observations on the boundary of a bin are allocated to the lower bin."
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
-    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, mean: example by R (computer)",
-    "text": "Summary Statistics, mean: example by R (computer)\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\n(m &lt;- mean(x))\n\n\n[1] 71.5"
+    "objectID": "315/plottingData/main.html#histograms-picking-bins",
+    "href": "315/plottingData/main.html#histograms-picking-bins",
+    "title": "Plotting Data",
+    "section": "Histograms, picking bins",
+    "text": "Histograms, picking bins\nSince the researcher has to choose the bin width, we should learn the difference between bins that are too small and bins that are too wide."
   },
   {
-    "objectID": "315/summaryStats/main.html#mean-by-picture",
-    "href": "315/summaryStats/main.html#mean-by-picture",
-    "title": "Summary Statistics",
-    "section": "Mean, by picture",
-    "text": "Mean, by picture\nWhere is the mean relative to the data?"
+    "objectID": "315/plottingData/main.html#histograms-too-many",
+    "href": "315/plottingData/main.html#histograms-too-many",
+    "title": "Plotting Data",
+    "section": "Histograms, too many",
+    "text": "Histograms, too many\nExtremely small bins\n\n\nCode\nggplot(data = county, aes(per_capita_income)) +\n    geom_histogram(binwidth = 3) +\n    labs(x = \"Per capita income\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#mean-by-picture-1",
-    "href": "315/summaryStats/main.html#mean-by-picture-1",
-    "title": "Summary Statistics",
-    "section": "Mean, by picture",
-    "text": "Mean, by picture\nWhere is the mean relative to the data?"
+    "objectID": "315/plottingData/main.html#histograms-too-few",
+    "href": "315/plottingData/main.html#histograms-too-few",
+    "title": "Plotting Data",
+    "section": "Histograms, too few",
+    "text": "Histograms, too few\nExtremely large bins\n\n\nCode\nggplot(data = county, aes(per_capita_income)) +\n    geom_histogram(binwidth = 80000) +\n    labs(x = \"Per capita income\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#mean-an-example",
-    "href": "315/summaryStats/main.html#mean-an-example",
-    "title": "Summary Statistics",
-    "section": "Mean, an example",
-    "text": "Mean, an example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(county$pop2010)\n\n\n[1] 98262.04"
+    "objectID": "315/plottingData/main.html#histograms-by-group",
+    "href": "315/plottingData/main.html#histograms-by-group",
+    "title": "Plotting Data",
+    "section": "Histograms, by group",
+    "text": "Histograms, by group\nCompare chicken weights by diet.\n\n\nCode\nggplot(data=ChickWeight, aes(weight)) +\n    geom_histogram(bins = 21) +\n    facet_wrap(Diet ~ ., ncol = 1)"
   },
   {
-    "objectID": "315/summaryStats/main.html#mean-another-example",
-    "href": "315/summaryStats/main.html#mean-another-example",
-    "title": "Summary Statistics",
-    "section": "Mean, another example",
-    "text": "Mean, another example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(email$num_char)\n\n\n[1] 10.70659"
+    "objectID": "315/plottingData/main.html#histograms-keywords",
+    "href": "315/plottingData/main.html#histograms-keywords",
+    "title": "Plotting Data",
+    "section": "Histograms, keywords",
+    "text": "Histograms, keywords\n\nright skewed. When data trail to the right and have a longer right tail, the shape is said to be right skewed.\nleft skewed. Data with the reverse characteristic – a long, thin tail to the left – are said to be left skewed.\nsymmetric. Data that show roughly equal tails in both directions are called symmetric."
   },
   {
-    "objectID": "315/summaryStats/main.html#mean-point-estimator",
-    "href": "315/summaryStats/main.html#mean-point-estimator",
-    "title": "Summary Statistics",
-    "section": "Mean, point estimator",
-    "text": "Mean, point estimator\nWe call the sample mean a point estimator. What is it estimating?"
+    "objectID": "315/plottingData/main.html#histograms-and-measures-of-center",
+    "href": "315/plottingData/main.html#histograms-and-measures-of-center",
+    "title": "Plotting Data",
+    "section": "Histograms, and measures of center",
+    "text": "Histograms, and measures of center\nWhere is the mean on a histogram? Median?\n\n\nCode\nmn &lt;- mean(county$per_capita_income, na.rm = TRUE)\nmdn &lt;- median(county$per_capita_income, na.rm = TRUE)\np + geom_vline(aes(xintercept=mn), color=\"red\", size=1) +\n    geom_vline(aes(xintercept=mdn), color=\"blue\", size=1)"
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-median",
-    "href": "315/summaryStats/main.html#summary-statistics-median",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, median",
-    "text": "Summary Statistics, median\nmedian. If the data are ordered from smallest to largest, the median is the observation right in the middle. If there are an even number of observations, there will be two values in the middle, and the median is taken as their mean. There is no simple mathematical expression for this statistic."
+    "objectID": "315/plottingData/main.html#histograms-they-tell-us-more",
+    "href": "315/plottingData/main.html#histograms-they-tell-us-more",
+    "title": "Plotting Data",
+    "section": "Histograms, they tell us more",
+    "text": "Histograms, they tell us more\nWhat more, other than the center of the data, do histograms tell us? Consider a histogram from the email data set.\n\n\nCode\nem &lt;- mean(email$num_char)\nggplot(data=email, aes(num_char)) +\n    geom_histogram(bins = 21) +\n    geom_vline(aes(xintercept = em), color = \"blue\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
-    "href": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, median: examples by R",
-    "text": "Summary Statistics, median: examples by R\nFind the median of the following numbers:\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\nmedian(x)\n\n\n[1] 77.5"
+    "objectID": "315/plottingData/main.html#histograms-an-ideal",
+    "href": "315/plottingData/main.html#histograms-an-ideal",
+    "title": "Plotting Data",
+    "section": "Histograms, an ideal",
+    "text": "Histograms, an ideal"
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
-    "href": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics: comparing measures of center",
-    "text": "Summary Statistics: comparing measures of center\nBoth the mean and the median measure the center of a dataset. Thus, they are jointly referred to as measures of center.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nThough they measure different centers."
+    "objectID": "315/plottingData/main.html#data-width-1-standard-deviation",
+    "href": "315/plottingData/main.html#data-width-1-standard-deviation",
+    "title": "Plotting Data",
+    "section": "Data Width, 1 standard deviation",
+    "text": "Data Width, 1 standard deviation\nHistograms naturally connect with standard deviations. If the data are unimodal (ish) and symmetric (ish), roughly 68% of the data will be within one standard deviation of the mean."
   },
   {
-    "objectID": "315/summaryStats/main.html#what-does-more-data-do",
-    "href": "315/summaryStats/main.html#what-does-more-data-do",
-    "title": "Summary Statistics",
-    "section": "What does more data do?",
-    "text": "What does more data do?\nIf we add a number to the previous variable x, what will be the effect on the\n\nmean?\nmedian?"
+    "objectID": "315/plottingData/main.html#data-width-2-standard-deviations",
+    "href": "315/plottingData/main.html#data-width-2-standard-deviations",
+    "title": "Plotting Data",
+    "section": "Data Width, 2 standard deviations",
+    "text": "Data Width, 2 standard deviations\nIf the data are unimodal (ish) and symmetric (ish), roughly 95% of the data will be within two standard deviations of the mean."
   },
   {
-    "objectID": "315/summaryStats/main.html#what-does-more-data-do-1",
-    "href": "315/summaryStats/main.html#what-does-more-data-do-1",
-    "title": "Summary Statistics",
-    "section": "What does more data do?",
-    "text": "What does more data do?\n… join \\(100\\) to x\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 100))\n\n\n[1] 74.09091\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 100))\n\n\n[1] 78"
+    "objectID": "315/plottingData/main.html#data-width-3-standard-deviations",
+    "href": "315/plottingData/main.html#data-width-3-standard-deviations",
+    "title": "Plotting Data",
+    "section": "Data Width, 3 standard deviations",
+    "text": "Data Width, 3 standard deviations\nIf the data are unimodal (ish) and symmetric (ish), roughly 99.7% of the data will be within three standard deviations of the mean."
   },
   {
-    "objectID": "315/summaryStats/main.html#what-does-more-data-do-2",
-    "href": "315/summaryStats/main.html#what-does-more-data-do-2",
-    "title": "Summary Statistics",
-    "section": "What does more data do?",
-    "text": "What does more data do?\nHow about joining \\(10000\\) to x.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 10000))\n\n\n[1] 974.0909\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 10000))\n\n\n[1] 78"
+    "objectID": "315/plottingData/main.html#standard-deviations-be-careful",
+    "href": "315/plottingData/main.html#standard-deviations-be-careful",
+    "title": "Plotting Data",
+    "section": "Standard Deviations, be careful",
+    "text": "Standard Deviations, be careful\nThree different population distributions with the same (population) mean \\(\\mu\\) = 0 and (population) standard deviation \\(\\sigma = 1\\)."
   },
   {
-    "objectID": "315/summaryStats/main.html#summary-statistics-outliers",
-    "href": "315/summaryStats/main.html#summary-statistics-outliers",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, outliers",
-    "text": "Summary Statistics, outliers\nAn outlier is an observation that appears extreme relative to the rest of the data.\nNote\n\nThe number \\(10000\\) in the datasets above appears to be an outlier.\nWhat effect did this value have on the mean? On the median?\nWhat would have happened if we added \\(-100\\)? mean? median?\nOutliers are often the outcome of a confounding variable."
+    "objectID": "315/plottingData/main.html#towards-box-plots",
+    "href": "315/plottingData/main.html#towards-box-plots",
+    "title": "Plotting Data",
+    "section": "Towards Box plots",
+    "text": "Towards Box plots\nWe will use the data set carnivora found within the library ape.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\n# ?carnivora"
   },
   {
-    "objectID": "315/summaryStats/main.html#summarizing-data-data-width",
-    "href": "315/summaryStats/main.html#summarizing-data-data-width",
-    "title": "Summary Statistics",
-    "section": "Summarizing Data, data width",
-    "text": "Summarizing Data, data width\nMeans and medians help summarize the center of the data. The statisticians rigorous description of the width of data uses the idea of deviations. See OS4 section \\(2.1.4\\)."
+    "objectID": "315/plottingData/main.html#recap-summary-statistics",
+    "href": "315/plottingData/main.html#recap-summary-statistics",
+    "title": "Plotting Data",
+    "section": "recap: summary statistics",
+    "text": "recap: summary statistics\nR will fairly easily produce six number summaries for us. Here’s the variable for average brain weight amongst male and female animals from the order Carnivora.\n\n\nCode\nsummary(carnivora$SB)\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   1.00   15.68   33.75   56.43   57.17  459.50"
   },
   {
-    "objectID": "315/summaryStats/main.html#deviations-defined",
-    "href": "315/summaryStats/main.html#deviations-defined",
-    "title": "Summary Statistics",
-    "section": "Deviations, defined",
-    "text": "Deviations, defined\ndeviation. We call the distance between an observation and the mean its deviation. Mathematically, we write\n\\[ d_i = x_i - \\bar{x} \\]"
+    "objectID": "315/plottingData/main.html#box-plots",
+    "href": "315/plottingData/main.html#box-plots",
+    "title": "Plotting Data",
+    "section": "Box Plots",
+    "text": "Box Plots\nA box plot summarizes a data set using five (standard) statistics while also plotting unusual observations."
   },
   {
-    "objectID": "315/summaryStats/main.html#variance-and-standard-deviation",
-    "href": "315/summaryStats/main.html#variance-and-standard-deviation",
-    "title": "Summary Statistics",
-    "section": "Variance and Standard Deviation",
-    "text": "Variance and Standard Deviation\nThe two most common measures of spread are the sample variance and the sample standard deviation.\nThe sample variance is (almost) the average of the squared deviations.\n\\[ s^2 = \\frac{d_1^2 + d_2^2 + \\ldots + d_n^2}{n-1} = \\frac{1}{n-1}\\sum_{i=1}^n d_i^2 \\]\nThe sample standard deviation is the square root of the variance.\n\\[s = \\sqrt{s^2}\\]"
+    "objectID": "315/plottingData/main.html#box-plot-explained",
+    "href": "315/plottingData/main.html#box-plot-explained",
+    "title": "Plotting Data",
+    "section": "Box Plot, explained",
+    "text": "Box Plot, explained"
   },
   {
-    "objectID": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
-    "href": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
-    "title": "Summary Statistics",
-    "section": "Standard Deviation in R, a simple example",
-    "text": "Standard Deviation in R, a simple example\n\n\nCode\nsd(email$num_char)\n\n\n[1] 14.64579"
+    "objectID": "315/plottingData/main.html#box-plot-carnivora-example",
+    "href": "315/plottingData/main.html#box-plot-carnivora-example",
+    "title": "Plotting Data",
+    "section": "Box Plot, carnivora example",
+    "text": "Box Plot, carnivora example\n\n\nCode\nggplot(data = carnivora, aes(Order, SB)) +\n    geom_boxplot() +\n    labs(y = \"Average brain weight (g)\",\n         x = \"Order\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#notation-of-populations",
-    "href": "315/summaryStats/main.html#notation-of-populations",
-    "title": "Summary Statistics",
-    "section": "Notation of Populations",
-    "text": "Notation of Populations\nRecall, sample datasets provide information about the population.\n\nThe sample mean \\(\\bar{x}\\) estimates the population mean \\(\\mu\\).\nThe sample standard deviation \\(s\\) estimates the population standard deviation \\(\\sigma\\)."
+    "objectID": "315/plottingData/main.html#box-plot-better-carnivora-example",
+    "href": "315/plottingData/main.html#box-plot-better-carnivora-example",
+    "title": "Plotting Data",
+    "section": "Box Plot, better carnivora example",
+    "text": "Box Plot, better carnivora example\nHave you seen some of the families in carnivora? From adorable, Ailuridae, to huge, Ursidae.\n\n\nCode\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(x = \"Family\", y = \"Average brain weight (g)\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#standard-deviation-describes-variability",
-    "href": "315/summaryStats/main.html#standard-deviation-describes-variability",
-    "title": "Summary Statistics",
-    "section": "Standard Deviation Describes Variability",
-    "text": "Standard Deviation Describes Variability\nFocus on the conceptual meaning of the standard deviation as a descriptor of variability rather than the formulas."
+    "objectID": "315/plottingData/main.html#towards-scatter-plots",
+    "href": "315/plottingData/main.html#towards-scatter-plots",
+    "title": "Plotting Data",
+    "section": "Towards scatter plots",
+    "text": "Towards scatter plots\nThe most common bivariate plot is the scatter plot.\nA scatterplot provides a case-by-case view of data for two numerical variables."
   },
   {
-    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread",
-    "href": "315/summaryStats/main.html#towards-other-measures-of-spread",
-    "title": "Summary Statistics",
-    "section": "Towards Other Measures of Spread",
-    "text": "Towards Other Measures of Spread\nThe median is also called the 50th quantile, or \\(Q_2\\). There are other quantiles.\nThe \\(q\\)th quantile is the value that puts \\(q\\)% of the observations below this number. Also percentile.\n\nThe 25th quantile is also known as the first quartile, or \\(Q_1\\).\nThe 75th quantile is also known as the third quartile, or \\(Q_3\\)."
+    "objectID": "315/plottingData/main.html#scatterplot-carnivora-example",
+    "href": "315/plottingData/main.html#scatterplot-carnivora-example",
+    "title": "Plotting Data",
+    "section": "Scatterplot, carnivora example",
+    "text": "Scatterplot, carnivora example\n\n\nCode\nggplot(data = carnivora, aes(SW, SB)) +\n    geom_point() +\n    labs(x = \"Average body weight (kg)\",\n         y = \"Average brain weight (g)\")"
   },
   {
-    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
-    "href": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
-    "title": "Summary Statistics",
-    "section": "Towards Other Measures of Spread, continued",
-    "text": "Towards Other Measures of Spread, continued\nAnother way to think about the 25/75th quantile.\n\nThe 25th quantile is the median of the dataset that consists of the smallest number up to the median.\nThe 75th quantile is the median of the dataset that consists of the median up to the largest number."
+    "objectID": "315/plottingData/main.html#scatter-plots-keywords",
+    "href": "315/plottingData/main.html#scatter-plots-keywords",
+    "title": "Plotting Data",
+    "section": "Scatter plots, keywords",
+    "text": "Scatter plots, keywords\n\nassociated. When two variables show some connection with one another, they are called associated variables.\nindependent. If two variables are not associated, then they are said to be independent."
   },
   {
-    "objectID": "315/summaryStats/main.html#interquartile-range",
-    "href": "315/summaryStats/main.html#interquartile-range",
-    "title": "Summary Statistics",
-    "section": "Interquartile Range",
-    "text": "Interquartile Range\nThe IQR is calculated the the difference between the 75th and the 25th quantile, \\(Q_3\\) and \\(Q_1\\), respectively:\n\\[ IQR = Q_3 - Q_1 \\]"
+    "objectID": "315/plottingData/main.html#scatter-plots-keywords-1",
+    "href": "315/plottingData/main.html#scatter-plots-keywords-1",
+    "title": "Plotting Data",
+    "section": "Scatter plots, keywords",
+    "text": "Scatter plots, keywords\nDirection of association can be described as\n\npositive association. When two variables have an upward/positive trend, they are called positively associated.\nnegative association. When two variables have a downward/negative trend, they are called negatively associated."
   },
   {
-    "objectID": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
-    "href": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
-    "title": "Summary Statistics",
-    "section": "Quantiles and IQR in R",
-    "text": "Quantiles and IQR in R\n\n\nCode\nquantile(email$num_char, 0.25)\n\n\n  25% \n1.459 \n\n\nCode\nq &lt;- quantile(email$num_char, c(0.75, 0.25))\nq[1] - q[2]\n\n\n   75% \n12.625 \n\n\nCode\nIQR(email$num_char)\n\n\n[1] 12.625"
+    "objectID": "315/plottingData/main.html#scatter-plots-keywords-2",
+    "href": "315/plottingData/main.html#scatter-plots-keywords-2",
+    "title": "Plotting Data",
+    "section": "Scatter plots, keywords",
+    "text": "Scatter plots, keywords\nStructure of association can be described as linear or non-linear."
   },
   {
-    "objectID": "315/summaryStats/main.html#mixing-variable-types",
-    "href": "315/summaryStats/main.html#mixing-variable-types",
-    "title": "Summary Statistics",
-    "section": "Mixing Variable Types",
-    "text": "Mixing Variable Types\nOften with binary categorical data, it’s advantageous to encode the variable numerically. For example,\n\nfemale \\(\\Rightarrow 1=\\) female, \\(0=\\) other\nhigh school educated \\(\\Rightarrow 1=\\) yes, \\(0=\\) other (no)\ntook pill \\(\\Rightarrow 1=\\) yes, \\(0=\\) no\n…"
+    "objectID": "315/plottingData/main.html#scatter-plot-indometh-example",
+    "href": "315/plottingData/main.html#scatter-plot-indometh-example",
+    "title": "Plotting Data",
+    "section": "Scatter plot, Indometh example",
+    "text": "Scatter plot, Indometh example\n\n\nCode\nlibrary(datasets)\n# ?Indometh\nggplot(data = Indometh, aes(time, conc)) +\n    geom_point()"
   },
   {
-    "objectID": "315/summaryStats/main.html#mixing-variable-types-1",
-    "href": "315/summaryStats/main.html#mixing-variable-types-1",
-    "title": "Summary Statistics",
-    "section": "Mixing Variable Types",
-    "text": "Mixing Variable Types\nConsider the variable spam in the dataset email. We are likely interested in the proportion of emails that are spam, \\(\\hat{p}\\).\n\n\nCode\nspam_number &lt;- ifelse(email$spam == 1, 1, 0)\n(phat &lt;- mean(spam_number))\n\n\n[1] 0.09359857"
+    "objectID": "315/plottingData/main.html#scatter-plot-co2-example",
+    "href": "315/plottingData/main.html#scatter-plot-co2-example",
+    "title": "Plotting Data",
+    "section": "Scatter plot, CO2 example",
+    "text": "Scatter plot, CO2 example\n\n\nCode\n# ?CO2\nggplot(data = CO2, aes(conc, uptake, colour = Type)) +\n    geom_point()"
   },
   {
-    "objectID": "315/summaryStats/main.html#take-away",
-    "href": "315/summaryStats/main.html#take-away",
-    "title": "Summary Statistics",
+    "objectID": "315/plottingData/main.html#scatter-plots-careful",
+    "href": "315/plottingData/main.html#scatter-plots-careful",
+    "title": "Plotting Data",
+    "section": "Scatter plots, careful",
+    "text": "Scatter plots, careful\n\n\nCode\n# x: Australian residents, quarterly 03/1971 - 03/1994\n# y: WI beaver body temps, 10 min intervals\ndf &lt;- data.frame(x = as.vector(austres),\n                 y = beaver1[1:length(austres), \"temp\"])\nggplot(data = df, aes(x, y)) +\n    geom_point()"
+  },
+  {
+    "objectID": "315/plottingData/main.html#for-fun",
+    "href": "315/plottingData/main.html#for-fun",
+    "title": "Plotting Data",
+    "section": "for fun",
+    "text": "for fun\n\nhttps://xkcd.com/552/"
+  },
+  {
+    "objectID": "315/plottingData/main.html#take-away",
+    "href": "315/plottingData/main.html#take-away",
+    "title": "Plotting Data",
     "section": "Take Away",
-    "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
+    "text": "Take Away\n\ncategorical variable -&gt; bar chart\none numerical variable -&gt; histogram\none numerical and one categorical -&gt; box plot\ntwo numerical -&gt; scatter plot\n… many variations"
   },
   {
-    "objectID": "315/summariesByGroup/main.html#means-by-group",
-    "href": "315/summariesByGroup/main.html#means-by-group",
-    "title": "Summaries By Group",
-    "section": "Means by Group",
-    "text": "Means by Group\nConsider the dataset.\n\n\nCode\nsuppressMessages(library(datasets))\n# random 6 rows of ChickWeight\nChickWeight[sample(1:nrow(ChickWeight), 6),]\n\n\n    weight Time Chick Diet\n159     79    6    14    1\n126    168   12    11    1\n269     40    0    25    2\n215     77   12    20    1\n252    135   14    23    2\n10     171   18     1    1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#means-by-group-1",
-    "href": "315/summariesByGroup/main.html#means-by-group-1",
-    "title": "Summaries By Group",
-    "section": "Means by Group",
-    "text": "Means by Group\nMeans of chicks’s weight by diet.\n\n\nCode\nsuppressMessages(library(dplyr))\nsummarise(group_by(ChickWeight, Diet),\n          Mean=mean(weight))\n\n\n# A tibble: 4 × 2\n  Diet   Mean\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      103.\n2 2      123.\n3 3      143.\n4 4      135."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
-    "href": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
-    "title": "Summaries By Group",
-    "section": "Chicken Weight by Diet, means and more",
-    "text": "Chicken Weight by Diet, means and more\nMean and standard deviations of chicks’s weight by diet.\n\n\nCode\n(df &lt;- summarise(group_by(ChickWeight, Diet),\n                 Mn = mean(weight),\n                 StDev = sd(weight),\n                 q1 = quantile(weight, .25),\n                 q3 = quantile(weight, .75)))\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics, the workhorses",
-    "text": "Group Summary Statistics, the workhorses\nThe underlying ideas behind so much of statistics rely on three ideas/functions and one sentence enhancer.\n\ngroup_by – groups a data frame by some variables\nsummarise – summarizes many observations into one number\nmutate – mutate variables of a data frame into new variables\n%&gt;% – make code read (almost) like English"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group_by",
-    "href": "315/summariesByGroup/main.html#group_by",
-    "title": "Summaries By Group",
-    "section": "group_by",
-    "text": "group_by\nThe function group_by is incredibly helpful, but not that exciting.\n\n\nCode\n# ?group_by\nhead(ChickWeight) # start with this\n\n\n  weight Time Chick Diet\n1     42    0     1    1\n2     51    2     1    1\n3     59    4     1    1\n4     64    6     1    1\n5     76    8     1    1\n6     93   10     1    1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group_by-1",
-    "href": "315/summariesByGroup/main.html#group_by-1",
-    "title": "Summaries By Group",
-    "section": "group_by",
-    "text": "group_by\nIf we group the dataset ChickWeight by Diet, things change only slightly. But what group_by returns is now ready to be passed into summarise.\n\n\nCode\ngroup_by(ChickWeight, Diet)\n\n\n# A tibble: 578 × 4\n# Groups:   Diet [4]\n   weight  Time Chick Diet \n    &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt; &lt;fct&gt;\n 1     42     0 1     1    \n 2     51     2 1     1    \n 3     59     4 1     1    \n 4     64     6 1     1    \n 5     76     8 1     1    \n 6     93    10 1     1    \n 7    106    12 1     1    \n 8    125    14 1     1    \n 9    149    16 1     1    \n10    171    18 1     1    \n# ℹ 568 more rows"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#summarise",
-    "href": "315/summariesByGroup/main.html#summarise",
-    "title": "Summaries By Group",
-    "section": "summarise",
-    "text": "summarise\nThe function summarise collapses multiple observations down into one number, for instance into a summary statistic. As we saw before, we can summarize multiple variables at once.\n\n\nCode\n# ?summarise"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#summarise-1",
-    "href": "315/summariesByGroup/main.html#summarise-1",
-    "title": "Summaries By Group",
-    "section": "summarise",
-    "text": "summarise\nWhat does the following code do?\n\n\nCode\nsummarise(ChickWeight,\n          Mn = mean(weight, na.rm=TRUE))\n\n\n        Mn\n1 121.8183\n\n\nCode\n# hint\nmean(ChickWeight$weight, na.rm=TRUE)\n\n\n[1] 121.8183"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#summarise-2",
-    "href": "315/summariesByGroup/main.html#summarise-2",
-    "title": "Summaries By Group",
-    "section": "summarise",
-    "text": "summarise\nWe can also summarize multiple variables at once – by group or not.\n\n\nCode\nsummarise(ChickWeight,\n          mn = mean(weight),\n          sd = sd(weight),\n          mdn = median(weight),\n          iqr = IQR(weight))\n\n\n        mn       sd mdn    iqr\n1 121.8183 71.07196 103 100.75"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate",
-    "href": "315/summariesByGroup/main.html#mutate",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nThe function mutate allows us to create new variables and add them to the data frame. Recall our summarized data named\n\n\nCode\ndf\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-1",
-    "href": "315/summariesByGroup/main.html#mutate-1",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nWe can create a new variable (column)\n\n\nCode\n(newdf &lt;- mutate(df, iqr=q3-q1))\n\n\n# A tibble: 4 × 6\n  Diet     Mn StDev    q1    q3   iqr\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.  78.8\n2 2      123.  71.6  65.5  163   97.5\n3 3      143.  86.5  67.5  199. 131. \n4 4      135.  68.8  71.2  185. 114."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-2",
-    "href": "315/summariesByGroup/main.html#mutate-2",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nIn case our new variable isn’t automatically printed, remember we can make R print things for us.\n\n\nCode\nnewdf[,c(\"Diet\", \"iqr\")]\n\n\n# A tibble: 4 × 2\n  Diet    iqr\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      78.8\n2 2      97.5\n3 3     131. \n4 4     114."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-3",
-    "href": "315/summariesByGroup/main.html#mutate-3",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nmutate works on any data frame. For instance, you might have two variables that are obviously better off as a ratio.\n\nmiles driven and time (hours) \\(\\Rightarrow\\) miles/hr.\nstate income and state population \\(\\Rightarrow\\) per capita income\nor any state total, \\(x\\), and state population \\(\\Rightarrow\\) per capita x\nsurface area and volume \\(\\Rightarrow\\) surface-area-to-volume ratio, SA:V\n…"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics",
-    "text": "Group Summary Statistics\nSummary statistics and a lesson about missing values in R.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\nsummarise(\n    group_by(carnivora, Family),\n        Mn = mean(LS), # litter size\n        Total = n(),   # counts\n        Sm = sum(LS, na.rm=TRUE))\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae  NA       32  83.1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics, take 2",
-    "text": "Group Summary Statistics, take 2\nWe removed NAs from mean calculation and made code (almost) read like English\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(Mn = mean(LS, na.rm = TRUE)) # Litter Size\n\n\n# A tibble: 8 × 2\n  Family         Mn\n  &lt;fct&gt;       &lt;dbl&gt;\n1 Ailuridae    1.5 \n2 Canidae      4.43\n3 Felidae      2.69\n4 Hyaenidae    2.4 \n5 Mustelidae   3.65\n6 Procyonidae  3.08\n7 Ursidae      2.1 \n8 Viverridae   2.77"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics, take 3",
-    "text": "Group Summary Statistics, take 3\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(\n        Mn = mean(LS, na.rm = TRUE),\n        Total = n(),\n        Sm = sum(LS, na.rm = TRUE)\n    )\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae   2.77    32  83.1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-4",
-    "href": "315/summariesByGroup/main.html#mutate-4",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nMaybe relative brain size matters to you, i.e. heaviest brain relative to body weight.\n\n\nCode\nheavy &lt;- carnivora %&gt;%\n    group_by(Family) %&gt;%\n    mutate(brbo = SB/SW) # brain/body"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-and-summarise",
-    "href": "315/summariesByGroup/main.html#mutate-and-summarise",
-    "title": "Summaries By Group",
-    "section": "mutate and summarise",
-    "text": "mutate and summarise\nThen throw in some summarise and find which family has greatest mean brain to body weight ratio.\n\n\nCode\nheavy %&gt;%\n    summarise(Mn_brbo = mean(brbo, na.rm=TRUE))\n\n\n# A tibble: 8 × 2\n  Family      Mn_brbo\n  &lt;fct&gt;         &lt;dbl&gt;\n1 Ailuridae      1.74\n2 Canidae        7.90\n3 Felidae        5.50\n4 Hyaenidae      3.28\n5 Mustelidae    10.5 \n6 Procyonidae   10.8 \n7 Ursidae        1.94\n8 Viverridae     9.45"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#who",
-    "href": "315/summariesByGroup/main.html#who",
-    "title": "Summaries By Group",
-    "section": "who?",
-    "text": "who?\n\nThese guys Procyonidae\nBut also PNAS article"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-point-estimates",
-    "href": "315/anova/main.html#recap-point-estimates",
-    "title": "ANOVA",
-    "section": "recap: point estimates",
-    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
-  },
-  {
-    "objectID": "315/anova/main.html#recap-central-limit-theorem",
-    "href": "315/anova/main.html#recap-central-limit-theorem",
-    "title": "ANOVA",
-    "section": "recap: central limit theorem",
-    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-confidence-intervals",
-    "href": "315/anova/main.html#recap-confidence-intervals",
-    "title": "ANOVA",
-    "section": "recap: confidence intervals",
-    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-hypothesis-tests",
-    "href": "315/anova/main.html#recap-hypothesis-tests",
-    "title": "ANOVA",
-    "section": "recap: hypothesis tests",
-    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
-    "href": "315/anova/main.html#recap-two-sample-t-tests",
-    "title": "ANOVA",
-    "section": "recap: two sample t-tests",
-    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
-  },
-  {
-    "objectID": "315/anova/main.html#analaysis-of-variance",
-    "href": "315/anova/main.html#analaysis-of-variance",
-    "title": "ANOVA",
-    "section": "Analaysis of Variance",
-    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-hypothesis",
-    "href": "315/anova/main.html#anova-hypothesis",
-    "title": "ANOVA",
-    "section": "ANOVA, hypothesis",
-    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-hypothesis-examples",
-    "href": "315/anova/main.html#anova-hypothesis-examples",
-    "title": "ANOVA",
-    "section": "ANOVA, hypothesis examples",
-    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-picture",
-    "href": "315/anova/main.html#anova-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, picture",
-    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intuition",
-    "href": "315/anova/main.html#anova-intuition",
-    "title": "ANOVA",
-    "section": "ANOVA, intuition",
-    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intuition-in-picture",
-    "href": "315/anova/main.html#anova-intuition-in-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, intuition in picture",
-    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intution-via-picture",
-    "href": "315/anova/main.html#anova-intution-via-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, intution via picture",
-    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-test-statistic",
-    "href": "315/anova/main.html#anova-test-statistic",
-    "title": "ANOVA",
-    "section": "ANOVA, test statistic",
-    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-hypotheses",
-    "href": "315/anova/main.html#baseball-example-hypotheses",
-    "title": "ANOVA",
-    "section": "Baseball example, hypotheses",
-    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-plot",
-    "href": "315/anova/main.html#baseball-example-plot",
-    "title": "ANOVA",
-    "section": "Baseball example, plot",
-    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-code",
-    "href": "315/anova/main.html#baseball-example-r-code",
-    "title": "ANOVA",
-    "section": "Baseball example, R code",
-    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-code-details",
-    "href": "315/anova/main.html#baseball-example-r-code-details",
-    "title": "ANOVA",
-    "section": "Baseball example, R code details",
-    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-output",
-    "href": "315/anova/main.html#baseball-example-r-output",
-    "title": "ANOVA",
-    "section": "Baseball example, R output",
-    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-conclusion",
-    "href": "315/anova/main.html#baseball-example-conclusion",
-    "title": "ANOVA",
-    "section": "Baseball example, conclusion",
-    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
-    "href": "315/anova/main.html#multiple-comparisons-the-problem",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
-    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
-    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, how bad a problem",
-    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
-    "href": "315/anova/main.html#multiple-comparisons-a-solution",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, a solution",
-    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, plot",
-    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, not all groups",
-    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, hypotheses",
-    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, R code",
-    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, conclusion",
-    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
-    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
-  },
-  {
-    "objectID": "315/anova/main.html#take-away",
-    "href": "315/anova/main.html#take-away",
-    "title": "ANOVA",
-    "section": "Take Away",
-    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#recap-best-guesses",
-    "href": "315/randomVariables/main.html#recap-best-guesses",
-    "title": "Random Variables",
-    "section": "recap: best guesses",
-    "text": "recap: best guesses\nSample statistics are best guesses about characterstics of the population; we estiamte unknown population parameters with sample statistics, respectively.\n\n\n\nPopulation Parameter\nSample Statistic\n\n\n\n\n\\(\\mu\\)\n\\(\\bar{x}\\)\n\n\n\\(\\sigma, s\\)\n\\(\\hat{\\sigma}, \\hat{s}\\)\n\n\n\\(\\sigma^2, v\\)\n\\(\\hat{\\sigma}^2, \\hat{v}\\)\n\n\n\\(p\\)\n\\(\\hat{p}\\)\n\n\n…\n…"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-proportions-from-histogram",
-    "href": "315/randomVariables/main.html#distributions-proportions-from-histogram",
-    "title": "Random Variables",
-    "section": "Distributions, proportions from histogram",
-    "text": "Distributions, proportions from histogram\nWe can use a sample (visualized as a histogram) to estimate the proportion of people\n\nbetween 180 and 190cm tall, or\ntaller than 220cm,\nshorter than 201cm."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-proprotions-from-histogram",
-    "href": "315/randomVariables/main.html#distributions-proprotions-from-histogram",
-    "title": "Random Variables",
-    "section": "Distributions, proprotions from histogram",
-    "text": "Distributions, proprotions from histogram\nProportion of sample between 180 and 190cm tall?\n\\(\\frac{\\text{# people between 180 and 190}}{n} =\\) 0.3411"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-connecting-to-histograms",
-    "href": "315/randomVariables/main.html#distributions-connecting-to-histograms",
-    "title": "Random Variables",
-    "section": "Distributions, connecting to histograms",
-    "text": "Distributions, connecting to histograms\nWe are still estimating things about the popluation. Now we are estimating proportions between two numbers, instead of where the distribution is centered (\\(\\mu\\)) or how wide the distribution is (\\(\\sigma\\))."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-in-simple-language",
-    "href": "315/randomVariables/main.html#distributions-in-simple-language",
-    "title": "Random Variables",
-    "section": "Distributions, in simple language",
-    "text": "Distributions, in simple language\nDistributions are the population analogue to histograms, just as \\(\\mu\\) is the population analogue to \\(\\bar{X}\\). Distributions are mathematical descriptions of populations, defined by a function that has a measure of center \\(\\mu\\) and a measure of spread \\(\\sigma\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-an-example",
-    "href": "315/randomVariables/main.html#distributions-an-example",
-    "title": "Random Variables",
-    "section": "Distributions, an example",
-    "text": "Distributions, an example\nWe often model adult male heights with a continuous distribution. Simplified, this means we draw a curve over a histogram with decreasing binwidths of an infinite set heights."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-an-example-1",
-    "href": "315/randomVariables/main.html#distributions-an-example-1",
-    "title": "Random Variables",
-    "section": "Distributions, an example",
-    "text": "Distributions, an example"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-an-example-2",
-    "href": "315/randomVariables/main.html#distributions-an-example-2",
-    "title": "Random Variables",
-    "section": "Distributions, an example",
-    "text": "Distributions, an example"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-an-example-3",
-    "href": "315/randomVariables/main.html#distributions-an-example-3",
-    "title": "Random Variables",
-    "section": "Distributions, an example",
-    "text": "Distributions, an example"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-an-example-4",
-    "href": "315/randomVariables/main.html#distributions-an-example-4",
-    "title": "Random Variables",
-    "section": "Distributions, an example",
-    "text": "Distributions, an example\nWithout a sample, we hypothesize the (population) distribution of heights to have a nice mathematical form."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#continuous-distribution",
-    "href": "315/randomVariables/main.html#continuous-distribution",
-    "title": "Random Variables",
-    "section": "Continuous Distribution",
-    "text": "Continuous Distribution\nThis smooth curve represents a probability density function (also called a density or distribution). The toal area under the density function is equal to 1."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-probability",
-    "href": "315/randomVariables/main.html#distributions-probability",
-    "title": "Random Variables",
-    "section": "Distributions, probability",
-    "text": "Distributions, probability\nWhat is the probability that a randomly selected adult is between 180 and 190cm tall?\n\\(P(180 &lt; X &lt; 190) =\\) 0.3413"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-sample-estimates-population",
-    "href": "315/randomVariables/main.html#distributions-sample-estimates-population",
-    "title": "Random Variables",
-    "section": "Distributions, sample estimates population",
-    "text": "Distributions, sample estimates population\nThe proportion of people within the sample in between 180cm and 190cm 0.3411 is a close estimate of the population probability that a randomly chosen person is between those same heights 0.3413."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-proprotions-from-histogram-1",
-    "href": "315/randomVariables/main.html#distributions-proprotions-from-histogram-1",
-    "title": "Random Variables",
-    "section": "Distributions, proprotions from histogram",
-    "text": "Distributions, proprotions from histogram\nProportion of sample less than 201?\n\\(\\frac{\\# \\text{people} &lt; 201}{n} =\\) 0.8641"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-probability-1",
-    "href": "315/randomVariables/main.html#distributions-probability-1",
-    "title": "Random Variables",
-    "section": "Distributions, probability",
-    "text": "Distributions, probability\nWhat is the probability that a randomly selected adult is shorter than 201?\n\\(P(X &lt; 201) =\\) 0.864"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-sample-estimates-population-1",
-    "href": "315/randomVariables/main.html#distributions-sample-estimates-population-1",
-    "title": "Random Variables",
-    "section": "Distributions, sample estimates population",
-    "text": "Distributions, sample estimates population\nAgain, the proportion of people within the sample that are shorter than 201cm 0.8641 is a close estimate of the population probability that a randomly chosen person is shorter than \\(201\\)cm 0.864."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-population-known",
-    "href": "315/randomVariables/main.html#distributions-population-known",
-    "title": "Random Variables",
-    "section": "Distributions, population known?",
-    "text": "Distributions, population known?\nThough, there is something odd going on. We’ve assumed we know the population distribution; it’s shape, it’s mean, and it’s standard deviation."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#distributions-in-practice",
-    "href": "315/randomVariables/main.html#distributions-in-practice",
-    "title": "Random Variables",
-    "section": "Distributions, in practice",
-    "text": "Distributions, in practice\nIn practice, we don’t and won’t know the population distribution. Nevertheless, we can learn things about it via a sample. Soon we’ll find out that this lack of knowledge about the population, really just doesn’t matter."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-an-example",
-    "href": "315/randomVariables/main.html#random-variables-an-example",
-    "title": "Random Variables",
-    "section": "Random Variables, an example",
-    "text": "Random Variables, an example\nContinuing our height example: in the case of randomly selected individuals and their height, the random variable \\(X\\) is the height of an unknown (to be randomly selected) individual."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-an-example-1",
-    "href": "315/randomVariables/main.html#random-variables-an-example-1",
-    "title": "Random Variables",
-    "section": "Random Variables, an example",
-    "text": "Random Variables, an example\nIn this example, the random variable is an adult’s height. Since we don’t yet know how tall a to be randomly selected adult is, we denote the to be determined value by \\(X\\). Once we observe the variable’s outcome, we write the value of the adult as \\(x\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-definition",
-    "href": "315/randomVariables/main.html#random-variables-definition",
-    "title": "Random Variables",
-    "section": "Random Variables, definition",
-    "text": "Random Variables, definition\nA random process or variable with a numerical outcome, see OS4 Section 3.4.1."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-note",
-    "href": "315/randomVariables/main.html#random-variables-note",
-    "title": "Random Variables",
-    "section": "Random Variables, note",
-    "text": "Random Variables, note\nEach random variable has a distribution function that describes the form of the random variable. Tying the pieces together, we say that each random variable (via its distribution function) has a measure of center \\(\\mu\\) and a measure of spread \\(\\sigma\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#uniform-distribution",
-    "href": "315/randomVariables/main.html#uniform-distribution",
-    "title": "Random Variables",
-    "section": "Uniform Distribution",
-    "text": "Uniform Distribution\nThe discrete uniform distribution is the simplest of discrete distributions. We write \\(X \\sim U(a, b)\\), meaning the random variable \\(X\\) is distributed uniformly on the interval \\([a, b]\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#uniform-distribution-example",
-    "href": "315/randomVariables/main.html#uniform-distribution-example",
-    "title": "Random Variables",
-    "section": "Uniform Distribution, example",
-    "text": "Uniform Distribution, example\nThe canonical example is die rolling. If we let the random process of die rolling be denoted by \\(X\\), then \\(X \\sim U(1, 6)\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#bernoulli-distribution-motivation-i",
-    "href": "315/randomVariables/main.html#bernoulli-distribution-motivation-i",
-    "title": "Random Variables",
-    "section": "Bernoulli Distribution, motivation I",
-    "text": "Bernoulli Distribution, motivation I\nSuppose you work for the IRS and you are interested in the probability that a randomly selected tax payer is attempting to commit fraud on their tax return. So you and your boss decide to test this. From a sample of 900 tax payers, you perform an in depth search through each of the 900 tax forms."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#bernoulli-distribution-motivation-ii",
-    "href": "315/randomVariables/main.html#bernoulli-distribution-motivation-ii",
-    "title": "Random Variables",
-    "section": "Bernoulli Distribution, motivation II",
-    "text": "Bernoulli Distribution, motivation II\nSuppose you want to know the frequency of a dominant gene, say A, in a population1. You draw 50 members of the population at random and find that 12 of them display the dominant phenotype.\nWe assume that the population is sufficiently large that removing 50 individuals is without effect and that the population is in Hardy-Weinberg equilibrium."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#bernoulli-distribution-motivation-iii",
-    "href": "315/randomVariables/main.html#bernoulli-distribution-motivation-iii",
-    "title": "Random Variables",
-    "section": "Bernoulli Distribution, motivation III",
-    "text": "Bernoulli Distribution, motivation III\nYou are interested in calculating the average G/C fraction of Human genomic DNA across the whole genome. You sample \\(50\\) individuals, sequence their genome …"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#bernoulli-distribution-introduction",
-    "href": "315/randomVariables/main.html#bernoulli-distribution-introduction",
-    "title": "Random Variables",
-    "section": "Bernoulli Distribution, introduction",
-    "text": "Bernoulli Distribution, introduction\nNotice what is common to all of these scenarios\n\nrandom variable has just two outcomes: “success” or “failure”\n\ncommit fraud or not, dominant or not, G/C base or not\n\nindependent trials\n\nyour not paying taxes does not (necessarily) determine your neighbor’s willingness to pay taxes, …, G/C base here does not dictate next base\n\nprobability of “success,” \\(p\\), stays the same\n\nBill through Ted have 0.62% chance of commiting fraud, …, dominant gene A shows with frequency of 0.1"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#bernoulli-distribution-more-formally",
-    "href": "315/randomVariables/main.html#bernoulli-distribution-more-formally",
-    "title": "Random Variables",
-    "section": "Bernoulli Distribution, more formally",
-    "text": "Bernoulli Distribution, more formally\nThe Bernoulli distribution describes the probability of seeing a successes, calculated from \\(n\\) independent trials with probability of a success \\(p\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#bernoulli-distribution-conditions-met",
-    "href": "315/randomVariables/main.html#bernoulli-distribution-conditions-met",
-    "title": "Random Variables",
-    "section": "Bernoulli Distribution, conditions met?",
-    "text": "Bernoulli Distribution, conditions met?\nLet’s discuss: suppose you work for the IRS and you are interested in the probability that a randomly selected tax payer is attempting to commit fraud on their tax return. So you and your boss decide to test this. From a sample of 900 tax payers, you perform an in depth search through each of the 900 tax forms."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#binomial-distribution",
-    "href": "315/randomVariables/main.html#binomial-distribution",
-    "title": "Random Variables",
-    "section": "Binomial Distribution",
-    "text": "Binomial Distribution\nIf we can estimate \\(p\\) from a sample of Bernoulli random variables, we can then answer questions of the sort\n\nWhat is the probability that 3 of the next 9 tax forms are found to be fradulent?\nWhat is the probability that 20 of 50 randomly sampled individuals will display the dominant phenotype?\n…"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#binomial-distribution-1",
-    "href": "315/randomVariables/main.html#binomial-distribution-1",
-    "title": "Random Variables",
-    "section": "Binomial Distribution",
-    "text": "Binomial Distribution"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#normal-distribution",
-    "href": "315/randomVariables/main.html#normal-distribution",
-    "title": "Random Variables",
-    "section": "Normal Distribution",
-    "text": "Normal Distribution\nThe normal distribution is ubiquitous in statistics."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#normal-distribution-1",
-    "href": "315/randomVariables/main.html#normal-distribution-1",
-    "title": "Random Variables",
-    "section": "Normal Distribution",
-    "text": "Normal Distribution\nThe normal distribution is a probability density function that is symmetric, unimodal, and bell shaped.\nNotes\n\narea under the curve is equal to 1,\nperfectly symmetric about \\(\\mu\\),\nparameters: centered at \\(\\mu\\) with standard deviation \\(\\sigma\\),\noften \\(\\mu = 0\\), shifts the distribution,\noften \\(\\sigma = 1\\), scales the distribution,\nwe write in short hand \\(N(\\mu, \\sigma)\\),\nuse \\(Z\\) to denote \\(N(0,1)\\)\nGau\\(\\beta\\)ian distribution"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#interlude-z-score",
-    "href": "315/randomVariables/main.html#interlude-z-score",
-    "title": "Random Variables",
-    "section": "Interlude, z-score",
-    "text": "Interlude, z-score\nThe z-score of an observation is the number of standard deviations the observation lies above or below the mean. We compute the z-score for an observation \\(x\\) that follows a distribution with mean \\(\\mu\\) and standard deviation \\(\\sigma\\) using \\[z = \\frac{x - \\mu}{\\sigma}\\]"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#z-score-notes",
-    "href": "315/randomVariables/main.html#z-score-notes",
-    "title": "Random Variables",
-    "section": "z-score notes",
-    "text": "z-score notes\n\nThe Z-score is a unitless number. Why?\nBy definition, if an observation is 1 standard deviation above its mean, the z-score is 1. If an observation is 1.5 standard deviations below the mean, its z-score is -1.5."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#z-score-example",
-    "href": "315/randomVariables/main.html#z-score-example",
-    "title": "Random Variables",
-    "section": "Z-score, example",
-    "text": "Z-score, example\n\nSuppose SAT scores are distributed \\(X \\sim N(1500, 300)\\) and ACT scores are distributed \\(N(21, 5)\\). If Ann scored 1800 on the SAT and Tom scored 24 on the ACT, who performed better?\n\\(z_A = \\frac{1800 - 1500}{300} =\\) 1\n\\(z_T = \\frac{24 - 21}{5} =\\) 0.6\nThese are effectively quantiles/percentiles. Picture?"
-  },
-  {
-    "objectID": "315/randomVariables/main.html#rule",
-    "href": "315/randomVariables/main.html#rule",
-    "title": "Random Variables",
-    "section": "68, 95, 99.7 Rule",
-    "text": "68, 95, 99.7 Rule\nUse R to justify the following approximate numbers."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-expected-value",
-    "href": "315/randomVariables/main.html#random-variables-expected-value",
-    "title": "Random Variables",
-    "section": "Random Variables, expected value",
-    "text": "Random Variables, expected value\nAll random variables have a theoretical mean, called the expected value. The sample mean \\(\\bar{X}\\) is the sample analogue of this quantity.\n\nThe expected value of \\(X\\), written \\(\\mu = E(X)\\), is the value we’d expect to get out of \\(X\\) is we infinitely repeated the process that generated \\(X\\) and calculated the mean."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-expected-value-example",
-    "href": "315/randomVariables/main.html#random-variables-expected-value-example",
-    "title": "Random Variables",
-    "section": "Random Variables, expected value example",
-    "text": "Random Variables, expected value example\nLet \\(Y\\) take on the values \\(0,1\\) with equal probability – think coin flip. We can use R to simulate this random variable. We generate a sequence \\(y_1, y_2, ..., y_{10000}\\), each of which will be \\(0\\) or \\(1\\) once observed, and calculate the running mean. That is,\n\n\\(Y_1\\) evaluates to \\(y_1\\), with mean \\(y_1 / 1\\)\n\\(Y_1, Y_2\\) evaluate to \\(y_1, y_2\\), with mean \\((y_1 + y_2)/2\\)\n\\(Y_1, Y_2, Y_3\\) evaluate to \\(y_1, y_2, y_3\\), with mean \\((y_1 + y_2 + y_3)/3\\)\n…\n\\(Y_1, ..., Y_{10000}\\) evaluate to \\(y_1, ..., y_{10000}\\), with mean \\(\\sum_{i=1}^{10000} y_i /10000\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-variance",
-    "href": "315/randomVariables/main.html#random-variables-variance",
-    "title": "Random Variables",
-    "section": "Random Variables, variance",
-    "text": "Random Variables, variance\nRandom variables also have a common measure of spread, called the variance. The squared sample standard deviation, \\(s^2\\), is the sample analogue of this quantity.\n\nThe variance of \\(X\\), written \\(\\sigma^2 = Var(X)\\), is the mean of squared deviations about \\(E(X)\\) if we infinitely repeated the process that generated \\(X\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-variance-example",
-    "href": "315/randomVariables/main.html#random-variables-variance-example",
-    "title": "Random Variables",
-    "section": "Random Variables, variance example",
-    "text": "Random Variables, variance example\nConsider \\(Y\\) a random variable following a Bernoulli distribution with probability of “success” \\(p\\)."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#random-variables-distributions",
-    "href": "315/randomVariables/main.html#random-variables-distributions",
-    "title": "Random Variables",
-    "section": "Random Variables, distributions",
-    "text": "Random Variables, distributions\nRandom variables are said to follow specific distribution functions, eg \\(X\\) is distributed as [some name].\nWe calculate the expected value and variance of random variables from these distribution functions. When we calculate statistics, it is these mathematical quantities that we are estimating."
-  },
-  {
-    "objectID": "315/randomVariables/main.html#take-away",
-    "href": "315/randomVariables/main.html#take-away",
-    "title": "Random Variables",
-    "section": "Take Away",
-    "text": "Take Away\n\nWe assume distributions describe populations of interest\n\ndistributions describe the shape of our data\n\nDistributions have parameters: mean, variance, percentiles, …\nUse data to estimate parameters\n\nuse data to learn about population"
-  },
-  {
-    "objectID": "315/exams/exam01practice.html",
-    "href": "315/exams/exam01practice.html",
-    "title": "Exam 01 Practice, solutions",
-    "section": "",
-    "text": "horse &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/horse_prices.csv\")\n\n\nobservational study, because horse prices were likely not assigned by the researcher\n\n\n\nsuppressMessages(library(dplyr))\nlibrary(ggplot2)\n\n\nquantitative/numeric: Price, Age, Height qualitative/categorical/factor: Sex\nexplanatory: Age or Height response: Price\n\n\n\nggplot(horse, aes(Price)) + geom_histogram(bins=11)\n\n\n\n\n\n\n\n\n\n\n\n\nmean(horse$Price, na.rm = TRUE)\n\n[1] 26840\n\nmedian(horse$Price, na.rm = TRUE)\n\n[1] 25000\n\n\nThe histogram looks more or less symmetric, but because of the one potential outlier near $60,000, the mean is larger than the median.\n\n\n\n\nggplot(horse, aes(Sex, Price)) + geom_boxplot()\n\n\n\n\n\n\n\n\nThe median horse price for male horses is higher than the female median price. There is one potential outlier for the female horse prices. The mean does not show up on box plots.\n\n\n\n\nhorse %&gt;%\n  group_by(Sex) %&gt;%\n  summarize(m = mean(Price),\n            s = sd(Price),\n            n())\n\n# A tibble: 2 × 4\n  Sex       m      s `n()`\n  &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;\n1 f     16505 11043.    20\n2 m     33730 13285.    30\n\n\nThe variability in horse prices is greater for male horses, than it is for female horses, as is seen by the larger standard deviation of male horse prices. In this dataset, there were 20 female horses and 30 male horses.\n\n\n\n\nThe mean and standard deviation for dataset 2. is larger, because of the relatively large value 20 pulling up the mean and the standard deviation.\n\n\nx &lt;- c(3,5,5,5,8,11,11,11,13)\ny &lt;- c(3,5,5,5,8,11,11,11,20)\nmean(x)\n\n[1] 8\n\nsd(x)\n\n[1] 3.605551\n\nmean(y)\n\n[1] 8.777778\n\nsd(y)\n\n[1] 5.214829\n\n\n\nThe mean is smaller for dataset 2., because of the relatively extreme negative value -40. However, the standard deviation is larger for 2., because the -40 is further from the mean in this dataset.\n\n\nx &lt;- c(-20,0,0,0,15,25,30,30)\ny &lt;- c(-40,0,0,0,15,25,30,30)\nmean(x)\n\n[1] 10\n\nsd(x)\n\n[1] 17.92843\n\nmean(y)\n\n[1] 7.5\n\nsd(y)\n\n[1] 23.29929"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "",
-    "section": "",
-    "text": "Code\n\n\n\n\nLectures by Edward A. Roualdes"
-  },
-  {
-    "objectID": "314/means_expectations.html",
-    "href": "314/means_expectations.html",
+    "objectID": "314/binomial.html",
+    "href": "314/binomial.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\nThe formula for a mean \\(\\frac{1}{N} \\sum_{n=1}^N x_n\\) naturally relates to the definition of an expectation\n\\[\\mathbb{E}[X] = \\sum_{x \\in S} x \\cdot f(x)\\]\nyou just have to squint.\n\n# X ~ Uniform(1, 6)\nx = np.arange(6) + 1\nfx = 1/6\n\n\nnp.sum(x * fx) # E[X]\n\n3.5\n\n\n\nrng = np.random.default_rng()\nx = rng.integers(1, 7, size = 1000000)\n\n\nnp.mean(x)\n\n3.500221\n\n\n\nnp.mean(x == 4) # proportion of x values equal to 4, estimates 1/6\n\n0.166322\n\n\nThe formula for the mean estimates the density function at each value of \\(x\\), e.g. \\(x = 4\\). As such, here are various (numerically inefficient) ways to think about the formula for a mean.\n\ns = 0\nfor i in range(1, 7): # Python for-loop\n    s += np.mean(x == i) * i # s = s + np.mean(x == i) * i\ns\n\n3.500221\n\n\n\nnp.sum([np.mean(x == i) * i for i in range(1, 7)]) # list comprehension\n\n3.500221\n\n\n\nsum(np.mean(x == i) * i for i in range(1, 7)) # generator\n\n3.500221\n\n\n\np = np.zeros(6)\nN = np.size(x)\nfor xi in x:\n    p[xi-1] += 1 / N\nnp.sum(np.arange(1, 7) * p) \n# we should be able to re-use variables from above to simplify this, but I used x for both\n# the random numbers and the values in the support of the Uniform(1, 6) distribution.\n# For shame, Edward.\n\n3.500221000003066"
+    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
   },
   {
-    "objectID": "314/quiz06.html",
-    "href": "314/quiz06.html",
+    "objectID": "314/quiz05.html",
+    "href": "314/quiz05.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\ndef cummean(x):\n    N = np.size(x)\n    out = np.zeros(N) # np.zeros_like(x)\n    s = 0\n    for n in range(N):\n        s += x[n]\n        out[n] = s / (n + 1)\n    return out\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\n\n\nplt.plot(np.arange(100), cummean(x))"
+    "text": "import numpy as np\n\nNot a bad idea to solve this one in pieces/two functions.\n\ndef mean(x):\n    s = 0.0\n    N = np.size(x)\n    for n in range(N):\n        s += x[n]\n    return s / N\n\n\ndef var(x):\n    s = 0.0\n    N = np.size(x)\n    m = mean(x)\n    invN = 1 / N # minimizing division is a good idea, even if ineffective here\n    for n in range(N):\n        d = x[n] - m\n        s += d * d # multiplication is faster than powers\n    return s * invN\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\nnp.isclose(np.var(x), var(x))\n\nTrue"
+  },
+  {
+    "objectID": "314/quiz04.html",
+    "href": "314/quiz04.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\n\n\ndef mean(x):\n    N = np.size(x) # x.size\n    s = 0.0\n    for i in range(N):\n        s += x[i]\n    return s / N\n\n\nrng = np.random.default_rng() # instantiating an RNG class\nx = rng.normal(size = 10) # use rng instance to generate random numbers =&gt; ndarray\nx\n\narray([ 0.53768287,  0.48044289,  0.41968892,  0.53617612,  0.12008546,\n        2.36768986,  0.17752883,  0.68915822,  0.07121943, -0.29874026])\n\n\n\nnp.isclose(mean(x), np.mean(x)) # don't == floats/doubles\n\nTrue"
   },
   {
     "objectID": "314/convergence_probability.html",

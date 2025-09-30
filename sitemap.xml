@@ -2,70 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://roualdes.github.io/lectures/misc/klhr/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.301Z</lastmod>
+    <lastmod>2025-09-30T16:04:07.748Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/plot_densities.html</loc>
-    <lastmod>2025-09-29T22:18:33.105Z</lastmod>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
   </url>
   <url>
-    <loc>https://roualdes.github.io/lectures/314/quiz04.html</loc>
-    <lastmod>2025-09-29T22:18:33.105Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/314/quiz05.html</loc>
-    <lastmod>2025-09-29T22:18:33.105Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/314/binomial.html</loc>
-    <lastmod>2025-09-29T22:18:33.104Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/plottingData/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.113Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/summaryStats/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.124Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/summariesByGroup/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.123Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.106Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/randomVariables/main.html</loc>
-    <lastmod>2025-09-29T22:18:33.119Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/exams/exam01practice.html</loc>
-    <lastmod>2025-09-29T22:18:33.106Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/index.html</loc>
-    <lastmod>2025-09-29T22:18:33.299Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/314/means_expectations.html</loc>
-    <lastmod>2025-09-29T22:18:33.105Z</lastmod>
+    <loc>https://roualdes.github.io/lectures/314/quiz07.html</loc>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/quiz06.html</loc>
-    <lastmod>2025-09-29T22:18:33.105Z</lastmod>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/means_expectations.html</loc>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/index.html</loc>
+    <lastmod>2025-09-30T16:04:07.746Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/exams/exam01practice.html</loc>
+    <lastmod>2025-09-30T16:04:07.555Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/randomVariables/main.html</loc>
+    <lastmod>2025-09-30T16:04:07.568Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
+    <lastmod>2025-09-30T16:04:07.555Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/summariesByGroup/main.html</loc>
+    <lastmod>2025-09-30T16:04:07.572Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/summaryStats/main.html</loc>
+    <lastmod>2025-09-30T16:04:07.573Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
+    <lastmod>2025-09-30T16:04:07.561Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/plottingData/main.html</loc>
+    <lastmod>2025-09-30T16:04:07.563Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/binomial.html</loc>
+    <lastmod>2025-09-30T16:04:07.553Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/quiz05.html</loc>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/quiz04.html</loc>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/convergence_probability.html</loc>
-    <lastmod>2025-09-29T22:18:33.104Z</lastmod>
+    <lastmod>2025-09-30T16:04:07.553Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/intropython.html</loc>
-    <lastmod>2025-09-29T22:18:33.105Z</lastmod>
+    <lastmod>2025-09-30T16:04:07.554Z</lastmod>
   </url>
 </urlset>
