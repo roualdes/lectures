@@ -1621,7 +1621,7 @@
     "href": "314/exponential.html",
     "title": "lectures",
     "section": "",
-    "text": "import scipy.stats as st\nimport numpy as np\n\n\nExponential = st.expon\n\n\nX = Exponential(scale = 5000)\n\n\nX.cdf(2500) # cumulative distribition function\n\n0.3934693402873666\n\n\n\n1 - X.cdf(6000)\n\n0.3011942119122022"
+    "text": "import scipy.stats as st\nimport numpy as np\n\n\nExponential = st.expon\n\n\nX = Exponential(scale = 5000)\n\n\nX.cdf(2500) # cumulative distribition function\n\n0.3934693402873666\n\n\n\n1 - X.cdf(6000)\n\n0.3011942119122022\n\n\n\n# 2 b\nX.ppf(.1)\n\n526.8025782891316\n\n\n\n-5000 * np.log(1 - 0.1)\n\n526.8025782891314\n\n\n\n# 3 a\nX = Exponential(scale = 20)\nX.cdf(10)\n\n0.3934693402873666\n\n\n\nX.ppf(0.5)\n\n13.862943611198906\n\n\n\nX.ppf(1)\n\ninf\n\n\n\nX.pdf(2)\n\n0.04524187090179797"
   },
   {
     "objectID": "314/means_expectations.html",
