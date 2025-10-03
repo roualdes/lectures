@@ -1,0 +1,221 @@
+---
+title: "Confidence Intervals"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: show
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## recap: point estimates
+
+Point estimates are random variables.  Random variables follow shapes, called
+distributions.  Therefore, point estimates follow distributions (and have
+shapes).
+
+## recap: Central Limit Theorem
+
+* The Central Limit Theorem says, "If our sample size is large enough, the
+  sample mean will be approximately Normally distributed."
+
+* The Central Limit Theorem says, if we have a collection of sample means, the
+  shape (histogram) of this collection is basically Normal (unimodal and
+  symmetric).
+
+
+## recap: CLT, via web app
+
+Javascript web application to show [Central Limit
+Theorem](http://onlinestatbook.com/stat_sim/sampling_dist/}{Central Limit
+Theorem).
+
+## recap: CLT, so what
+
+It doesn't matter if that data are from a Normal distribution or not; use mean =>
+Central Limit Theorem => can approximate confidence intervals.
+
+# Confidence Interval
+
+## Intuition
+
+A better guess than a point estimate would include a range of likely values, an
+interval say, in which the population parameter of interest might live. If we
+want to be very certain we capture the population parameter, should we use a
+wider interval or a smaller interval?
+[Garfield](http://roualdes.us/misc/garfield.gif) knows.
+
+## A Trade Off
+
+Doesn't it seem reasonable to trade a little bit of confidence for a lot of bit
+of width?
+
+
+## Confidence plus Intervals
+
+We combine these two ideas, intervals and confidence, to form a confidence
+interval.  The idea comes from how much data lives between two numbers on a
+normal distribution.
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, qnorm(0.025)<x & x<qnorm(0.975)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## Confidence Intervals, definition for sample mean
+
+We build a confidence interval of the sample mean $\bar{X}$ by adding and
+subtracting $t$ standard errors $s_{\bar{X}}$.  We write this as
+
+
+$$\bar{X} \pm t * s_{\bar{X}}$$
+
+
+:::{.callout-note}
+
+CLT is all about the Normal distribution, which is usually
+represented as $z$.  We use $t$ here because we are recognizing that we also
+need to estimate $\sigma$.
+
+:::
+
+## Example I
+
+We will use a sample of Darwin's finch data set [Swarth:1931].  Make a 95%
+confidence interval about the wing length using Darwin's finches.
+
+```{r}
+# load data
+url <- "https://raw.githubusercontent.com/roualdes/data/master/finches.csv"
+finch <- read.csv(url)
+# look at data in RStudio
+```
+
+## Example, continued
+
+98% confidence interval for Darwin's finch data set.
+
+```{r}
+xbar <- mean(finch$winglength)
+std <- sd(finch$winglength)
+n <- length(finch$winglength)
+t <- qt(0.975, n - 1)
+```
+
+$$\bar{x} \pm t * \frac{std}{\sqrt{n}}$$
+
+```{r}
+xbar - t * std / sqrt(n) # lower
+xbar + t * std / sqrt(n) # upper
+```
+
+## Example, simplified
+
+```{r}
+t.test(finch$winglength, conf.level = 0.95)
+```
+
+## Confidence Intervals, interpretation in context of the data
+
+We are 95% confident that the true population mean wing length of Galapagos
+Island finches is between 70.5 and 72.5 milimeters.
+
+
+## Confidence Intervals, what?
+
+Our best guess $\bar{X}$ puts us near the population mean.  In an effort to
+capture the true mean we use an interval, i.e.\ we cast a wide net.  The width
+of the net is formed by adding and subtracting the margin of error.
+
+## Confidence Intervals, interpretations
+
+Despite the fact that we say, "We are $X$\% confident that the true population
+mean of [insert context] is between [insert lower bound] and [upper bound]," we
+don't mean that.  What we mean is, of course more complicated.
+
+## Confidence Intervals, literal translation
+
+We mean: If we were to re-sample $N$ times and create a confidence interval from
+each new sample, $X$\% of those intervals would include the true population
+mean.
+
+## Confidence Intervals, translation
+
+~~We mean: If we were to re-sample $N$ times and create a confidence interval from
+each new sample, $X$\% of those intervals would include the true population
+mean.~~
+
+If we were to re-sample $N$ times (we won't) and create a confidence interval
+from new sample (we won't), $X$% of those intervals would (only with an infinite
+number of intervals) include the true population mean.
+
+## Confidence Intervals, translation in picture
+
+```{r}
+#| echo: false
+
+suppressMessages({library(ggplot2)
+    library(dplyr)})
+n <- 5
+x <- replicate(20, mean(rnorm(n)))
+df <- data.frame(x=x, lb=x+qnorm(0.05)/sqrt(n), ub=x+qnorm(0.95)/sqrt(n), sample=1:20)
+df <- mutate(df, notcontain=lb>0|ub<0)
+p <- qplot(x, factor(sample), data=df, colour=factor(notcontain), ylab="sample") + guides(colour=FALSE)
+p + geom_vline(xintercept=0) +
+    geom_errorbarh(aes(xmin=lb, xmax=ub)) + scale_colour_manual(values=c("black", "red"))
+```
+
+
+## Example II
+
+We will use a sample of published journal articles Piwowar:2009.  Make a
+99% confidence interval about the proportion of articles that share their
+data.
+
+
+```{r}
+# load data
+url <- "https://raw.githubusercontent.com/roualdes/data/master/articles.csv"
+article <- read.csv(url) # look at data in RStudio
+t.test(article$is_data_shared, conf.level = 0.99)
+```
+
+
+## Examle II, interpretted in context of the data
+
+We are 99% confident that the true population proportion of published journal
+articles that share their data is between 0.4 and 0.53.
+
+
+## Take Away
+
+* CLT enables confidence intervals based off of the ~~Normal~~ t-distribution
+* You will be responsible for
+    * loading data into R
+    * calculating confidence intervals with some % confidence
+    * interpretting confidence intervals in the context of the data
+    * understanding the literal translation meaning of the interpretation

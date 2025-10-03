@@ -1,0 +1,21 @@
+{
+  "hash": "b29a9157dbc0278f1659c8b34caf8d04",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Sampling Distribution\"\naffiliation: \"CSU, Chico MATH 315\"\nauthor: \"Edward A. Roualdes\"\nformat:\n  revealjs:\n    incremental: true\n    scrollable: true\n    code-fold: show\n    self-contained: true\ntbl-cap-location: bottom\nexecute:\n  echo: true\n---\n\n\n\n# Recap\n\n## recap: Goal of Statistics\n\nStatistics estimates population parameters:\n\n* population mean $\\mu$ using sample mean, $\\bar{X}$\n* population proportion $p$ using sample mean, $\\hat{p}$\n* population standard deviation $\\sigma$ using sample standard deviation, $s$\n* ...\n\n\n## Point Estimate\n\nA calculated sample statistic is known as a point estimate.  Statistics thinks\nof these as random variables, since (abstractly) statistics are just functions\nof random variables.\n\n* $\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}$\n\n* <http://onlinestatbook.com/stat_sim/sampling_dist/>\n\n\n# Sampling Distribution\n\n## Point Estimates Vary\n\nConsider a dataset about possums from Australia and New Guinea.  Suppose we\ncollected 1000 random samples of 50 possums each and calculated the mean from\neach sample.  So now we have 1000 sample means.  What's the shape of the sample means?\n\n\n## Sampling Distribution, example\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](main_files/figure-revealjs/unnamed-chunk-2-1.png){width=960}\n:::\n:::\n\n\n## Sampling Distribution, definition\n\nIt is useful to think of a particular point estimate as being drawn from this\ncontinuous distribution, the **sampling distribution**.\n\n* The **sampling distribution** represents the distribution (shape of histogram)\nof the *point estimates* based on samples of a fixed size from a certain\npopulation.\n\n\n## Sampling Distribution, parameters\n\nThe sampling distribution has its own mean and standard deviation, called the\n**standard error**.\n\n* The standard deviation associated with a point estimator is called the\n  **standard error**.\n\n# Standard Error\n\n## Example\n\nLet's use the definition $\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}$.\n\n* Would you be more trusting of a sample that has $100$ observations or $400$ observations?\n* If $\\sigma = 10$, what is $\\sigma_{\\bar{X}}$ when $n=100$?\n* What is $\\sigma_{\\bar{X}}$ when $n=400$?\n* What do the respective sampling distributions look like?\n\n## Take Away\n\n* Statistics imagines repeated sampling, even if it never happens\n* Mathematically, repeated sampling can/does happen\n* Standard Error (error in estimate) decreases as sample size goes up\n    * intuition comes from standard error of the sample mean, $\\frac{\\sigma}{\\sqrt{n}}$\n* We use these lessons to build new tools to learn about populations of interest\n",
+    "supporting": [
+      "main_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

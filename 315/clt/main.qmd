@@ -1,0 +1,157 @@
+---
+title: "Central Limit Theorem"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## recap: point estimates
+
+Point estimates are random variables.  Random variables follow shapes, called
+distributions.  Therefore, point estimates follow distributions (and have
+shapes).
+
+## Central Limit Theorem
+
+* The Central Limit Theorem says, "If our sample size is large enough, the
+  sample mean will be approximately Normally distributed."
+
+* The Central Limit Theorem says, if we have a collection of sample means, the
+  shape (histogram) of this collection is basically Normal (unimodal and
+  symmetric).
+
+
+## CLT, via web app
+
+Javascript web application to show [Central Limit
+Theorem](http://onlinestatbook.com/stat_sim/sampling_dist/}{Central Limit
+Theorem).
+
+
+## CLT, definition (in Statistics)
+
+The Central Limit Theorem says, "Under certain conditions, the sampling
+distribution for the sample mean converges to the normal distribution as the
+sample size increases."
+
+
+## CLT, definition (in symbols)
+
+When $n$ is sufficiently large,
+
+$$\frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \overset{\cdot}{\sim} N(0, 1).$$
+
+As $n$ increases, the approximation improves.
+
+
+## CLT's Assumptions
+
+We should mention the conditions necessary for this to happen.
+
+* independent observations,
+* identically distributed, $X_i \sim \mathcal{F}$ for all $i$, and
+* variance is finite, $\sigma^2 < \infty$.
+
+
+## CLT, so what
+
+The assumptions are really not that bad, so we can safely assume they hold in
+many real world applications.  With that, so long as we use the mean, then we
+can say, at least approximately, how the distribution of means is shaped -- even
+if we never actually sample/calculate multiple means.
+
+
+## Not Necessarily Normal Data
+
+It doesn't matter if that data are from a Normal distribution or not; use mean =>
+Central Limit Theorem.
+
+
+## Example
+
+We will use a sample of Darwin's finch data set [Swarth:1931].  Make a 98%
+confidence interval about the beak height using Darwin's finches.
+
+```{r}
+# load data
+url <- "https://raw.githubusercontent.com/roualdes/data/master/finches.csv"
+finch <- read.csv(url)
+# look at data in RStudio
+```
+
+## Example, continued
+
+98% confidence interval for Darwin's finch data set.
+
+```{r}
+xbar <- mean(finch$beakheight)
+std <- sd(finch$beakheight)
+n <- length(finch$beakheight)
+t <- qt(0.99, n - 1)
+```
+
+$$\bar{x} \pm t * \frac{std}{\sqrt{n}}$$
+
+```{r}
+xbar - t * std / sqrt(n) # lower
+xbar + t * std / sqrt(n) # upper
+```
+
+## Example, simplified
+
+```{r}
+t.test(finch$beakheight, conf.level = 0.98)
+```
+
+## Revisit Web App
+
+This time, pay attention to the width of the sampling distribution.
+
+[Central Limit
+Theorem web app](http://onlinestatbook.com/stat_sim/sampling_dist/}{Central Limit
+Theorem).
+
+
+## Try at Home
+
+Just to help gain/rehearse intuition about standard errors, try the example
+again at home and this time simply make up a new sample size.  That is try
+replacing in the calculations above
+
+```{r}
+n <- 10
+n <- 100
+n <- 1000
+```
+
+What happens to the width of the confidence interval for each new $n$?
+
+
+## Take Away
+
+Because math/statistics
+
+* we can approximate confidence intervals for sample means
+* we can approximate hypothesis tests (coming soon)...
+* t-test shows up more often than normal in CLT
+    * their similar in spirit, but t has fatter tails
+* for a long time, this was the only way to statistics
+* we'll keep referring back to the CLT for the rest of the class

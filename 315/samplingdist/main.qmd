@@ -1,0 +1,105 @@
+---
+title: "Sampling Distribution"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: show
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## recap: Goal of Statistics
+
+Statistics estimates population parameters:
+
+* population mean $\mu$ using sample mean, $\bar{X}$
+* population proportion $p$ using sample mean, $\hat{p}$
+* population standard deviation $\sigma$ using sample standard deviation, $s$
+* ...
+
+
+## Point Estimate
+
+A calculated sample statistic is known as a point estimate.  Statistics thinks
+of these as random variables, since (abstractly) statistics are just functions
+of random variables.
+
+* $\bar{X} = \frac{\sum_{i=1}^N X_i}{N}$
+
+* <http://onlinestatbook.com/stat_sim/sampling_dist/>
+
+
+# Sampling Distribution
+
+## Point Estimates Vary
+
+Consider a dataset about possums from Australia and New Guinea.  Suppose we
+collected 1000 random samples of 50 possums each and calculated the mean from
+each sample.  So now we have 1000 sample means.  What's the shape of the sample means?
+
+
+## Sampling Distribution, example
+
+```{r}
+#| echo: false
+
+suppressMessages(library(openintro))
+rrs <- nrow(possum)
+means <- replicate(1000, mean(possum$head_l[sample.int(rrs, 50)], na.rm=TRUE))
+qplot(means, geom="histogram", binwidth=1/4, xlab="length (mm)",
+          main="1000 Sample Means")
+```
+
+## Sampling Distribution, definition
+
+It is useful to think of a particular point estimate as being drawn from this
+continuous distribution, the **sampling distribution**.
+
+* The **sampling distribution** represents the distribution (shape of histogram)
+of the *point estimates* based on samples of a fixed size from a certain
+population.
+
+
+## Sampling Distribution, parameters
+
+The sampling distribution has its own mean and standard deviation, called the
+**standard error**.
+
+* The standard deviation associated with a point estimator is called the
+  **standard error**.
+
+# Standard Error
+
+## Example
+
+Let's use the definition $\sigma_{\bar{X}} = \sigma/\sqrt{n}$.
+
+* Would you be more trusting of a sample that has $100$ observations or $400$ observations?
+* If $\sigma = 10$, what is $\sigma_{\bar{X}}$ when $n=100$?
+* What is $\sigma_{\bar{X}}$ when $n=400$?
+* What do the respective sampling distributions look like?
+
+## Take Away
+
+* Statistics imagines repeated sampling, even if it never happens
+* Mathematically, repeated sampling can/does happen
+* Standard Error (error in estimate) decreases as sample size goes up
+    * intuition comes from standard error of the sample mean, $\frac{\sigma}{\sqrt{n}}$
+* We use these lessons to build new tools to learn about populations of interest
