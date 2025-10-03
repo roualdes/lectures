@@ -553,6 +553,545 @@
     "text": "Take Away\n\nWe assume distributions describe populations of interest\n\ndistributions describe the shape of our data\n\nDistributions have parameters: mean, variance, percentiles, …\nUse data to estimate parameters\n\nuse data to learn about population"
   },
   {
+    "objectID": "315/confint/main.html#recap-point-estimates",
+    "href": "315/confint/main.html#recap-point-estimates",
+    "title": "Confidence Intervals",
+    "section": "recap: point estimates",
+    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
+  },
+  {
+    "objectID": "315/confint/main.html#recap-central-limit-theorem",
+    "href": "315/confint/main.html#recap-central-limit-theorem",
+    "title": "Confidence Intervals",
+    "section": "recap: Central Limit Theorem",
+    "text": "recap: Central Limit Theorem\n\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”\nThe Central Limit Theorem says, if we have a collection of sample means, the shape (histogram) of this collection is basically Normal (unimodal and symmetric)."
+  },
+  {
+    "objectID": "315/confint/main.html#recap-clt-via-web-app",
+    "href": "315/confint/main.html#recap-clt-via-web-app",
+    "title": "Confidence Intervals",
+    "section": "recap: CLT, via web app",
+    "text": "recap: CLT, via web app\nJavascript web application to show Central Limit Theorem."
+  },
+  {
+    "objectID": "315/confint/main.html#recap-clt-so-what",
+    "href": "315/confint/main.html#recap-clt-so-what",
+    "title": "Confidence Intervals",
+    "section": "recap: CLT, so what",
+    "text": "recap: CLT, so what\nIt doesn’t matter if that data are from a Normal distribution or not; use mean =&gt; Central Limit Theorem =&gt; can approximate confidence intervals."
+  },
+  {
+    "objectID": "315/confint/main.html#intuition",
+    "href": "315/confint/main.html#intuition",
+    "title": "Confidence Intervals",
+    "section": "Intuition",
+    "text": "Intuition\nA better guess than a point estimate would include a range of likely values, an interval say, in which the population parameter of interest might live. If we want to be very certain we capture the population parameter, should we use a wider interval or a smaller interval? Garfield knows."
+  },
+  {
+    "objectID": "315/confint/main.html#a-trade-off",
+    "href": "315/confint/main.html#a-trade-off",
+    "title": "Confidence Intervals",
+    "section": "A Trade Off",
+    "text": "A Trade Off\nDoesn’t it seem reasonable to trade a little bit of confidence for a lot of bit of width?"
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-plus-intervals",
+    "href": "315/confint/main.html#confidence-plus-intervals",
+    "title": "Confidence Intervals",
+    "section": "Confidence plus Intervals",
+    "text": "Confidence plus Intervals\nWe combine these two ideas, intervals and confidence, to form a confidence interval. The idea comes from how much data lives between two numbers on a normal distribution."
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-definition-for-sample-mean",
+    "href": "315/confint/main.html#confidence-intervals-definition-for-sample-mean",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, definition for sample mean",
+    "text": "Confidence Intervals, definition for sample mean\nWe build a confidence interval of the sample mean \\(\\bar{X}\\) by adding and subtracting \\(t\\) standard errors \\(s_{\\bar{X}}\\). We write this as\n\\[\\bar{X} \\pm t * s_{\\bar{X}}\\]\n\n\n\n\n\n\nNote\n\n\nCLT is all about the Normal distribution, which is usually represented as \\(z\\). We use \\(t\\) here because we are recognizing that we also need to estimate \\(\\sigma\\)."
+  },
+  {
+    "objectID": "315/confint/main.html#example-i",
+    "href": "315/confint/main.html#example-i",
+    "title": "Confidence Intervals",
+    "section": "Example I",
+    "text": "Example I\nWe will use a sample of Darwin’s finch data set [Swarth:1931]. Make a 95% confidence interval about the wing length using Darwin’s finches.\n\n\nCode\n# load data\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/finches.csv\"\nfinch &lt;- read.csv(url)\n# look at data in RStudio"
+  },
+  {
+    "objectID": "315/confint/main.html#example-continued",
+    "href": "315/confint/main.html#example-continued",
+    "title": "Confidence Intervals",
+    "section": "Example, continued",
+    "text": "Example, continued\n98% confidence interval for Darwin’s finch data set.\n\n\nCode\nxbar &lt;- mean(finch$winglength)\nstd &lt;- sd(finch$winglength)\nn &lt;- length(finch$winglength)\nt &lt;- qt(0.975, n - 1)\n\n\n\\[\\bar{x} \\pm t * \\frac{std}{\\sqrt{n}}\\]\n\n\nCode\nxbar - t * std / sqrt(n) # lower\n\n\n[1] 70.58959\n\n\nCode\nxbar + t * std / sqrt(n) # upper\n\n\n[1] 72.54276"
+  },
+  {
+    "objectID": "315/confint/main.html#example-simplified",
+    "href": "315/confint/main.html#example-simplified",
+    "title": "Confidence Intervals",
+    "section": "Example, simplified",
+    "text": "Example, simplified\n\n\nCode\nt.test(finch$winglength, conf.level = 0.95)\n\n\n\n    One Sample t-test\n\ndata:  finch$winglength\nt = 146.27, df = 67, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 70.58959 72.54276\nsample estimates:\nmean of x \n 71.56618"
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-interpretation-in-context-of-the-data",
+    "href": "315/confint/main.html#confidence-intervals-interpretation-in-context-of-the-data",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, interpretation in context of the data",
+    "text": "Confidence Intervals, interpretation in context of the data\nWe are 95% confident that the true population mean wing length of Galapagos Island finches is between 70.5 and 72.5 milimeters."
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-what",
+    "href": "315/confint/main.html#confidence-intervals-what",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, what?",
+    "text": "Confidence Intervals, what?\nOur best guess \\(\\bar{X}\\) puts us near the population mean. In an effort to capture the true mean we use an interval, i.e. we cast a wide net. The width of the net is formed by adding and subtracting the margin of error."
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-interpretations",
+    "href": "315/confint/main.html#confidence-intervals-interpretations",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, interpretations",
+    "text": "Confidence Intervals, interpretations\nDespite the fact that we say, “We are \\(X\\)% confident that the true population mean of [insert context] is between [insert lower bound] and [upper bound],” we don’t mean that. What we mean is, of course more complicated."
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-literal-translation",
+    "href": "315/confint/main.html#confidence-intervals-literal-translation",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, literal translation",
+    "text": "Confidence Intervals, literal translation\nWe mean: If we were to re-sample \\(N\\) times and create a confidence interval from each new sample, \\(X\\)% of those intervals would include the true population mean."
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-translation",
+    "href": "315/confint/main.html#confidence-intervals-translation",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, translation",
+    "text": "Confidence Intervals, translation\nWe mean: If we were to re-sample \\(N\\) times and create a confidence interval from each new sample, \\(X\\)% of those intervals would include the true population mean.\nIf we were to re-sample \\(N\\) times (we won’t) and create a confidence interval from new sample (we won’t), \\(X\\)% of those intervals would (only with an infinite number of intervals) include the true population mean."
+  },
+  {
+    "objectID": "315/confint/main.html#confidence-intervals-translation-in-picture",
+    "href": "315/confint/main.html#confidence-intervals-translation-in-picture",
+    "title": "Confidence Intervals",
+    "section": "Confidence Intervals, translation in picture",
+    "text": "Confidence Intervals, translation in picture"
+  },
+  {
+    "objectID": "315/confint/main.html#example-ii",
+    "href": "315/confint/main.html#example-ii",
+    "title": "Confidence Intervals",
+    "section": "Example II",
+    "text": "Example II\nWe will use a sample of published journal articles Piwowar:2009. Make a 99% confidence interval about the proportion of articles that share their data.\n\n\nCode\n# load data\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99)\n\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = 18.684, df = 396, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
+  },
+  {
+    "objectID": "315/confint/main.html#examle-ii-interpretted-in-context-of-the-data",
+    "href": "315/confint/main.html#examle-ii-interpretted-in-context-of-the-data",
+    "title": "Confidence Intervals",
+    "section": "Examle II, interpretted in context of the data",
+    "text": "Examle II, interpretted in context of the data\nWe are 99% confident that the true population proportion of published journal articles that share their data is between 0.4 and 0.53."
+  },
+  {
+    "objectID": "315/confint/main.html#take-away",
+    "href": "315/confint/main.html#take-away",
+    "title": "Confidence Intervals",
+    "section": "Take Away",
+    "text": "Take Away\n\nCLT enables confidence intervals based off of the Normal t-distribution\nYou will be responsible for\n\nloading data into R\ncalculating confidence intervals with some % confidence\ninterpretting confidence intervals in the context of the data\nunderstanding the literal translation meaning of the interpretation"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-point-estimates",
+    "href": "315/anova/main.html#recap-point-estimates",
+    "title": "ANOVA",
+    "section": "recap: point estimates",
+    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
+  },
+  {
+    "objectID": "315/anova/main.html#recap-central-limit-theorem",
+    "href": "315/anova/main.html#recap-central-limit-theorem",
+    "title": "ANOVA",
+    "section": "recap: central limit theorem",
+    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-confidence-intervals",
+    "href": "315/anova/main.html#recap-confidence-intervals",
+    "title": "ANOVA",
+    "section": "recap: confidence intervals",
+    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-hypothesis-tests",
+    "href": "315/anova/main.html#recap-hypothesis-tests",
+    "title": "ANOVA",
+    "section": "recap: hypothesis tests",
+    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
+  },
+  {
+    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
+    "href": "315/anova/main.html#recap-two-sample-t-tests",
+    "title": "ANOVA",
+    "section": "recap: two sample t-tests",
+    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
+  },
+  {
+    "objectID": "315/anova/main.html#analaysis-of-variance",
+    "href": "315/anova/main.html#analaysis-of-variance",
+    "title": "ANOVA",
+    "section": "Analaysis of Variance",
+    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis",
+    "href": "315/anova/main.html#anova-hypothesis",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis",
+    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-hypothesis-examples",
+    "href": "315/anova/main.html#anova-hypothesis-examples",
+    "title": "ANOVA",
+    "section": "ANOVA, hypothesis examples",
+    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-picture",
+    "href": "315/anova/main.html#anova-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, picture",
+    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition",
+    "href": "315/anova/main.html#anova-intuition",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition",
+    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intuition-in-picture",
+    "href": "315/anova/main.html#anova-intuition-in-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intuition in picture",
+    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-intution-via-picture",
+    "href": "315/anova/main.html#anova-intution-via-picture",
+    "title": "ANOVA",
+    "section": "ANOVA, intution via picture",
+    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
+  },
+  {
+    "objectID": "315/anova/main.html#anova-test-statistic",
+    "href": "315/anova/main.html#anova-test-statistic",
+    "title": "ANOVA",
+    "section": "ANOVA, test statistic",
+    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-hypotheses",
+    "href": "315/anova/main.html#baseball-example-hypotheses",
+    "title": "ANOVA",
+    "section": "Baseball example, hypotheses",
+    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-plot",
+    "href": "315/anova/main.html#baseball-example-plot",
+    "title": "ANOVA",
+    "section": "Baseball example, plot",
+    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code",
+    "href": "315/anova/main.html#baseball-example-r-code",
+    "title": "ANOVA",
+    "section": "Baseball example, R code",
+    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-code-details",
+    "href": "315/anova/main.html#baseball-example-r-code-details",
+    "title": "ANOVA",
+    "section": "Baseball example, R code details",
+    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-r-output",
+    "href": "315/anova/main.html#baseball-example-r-output",
+    "title": "ANOVA",
+    "section": "Baseball example, R output",
+    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#baseball-example-conclusion",
+    "href": "315/anova/main.html#baseball-example-conclusion",
+    "title": "ANOVA",
+    "section": "Baseball example, conclusion",
+    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, the problem",
+    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, how bad a problem",
+    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
+  },
+  {
+    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
+    "href": "315/anova/main.html#multiple-comparisons-a-solution",
+    "title": "ANOVA",
+    "section": "Multiple Comparisons, a solution",
+    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, plot",
+    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, not all groups",
+    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, hypotheses",
+    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, R code",
+    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, conclusion",
+    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
+  },
+  {
+    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
+    "title": "ANOVA",
+    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
+    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
+  },
+  {
+    "objectID": "315/anova/main.html#take-away",
+    "href": "315/anova/main.html#take-away",
+    "title": "ANOVA",
+    "section": "Take Away",
+    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#recap-goal-of-statistics",
+    "href": "315/samplingdist/main.html#recap-goal-of-statistics",
+    "title": "Sampling Distribution",
+    "section": "recap: Goal of Statistics",
+    "text": "recap: Goal of Statistics\nStatistics estimates population parameters:\n\npopulation mean \\(\\mu\\) using sample mean, \\(\\bar{X}\\)\npopulation proportion \\(p\\) using sample mean, \\(\\hat{p}\\)\npopulation standard deviation \\(\\sigma\\) using sample standard deviation, \\(s\\)\n…"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#point-estimate",
+    "href": "315/samplingdist/main.html#point-estimate",
+    "title": "Sampling Distribution",
+    "section": "Point Estimate",
+    "text": "Point Estimate\nA calculated sample statistic is known as a point estimate. Statistics thinks of these as random variables, since (abstractly) statistics are just functions of random variables.\n\n\\(\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}\\)\nhttp://onlinestatbook.com/stat_sim/sampling_dist/"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#point-estimates-vary",
+    "href": "315/samplingdist/main.html#point-estimates-vary",
+    "title": "Sampling Distribution",
+    "section": "Point Estimates Vary",
+    "text": "Point Estimates Vary\nConsider a dataset about possums from Australia and New Guinea. Suppose we collected 1000 random samples of 50 possums each and calculated the mean from each sample. So now we have 1000 sample means. What’s the shape of the sample means?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-example",
+    "href": "315/samplingdist/main.html#sampling-distribution-example",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, example",
+    "text": "Sampling Distribution, example"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-definition",
+    "href": "315/samplingdist/main.html#sampling-distribution-definition",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, definition",
+    "text": "Sampling Distribution, definition\nIt is useful to think of a particular point estimate as being drawn from this continuous distribution, the sampling distribution.\n\nThe sampling distribution represents the distribution (shape of histogram) of the point estimates based on samples of a fixed size from a certain population."
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-parameters",
+    "href": "315/samplingdist/main.html#sampling-distribution-parameters",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, parameters",
+    "text": "Sampling Distribution, parameters\nThe sampling distribution has its own mean and standard deviation, called the standard error.\n\nThe standard deviation associated with a point estimator is called the standard error."
+  },
+  {
+    "objectID": "315/samplingdist/main.html#example",
+    "href": "315/samplingdist/main.html#example",
+    "title": "Sampling Distribution",
+    "section": "Example",
+    "text": "Example\nLet’s use the definition \\(\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}\\).\n\nWould you be more trusting of a sample that has \\(100\\) observations or \\(400\\) observations?\nIf \\(\\sigma = 10\\), what is \\(\\sigma_{\\bar{X}}\\) when \\(n=100\\)?\nWhat is \\(\\sigma_{\\bar{X}}\\) when \\(n=400\\)?\nWhat do the respective sampling distributions look like?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#take-away",
+    "href": "315/samplingdist/main.html#take-away",
+    "title": "Sampling Distribution",
+    "section": "Take Away",
+    "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#means-by-group",
+    "href": "315/summariesByGroup/main.html#means-by-group",
+    "title": "Summaries By Group",
+    "section": "Means by Group",
+    "text": "Means by Group\nConsider the dataset.\n\n\nCode\nsuppressMessages(library(datasets))\n# random 6 rows of ChickWeight\nChickWeight[sample(1:nrow(ChickWeight), 6),]\n\n\n    weight Time Chick Diet\n159     79    6    14    1\n126    168   12    11    1\n269     40    0    25    2\n215     77   12    20    1\n252    135   14    23    2\n10     171   18     1    1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#means-by-group-1",
+    "href": "315/summariesByGroup/main.html#means-by-group-1",
+    "title": "Summaries By Group",
+    "section": "Means by Group",
+    "text": "Means by Group\nMeans of chicks’s weight by diet.\n\n\nCode\nsuppressMessages(library(dplyr))\nsummarise(group_by(ChickWeight, Diet),\n          Mean=mean(weight))\n\n\n# A tibble: 4 × 2\n  Diet   Mean\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      103.\n2 2      123.\n3 3      143.\n4 4      135."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
+    "href": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
+    "title": "Summaries By Group",
+    "section": "Chicken Weight by Diet, means and more",
+    "text": "Chicken Weight by Diet, means and more\nMean and standard deviations of chicks’s weight by diet.\n\n\nCode\n(df &lt;- summarise(group_by(ChickWeight, Diet),\n                 Mn = mean(weight),\n                 StDev = sd(weight),\n                 q1 = quantile(weight, .25),\n                 q3 = quantile(weight, .75)))\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics, the workhorses",
+    "text": "Group Summary Statistics, the workhorses\nThe underlying ideas behind so much of statistics rely on three ideas/functions and one sentence enhancer.\n\ngroup_by – groups a data frame by some variables\nsummarise – summarizes many observations into one number\nmutate – mutate variables of a data frame into new variables\n%&gt;% – make code read (almost) like English"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group_by",
+    "href": "315/summariesByGroup/main.html#group_by",
+    "title": "Summaries By Group",
+    "section": "group_by",
+    "text": "group_by\nThe function group_by is incredibly helpful, but not that exciting.\n\n\nCode\n# ?group_by\nhead(ChickWeight) # start with this\n\n\n  weight Time Chick Diet\n1     42    0     1    1\n2     51    2     1    1\n3     59    4     1    1\n4     64    6     1    1\n5     76    8     1    1\n6     93   10     1    1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group_by-1",
+    "href": "315/summariesByGroup/main.html#group_by-1",
+    "title": "Summaries By Group",
+    "section": "group_by",
+    "text": "group_by\nIf we group the dataset ChickWeight by Diet, things change only slightly. But what group_by returns is now ready to be passed into summarise.\n\n\nCode\ngroup_by(ChickWeight, Diet)\n\n\n# A tibble: 578 × 4\n# Groups:   Diet [4]\n   weight  Time Chick Diet \n    &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt; &lt;fct&gt;\n 1     42     0 1     1    \n 2     51     2 1     1    \n 3     59     4 1     1    \n 4     64     6 1     1    \n 5     76     8 1     1    \n 6     93    10 1     1    \n 7    106    12 1     1    \n 8    125    14 1     1    \n 9    149    16 1     1    \n10    171    18 1     1    \n# ℹ 568 more rows"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#summarise",
+    "href": "315/summariesByGroup/main.html#summarise",
+    "title": "Summaries By Group",
+    "section": "summarise",
+    "text": "summarise\nThe function summarise collapses multiple observations down into one number, for instance into a summary statistic. As we saw before, we can summarize multiple variables at once.\n\n\nCode\n# ?summarise"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#summarise-1",
+    "href": "315/summariesByGroup/main.html#summarise-1",
+    "title": "Summaries By Group",
+    "section": "summarise",
+    "text": "summarise\nWhat does the following code do?\n\n\nCode\nsummarise(ChickWeight,\n          Mn = mean(weight, na.rm=TRUE))\n\n\n        Mn\n1 121.8183\n\n\nCode\n# hint\nmean(ChickWeight$weight, na.rm=TRUE)\n\n\n[1] 121.8183"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#summarise-2",
+    "href": "315/summariesByGroup/main.html#summarise-2",
+    "title": "Summaries By Group",
+    "section": "summarise",
+    "text": "summarise\nWe can also summarize multiple variables at once – by group or not.\n\n\nCode\nsummarise(ChickWeight,\n          mn = mean(weight),\n          sd = sd(weight),\n          mdn = median(weight),\n          iqr = IQR(weight))\n\n\n        mn       sd mdn    iqr\n1 121.8183 71.07196 103 100.75"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate",
+    "href": "315/summariesByGroup/main.html#mutate",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nThe function mutate allows us to create new variables and add them to the data frame. Recall our summarized data named\n\n\nCode\ndf\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-1",
+    "href": "315/summariesByGroup/main.html#mutate-1",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nWe can create a new variable (column)\n\n\nCode\n(newdf &lt;- mutate(df, iqr=q3-q1))\n\n\n# A tibble: 4 × 6\n  Diet     Mn StDev    q1    q3   iqr\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.  78.8\n2 2      123.  71.6  65.5  163   97.5\n3 3      143.  86.5  67.5  199. 131. \n4 4      135.  68.8  71.2  185. 114."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-2",
+    "href": "315/summariesByGroup/main.html#mutate-2",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nIn case our new variable isn’t automatically printed, remember we can make R print things for us.\n\n\nCode\nnewdf[,c(\"Diet\", \"iqr\")]\n\n\n# A tibble: 4 × 2\n  Diet    iqr\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      78.8\n2 2      97.5\n3 3     131. \n4 4     114."
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-3",
+    "href": "315/summariesByGroup/main.html#mutate-3",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nmutate works on any data frame. For instance, you might have two variables that are obviously better off as a ratio.\n\nmiles driven and time (hours) \\(\\Rightarrow\\) miles/hr.\nstate income and state population \\(\\Rightarrow\\) per capita income\nor any state total, \\(x\\), and state population \\(\\Rightarrow\\) per capita x\nsurface area and volume \\(\\Rightarrow\\) surface-area-to-volume ratio, SA:V\n…"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics",
+    "text": "Group Summary Statistics\nSummary statistics and a lesson about missing values in R.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\nsummarise(\n    group_by(carnivora, Family),\n        Mn = mean(LS), # litter size\n        Total = n(),   # counts\n        Sm = sum(LS, na.rm=TRUE))\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae  NA       32  83.1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics, take 2",
+    "text": "Group Summary Statistics, take 2\nWe removed NAs from mean calculation and made code (almost) read like English\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(Mn = mean(LS, na.rm = TRUE)) # Litter Size\n\n\n# A tibble: 8 × 2\n  Family         Mn\n  &lt;fct&gt;       &lt;dbl&gt;\n1 Ailuridae    1.5 \n2 Canidae      4.43\n3 Felidae      2.69\n4 Hyaenidae    2.4 \n5 Mustelidae   3.65\n6 Procyonidae  3.08\n7 Ursidae      2.1 \n8 Viverridae   2.77"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
+    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
+    "title": "Summaries By Group",
+    "section": "Group Summary Statistics, take 3",
+    "text": "Group Summary Statistics, take 3\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(\n        Mn = mean(LS, na.rm = TRUE),\n        Total = n(),\n        Sm = sum(LS, na.rm = TRUE)\n    )\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae   2.77    32  83.1"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-4",
+    "href": "315/summariesByGroup/main.html#mutate-4",
+    "title": "Summaries By Group",
+    "section": "mutate",
+    "text": "mutate\nMaybe relative brain size matters to you, i.e. heaviest brain relative to body weight.\n\n\nCode\nheavy &lt;- carnivora %&gt;%\n    group_by(Family) %&gt;%\n    mutate(brbo = SB/SW) # brain/body"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#mutate-and-summarise",
+    "href": "315/summariesByGroup/main.html#mutate-and-summarise",
+    "title": "Summaries By Group",
+    "section": "mutate and summarise",
+    "text": "mutate and summarise\nThen throw in some summarise and find which family has greatest mean brain to body weight ratio.\n\n\nCode\nheavy %&gt;%\n    summarise(Mn_brbo = mean(brbo, na.rm=TRUE))\n\n\n# A tibble: 8 × 2\n  Family      Mn_brbo\n  &lt;fct&gt;         &lt;dbl&gt;\n1 Ailuridae      1.74\n2 Canidae        7.90\n3 Felidae        5.50\n4 Hyaenidae      3.28\n5 Mustelidae    10.5 \n6 Procyonidae   10.8 \n7 Ursidae        1.94\n8 Viverridae     9.45"
+  },
+  {
+    "objectID": "315/summariesByGroup/main.html#who",
+    "href": "315/summariesByGroup/main.html#who",
+    "title": "Summaries By Group",
+    "section": "who?",
+    "text": "who?\n\nThese guys Procyonidae\nBut also PNAS article"
+  },
+  {
     "objectID": "315/summaryStats/main.html#data-frames-in-r",
     "href": "315/summaryStats/main.html#data-frames-in-r",
     "title": "Summary Statistics",
@@ -791,543 +1330,11 @@
     "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
   },
   {
-    "objectID": "315/summariesByGroup/main.html#means-by-group",
-    "href": "315/summariesByGroup/main.html#means-by-group",
-    "title": "Summaries By Group",
-    "section": "Means by Group",
-    "text": "Means by Group\nConsider the dataset.\n\n\nCode\nsuppressMessages(library(datasets))\n# random 6 rows of ChickWeight\nChickWeight[sample(1:nrow(ChickWeight), 6),]\n\n\n    weight Time Chick Diet\n159     79    6    14    1\n126    168   12    11    1\n269     40    0    25    2\n215     77   12    20    1\n252    135   14    23    2\n10     171   18     1    1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#means-by-group-1",
-    "href": "315/summariesByGroup/main.html#means-by-group-1",
-    "title": "Summaries By Group",
-    "section": "Means by Group",
-    "text": "Means by Group\nMeans of chicks’s weight by diet.\n\n\nCode\nsuppressMessages(library(dplyr))\nsummarise(group_by(ChickWeight, Diet),\n          Mean=mean(weight))\n\n\n# A tibble: 4 × 2\n  Diet   Mean\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      103.\n2 2      123.\n3 3      143.\n4 4      135."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
-    "href": "315/summariesByGroup/main.html#chicken-weight-by-diet-means-and-more",
-    "title": "Summaries By Group",
-    "section": "Chicken Weight by Diet, means and more",
-    "text": "Chicken Weight by Diet, means and more\nMean and standard deviations of chicks’s weight by diet.\n\n\nCode\n(df &lt;- summarise(group_by(ChickWeight, Diet),\n                 Mn = mean(weight),\n                 StDev = sd(weight),\n                 q1 = quantile(weight, .25),\n                 q3 = quantile(weight, .75)))\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics-the-workhorses",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics, the workhorses",
-    "text": "Group Summary Statistics, the workhorses\nThe underlying ideas behind so much of statistics rely on three ideas/functions and one sentence enhancer.\n\ngroup_by – groups a data frame by some variables\nsummarise – summarizes many observations into one number\nmutate – mutate variables of a data frame into new variables\n%&gt;% – make code read (almost) like English"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group_by",
-    "href": "315/summariesByGroup/main.html#group_by",
-    "title": "Summaries By Group",
-    "section": "group_by",
-    "text": "group_by\nThe function group_by is incredibly helpful, but not that exciting.\n\n\nCode\n# ?group_by\nhead(ChickWeight) # start with this\n\n\n  weight Time Chick Diet\n1     42    0     1    1\n2     51    2     1    1\n3     59    4     1    1\n4     64    6     1    1\n5     76    8     1    1\n6     93   10     1    1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group_by-1",
-    "href": "315/summariesByGroup/main.html#group_by-1",
-    "title": "Summaries By Group",
-    "section": "group_by",
-    "text": "group_by\nIf we group the dataset ChickWeight by Diet, things change only slightly. But what group_by returns is now ready to be passed into summarise.\n\n\nCode\ngroup_by(ChickWeight, Diet)\n\n\n# A tibble: 578 × 4\n# Groups:   Diet [4]\n   weight  Time Chick Diet \n    &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt; &lt;fct&gt;\n 1     42     0 1     1    \n 2     51     2 1     1    \n 3     59     4 1     1    \n 4     64     6 1     1    \n 5     76     8 1     1    \n 6     93    10 1     1    \n 7    106    12 1     1    \n 8    125    14 1     1    \n 9    149    16 1     1    \n10    171    18 1     1    \n# ℹ 568 more rows"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#summarise",
-    "href": "315/summariesByGroup/main.html#summarise",
-    "title": "Summaries By Group",
-    "section": "summarise",
-    "text": "summarise\nThe function summarise collapses multiple observations down into one number, for instance into a summary statistic. As we saw before, we can summarize multiple variables at once.\n\n\nCode\n# ?summarise"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#summarise-1",
-    "href": "315/summariesByGroup/main.html#summarise-1",
-    "title": "Summaries By Group",
-    "section": "summarise",
-    "text": "summarise\nWhat does the following code do?\n\n\nCode\nsummarise(ChickWeight,\n          Mn = mean(weight, na.rm=TRUE))\n\n\n        Mn\n1 121.8183\n\n\nCode\n# hint\nmean(ChickWeight$weight, na.rm=TRUE)\n\n\n[1] 121.8183"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#summarise-2",
-    "href": "315/summariesByGroup/main.html#summarise-2",
-    "title": "Summaries By Group",
-    "section": "summarise",
-    "text": "summarise\nWe can also summarize multiple variables at once – by group or not.\n\n\nCode\nsummarise(ChickWeight,\n          mn = mean(weight),\n          sd = sd(weight),\n          mdn = median(weight),\n          iqr = IQR(weight))\n\n\n        mn       sd mdn    iqr\n1 121.8183 71.07196 103 100.75"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate",
-    "href": "315/summariesByGroup/main.html#mutate",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nThe function mutate allows us to create new variables and add them to the data frame. Recall our summarized data named\n\n\nCode\ndf\n\n\n# A tibble: 4 × 5\n  Diet     Mn StDev    q1    q3\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.\n2 2      123.  71.6  65.5  163 \n3 3      143.  86.5  67.5  199.\n4 4      135.  68.8  71.2  185."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-1",
-    "href": "315/summariesByGroup/main.html#mutate-1",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nWe can create a new variable (column)\n\n\nCode\n(newdf &lt;- mutate(df, iqr=q3-q1))\n\n\n# A tibble: 4 × 6\n  Diet     Mn StDev    q1    q3   iqr\n  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 1      103.  56.7  57.8  136.  78.8\n2 2      123.  71.6  65.5  163   97.5\n3 3      143.  86.5  67.5  199. 131. \n4 4      135.  68.8  71.2  185. 114."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-2",
-    "href": "315/summariesByGroup/main.html#mutate-2",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nIn case our new variable isn’t automatically printed, remember we can make R print things for us.\n\n\nCode\nnewdf[,c(\"Diet\", \"iqr\")]\n\n\n# A tibble: 4 × 2\n  Diet    iqr\n  &lt;fct&gt; &lt;dbl&gt;\n1 1      78.8\n2 2      97.5\n3 3     131. \n4 4     114."
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-3",
-    "href": "315/summariesByGroup/main.html#mutate-3",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nmutate works on any data frame. For instance, you might have two variables that are obviously better off as a ratio.\n\nmiles driven and time (hours) \\(\\Rightarrow\\) miles/hr.\nstate income and state population \\(\\Rightarrow\\) per capita income\nor any state total, \\(x\\), and state population \\(\\Rightarrow\\) per capita x\nsurface area and volume \\(\\Rightarrow\\) surface-area-to-volume ratio, SA:V\n…"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics",
-    "text": "Group Summary Statistics\nSummary statistics and a lesson about missing values in R.\n\n\nCode\nlibrary(ape)\ndata(carnivora)\nsummarise(\n    group_by(carnivora, Family),\n        Mn = mean(LS), # litter size\n        Total = n(),   # counts\n        Sm = sum(LS, na.rm=TRUE))\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae  NA       32  83.1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-2",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics, take 2",
-    "text": "Group Summary Statistics, take 2\nWe removed NAs from mean calculation and made code (almost) read like English\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(Mn = mean(LS, na.rm = TRUE)) # Litter Size\n\n\n# A tibble: 8 × 2\n  Family         Mn\n  &lt;fct&gt;       &lt;dbl&gt;\n1 Ailuridae    1.5 \n2 Canidae      4.43\n3 Felidae      2.69\n4 Hyaenidae    2.4 \n5 Mustelidae   3.65\n6 Procyonidae  3.08\n7 Ursidae      2.1 \n8 Viverridae   2.77"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
-    "href": "315/summariesByGroup/main.html#group-summary-statistics-take-3",
-    "title": "Summaries By Group",
-    "section": "Group Summary Statistics, take 3",
-    "text": "Group Summary Statistics, take 3\n\n\nCode\ncarnivora %&gt;%\n    group_by(Family) %&gt;%\n    summarise(\n        Mn = mean(LS, na.rm = TRUE),\n        Total = n(),\n        Sm = sum(LS, na.rm = TRUE)\n    )\n\n\n# A tibble: 8 × 4\n  Family         Mn Total    Sm\n  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;\n1 Ailuridae    1.5      1   1.5\n2 Canidae      4.43    18  79.8\n3 Felidae      2.69    19  51.2\n4 Hyaenidae    2.4      4   9.6\n5 Mustelidae   3.65    30 110. \n6 Procyonidae  3.08     4  12.3\n7 Ursidae      2.1      4   8.4\n8 Viverridae   2.77    32  83.1"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-4",
-    "href": "315/summariesByGroup/main.html#mutate-4",
-    "title": "Summaries By Group",
-    "section": "mutate",
-    "text": "mutate\nMaybe relative brain size matters to you, i.e. heaviest brain relative to body weight.\n\n\nCode\nheavy &lt;- carnivora %&gt;%\n    group_by(Family) %&gt;%\n    mutate(brbo = SB/SW) # brain/body"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#mutate-and-summarise",
-    "href": "315/summariesByGroup/main.html#mutate-and-summarise",
-    "title": "Summaries By Group",
-    "section": "mutate and summarise",
-    "text": "mutate and summarise\nThen throw in some summarise and find which family has greatest mean brain to body weight ratio.\n\n\nCode\nheavy %&gt;%\n    summarise(Mn_brbo = mean(brbo, na.rm=TRUE))\n\n\n# A tibble: 8 × 2\n  Family      Mn_brbo\n  &lt;fct&gt;         &lt;dbl&gt;\n1 Ailuridae      1.74\n2 Canidae        7.90\n3 Felidae        5.50\n4 Hyaenidae      3.28\n5 Mustelidae    10.5 \n6 Procyonidae   10.8 \n7 Ursidae        1.94\n8 Viverridae     9.45"
-  },
-  {
-    "objectID": "315/summariesByGroup/main.html#who",
-    "href": "315/summariesByGroup/main.html#who",
-    "title": "Summaries By Group",
-    "section": "who?",
-    "text": "who?\n\nThese guys Procyonidae\nBut also PNAS article"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#recap-goal-of-statistics",
-    "href": "315/samplingdist/main.html#recap-goal-of-statistics",
-    "title": "Sampling Distribution",
-    "section": "recap: Goal of Statistics",
-    "text": "recap: Goal of Statistics\nStatistics estimates population parameters:\n\npopulation mean \\(\\mu\\) using sample mean, \\(\\bar{X}\\)\npopulation proportion \\(p\\) using sample mean, \\(\\hat{p}\\)\npopulation standard deviation \\(\\sigma\\) using sample standard deviation, \\(s\\)\n…"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#point-estimate",
-    "href": "315/samplingdist/main.html#point-estimate",
-    "title": "Sampling Distribution",
-    "section": "Point Estimate",
-    "text": "Point Estimate\nA calculated sample statistic is known as a point estimate. Statistics thinks of these as random variables, since (abstractly) statistics are just functions of random variables.\n\n\\(\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}\\)\nhttp://onlinestatbook.com/stat_sim/sampling_dist/"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#point-estimates-vary",
-    "href": "315/samplingdist/main.html#point-estimates-vary",
-    "title": "Sampling Distribution",
-    "section": "Point Estimates Vary",
-    "text": "Point Estimates Vary\nConsider a dataset about possums from Australia and New Guinea. Suppose we collected 1000 random samples of 50 possums each and calculated the mean from each sample. So now we have 1000 sample means. What’s the shape of the sample means?"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-example",
-    "href": "315/samplingdist/main.html#sampling-distribution-example",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, example",
-    "text": "Sampling Distribution, example"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-definition",
-    "href": "315/samplingdist/main.html#sampling-distribution-definition",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, definition",
-    "text": "Sampling Distribution, definition\nIt is useful to think of a particular point estimate as being drawn from this continuous distribution, the sampling distribution.\n\nThe sampling distribution represents the distribution (shape of histogram) of the point estimates based on samples of a fixed size from a certain population."
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-parameters",
-    "href": "315/samplingdist/main.html#sampling-distribution-parameters",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, parameters",
-    "text": "Sampling Distribution, parameters\nThe sampling distribution has its own mean and standard deviation, called the standard error.\n\nThe standard deviation associated with a point estimator is called the standard error."
-  },
-  {
-    "objectID": "315/samplingdist/main.html#example",
-    "href": "315/samplingdist/main.html#example",
-    "title": "Sampling Distribution",
-    "section": "Example",
-    "text": "Example\nLet’s use the definition \\(\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}\\).\n\nWould you be more trusting of a sample that has \\(100\\) observations or \\(400\\) observations?\nIf \\(\\sigma = 10\\), what is \\(\\sigma_{\\bar{X}}\\) when \\(n=100\\)?\nWhat is \\(\\sigma_{\\bar{X}}\\) when \\(n=400\\)?\nWhat do the respective sampling distributions look like?"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#take-away",
-    "href": "315/samplingdist/main.html#take-away",
-    "title": "Sampling Distribution",
-    "section": "Take Away",
-    "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-point-estimates",
-    "href": "315/anova/main.html#recap-point-estimates",
-    "title": "ANOVA",
-    "section": "recap: point estimates",
-    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
-  },
-  {
-    "objectID": "315/anova/main.html#recap-central-limit-theorem",
-    "href": "315/anova/main.html#recap-central-limit-theorem",
-    "title": "ANOVA",
-    "section": "recap: central limit theorem",
-    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-confidence-intervals",
-    "href": "315/anova/main.html#recap-confidence-intervals",
-    "title": "ANOVA",
-    "section": "recap: confidence intervals",
-    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-hypothesis-tests",
-    "href": "315/anova/main.html#recap-hypothesis-tests",
-    "title": "ANOVA",
-    "section": "recap: hypothesis tests",
-    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values)"
-  },
-  {
-    "objectID": "315/anova/main.html#recap-two-sample-t-tests",
-    "href": "315/anova/main.html#recap-two-sample-t-tests",
-    "title": "ANOVA",
-    "section": "recap: two sample t-tests",
-    "text": "recap: two sample t-tests\nThe two sample \\(t\\)-test, compares the means of two groups with the hypothesis\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 \\\\\nH_A: \\quad & \\mu_1 \\ne \\mu_2. \\\\\n\\end{align*}\n\\]\nR’s function t.test() did all the hard work for us."
-  },
-  {
-    "objectID": "315/anova/main.html#analaysis-of-variance",
-    "href": "315/anova/main.html#analaysis-of-variance",
-    "title": "ANOVA",
-    "section": "Analaysis of Variance",
-    "text": "Analaysis of Variance\nIf there were three or more groups, the two sample \\(t\\)-test would not work. We could force the test on the data by comparing two groups at a time, but this has dangerous implications. We thus require a new statistical method, analysis of variance.\n\nAnalysis of variance (ANOVA) uses a single hypothesis to check whether the means across two or more groups are equal."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-hypothesis",
-    "href": "315/anova/main.html#anova-hypothesis",
-    "title": "ANOVA",
-    "section": "ANOVA, hypothesis",
-    "text": "ANOVA, hypothesis\nThe ANOVA hypothesis test for \\(k\\) groups is\n\\[\n\\begin{align*}\nH_0: \\quad & \\mu_1 = \\mu_2 = \\mu_3 = \\ldots = \\mu_k \\\\\nH_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\n\n\n\n\n\n\nNote\n\n\nANOVA tests equality of means across groups, despite its name."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-hypothesis-examples",
-    "href": "315/anova/main.html#anova-hypothesis-examples",
-    "title": "ANOVA",
-    "section": "ANOVA, hypothesis examples",
-    "text": "ANOVA, hypothesis examples\nWith ANOVA you can compare the means by groups for many different data sets.\n\nmean batting average by position,\nmean movie budget by genre, (or year),\nmean CO2 intake by treatment, or location, (or concentration)\nmean rem sleep by conservation status,\nmean birth/body weight by family,\n…"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-picture",
-    "href": "315/anova/main.html#anova-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, picture",
-    "text": "ANOVA, picture\nLet’s visualize what is going on with ANOVA. It starts with box plots by groups – draw more pictures on board."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intuition",
-    "href": "315/anova/main.html#anova-intuition",
-    "title": "ANOVA",
-    "section": "ANOVA, intuition",
-    "text": "ANOVA, intuition\nAnalysis of variance tells us about means by groups, despite its name. Large variation amongst the groups relative to small variation within the groups indicates different population means."
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intuition-in-picture",
-    "href": "315/anova/main.html#anova-intuition-in-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, intuition in picture",
-    "text": "ANOVA, intuition in picture\nWhat do you think of these means – think of variation within and amongst groups?"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-intution-via-picture",
-    "href": "315/anova/main.html#anova-intution-via-picture",
-    "title": "ANOVA",
-    "section": "ANOVA, intution via picture",
-    "text": "ANOVA, intution via picture\nWhat do you think of these means – think of variation within and amongst groups?"
-  },
-  {
-    "objectID": "315/anova/main.html#anova-test-statistic",
-    "href": "315/anova/main.html#anova-test-statistic",
-    "title": "ANOVA",
-    "section": "ANOVA, test statistic",
-    "text": "ANOVA, test statistic\nANOVA calculates one fraction based on two numbers, variation amongst (between) groups and variation within groups. These two numbers are generally referred to as mean square values.\n\nmean squared amongst groups\n\nMSG is a strictly positive measure of the variation across all groups.\n\nmean squared error/residuals\n\nMSE is a strictly positive measure of the variation within groups.\n\nTest statistic\n\n\\(F = \\frac{MSG}{MSE}\\)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-hypotheses",
-    "href": "315/anova/main.html#baseball-example-hypotheses",
-    "title": "ANOVA",
-    "section": "Baseball example, hypotheses",
-    "text": "Baseball example, hypotheses\nAre baseball players paid on average differently by position?\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_{catcher} = \\mu_{dh} = \\mu_{first} = \\ldots = \\mu_{third} \\\\\n  H_A: \\quad & \\text{at least one mean salary is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.05\\)."
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-plot",
-    "href": "315/anova/main.html#baseball-example-plot",
-    "title": "ANOVA",
-    "section": "Baseball example, plot",
-    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-code",
-    "href": "315/anova/main.html#baseball-example-r-code",
-    "title": "ANOVA",
-    "section": "Baseball example, R code",
-    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-code-details",
-    "href": "315/anova/main.html#baseball-example-r-code-details",
-    "title": "ANOVA",
-    "section": "Baseball example, R code details",
-    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-r-output",
-    "href": "315/anova/main.html#baseball-example-r-output",
-    "title": "ANOVA",
-    "section": "Baseball example, R output",
-    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
-  },
-  {
-    "objectID": "315/anova/main.html#baseball-example-conclusion",
-    "href": "315/anova/main.html#baseball-example-conclusion",
-    "title": "ANOVA",
-    "section": "Baseball example, conclusion",
-    "text": "Baseball example, conclusion\nBecause the p-value \\(= 10^{-4} &lt; \\alpha =\n0.05\\) we reject the null in favor of the alternative. There is sufficient evidence to claim that the population of mean salaray of baseball players probably varies by position."
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-the-problem",
-    "href": "315/anova/main.html#multiple-comparisons-the-problem",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
-    "href": "315/anova/main.html#multiple-comparisons-the-problem-1",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nWhat not to do? Immediately compare all pairwise combinations of the \\(k = 9\\) groups. That would result in 36 tests, and an increase in your Type I Error rate."
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
-    "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, how bad a problem",
-    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
-  },
-  {
-    "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
-    "href": "315/anova/main.html#multiple-comparisons-a-solution",
-    "title": "ANOVA",
-    "section": "Multiple Comparisons, a solution",
-    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, plot",
-    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, not all groups",
-    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, hypotheses",
-    "text": "Carnivora Brain Weights by Family, hypotheses\n\\[\n\\begin{align*}\n  H_0: \\quad & \\mu_c = \\mu_f = \\mu_h = \\mu_m = \\mu_u \\\\\n  H_A: \\quad & \\text{at least one mean is different.}\n\\end{align*}\n\\]\nwith \\(\\alpha = 0.01\\)."
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, R code",
-    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, conclusion",
-    "text": "Carnivora Brain Weights by Family, conclusion\nBecause the p-value is tiny, we reject \\(H_0\\) in favor of the alternative. There is sufficient evidence to say that at least one mean is different from the rest."
-  },
-  {
-    "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
-    "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
-    "title": "ANOVA",
-    "section": "Carnivora Brain Weights by Family, post-hoc analysis",
-    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
-  },
-  {
-    "objectID": "315/anova/main.html#take-away",
-    "href": "315/anova/main.html#take-away",
-    "title": "ANOVA",
-    "section": "Take Away",
-    "text": "Take Away\n\nANOVA breaks up the response variable into groups, chosen by you.\nANOVA essentially calculates group means\n\naverage error within groups and average error amongst the groups.\n\nUnderstand the general ANOVA table\nConclusions from ANOVA tables are easy\n\ncompare p-value to level of significance\n\nInterpretation of such conclusions is trickier, practice"
-  },
-  {
-    "objectID": "315/confint/main.html#recap-point-estimates",
-    "href": "315/confint/main.html#recap-point-estimates",
-    "title": "Confidence Intervals",
-    "section": "recap: point estimates",
-    "text": "recap: point estimates\nPoint estimates are random variables. Random variables follow shapes, called distributions. Therefore, point estimates follow distributions (and have shapes)."
-  },
-  {
-    "objectID": "315/confint/main.html#recap-central-limit-theorem",
-    "href": "315/confint/main.html#recap-central-limit-theorem",
-    "title": "Confidence Intervals",
-    "section": "recap: Central Limit Theorem",
-    "text": "recap: Central Limit Theorem\n\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”\nThe Central Limit Theorem says, if we have a collection of sample means, the shape (histogram) of this collection is basically Normal (unimodal and symmetric)."
-  },
-  {
-    "objectID": "315/confint/main.html#recap-clt-via-web-app",
-    "href": "315/confint/main.html#recap-clt-via-web-app",
-    "title": "Confidence Intervals",
-    "section": "recap: CLT, via web app",
-    "text": "recap: CLT, via web app\nJavascript web application to show Central Limit Theorem."
-  },
-  {
-    "objectID": "315/confint/main.html#recap-clt-so-what",
-    "href": "315/confint/main.html#recap-clt-so-what",
-    "title": "Confidence Intervals",
-    "section": "recap: CLT, so what",
-    "text": "recap: CLT, so what\nIt doesn’t matter if that data are from a Normal distribution or not; use mean =&gt; Central Limit Theorem =&gt; can approximate confidence intervals."
-  },
-  {
-    "objectID": "315/confint/main.html#intuition",
-    "href": "315/confint/main.html#intuition",
-    "title": "Confidence Intervals",
-    "section": "Intuition",
-    "text": "Intuition\nA better guess than a point estimate would include a range of likely values, an interval say, in which the population parameter of interest might live. If we want to be very certain we capture the population parameter, should we use a wider interval or a smaller interval? Garfield knows."
-  },
-  {
-    "objectID": "315/confint/main.html#a-trade-off",
-    "href": "315/confint/main.html#a-trade-off",
-    "title": "Confidence Intervals",
-    "section": "A Trade Off",
-    "text": "A Trade Off\nDoesn’t it seem reasonable to trade a little bit of confidence for a lot of bit of width?"
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-plus-intervals",
-    "href": "315/confint/main.html#confidence-plus-intervals",
-    "title": "Confidence Intervals",
-    "section": "Confidence plus Intervals",
-    "text": "Confidence plus Intervals\nWe combine these two ideas, intervals and confidence, to form a confidence interval. The idea comes from how much data lives between two numbers on a normal distribution."
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-definition-for-sample-mean",
-    "href": "315/confint/main.html#confidence-intervals-definition-for-sample-mean",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, definition for sample mean",
-    "text": "Confidence Intervals, definition for sample mean\nWe build a confidence interval of the sample mean \\(\\bar{X}\\) by adding and subtracting \\(t\\) standard errors \\(s_{\\bar{X}}\\). We write this as\n\\[\\bar{X} \\pm t * s_{\\bar{X}}\\]\n\n\n\n\n\n\nNote\n\n\nCLT is all about the Normal distribution, which is usually represented as \\(z\\). We use \\(t\\) here because we are recognizing that we also need to estimate \\(\\sigma\\)."
-  },
-  {
-    "objectID": "315/confint/main.html#example-i",
-    "href": "315/confint/main.html#example-i",
-    "title": "Confidence Intervals",
-    "section": "Example I",
-    "text": "Example I\nWe will use a sample of Darwin’s finch data set [Swarth:1931]. Make a 95% confidence interval about the wing length using Darwin’s finches.\n\n\nCode\n# load data\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/finches.csv\"\nfinch &lt;- read.csv(url)\n# look at data in RStudio"
-  },
-  {
-    "objectID": "315/confint/main.html#example-continued",
-    "href": "315/confint/main.html#example-continued",
-    "title": "Confidence Intervals",
-    "section": "Example, continued",
-    "text": "Example, continued\n98% confidence interval for Darwin’s finch data set.\n\n\nCode\nxbar &lt;- mean(finch$winglength)\nstd &lt;- sd(finch$winglength)\nn &lt;- length(finch$winglength)\nt &lt;- qt(0.975, n - 1)\n\n\n\\[\\bar{x} \\pm t * \\frac{std}{\\sqrt{n}}\\]\n\n\nCode\nxbar - t * std / sqrt(n) # lower\n\n\n[1] 70.58959\n\n\nCode\nxbar + t * std / sqrt(n) # upper\n\n\n[1] 72.54276"
-  },
-  {
-    "objectID": "315/confint/main.html#example-simplified",
-    "href": "315/confint/main.html#example-simplified",
-    "title": "Confidence Intervals",
-    "section": "Example, simplified",
-    "text": "Example, simplified\n\n\nCode\nt.test(finch$winglength, conf.level = 0.95)\n\n\n\n    One Sample t-test\n\ndata:  finch$winglength\nt = 146.27, df = 67, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 70.58959 72.54276\nsample estimates:\nmean of x \n 71.56618"
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-interpretation-in-context-of-the-data",
-    "href": "315/confint/main.html#confidence-intervals-interpretation-in-context-of-the-data",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, interpretation in context of the data",
-    "text": "Confidence Intervals, interpretation in context of the data\nWe are 95% confident that the true population mean wing length of Galapagos Island finches is between 70.5 and 72.5 milimeters."
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-what",
-    "href": "315/confint/main.html#confidence-intervals-what",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, what?",
-    "text": "Confidence Intervals, what?\nOur best guess \\(\\bar{X}\\) puts us near the population mean. In an effort to capture the true mean we use an interval, i.e. we cast a wide net. The width of the net is formed by adding and subtracting the margin of error."
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-interpretations",
-    "href": "315/confint/main.html#confidence-intervals-interpretations",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, interpretations",
-    "text": "Confidence Intervals, interpretations\nDespite the fact that we say, “We are \\(X\\)% confident that the true population mean of [insert context] is between [insert lower bound] and [upper bound],” we don’t mean that. What we mean is, of course more complicated."
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-literal-translation",
-    "href": "315/confint/main.html#confidence-intervals-literal-translation",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, literal translation",
-    "text": "Confidence Intervals, literal translation\nWe mean: If we were to re-sample \\(N\\) times and create a confidence interval from each new sample, \\(X\\)% of those intervals would include the true population mean."
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-translation",
-    "href": "315/confint/main.html#confidence-intervals-translation",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, translation",
-    "text": "Confidence Intervals, translation\nWe mean: If we were to re-sample \\(N\\) times and create a confidence interval from each new sample, \\(X\\)% of those intervals would include the true population mean.\nIf we were to re-sample \\(N\\) times (we won’t) and create a confidence interval from new sample (we won’t), \\(X\\)% of those intervals would (only with an infinite number of intervals) include the true population mean."
-  },
-  {
-    "objectID": "315/confint/main.html#confidence-intervals-translation-in-picture",
-    "href": "315/confint/main.html#confidence-intervals-translation-in-picture",
-    "title": "Confidence Intervals",
-    "section": "Confidence Intervals, translation in picture",
-    "text": "Confidence Intervals, translation in picture"
-  },
-  {
-    "objectID": "315/confint/main.html#example-ii",
-    "href": "315/confint/main.html#example-ii",
-    "title": "Confidence Intervals",
-    "section": "Example II",
-    "text": "Example II\nWe will use a sample of published journal articles Piwowar:2009. Make a 99% confidence interval about the proportion of articles that share their data.\n\n\nCode\n# load data\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99)\n\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = 18.684, df = 396, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
-  },
-  {
-    "objectID": "315/confint/main.html#examle-ii-interpretted-in-context-of-the-data",
-    "href": "315/confint/main.html#examle-ii-interpretted-in-context-of-the-data",
-    "title": "Confidence Intervals",
-    "section": "Examle II, interpretted in context of the data",
-    "text": "Examle II, interpretted in context of the data\nWe are 99% confident that the true population proportion of published journal articles that share their data is between 0.4 and 0.53."
-  },
-  {
-    "objectID": "315/confint/main.html#take-away",
-    "href": "315/confint/main.html#take-away",
-    "title": "Confidence Intervals",
-    "section": "Take Away",
-    "text": "Take Away\n\nCLT enables confidence intervals based off of the Normal t-distribution\nYou will be responsible for\n\nloading data into R\ncalculating confidence intervals with some % confidence\ninterpretting confidence intervals in the context of the data\nunderstanding the literal translation meaning of the interpretation"
+    "objectID": "315/clt_code/main.html",
+    "href": "315/clt_code/main.html",
+    "title": "Central Limit Theorem",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(dplyr) # without suppressMessages\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(tidyr)\n\nIf we sample data from a distribution, then a mean of those data is close to the mean/expectation of the distribution.\n\nx &lt;- rbinom(100, 16, 0.1) # expectation is 16 * 0.1 = 1.6\nmean(x)\n\n[1] 1.54\n\n\nIf R of us each take our own sample of the same size, we all get different means. The shape of a histogram of multiple means will (nearly always) be approximately normal.\n\nR &lt;- 1000\nmeans &lt;- replicate(R, {\n  x &lt;- rbinom(1000, 16, 0.1)\n  mean(x)\n})\ndf &lt;- data.frame(m = means)\n\nggplot(df, aes(m)) + geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nNow consider more data, instead of multiple means. With more data, we naturally expect our means (of data) to be closer to the mean/expectation of the distribution that generated the data.\n\nx &lt;- rbinom(1000, 16, 0.1)\nN &lt;- 1:1000\ncm &lt;- cumsum(x) / N\ndf &lt;- data.frame(cumulative_mean = cm,\n                 N = N)\nggplot(df, aes(N, cumulative_mean)) +\n  geom_line()\n\n\n\n\n\n\n\n\nThe only issue with this convergence is that the convergence is not monotonic. Sometimes with a limited number of data we can be very close to the truth. The problem is, in the real world, we never know the truth. Other times, we can be far from the truth. Again, we never know.\nNext, we merge these two ideas together: more data (convergence to the truth) and multiple means (shape of means is approximately normal).\n\n# multiple means\ndata &lt;- replicate(R, {\n  x &lt;- rbinom(1000, 16, 0.1)\n  cumsum(x) / N # each one of which converges\n})\n\n# format data for plotting\ndf &lt;- data %&gt;%\n  as.data.frame %&gt;%\n  mutate(N = 1:1000) %&gt;%\n  pivot_longer( # wide -&gt; long/tall data frames\n    cols = !N,\n    names_to = \"ID\",\n    values_to = \"cumulative_mean\"\n  )\n\nggplot(df, aes(N, cumulative_mean, group = ID)) +\n  geom_line(alpha = 0.01) +\n  guides(color = \"none\") \n\n\n\n\n\n\n\n\nThe histogram above is as if we took a vertical slice of the data at N = 1000, flipped is horizontally, and made a histogram of it."
   },
   {
     "objectID": "315/introductionData/main.html#data-set-email",
