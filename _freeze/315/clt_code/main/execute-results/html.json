@@ -1,0 +1,17 @@
+{
+  "hash": "91481e1da31a0f6e711f0a3439e31f18",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Central Limit Theorem\"\nauthor: \"Edward\"\nformat: html\neditor: visual\n---\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(ggplot2)\nlibrary(dplyr) # without suppressMessages\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\n\nAttaching package: 'dplyr'\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n```\n\n\n:::\n\n```{.r .cell-code}\nlibrary(tidyr)\n```\n:::\n\n\n\nIf we sample data from a distribution, then a mean of those data is close to the mean/expectation of the distribution.\n\n::: {.cell}\n\n```{.r .cell-code}\nx <- rbinom(100, 16, 0.1) # expectation is 16 * 0.1 = 1.6\nmean(x)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1.54\n```\n\n\n:::\n:::\n\n\nIf `R` of us each take our own sample of the same size, we all get different means. The shape of a histogram of multiple means will (nearly always) be approximately normal.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nR <- 1000\nmeans <- replicate(R, {\n  x <- rbinom(1000, 16, 0.1)\n  mean(x)\n})\ndf <- data.frame(m = means)\n\nggplot(df, aes(m)) + geom_histogram()\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n```\n\n\n:::\n\n::: {.cell-output-display}\n![](main_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\nNow consider more data, instead of multiple means.  With more data, we naturally expect our means (of data) to be closer to the mean/expectation of the distribution that generated the data.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nx <- rbinom(1000, 16, 0.1)\nN <- 1:1000\ncm <- cumsum(x) / N\ndf <- data.frame(cumulative_mean = cm,\n                 N = N)\nggplot(df, aes(N, cumulative_mean)) +\n  geom_line()\n```\n\n::: {.cell-output-display}\n![](main_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n\nThe only issue with this convergence is that the convergence is not monotonic.  Sometimes with a limited number of data we can be very close to the truth.  The problem is, in the real world, we never know the truth.  Other times, we can be far from the truth.  Again, we never know.\n\nNext, we merge these two ideas together: more data (convergence to the truth) and multiple means (shape of means is approximately normal).\n\n::: {.cell}\n\n```{.r .cell-code}\n# multiple means\ndata <- replicate(R, {\n  x <- rbinom(1000, 16, 0.1)\n  cumsum(x) / N # each one of which converges\n})\n\n# format data for plotting\ndf <- data %>%\n  as.data.frame %>%\n  mutate(N = 1:1000) %>%\n  pivot_longer( # wide -> long/tall data frames\n    cols = !N,\n    names_to = \"ID\",\n    values_to = \"cumulative_mean\"\n  )\n\nggplot(df, aes(N, cumulative_mean, group = ID)) +\n  geom_line(alpha = 0.01) +\n  guides(color = \"none\") \n```\n\n::: {.cell-output-display}\n![](main_files/figure-html/unnamed-chunk-5-1.png){width=672}\n:::\n:::\n\n\nThe histogram above is as if we took a vertical slice of the data at `N = 1000`, flipped is horizontally, and made a histogram of it.\n\n",
+    "supporting": [
+      "main_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
