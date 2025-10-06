@@ -154,13 +154,6 @@
     "text": "Central Limit Theorem\n\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”\nThe Central Limit Theorem says, if we have a collection of sample means, the shape (histogram) of this collection is basically Normal (unimodal and symmetric)."
   },
   {
-    "objectID": "315/clt/main.html#clt-via-web-app",
-    "href": "315/clt/main.html#clt-via-web-app",
-    "title": "Central Limit Theorem",
-    "section": "CLT, via web app",
-    "text": "CLT, via web app\nJavascript web application to show Central Limit Theorem."
-  },
-  {
     "objectID": "315/clt/main.html#clt-definition-in-statistics",
     "href": "315/clt/main.html#clt-definition-in-statistics",
     "title": "Central Limit Theorem",
@@ -215,20 +208,6 @@
     "title": "Central Limit Theorem",
     "section": "Example, simplified",
     "text": "Example, simplified\n\nt.test(finch$beakheight, conf.level = 0.98)\n\n\n    One Sample t-test\n\ndata:  finch$beakheight\nt = 48.701, df = 67, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n98 percent confidence interval:\n 12.23514 13.49427\nsample estimates:\nmean of x \n 12.86471"
-  },
-  {
-    "objectID": "315/clt/main.html#revisit-web-app",
-    "href": "315/clt/main.html#revisit-web-app",
-    "title": "Central Limit Theorem",
-    "section": "Revisit Web App",
-    "text": "Revisit Web App\nThis time, pay attention to the width of the sampling distribution.\nCentral Limit Theorem web app."
-  },
-  {
-    "objectID": "315/clt/main.html#try-at-home",
-    "href": "315/clt/main.html#try-at-home",
-    "title": "Central Limit Theorem",
-    "section": "Try at Home",
-    "text": "Try at Home\nJust to help gain/rehearse intuition about standard errors, try the example again at home and this time simply make up a new sample size. That is try replacing in the calculations above\n\nn &lt;- 10\nn &lt;- 100\nn &lt;- 1000\n\nWhat happens to the width of the confidence interval for each new \\(n\\)?"
   },
   {
     "objectID": "315/clt/main.html#take-away",
@@ -565,13 +544,6 @@
     "title": "Confidence Intervals",
     "section": "recap: Central Limit Theorem",
     "text": "recap: Central Limit Theorem\n\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”\nThe Central Limit Theorem says, if we have a collection of sample means, the shape (histogram) of this collection is basically Normal (unimodal and symmetric)."
-  },
-  {
-    "objectID": "315/confint/main.html#recap-clt-via-web-app",
-    "href": "315/confint/main.html#recap-clt-via-web-app",
-    "title": "Confidence Intervals",
-    "section": "recap: CLT, via web app",
-    "text": "recap: CLT, via web app\nJavascript web application to show Central Limit Theorem."
   },
   {
     "objectID": "315/confint/main.html#recap-clt-so-what",
