@@ -6,8 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Edward A. Roualdes">
   <title>lectures – Central Limit Theorem</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -221,10 +221,6 @@ Edward A. Roualdes
 <li class="fragment"><p>The Central Limit Theorem says, if we have a collection of sample means, the shape (histogram) of this collection is basically Normal (unimodal and symmetric).</p></li>
 </ul>
 </section>
-<section id="clt-via-web-app" class="slide level2">
-<h2>CLT, via web app</h2>
-<p>Javascript web application to show <a href="http://onlinestatbook.com/stat_sim/sampling_dist/%7D%7BCentral%20Limit%20Theorem">Central Limit Theorem</a>.</p>
-</section>
 <section id="clt-definition-in-statistics" class="slide level2">
 <h2>CLT, definition (in Statistics)</h2>
 <p>The Central Limit Theorem says, “Under certain conditions, the sampling distribution for the sample mean converges to the normal distribution as the sample size increases.”</p>
@@ -256,28 +252,28 @@ Edward A. Roualdes
 <h2>Example</h2>
 <p>We will use a sample of Darwin’s finch data set [Swarth:1931]. Make a 98% confidence interval about the beak height using Darwin’s finches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># load data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># load data</span></span>
 <span id="cb1-2"><a></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/roualdes/data/master/finches.csv"</span></span>
 <span id="cb1-3"><a></a>finch <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
-<span id="cb1-4"><a></a><span class="co"># look at data in RStudio</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a></a><span class="co"># look at data in RStudio</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="example-continued" class="slide level2">
 <h2>Example, continued</h2>
 <p>98% confidence interval for Darwin’s finch data set.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(finch<span class="sc">$</span>beakheight)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(finch<span class="sc">$</span>beakheight)</span>
 <span id="cb2-2"><a></a>std <span class="ot">&lt;-</span> <span class="fu">sd</span>(finch<span class="sc">$</span>beakheight)</span>
 <span id="cb2-3"><a></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(finch<span class="sc">$</span>beakheight)</span>
-<span id="cb2-4"><a></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.99</span>, n <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.99</span>, n <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><span class="math display">\[\bar{x} \pm t * \frac{std}{\sqrt{n}}\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>xbar <span class="sc">-</span> t <span class="sc">*</span> std <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="co"># lower</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>xbar <span class="sc">-</span> t <span class="sc">*</span> std <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="co"># lower</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.23514</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>xbar <span class="sc">+</span> t <span class="sc">*</span> std <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="co"># upper</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>xbar <span class="sc">+</span> t <span class="sc">*</span> std <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="co"># upper</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.49427</code></pre>
 </div>
@@ -286,7 +282,7 @@ Edward A. Roualdes
 <section id="example-simplified" class="slide level2">
 <h2>Example, simplified</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">t.test</span>(finch<span class="sc">$</span>beakheight, <span class="at">conf.level =</span> <span class="fl">0.98</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">t.test</span>(finch<span class="sc">$</span>beakheight, <span class="at">conf.level =</span> <span class="fl">0.98</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -301,21 +297,6 @@ mean of x
  12.86471 </code></pre>
 </div>
 </div>
-</section>
-<section id="revisit-web-app" class="slide level2">
-<h2>Revisit Web App</h2>
-<p>This time, pay attention to the width of the sampling distribution.</p>
-<p><a href="http://onlinestatbook.com/stat_sim/sampling_dist/%7D%7BCentral%20Limit%20Theorem">Central Limit Theorem web app</a>.</p>
-</section>
-<section id="try-at-home" class="slide level2">
-<h2>Try at Home</h2>
-<p>Just to help gain/rehearse intuition about standard errors, try the example again at home and this time simply make up a new sample size. That is try replacing in the calculations above</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb9-2"><a></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb9-3"><a></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>What happens to the width of the confidence interval for each new <span class="math inline">\(n\)</span>?</p>
 </section>
 <section id="take-away" class="slide level2">
 <h2>Take Away</h2>
@@ -522,7 +503,7 @@ mean of x
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -634,13 +615,14 @@ mean of x
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

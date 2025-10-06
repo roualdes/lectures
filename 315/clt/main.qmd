@@ -39,13 +39,6 @@ shapes).
   symmetric).
 
 
-## CLT, via web app
-
-Javascript web application to show [Central Limit
-Theorem](http://onlinestatbook.com/stat_sim/sampling_dist/}{Central Limit
-Theorem).
-
-
 ## CLT, definition (in Statistics)
 
 The Central Limit Theorem says, "Under certain conditions, the sampling
@@ -120,30 +113,6 @@ xbar + t * std / sqrt(n) # upper
 ```{r}
 t.test(finch$beakheight, conf.level = 0.98)
 ```
-
-## Revisit Web App
-
-This time, pay attention to the width of the sampling distribution.
-
-[Central Limit
-Theorem web app](http://onlinestatbook.com/stat_sim/sampling_dist/}{Central Limit
-Theorem).
-
-
-## Try at Home
-
-Just to help gain/rehearse intuition about standard errors, try the example
-again at home and this time simply make up a new sample size.  That is try
-replacing in the calculations above
-
-```{r}
-n <- 10
-n <- 100
-n <- 1000
-```
-
-What happens to the width of the confidence interval for each new $n$?
-
 
 ## Take Away
 
