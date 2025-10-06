@@ -54,7 +54,7 @@ A better guess than a point estimate would include a range of likely values, an
 interval say, in which the population parameter of interest might live. If we
 want to be very certain we capture the population parameter, should we use a
 wider interval or a smaller interval?
-[Garfield](http://roualdes.us/lectures/misc/garfield.jpg) knows.
+[Garfield](https://github.com/roualdes/lectures/blob/main/misc/garfield.jpg) knows.
 
 ## A Trade Off
 
