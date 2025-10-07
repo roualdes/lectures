@@ -25,7 +25,7 @@
     "href": "314/normal.html",
     "title": "lectures",
     "section": "",
-    "text": "import scipy.stats as st\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\nN = st.norm()\nx = np.linspace(-5, 5, 101)\nfx = N.pdf(x)\nplt.plot(x, fx)\n\n\n\n\n\n\n\n\n\nfig = plt.figure()\nax = fig.add_subplot(111, projection=\"3d\")\nX, Y = np.meshgrid(x, x)\nXY = np.dstack((X, Y))\nMvN = st.multivariate_normal(np.zeros(2), np.diag(np.ones(2)))\nZ = MvN.pdf(XY)\nax.plot_surface(X, Y, Z)\n\n\n\n\n\n\n\n\n\nMvN.pdf(XY[1, 4])\n\nnp.float64(2.473314011763375e-11)\n\n\n\nXY[1, 4]\n\narray([-4.6, -4.9])\n\n\n\nN.pdf(-4.6) * N.pdf(-4.9)\n\nnp.float64(2.4733140117633728e-11)"
+    "text": "import scipy.stats as st\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\n# 1\nNormal = st.norm(loc = 50_000, scale = 2_000)\nNormal.cdf(48_000) # cumulative distribution function &lt;=\nNormal.ppf(1 - .9)\n\n47436.8968689108\n\n\n\n# 2\nNormal = st.norm(loc = 10, scale = 2)\nNormal.cdf(12) - Normal.cdf(8)# a\n1 - Normal.cdf(14)\n\n0.02275013194817921\n\n\n\nN = st.norm()\nx = np.linspace(-5, 5, 101)\nfx = N.pdf(x)\nplt.plot(x, fx)\n\n\n\n\n\n\n\n\n\nfig = plt.figure()\nax = fig.add_subplot(111, projection=\"3d\")\nX, Y = np.meshgrid(x, x)\nXY = np.dstack((X, Y))\nMvN = st.multivariate_normal(np.zeros(2), np.diag(np.ones(2)))\nZ = MvN.pdf(XY)\nax.plot_surface(X, Y, Z)\n\n\n\n\n\n\n\n\n\nMvN.pdf(XY[1, 4])\n\nnp.float64(2.473314011763375e-11)\n\n\n\nXY[1, 4]\n\narray([-4.6, -4.9])\n\n\n\nN.pdf(-4.6) * N.pdf(-4.9)\n\nnp.float64(2.4733140117633728e-11)"
   },
   {
     "objectID": "314/quiz05.html",
