@@ -1092,342 +1092,6 @@
     "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
   },
   {
-    "objectID": "315/summaryStats/main.html#data-frames-in-r",
-    "href": "315/summaryStats/main.html#data-frames-in-r",
-    "title": "Summary Statistics",
-    "section": "Data Frames in R",
-    "text": "Data Frames in R\nRun these commands in R\n\n\nCode\nsuppressMessages(library(openintro))\ndata(email) # load dataset email\nstr(email)  # ensure we're looking at a df\nhead(email) # top 6 rows; try tail\nhead(email, n = 10) # use n = x, for head/tail\nemail$spam  # just one variable\nnames(email) # column names\nsome_cols &lt;- c(\"spam\", \"num_char\", \"format\", \"number\")\nemail[ , some_cols] # specified variables/columns\nemail[c(1,2,3,50), some_cols] # Table 1"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#recap-email",
-    "href": "315/summaryStats/main.html#recap-email",
-    "title": "Summary Statistics",
-    "section": "recap: email",
-    "text": "recap: email\nRecall the email data set.\n\n\nCode\ndata(email)\nhead(email[, c(\"spam\", \"format\", \"number\")])\n\n\n# A tibble: 6 × 3\n  spam  format number\n  &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt; \n1 0     1      big   \n2 0     1      small \n3 0     1      small \n4 0     1      small \n5 0     0      none  \n6 0     0      none"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#email-table",
-    "href": "315/summaryStats/main.html#email-table",
-    "title": "Summary Statistics",
-    "section": "email, table",
-    "text": "email, table\nA good start\n\n\nCode\ntable(email$number)\n\n\n\n none small   big \n  549  2827   545"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#email-contingency-table",
-    "href": "315/summaryStats/main.html#email-contingency-table",
-    "title": "Summary Statistics",
-    "section": "email, contingency table",
-    "text": "email, contingency table\nA contingency table is a table that summarizes data for two categorical variables.\n\n\nCode\n(t &lt;- table(email$spam, email$number))\n\n\n   \n    none small  big\n  0  400  2659  495\n  1  149   168   50"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#email-contingency-table-of-proportions",
-    "href": "315/summaryStats/main.html#email-contingency-table-of-proportions",
-    "title": "Summary Statistics",
-    "section": "email, contingency table of proportions",
-    "text": "email, contingency table of proportions\n\n\nCode\nround(prop.table(t), 2)\n\n\n   \n    none small  big\n  0 0.10  0.68 0.13\n  1 0.04  0.04 0.01"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#county-data",
-    "href": "315/summaryStats/main.html#county-data",
-    "title": "Summary Statistics",
-    "section": "county data",
-    "text": "county data\nConsider U.S. county data. Which of these variables is/are numerical?\n\n\nCode\ndata(county)\ntail(county[, c(\"name\", \"state\", \"pop2010\", \"per_capita_income\")], n=4)\n\n\n# A tibble: 4 × 4\n  name            state   pop2010 per_capita_income\n  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;             &lt;dbl&gt;\n1 Teton County    Wyoming   21294            48557.\n2 Uinta County    Wyoming   21118            27048.\n3 Washakie County Wyoming    8533            27495.\n4 Weston County   Wyoming    7208            33297."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-mean",
-    "href": "315/summaryStats/main.html#summary-statistics-mean",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, mean",
-    "text": "Summary Statistics, mean\nThe sample mean, denoted \\(\\bar{x}\\), is the sum of a sample of numbers divided by how many numbers are in the sample. Mathematically, we write\n\\[\n\\begin{align*}\n    \\bar{x} & =  \\frac{x_1 + x_2 + \\ldots + x_n}{n} \\\\\n        & = \\frac{\\sum_{i=1}^n x_i}{n} \\\\\n        & = \\frac{1}{n} \\sum_{i=1}^n x_i\n\\end{align*}\n\\]"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
-    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, mean: example by hand",
-    "text": "Summary Statistics, mean: example by hand\nFind the mean of the following numbers\n\n\nCode\nx &lt;- sample(0:100, 10)\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
-    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, mean: example by R (computer)",
-    "text": "Summary Statistics, mean: example by R (computer)\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\n(m &lt;- mean(x))\n\n\n[1] 71.5"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mean-by-picture",
-    "href": "315/summaryStats/main.html#mean-by-picture",
-    "title": "Summary Statistics",
-    "section": "Mean, by picture",
-    "text": "Mean, by picture\nWhere is the mean relative to the data?"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mean-by-picture-1",
-    "href": "315/summaryStats/main.html#mean-by-picture-1",
-    "title": "Summary Statistics",
-    "section": "Mean, by picture",
-    "text": "Mean, by picture\nWhere is the mean relative to the data?"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mean-an-example",
-    "href": "315/summaryStats/main.html#mean-an-example",
-    "title": "Summary Statistics",
-    "section": "Mean, an example",
-    "text": "Mean, an example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(county$pop2010)\n\n\n[1] 98262.04"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mean-another-example",
-    "href": "315/summaryStats/main.html#mean-another-example",
-    "title": "Summary Statistics",
-    "section": "Mean, another example",
-    "text": "Mean, another example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(email$num_char)\n\n\n[1] 10.70659"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mean-point-estimator",
-    "href": "315/summaryStats/main.html#mean-point-estimator",
-    "title": "Summary Statistics",
-    "section": "Mean, point estimator",
-    "text": "Mean, point estimator\nWe call the sample mean a point estimator. What is it estimating?"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-median",
-    "href": "315/summaryStats/main.html#summary-statistics-median",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, median",
-    "text": "Summary Statistics, median\nmedian. If the data are ordered from smallest to largest, the median is the observation right in the middle. If there are an even number of observations, there will be two values in the middle, and the median is taken as their mean. There is no simple mathematical expression for this statistic."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
-    "href": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, median: examples by R",
-    "text": "Summary Statistics, median: examples by R\nFind the median of the following numbers:\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\nmedian(x)\n\n\n[1] 77.5"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
-    "href": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics: comparing measures of center",
-    "text": "Summary Statistics: comparing measures of center\nBoth the mean and the median measure the center of a dataset. Thus, they are jointly referred to as measures of center.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nThough they measure different centers."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#what-does-more-data-do",
-    "href": "315/summaryStats/main.html#what-does-more-data-do",
-    "title": "Summary Statistics",
-    "section": "What does more data do?",
-    "text": "What does more data do?\nIf we add a number to the previous variable x, what will be the effect on the\n\nmean?\nmedian?"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#what-does-more-data-do-1",
-    "href": "315/summaryStats/main.html#what-does-more-data-do-1",
-    "title": "Summary Statistics",
-    "section": "What does more data do?",
-    "text": "What does more data do?\n… join \\(100\\) to x\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 100))\n\n\n[1] 74.09091\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 100))\n\n\n[1] 78"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#what-does-more-data-do-2",
-    "href": "315/summaryStats/main.html#what-does-more-data-do-2",
-    "title": "Summary Statistics",
-    "section": "What does more data do?",
-    "text": "What does more data do?\nHow about joining \\(10000\\) to x.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 10000))\n\n\n[1] 974.0909\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 10000))\n\n\n[1] 78"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summary-statistics-outliers",
-    "href": "315/summaryStats/main.html#summary-statistics-outliers",
-    "title": "Summary Statistics",
-    "section": "Summary Statistics, outliers",
-    "text": "Summary Statistics, outliers\nAn outlier is an observation that appears extreme relative to the rest of the data.\nNote\n\nThe number \\(10000\\) in the datasets above appears to be an outlier.\nWhat effect did this value have on the mean? On the median?\nWhat would have happened if we added \\(-100\\)? mean? median?\nOutliers are often the outcome of a confounding variable."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#summarizing-data-data-width",
-    "href": "315/summaryStats/main.html#summarizing-data-data-width",
-    "title": "Summary Statistics",
-    "section": "Summarizing Data, data width",
-    "text": "Summarizing Data, data width\nMeans and medians help summarize the center of the data. The statisticians rigorous description of the width of data uses the idea of deviations. See OS4 section \\(2.1.4\\)."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#deviations-defined",
-    "href": "315/summaryStats/main.html#deviations-defined",
-    "title": "Summary Statistics",
-    "section": "Deviations, defined",
-    "text": "Deviations, defined\ndeviation. We call the distance between an observation and the mean its deviation. Mathematically, we write\n\\[ d_i = x_i - \\bar{x} \\]"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#variance-and-standard-deviation",
-    "href": "315/summaryStats/main.html#variance-and-standard-deviation",
-    "title": "Summary Statistics",
-    "section": "Variance and Standard Deviation",
-    "text": "Variance and Standard Deviation\nThe two most common measures of spread are the sample variance and the sample standard deviation.\nThe sample variance is (almost) the average of the squared deviations.\n\\[ s^2 = \\frac{d_1^2 + d_2^2 + \\ldots + d_n^2}{n-1} = \\frac{1}{n-1}\\sum_{i=1}^n d_i^2 \\]\nThe sample standard deviation is the square root of the variance.\n\\[s = \\sqrt{s^2}\\]"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
-    "href": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
-    "title": "Summary Statistics",
-    "section": "Standard Deviation in R, a simple example",
-    "text": "Standard Deviation in R, a simple example\n\n\nCode\nsd(email$num_char)\n\n\n[1] 14.64579"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#notation-of-populations",
-    "href": "315/summaryStats/main.html#notation-of-populations",
-    "title": "Summary Statistics",
-    "section": "Notation of Populations",
-    "text": "Notation of Populations\nRecall, sample datasets provide information about the population.\n\nThe sample mean \\(\\bar{x}\\) estimates the population mean \\(\\mu\\).\nThe sample standard deviation \\(s\\) estimates the population standard deviation \\(\\sigma\\)."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#standard-deviation-describes-variability",
-    "href": "315/summaryStats/main.html#standard-deviation-describes-variability",
-    "title": "Summary Statistics",
-    "section": "Standard Deviation Describes Variability",
-    "text": "Standard Deviation Describes Variability\nFocus on the conceptual meaning of the standard deviation as a descriptor of variability rather than the formulas."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread",
-    "href": "315/summaryStats/main.html#towards-other-measures-of-spread",
-    "title": "Summary Statistics",
-    "section": "Towards Other Measures of Spread",
-    "text": "Towards Other Measures of Spread\nThe median is also called the 50th quantile, or \\(Q_2\\). There are other quantiles.\nThe \\(q\\)th quantile is the value that puts \\(q\\)% of the observations below this number. Also percentile.\n\nThe 25th quantile is also known as the first quartile, or \\(Q_1\\).\nThe 75th quantile is also known as the third quartile, or \\(Q_3\\)."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
-    "href": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
-    "title": "Summary Statistics",
-    "section": "Towards Other Measures of Spread, continued",
-    "text": "Towards Other Measures of Spread, continued\nAnother way to think about the 25/75th quantile.\n\nThe 25th quantile is the median of the dataset that consists of the smallest number up to the median.\nThe 75th quantile is the median of the dataset that consists of the median up to the largest number."
-  },
-  {
-    "objectID": "315/summaryStats/main.html#interquartile-range",
-    "href": "315/summaryStats/main.html#interquartile-range",
-    "title": "Summary Statistics",
-    "section": "Interquartile Range",
-    "text": "Interquartile Range\nThe IQR is calculated the the difference between the 75th and the 25th quantile, \\(Q_3\\) and \\(Q_1\\), respectively:\n\\[ IQR = Q_3 - Q_1 \\]"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
-    "href": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
-    "title": "Summary Statistics",
-    "section": "Quantiles and IQR in R",
-    "text": "Quantiles and IQR in R\n\n\nCode\nquantile(email$num_char, 0.25)\n\n\n  25% \n1.459 \n\n\nCode\nq &lt;- quantile(email$num_char, c(0.75, 0.25))\nq[1] - q[2]\n\n\n   75% \n12.625 \n\n\nCode\nIQR(email$num_char)\n\n\n[1] 12.625"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mixing-variable-types",
-    "href": "315/summaryStats/main.html#mixing-variable-types",
-    "title": "Summary Statistics",
-    "section": "Mixing Variable Types",
-    "text": "Mixing Variable Types\nOften with binary categorical data, it’s advantageous to encode the variable numerically. For example,\n\nfemale \\(\\Rightarrow 1=\\) female, \\(0=\\) other\nhigh school educated \\(\\Rightarrow 1=\\) yes, \\(0=\\) other (no)\ntook pill \\(\\Rightarrow 1=\\) yes, \\(0=\\) no\n…"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#mixing-variable-types-1",
-    "href": "315/summaryStats/main.html#mixing-variable-types-1",
-    "title": "Summary Statistics",
-    "section": "Mixing Variable Types",
-    "text": "Mixing Variable Types\nConsider the variable spam in the dataset email. We are likely interested in the proportion of emails that are spam, \\(\\hat{p}\\).\n\n\nCode\nspam_number &lt;- ifelse(email$spam == 1, 1, 0)\n(phat &lt;- mean(spam_number))\n\n\n[1] 0.09359857"
-  },
-  {
-    "objectID": "315/summaryStats/main.html#take-away",
-    "href": "315/summaryStats/main.html#take-away",
-    "title": "Summary Statistics",
-    "section": "Take Away",
-    "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
-  },
-  {
-    "objectID": "misc/klhr/main.html#metropolis-hastings",
-    "href": "misc/klhr/main.html#metropolis-hastings",
-    "title": "KLHR Sampler",
-    "section": "Metropolis-Hastings",
-    "text": "Metropolis-Hastings\n\\[\n\\begin{align}\n\\theta^* & \\sim \\text{Normal}(\\theta^{(m)}, \\Sigma)  \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{normal}(\\theta^{(m)} | \\theta^*, \\Sigma)}{p(\\theta^{(m)}) \\cdot \\text{normal}(\\theta^* | \\theta^{(m)}, \\Sigma)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
-  },
-  {
-    "objectID": "misc/klhr/main.html#hit-and-run-sampler",
-    "href": "misc/klhr/main.html#hit-and-run-sampler",
-    "title": "KLHR Sampler",
-    "section": "Hit and Run Sampler",
-    "text": "Hit and Run Sampler\n\\[\n\\begin{align}\n\\rho & \\sim G \\quad \\# \\in \\mathbb{R}^D; \\text{ direction} \\\\\n\\xi^* & \\sim f(\\xi) = \\frac{p(\\rho\\xi + \\theta^{(m)})}{\\int p(\\rho \\xi + \\theta^{(m)}) d\\xi}  \\\\\n\\theta^{(m + 1)} & = \\rho \\xi^* + \\theta^{(m)} \\\\\n\\end{align}\n\\]\n\nA Hit and Run sampler reference\nNo-Underrun Sampler"
-  },
-  {
-    "objectID": "misc/klhr/main.html#klhr-sampler",
-    "href": "misc/klhr/main.html#klhr-sampler",
-    "title": "KLHR Sampler",
-    "section": "KLHR Sampler",
-    "text": "KLHR Sampler\nKullback–Leibler Hit and Run\n\\[\n\\begin{align}\n\\rho & \\sim Normal(...) \\\\\n\\rho & = \\rho / ||\\rho|| \\quad \\# \\text{ unit direction}\\\\\n\\eta^* & = \\text{argmin}_{\\eta} \\text{KL}(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n\\xi^* & \\sim Q(\\eta^*) \\\\\n\\theta^* &= \\rho \\xi^* + \\theta^{(m)} \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{q}(0 | \\eta^*)}{p(\\theta^{(m)}) \\cdot \\text{q}(\\xi^* | \\eta^*)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
-  },
-  {
-    "objectID": "misc/klhr/main.html#approximate-kl",
-    "href": "misc/klhr/main.html#approximate-kl",
-    "title": "KLHR Sampler",
-    "section": "approximate KL",
-    "text": "approximate KL\nWhen \\(Q\\) represents the family of one dimensional Normal distirbutions with density function \\(q\\), where \\(\\eta = (\\mu, \\sigma)\\)\n\\[\n\\begin{align}\n\\text{KL}&(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n& = \\int_{\\mathbb{R}} (\\log{q(\\xi | \\eta)} - \\log{p(\\rho \\xi + \\theta^{(m)})}) q(\\xi | \\eta) d\\xi\\\\\n& \\approx -\\log{\\sigma} - \\sum_{n} w_n \\log{p( \\, l(x_n | \\eta) \\, )} \\\\\n& =: L(\\eta)\n\\end{align}\n\\]\nwhere \\(x_n, w_n\\) are the roots of the Hermite polynomials and associated weights from Gauss-Hermite quadrature."
-  },
-  {
-    "objectID": "misc/klhr/main.html#approximate-kl-take-2",
-    "href": "misc/klhr/main.html#approximate-kl-take-2",
-    "title": "KLHR Sampler",
-    "section": "approximate KL, take 2",
-    "text": "approximate KL, take 2\n\\(Q\\) represents the family of sinh-arcsinh distributions, where \\(\\eta = (\\mu, \\sigma, \\delta, \\epsilon)\\)\n\n\\(\\delta \\in \\mathbb{R}^+ \\Rightarrow\\) tail weight\n\\(\\epsilon \\in \\mathbb{R} \\Rightarrow\\) skew\n\nLet \\(Z \\sim \\text{Normal}(0, 1)\\). Then \\(Q \\sim T(Z)\\) where\n\\[T(z) = \\mu + \\sigma \\text{sinh}\\left( \\frac{\\text{arsinh}(z) + \\epsilon}{\\delta} \\right)\\]"
-  },
-  {
-    "objectID": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
-    "href": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
-    "title": "KLHR Sampler",
-    "section": "sinh-arcsinh vs normal",
-    "text": "sinh-arcsinh vs normal"
-  },
-  {
-    "objectID": "misc/klhr/main.html#minimize-leta",
-    "href": "misc/klhr/main.html#minimize-leta",
-    "title": "KLHR Sampler",
-    "section": "minimize \\(L(\\eta)\\)",
-    "text": "minimize \\(L(\\eta)\\)\n\\(\\eta \\in \\mathbb{R}^d\\) where \\(d \\in \\{2, 4\\}\\). Use scipy and Bridgestan JAX Bridgestan\n\nBFGS\ntrust-{ncg, krylov, exact}\n?"
-  },
-  {
-    "objectID": "misc/klhr/main.html#generate-xi-from-qeta",
-    "href": "misc/klhr/main.html#generate-xi-from-qeta",
-    "title": "KLHR Sampler",
-    "section": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)",
-    "text": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)\n\nindependent draw from \\(Q(\\eta^*)\\)\nRadford Neal’s Ordered over-relaxation\n?"
-  },
-  {
-    "objectID": "misc/klhr/main.html#generate-random-direction-rho",
-    "href": "misc/klhr/main.html#generate-random-direction-rho",
-    "title": "KLHR Sampler",
-    "section": "generate random direction \\(\\rho\\)",
-    "text": "generate random direction \\(\\rho\\)\n\nlearn \\(\\Sigma\\) during warmup\n\n\\(\\rho \\sim \\text{Normal}(\\mathbf{0}_D, \\Sigma)\\)\n\nlearn \\(J\\) PCAs/eigenvectors \\(\\mathbf{v}_j \\in \\mathbb{R}^D\\) and values \\(\\lambda_j\\) during warmup\n\n\\(j' \\sim \\text{Multinoulli}\\left(\\{1,\\ldots, J \\}, \\mathbf{p} = \\frac{\\mathbf{\\lambda}}{\\sum_{j=1}^J \\lambda_j}\\right)\\) \\(\\rho \\sim \\text{Normal}(\\mathbf{v}_{j'}, \\Sigma)\\); or\n\\(\\rho \\sim \\text{Normal}\\left(\\sum_{j=1}^J \\lambda_j \\mathbf{v}_j, \\Sigma\\right)\\)\n\n?"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results",
-    "href": "misc/klhr/main.html#preliminary-results",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nfunnel.stan: 11 dimensional funnel; \\(10^7\\) iterations"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results-1",
-    "href": "misc/klhr/main.html#preliminary-results-1",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nearnings.stan: poorly scaled linear regression"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results-2",
-    "href": "misc/klhr/main.html#preliminary-results-2",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nnormal.stan: 100 dimensional isotropic Gaussian\nvs hand tuned MH"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results-3",
-    "href": "misc/klhr/main.html#preliminary-results-3",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nar1.stan: 100 dimensional AR(1); \\(10^5\\) iterations"
-  },
-  {
-    "objectID": "misc/klhr/main.html#feedback-welcome",
-    "href": "misc/klhr/main.html#feedback-welcome",
-    "title": "KLHR Sampler",
-    "section": "feedback welcome",
-    "text": "feedback welcome\nany thoughts on\n\nminimize \\(L(\\eta)\\) faster\ngenerate \\(\\xi^* \\sim Q(\\eta^*)\\) to increase MSJD\ngenerate \\(\\rho \\sim ?\\) to focus on important directions\nother"
-  },
-  {
     "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
     "href": "315/plottingData/main.html#visualizing-categorical-variables",
     "title": "Plotting Data",
@@ -1678,6 +1342,349 @@
     "title": "Plotting Data",
     "section": "Take Away",
     "text": "Take Away\n\ncategorical variable -&gt; bar chart\none numerical variable -&gt; histogram\none numerical and one categorical -&gt; box plot\ntwo numerical -&gt; scatter plot\n… many variations"
+  },
+  {
+    "objectID": "misc/klhr/main.html#metropolis-hastings",
+    "href": "misc/klhr/main.html#metropolis-hastings",
+    "title": "KLHR Sampler",
+    "section": "Metropolis-Hastings",
+    "text": "Metropolis-Hastings\n\\[\n\\begin{align}\n\\theta^* & \\sim \\text{Normal}(\\theta^{(m)}, \\Sigma)  \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{normal}(\\theta^{(m)} | \\theta^*, \\Sigma)}{p(\\theta^{(m)}) \\cdot \\text{normal}(\\theta^* | \\theta^{(m)}, \\Sigma)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "misc/klhr/main.html#hit-and-run-sampler",
+    "href": "misc/klhr/main.html#hit-and-run-sampler",
+    "title": "KLHR Sampler",
+    "section": "Hit and Run Sampler",
+    "text": "Hit and Run Sampler\n\\[\n\\begin{align}\n\\rho & \\sim G \\quad \\# \\in \\mathbb{R}^D; \\text{ direction} \\\\\n\\xi^* & \\sim f(\\xi) = \\frac{p(\\rho\\xi + \\theta^{(m)})}{\\int p(\\rho \\xi + \\theta^{(m)}) d\\xi}  \\\\\n\\theta^{(m + 1)} & = \\rho \\xi^* + \\theta^{(m)} \\\\\n\\end{align}\n\\]\n\nA Hit and Run sampler reference\nNo-Underrun Sampler"
+  },
+  {
+    "objectID": "misc/klhr/main.html#klhr-sampler",
+    "href": "misc/klhr/main.html#klhr-sampler",
+    "title": "KLHR Sampler",
+    "section": "KLHR Sampler",
+    "text": "KLHR Sampler\nKullback–Leibler Hit and Run\n\\[\n\\begin{align}\n\\rho & \\sim Normal(...) \\\\\n\\rho & = \\rho / ||\\rho|| \\quad \\# \\text{ unit direction}\\\\\n\\eta^* & = \\text{argmin}_{\\eta} \\text{KL}(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n\\xi^* & \\sim Q(\\eta^*) \\\\\n\\theta^* &= \\rho \\xi^* + \\theta^{(m)} \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{q}(0 | \\eta^*)}{p(\\theta^{(m)}) \\cdot \\text{q}(\\xi^* | \\eta^*)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "misc/klhr/main.html#approximate-kl",
+    "href": "misc/klhr/main.html#approximate-kl",
+    "title": "KLHR Sampler",
+    "section": "approximate KL",
+    "text": "approximate KL\nWhen \\(Q\\) represents the family of one dimensional Normal distirbutions with density function \\(q\\), where \\(\\eta = (\\mu, \\sigma)\\)\n\\[\n\\begin{align}\n\\text{KL}&(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n& = \\int_{\\mathbb{R}} (\\log{q(\\xi | \\eta)} - \\log{p(\\rho \\xi + \\theta^{(m)})}) q(\\xi | \\eta) d\\xi\\\\\n& \\approx -\\log{\\sigma} - \\sum_{n} w_n \\log{p( \\, l(x_n | \\eta) \\, )} \\\\\n& =: L(\\eta)\n\\end{align}\n\\]\nwhere \\(x_n, w_n\\) are the roots of the Hermite polynomials and associated weights from Gauss-Hermite quadrature."
+  },
+  {
+    "objectID": "misc/klhr/main.html#approximate-kl-take-2",
+    "href": "misc/klhr/main.html#approximate-kl-take-2",
+    "title": "KLHR Sampler",
+    "section": "approximate KL, take 2",
+    "text": "approximate KL, take 2\n\\(Q\\) represents the family of sinh-arcsinh distributions, where \\(\\eta = (\\mu, \\sigma, \\delta, \\epsilon)\\)\n\n\\(\\delta \\in \\mathbb{R}^+ \\Rightarrow\\) tail weight\n\\(\\epsilon \\in \\mathbb{R} \\Rightarrow\\) skew\n\nLet \\(Z \\sim \\text{Normal}(0, 1)\\). Then \\(Q \\sim T(Z)\\) where\n\\[T(z) = \\mu + \\sigma \\text{sinh}\\left( \\frac{\\text{arsinh}(z) + \\epsilon}{\\delta} \\right)\\]"
+  },
+  {
+    "objectID": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
+    "href": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
+    "title": "KLHR Sampler",
+    "section": "sinh-arcsinh vs normal",
+    "text": "sinh-arcsinh vs normal"
+  },
+  {
+    "objectID": "misc/klhr/main.html#minimize-leta",
+    "href": "misc/klhr/main.html#minimize-leta",
+    "title": "KLHR Sampler",
+    "section": "minimize \\(L(\\eta)\\)",
+    "text": "minimize \\(L(\\eta)\\)\n\\(\\eta \\in \\mathbb{R}^d\\) where \\(d \\in \\{2, 4\\}\\). Use scipy and Bridgestan JAX Bridgestan\n\nBFGS\ntrust-{ncg, krylov, exact}\n?"
+  },
+  {
+    "objectID": "misc/klhr/main.html#generate-xi-from-qeta",
+    "href": "misc/klhr/main.html#generate-xi-from-qeta",
+    "title": "KLHR Sampler",
+    "section": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)",
+    "text": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)\n\nindependent draw from \\(Q(\\eta^*)\\)\nRadford Neal’s Ordered over-relaxation\n?"
+  },
+  {
+    "objectID": "misc/klhr/main.html#generate-random-direction-rho",
+    "href": "misc/klhr/main.html#generate-random-direction-rho",
+    "title": "KLHR Sampler",
+    "section": "generate random direction \\(\\rho\\)",
+    "text": "generate random direction \\(\\rho\\)\n\nlearn \\(\\Sigma\\) during warmup\n\n\\(\\rho \\sim \\text{Normal}(\\mathbf{0}_D, \\Sigma)\\)\n\nlearn \\(J\\) PCAs/eigenvectors \\(\\mathbf{v}_j \\in \\mathbb{R}^D\\) and values \\(\\lambda_j\\) during warmup\n\n\\(j' \\sim \\text{Multinoulli}\\left(\\{1,\\ldots, J \\}, \\mathbf{p} = \\frac{\\mathbf{\\lambda}}{\\sum_{j=1}^J \\lambda_j}\\right)\\) \\(\\rho \\sim \\text{Normal}(\\mathbf{v}_{j'}, \\Sigma)\\); or\n\\(\\rho \\sim \\text{Normal}\\left(\\sum_{j=1}^J \\lambda_j \\mathbf{v}_j, \\Sigma\\right)\\)\n\n?"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results",
+    "href": "misc/klhr/main.html#preliminary-results",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nfunnel.stan: 11 dimensional funnel; \\(10^7\\) iterations"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results-1",
+    "href": "misc/klhr/main.html#preliminary-results-1",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nearnings.stan: poorly scaled linear regression"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results-2",
+    "href": "misc/klhr/main.html#preliminary-results-2",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nnormal.stan: 100 dimensional isotropic Gaussian\nvs hand tuned MH"
+  },
+  {
+    "objectID": "misc/klhr/main.html#preliminary-results-3",
+    "href": "misc/klhr/main.html#preliminary-results-3",
+    "title": "KLHR Sampler",
+    "section": "preliminary results",
+    "text": "preliminary results\nar1.stan: 100 dimensional AR(1); \\(10^5\\) iterations"
+  },
+  {
+    "objectID": "misc/klhr/main.html#feedback-welcome",
+    "href": "misc/klhr/main.html#feedback-welcome",
+    "title": "KLHR Sampler",
+    "section": "feedback welcome",
+    "text": "feedback welcome\nany thoughts on\n\nminimize \\(L(\\eta)\\) faster\ngenerate \\(\\xi^* \\sim Q(\\eta^*)\\) to increase MSJD\ngenerate \\(\\rho \\sim ?\\) to focus on important directions\nother"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#data-frames-in-r",
+    "href": "315/summaryStats/main.html#data-frames-in-r",
+    "title": "Summary Statistics",
+    "section": "Data Frames in R",
+    "text": "Data Frames in R\nRun these commands in R\n\n\nCode\nsuppressMessages(library(openintro))\ndata(email) # load dataset email\nstr(email)  # ensure we're looking at a df\nhead(email) # top 6 rows; try tail\nhead(email, n = 10) # use n = x, for head/tail\nemail$spam  # just one variable\nnames(email) # column names\nsome_cols &lt;- c(\"spam\", \"num_char\", \"format\", \"number\")\nemail[ , some_cols] # specified variables/columns\nemail[c(1,2,3,50), some_cols] # Table 1"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#recap-email",
+    "href": "315/summaryStats/main.html#recap-email",
+    "title": "Summary Statistics",
+    "section": "recap: email",
+    "text": "recap: email\nRecall the email data set.\n\n\nCode\ndata(email)\nhead(email[, c(\"spam\", \"format\", \"number\")])\n\n\n# A tibble: 6 × 3\n  spam  format number\n  &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt; \n1 0     1      big   \n2 0     1      small \n3 0     1      small \n4 0     1      small \n5 0     0      none  \n6 0     0      none"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#email-table",
+    "href": "315/summaryStats/main.html#email-table",
+    "title": "Summary Statistics",
+    "section": "email, table",
+    "text": "email, table\nA good start\n\n\nCode\ntable(email$number)\n\n\n\n none small   big \n  549  2827   545"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#email-contingency-table",
+    "href": "315/summaryStats/main.html#email-contingency-table",
+    "title": "Summary Statistics",
+    "section": "email, contingency table",
+    "text": "email, contingency table\nA contingency table is a table that summarizes data for two categorical variables.\n\n\nCode\n(t &lt;- table(email$spam, email$number))\n\n\n   \n    none small  big\n  0  400  2659  495\n  1  149   168   50"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#email-contingency-table-of-proportions",
+    "href": "315/summaryStats/main.html#email-contingency-table-of-proportions",
+    "title": "Summary Statistics",
+    "section": "email, contingency table of proportions",
+    "text": "email, contingency table of proportions\n\n\nCode\nround(prop.table(t), 2)\n\n\n   \n    none small  big\n  0 0.10  0.68 0.13\n  1 0.04  0.04 0.01"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#county-data",
+    "href": "315/summaryStats/main.html#county-data",
+    "title": "Summary Statistics",
+    "section": "county data",
+    "text": "county data\nConsider U.S. county data. Which of these variables is/are numerical?\n\n\nCode\ndata(county)\ntail(county[, c(\"name\", \"state\", \"pop2010\", \"per_capita_income\")], n=4)\n\n\n# A tibble: 4 × 4\n  name            state   pop2010 per_capita_income\n  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;             &lt;dbl&gt;\n1 Teton County    Wyoming   21294            48557.\n2 Uinta County    Wyoming   21118            27048.\n3 Washakie County Wyoming    8533            27495.\n4 Weston County   Wyoming    7208            33297."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-mean",
+    "href": "315/summaryStats/main.html#summary-statistics-mean",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, mean",
+    "text": "Summary Statistics, mean\nThe sample mean, denoted \\(\\bar{x}\\), is the sum of a sample of numbers divided by how many numbers are in the sample. Mathematically, we write\n\\[\n\\begin{align*}\n    \\bar{x} & =  \\frac{x_1 + x_2 + \\ldots + x_n}{n} \\\\\n        & = \\frac{\\sum_{i=1}^n x_i}{n} \\\\\n        & = \\frac{1}{n} \\sum_{i=1}^n x_i\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
+    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-hand",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, mean: example by hand",
+    "text": "Summary Statistics, mean: example by hand\nFind the mean of the following numbers\n\n\nCode\nx &lt;- sample(0:100, 10)\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
+    "href": "315/summaryStats/main.html#summary-statistics-mean-example-by-r-computer",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, mean: example by R (computer)",
+    "text": "Summary Statistics, mean: example by R (computer)\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\n(m &lt;- mean(x))\n\n\n[1] 71.5"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-by-picture",
+    "href": "315/summaryStats/main.html#mean-by-picture",
+    "title": "Summary Statistics",
+    "section": "Mean, by picture",
+    "text": "Mean, by picture\nWhere is the mean relative to the data?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-by-picture-1",
+    "href": "315/summaryStats/main.html#mean-by-picture-1",
+    "title": "Summary Statistics",
+    "section": "Mean, by picture",
+    "text": "Mean, by picture\nWhere is the mean relative to the data?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-an-example",
+    "href": "315/summaryStats/main.html#mean-an-example",
+    "title": "Summary Statistics",
+    "section": "Mean, an example",
+    "text": "Mean, an example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(county$pop2010)\n\n\n[1] 98262.04"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-another-example",
+    "href": "315/summaryStats/main.html#mean-another-example",
+    "title": "Summary Statistics",
+    "section": "Mean, another example",
+    "text": "Mean, another example\nFind the mean of a variable stored in a data frame.\n\n\nCode\nmean(email$num_char)\n\n\n[1] 10.70659"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mean-point-estimator",
+    "href": "315/summaryStats/main.html#mean-point-estimator",
+    "title": "Summary Statistics",
+    "section": "Mean, point estimator",
+    "text": "Mean, point estimator\nWe call the sample mean a point estimator. What is it estimating?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-median",
+    "href": "315/summaryStats/main.html#summary-statistics-median",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, median",
+    "text": "Summary Statistics, median\nmedian. If the data are ordered from smallest to largest, the median is the observation right in the middle. If there are an even number of observations, there will be two values in the middle, and the median is taken as their mean. There is no simple mathematical expression for this statistic."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
+    "href": "315/summaryStats/main.html#summary-statistics-median-examples-by-r",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, median: examples by R",
+    "text": "Summary Statistics, median: examples by R\nFind the median of the following numbers:\n\n\nCode\nx\n\n\n [1] 72 12 39 77 78 76 98 79 87 97\n\n\nCode\nmedian(x)\n\n\n[1] 77.5"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
+    "href": "315/summaryStats/main.html#summary-statistics-comparing-measures-of-center",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics: comparing measures of center",
+    "text": "Summary Statistics: comparing measures of center\nBoth the mean and the median measure the center of a dataset. Thus, they are jointly referred to as measures of center.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nThough they measure different centers."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#what-does-more-data-do",
+    "href": "315/summaryStats/main.html#what-does-more-data-do",
+    "title": "Summary Statistics",
+    "section": "What does more data do?",
+    "text": "What does more data do?\nIf we add a number to the previous variable x, what will be the effect on the\n\nmean?\nmedian?"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#what-does-more-data-do-1",
+    "href": "315/summaryStats/main.html#what-does-more-data-do-1",
+    "title": "Summary Statistics",
+    "section": "What does more data do?",
+    "text": "What does more data do?\n… join \\(100\\) to x\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 100))\n\n\n[1] 74.09091\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 100))\n\n\n[1] 78"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#what-does-more-data-do-2",
+    "href": "315/summaryStats/main.html#what-does-more-data-do-2",
+    "title": "Summary Statistics",
+    "section": "What does more data do?",
+    "text": "What does more data do?\nHow about joining \\(10000\\) to x.\n\n\nCode\nmean(x)\n\n\n[1] 71.5\n\n\nCode\nmean(c(x, 10000))\n\n\n[1] 974.0909\n\n\nCode\nmedian(x)\n\n\n[1] 77.5\n\n\nCode\nmedian(c(x, 10000))\n\n\n[1] 78"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summary-statistics-outliers",
+    "href": "315/summaryStats/main.html#summary-statistics-outliers",
+    "title": "Summary Statistics",
+    "section": "Summary Statistics, outliers",
+    "text": "Summary Statistics, outliers\nAn outlier is an observation that appears extreme relative to the rest of the data.\nNote\n\nThe number \\(10000\\) in the datasets above appears to be an outlier.\nWhat effect did this value have on the mean? On the median?\nWhat would have happened if we added \\(-100\\)? mean? median?\nOutliers are often the outcome of a confounding variable."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#summarizing-data-data-width",
+    "href": "315/summaryStats/main.html#summarizing-data-data-width",
+    "title": "Summary Statistics",
+    "section": "Summarizing Data, data width",
+    "text": "Summarizing Data, data width\nMeans and medians help summarize the center of the data. The statisticians rigorous description of the width of data uses the idea of deviations. See OS4 section \\(2.1.4\\)."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#deviations-defined",
+    "href": "315/summaryStats/main.html#deviations-defined",
+    "title": "Summary Statistics",
+    "section": "Deviations, defined",
+    "text": "Deviations, defined\ndeviation. We call the distance between an observation and the mean its deviation. Mathematically, we write\n\\[ d_i = x_i - \\bar{x} \\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#variance-and-standard-deviation",
+    "href": "315/summaryStats/main.html#variance-and-standard-deviation",
+    "title": "Summary Statistics",
+    "section": "Variance and Standard Deviation",
+    "text": "Variance and Standard Deviation\nThe two most common measures of spread are the sample variance and the sample standard deviation.\nThe sample variance is (almost) the average of the squared deviations.\n\\[ s^2 = \\frac{d_1^2 + d_2^2 + \\ldots + d_n^2}{n-1} = \\frac{1}{n-1}\\sum_{i=1}^n d_i^2 \\]\nThe sample standard deviation is the square root of the variance.\n\\[s = \\sqrt{s^2}\\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
+    "href": "315/summaryStats/main.html#standard-deviation-in-r-a-simple-example",
+    "title": "Summary Statistics",
+    "section": "Standard Deviation in R, a simple example",
+    "text": "Standard Deviation in R, a simple example\n\n\nCode\nsd(email$num_char)\n\n\n[1] 14.64579"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#notation-of-populations",
+    "href": "315/summaryStats/main.html#notation-of-populations",
+    "title": "Summary Statistics",
+    "section": "Notation of Populations",
+    "text": "Notation of Populations\nRecall, sample datasets provide information about the population.\n\nThe sample mean \\(\\bar{x}\\) estimates the population mean \\(\\mu\\).\nThe sample standard deviation \\(s\\) estimates the population standard deviation \\(\\sigma\\)."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#standard-deviation-describes-variability",
+    "href": "315/summaryStats/main.html#standard-deviation-describes-variability",
+    "title": "Summary Statistics",
+    "section": "Standard Deviation Describes Variability",
+    "text": "Standard Deviation Describes Variability\nFocus on the conceptual meaning of the standard deviation as a descriptor of variability rather than the formulas."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread",
+    "href": "315/summaryStats/main.html#towards-other-measures-of-spread",
+    "title": "Summary Statistics",
+    "section": "Towards Other Measures of Spread",
+    "text": "Towards Other Measures of Spread\nThe median is also called the 50th quantile, or \\(Q_2\\). There are other quantiles.\nThe \\(q\\)th quantile is the value that puts \\(q\\)% of the observations below this number. Also percentile.\n\nThe 25th quantile is also known as the first quartile, or \\(Q_1\\).\nThe 75th quantile is also known as the third quartile, or \\(Q_3\\)."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
+    "href": "315/summaryStats/main.html#towards-other-measures-of-spread-continued",
+    "title": "Summary Statistics",
+    "section": "Towards Other Measures of Spread, continued",
+    "text": "Towards Other Measures of Spread, continued\nAnother way to think about the 25/75th quantile.\n\nThe 25th quantile is the median of the dataset that consists of the smallest number up to the median.\nThe 75th quantile is the median of the dataset that consists of the median up to the largest number."
+  },
+  {
+    "objectID": "315/summaryStats/main.html#interquartile-range",
+    "href": "315/summaryStats/main.html#interquartile-range",
+    "title": "Summary Statistics",
+    "section": "Interquartile Range",
+    "text": "Interquartile Range\nThe IQR is calculated the the difference between the 75th and the 25th quantile, \\(Q_3\\) and \\(Q_1\\), respectively:\n\\[ IQR = Q_3 - Q_1 \\]"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
+    "href": "315/summaryStats/main.html#quantiles-and-iqr-in-r",
+    "title": "Summary Statistics",
+    "section": "Quantiles and IQR in R",
+    "text": "Quantiles and IQR in R\n\n\nCode\nquantile(email$num_char, 0.25)\n\n\n  25% \n1.459 \n\n\nCode\nq &lt;- quantile(email$num_char, c(0.75, 0.25))\nq[1] - q[2]\n\n\n   75% \n12.625 \n\n\nCode\nIQR(email$num_char)\n\n\n[1] 12.625"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mixing-variable-types",
+    "href": "315/summaryStats/main.html#mixing-variable-types",
+    "title": "Summary Statistics",
+    "section": "Mixing Variable Types",
+    "text": "Mixing Variable Types\nOften with binary categorical data, it’s advantageous to encode the variable numerically. For example,\n\nfemale \\(\\Rightarrow 1=\\) female, \\(0=\\) other\nhigh school educated \\(\\Rightarrow 1=\\) yes, \\(0=\\) other (no)\ntook pill \\(\\Rightarrow 1=\\) yes, \\(0=\\) no\n…"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#mixing-variable-types-1",
+    "href": "315/summaryStats/main.html#mixing-variable-types-1",
+    "title": "Summary Statistics",
+    "section": "Mixing Variable Types",
+    "text": "Mixing Variable Types\nConsider the variable spam in the dataset email. We are likely interested in the proportion of emails that are spam, \\(\\hat{p}\\).\n\n\nCode\nspam_number &lt;- ifelse(email$spam == 1, 1, 0)\n(phat &lt;- mean(spam_number))\n\n\n[1] 0.09359857"
+  },
+  {
+    "objectID": "315/summaryStats/main.html#take-away",
+    "href": "315/summaryStats/main.html#take-away",
+    "title": "Summary Statistics",
+    "section": "Take Away",
+    "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
+  },
+  {
+    "objectID": "315/ttest_code/ttest.html",
+    "href": "315/ttest_code/ttest.html",
+    "title": "ttest",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\ndf &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv\")\n\nA single sample t-test, appropriate for one numerical variable, on the weight of donkeys.\n\nt.test(df$Weight, conf.level = 0.95, mu = 30)\n\n\n    One Sample t-test\n\ndata:  df$Weight\nt = 107.44, df = 543, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 30\n95 percent confidence interval:\n 149.8724 154.3372\nsample estimates:\nmean of x \n 152.1048 \n\n\nPreparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.\n\ndfs &lt;- df %&gt;%\n  summarise(m = mean(Weight),\n            s = sd(Weight),\n            n = n(),\n            se = s / n,\n            t = qt(0.95, n - 1),\n            p_lb = m - t * s, # if pop is roughly normal\n            p_ub = m + t * s,\n            m_lb = m - t * se, # pop not necessarily normal\n            m_ub = m + t * se)\n\nNotice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size \\(n\\). As the sample size increases, the standard error decreases. As the sample size decreases, the standard error increases.\n\nggplot(df) +\n  geom_jitter(aes(x = 0, y = Weight)) +\n  geom_boxplot(aes(x = 1, y = Weight)) +\n  geom_point(data = dfs, aes(x = 1.5, y = m)) +\n  geom_linerange(data = dfs, aes(x = 1.5, ymin = p_lb, ymax = p_ub)) +\n  geom_point(data = dfs, aes(x = 2, y = m)) +\n  geom_linerange(data = dfs, aes(x = 2, ymin = m_lb, ymax = m_ub)) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nA t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.\n\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99, mu = 0.5)\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = -1.2556, df = 396, p-value = 0.21\nalternative hypothesis: true mean is not equal to 0.5\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
   },
   {
     "objectID": "315/clt/main.html#recap-point-estimates",
