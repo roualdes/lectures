@@ -1,0 +1,47 @@
+---
+title: "two sample t-test"
+format: html
+editor: visual
+---
+
+## Paired Data
+
+A dataset about book prices at two different stores, the UCLA bookstore and on Amazon. The prices at the two stores are paired on each book (specifically the ISBN number).
+
+```{r}
+books <- read.csv("https://raw.githubusercontent.com/roualdes/data/master/books.csv")
+```
+
+For paired data, first create a new variable of the difference. Note which way the subtraction goes.
+
+```{r}
+books$diff <- books$uclaNew - books$amazNew
+```
+
+With the new variable, we just perform a one sample t-test.
+
+```{r}
+t.test(books$diff, mu = 0, conf.level = 0.9)
+```
+
+## Two Sample t-test
+
+Next, we'll compare two numeric variables which are not paired.
+
+```{r}
+suppressMessages(library(ape))
+data(carnivora)
+```
+
+The variable longevity (LY) is measured in months.
+
+```{r}
+t.test(LY ~ SuperFamily, data = carnivora, conf.level = 0.95)
+```
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+{
+  "hash": "c096fb45e2cf24e9294703ed9b78a34a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"two sample t-test\"\nformat: html\neditor: visual\n---\n\n## Paired Data\n\nA dataset about book prices at two different stores, the UCLA bookstore and on Amazon. The prices at the two stores are paired on each book (specifically the ISBN number).\n\n\n::: {.cell}\n\n```{.r .cell-code}\nbooks <- read.csv(\"https://raw.githubusercontent.com/roualdes/data/master/books.csv\")\n```\n:::\n\n\nFor paired data, first create a new variable of the difference. Note which way the subtraction goes.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nbooks$diff <- books$uclaNew - books$amazNew\n```\n:::\n\n\nWith the new variable, we just perform a one sample t-test.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nt.test(books$diff, mu = 0, conf.level = 0.9)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n\tOne Sample t-test\n\ndata:  books$diff\nt = 7.6488, df = 72, p-value = 6.928e-11\nalternative hypothesis: true mean is not equal to 0\n90 percent confidence interval:\n  9.981505 15.541783\nsample estimates:\nmean of x \n 12.76164 \n```\n\n\n:::\n:::\n\n\n## Two Sample t-test\n\nNext, we'll compare two numeric variables which are not paired.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsuppressMessages(library(ape))\ndata(carnivora)\n```\n:::\n\n\nThe variable longevity (LY) is measured in months.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nt.test(LY ~ SuperFamily, data = carnivora, conf.level = 0.95)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n\tWelch Two Sample t-test\n\ndata:  LY by SuperFamily\nt = 1.0243, df = 37.394, p-value = 0.3123\nalternative hypothesis: true difference in means between group Caniformia and group Feliformia is not equal to 0\n95 percent confidence interval:\n -20.03687  61.03354\nsample estimates:\nmean in group Caniformia mean in group Feliformia \n                192.4583                 171.9600 \n```\n\n\n:::\n:::\n\n\n\n\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
