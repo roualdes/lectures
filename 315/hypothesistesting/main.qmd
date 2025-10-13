@@ -1,0 +1,312 @@
+---
+title: "Hypothesis Testing"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: show
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Motivation
+
+## Motivating Hypothesis Testing Framekwork
+
+Suppose your buddy claims he shoots 90% from the free throw line.  Since we are
+all statisticians, we a) don't believe them, and b) insist upon testing their claim
+empirically.  So we collect some data.  They step up and start shooting.  At
+what point do we reject their claim?
+
+## Motivating Hypothesis Testing Framekwork
+
+Implicitly, we used logical framework to evaluate our buddy's claim.  Let's
+unpack that framework and give it a name.
+
+
+* Establish two hypotheses
+
+    * they shoot as well as they say they do, $p = 0.9$
+    * they do not shoot as well as they claim, $p < 0.9$.
+
+* Collect data
+
+    * He took $n$ shots from the line.
+
+* Analyze the data
+
+    * Estimated $p$ with $\hat{p}$
+    * Determined the probability of observing $\hat{p}$ if indeed he shoots as well as he claims.
+
+* Make a conclusion based on your analysis
+
+    * Given his claim, if $\hat{p}$ seems too unlikely, the claim is probably not true.
+
+
+## Hypothesis Test, another example
+
+Suppose Giggle wants to test their browser Chime.  They sample 1014 randomly
+selected websites and make a simple decision, this website was displayed
+properly on Chime or it was not.  They found that 984 websites displayed
+correctly.  Test whether or not Chime displays 99% of webpages correctly, and
+compare your conclusion to a confidence interval.  Choose $\alpha = 0.05$.
+
+* Establish two hypotheses
+* Collect data
+* Analyze data $\Rightarrow$ calculate z-score-like thing
+* Make decision
+
+
+## Hypothesis Test, another example continued
+
+Hypothesis Test:
+
+$$H_0: p = .99 \quad \text{ versus } \quad H_1: p \ne .99$$
+
+```{r}
+n <- 1014
+x <- rep(0, n)
+x[1:984] <- 1
+t.test(x, mu = 0.99, conf.level = 0.99) # or
+# prop.test(sum(x), n) # if you're being picky
+# compare p-value to α = 0.05
+```
+
+# Framework
+
+## Hypothesis Testing Framework
+
+We call this framework **hypothesis testing**.  Let's rephrase hypothesis
+testing into the language of statistics.
+
+* State **hypotheses**, null $H_0$ and alternative $H_1$.
+* Collect data.
+* Calculate **test statistic** and **p-value**.
+* Conclude by comparing p-value to **level of significance**.
+
+
+## hypotheses
+
+The null and alternative hypotheses generally follow some conventions.
+
+* $H_0$ and $H_1$ are statements about *population parameters*
+
+* $H_0$ declares the parameter of interest to be *equal* to some value.
+
+    * $H_0: p = 0.99$ or $H_0: \mu = 10$
+
+* $H_1$ declares the (same) parameter of interest to be less than, greater than,
+    or not equal to the same value in the null hypothesis $H_0$ -- the
+    researcher chooses one before collecting data, let alone conducting the
+    test.
+
+    * $H_1: p \ne 0.99$ or $H_1: \mu \; \{<,>,\ne\} \; 10$
+
+
+## test statistic
+
+::: {.nonincremental}
+* A **test statistic** is a summary statistic that is particularly useful for
+  evaluating a hypothesis test or calculating the **p-value**.
+:::
+
+```{r}
+t.test(x, mu = 0.99, conf.level = 0.99)
+```
+
+
+## p-value
+
+::: {.nonincremental}
+* The **p-value** is a probability, which provides weights evidence against
+$H_0$ (but never provides evidence in favor of anything, let alone $H_1$)
+:::
+
+:::{.callout-note}
+
+It's too easy to think you proved something when p-value $< \alpha$, however
+statistics rarely *proves* anything.  At best, statistics, via p-values,
+provides evidence against a specific conclusion, namely $H_0$.
+
+:::
+
+
+## p-value
+
+::: {.nonincremental}
+* **p-value**. The probability of observing the test statistic we did, or
+  something more extreme[^1], assuming the null hypothesis is true.
+:::
+
+::: {.callout-note}
+Because the p-value is a probability, there's two sides to it.  The other side
+results in an error in decision making.
+:::
+
+[^1]: smaller, larger, or both, depending on the alternative hypothesis.
+
+## p-value, in picture
+
+For an alternative hypothesis of $\ne$, namely $H_1: mu \ne 0$,
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x>qnorm(0.975)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    geom_area(data=subset(d, x<qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+
+## level of significance
+
+* We define a largest level at which we are willing to incorrectly conclude.  We
+  call this value the level of significance, and give it the symbol
+  $\alpha$[^1].
+
+* **level of significance**. The largest probability of incorrectly rejecting
+  $H_0$ when in fact $H_0$ is true.
+
+[^1]: Common values of $\alpha$ are $0.05$ and $0.01$.
+
+
+## Hypothesis Testing, conclusions via p-value
+
+We evaluate hypotheses by comparing the p-value to the significance level,
+$\alpha$.  If our sample statistic (observed data) is so unusual with respect to
+the null hypothesis that it casts doubt on the validity of $H_0$, then we have
+*some evidence against* $H_0$ (but not confirming $H_1$).
+
+
+## evidence against H_0
+
+Hypothesis testing never confirms anything, it provides some evidence against
+the null hypothesis.
+
+When
+
+::: {.nonincremental}
+* p-value $\leq \alpha \Rightarrow$ reject $H_0$
+* p-value $> \alpha \Rightarrow$ fail to reject $H_0$
+:::
+
+::: {.callout-note}
+Despite the overly cautious words above (some, evidence, probably), the world of
+statistics continues to use the strong phrases "reject" and "fail to reject".
+:::
+
+
+## Last Example, finch beak height
+
+Consider again Darwin's finch data set.  Formally test that the mean beak height
+is equal to 9mm versus not equal to, at $\alpha = 0.05$.
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/master/finches.csv"
+finch <- read.csv(url)
+```
+
+## Last Example, finch beak height
+
+* $H_0: \mu = 9$ versus $H_1: \mu \ne 9$;  $\alpha = 0.05$.
+* calculate test statistic
+* calculate p-value from test statistic
+* conclude
+
+```{r}
+t.test(finch$beakheight, mu = 9, conf.level = 0.95)
+```
+
+## Last Example, finch beak height
+
+Given $H_0: \mu = 9$ and $H_1: \mu \ne 9$, we reject the null hypothesis because
+the p-value $2.2e-16 < \alpha = 0.05$.  There is sufficient evidence to say that
+the true population mean beak height of finches from the Galapagos islands is
+not equal to 9mm.
+
+
+# Decision Making is hard
+
+## Hypothesis Testing, the decision
+
+We conclude a formal hypothesis test by making a decision between $H_0$ and
+$H_1$.  But did we decide correctly?
+
+
+## Hypothesis Testing, decision errors
+
+We essentially made a choice, but our choice could be correct or incorrect.
+
+| |fail to reject $H_0$ | reject $H_0$ |
+|-|---------------------|--------------|
+|$H_0$ true| correct | **type 1 error**|
+| $H_1$ true | **type 2 error** | correct|
+
+
+## Hypothesis Testing, errors
+
+* Type 1 Error
+    * A **type 1 error** is rejecting the null hypothesis when $H_0$ is actually true.
+
+* Type 2 Error
+    * A **type 2 error** is failing to reject the null hypothesis when the
+      alternative is actually true.
+
+
+## Hypothesis Testing, error trade offs
+
+OS4 Example 5.26.  How could we reduce the Type 2 Error rate in US courts?  What
+influence would this have on the Type 1 Error rate?
+
+| | found innocent | found guilty |
+|-|---------------------|--------------|
+|didn't commit crime| correct | **type 1 error**|
+|did commit crime  | **type 2 error** | correct|
+
+* Lower Type 2 Error by convicting more people; change standards from "beyond a
+  reasonable doubt" to "beyond a little doubt".
+* What then of wrongful convictions, i.e.\ Type 1 Error rates?
+
+
+## Hypothesis Testing, Connection to CIs
+
+Confidence intervals can be used to conclude hypothesis tests if
+
+::: {.nonincremental}
+* two sided alternative
+* $\alpha$ is equal to $1 - confidence$.
+:::
+
+Re finch beak height. So what if we tested $H_0: \mu = 13$ versus $H_1: \mu \ne
+13$?  Would we reject or fail to reject $H_0$?
+
+
+## Take Away
+
+Hypothesis testing
+
+
+* formalizes someone's intuition and logical thought process
+* relies on new words: **hypotheses**, **test statistic**, **p-value**, **level of significance**
+* right or wrong, is ubiquitous in statistcs
+* connects to confidence intervals in specific ways

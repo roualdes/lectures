@@ -1,0 +1,247 @@
+---
+title: "Paired and Two Sample t-tests"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## Recap: $t$-distribution
+
+So far, we have used the t-distribution for confidence intervals or hypothesis
+tests of *one mean* (proportions are means).
+
+```{r}
+#| eval: false
+t.test(df$x, mu = some_value, conf.level = 0.95)
+```
+
+# Paired Data
+
+## Paired Data, definition
+
+**Paired data** are somehow intimately connected.
+
+Two sets of observations are paired if each observation in one set has a special
+correspondence or connection with exactly one observation in the other data set.
+
+
+## Paired Data, by example
+
+Tell me whether or not these data are paired.
+
+* two website's price for the same book
+* eye sight ratings by person
+* jumping spider vertical (jump height)
+* upper verse lower bird beak lengths
+* weights of male and female babies
+
+
+## Paired Data, t-test
+
+If the data are paired, their difference has direct and interpretable meaning
+both in English and in statistics; $X_{i,diff} = X_{i,a} - X_{i,b}$ has meaning.
+Therefore
+
+$$\bar{X}_{diff} \quad \text{ and } \quad s_{\bar{X}_{diff}}$$
+
+are simply fancy ways to write new random variables.
+
+# An Example
+
+## Paired Data, confidence interval
+
+Are textbooks actually cheaper online?  Compare the price of textbooks at the
+University of California, Los Angeles' (UCLA's) bookstore and prices at
+Amazon.com.  Seventy-three UCLA courses were randomly sampled in Spring 2010.
+
+```{r}
+books <- read.csv("https://raw.githubusercontent.com/roualdes/data/master/books.csv")
+## look at data in RStudio
+## what plot should we make?
+```
+
+# Paired Data, confidence interval
+
+Plot the data!
+
+```{r}
+#| eval: false
+suppressMessages(library(ggplot2))
+ggplot(books, aes(uclaNew, amazNew),
+       xlab="UCLA price ($)", ylab="Amazon price ($)") +
+    geom_point() +
+    geom_abline(intercept=0, slope=1)
+```
+
+## Paired Data, confidence interval
+
+Calculate and interpret a 95% confidence interval of the difference in Amazon.com versus UCLA's book prices.
+
+## Paired Data, confidence interval
+```{r}
+d <- books$amazNew - books$uclaNew # create new variable
+# now the same as before
+t.test(d, conf.level = 0.95)
+```
+
+## Paired Data, confidence interval
+
+```{r}
+#| echo: false
+#| output: false
+xbar <- mean(d)
+s <- sd(d)
+n <- length(d)
+tstar <- qt(0.975, n-1)
+xbar - tstar*s/sqrt(n)
+xbar + tstar*s/sqrt(n)
+```
+
+We are $95$\% confident that the true mean difference in price between Amazon.com and
+UCLA's books is between `r round(xbar - tstar*s/sqrt(n), 2)` and
+`r round(xbar + tstar*s/sqrt(n), 2)`.
+
+## Paired Data, hypothesis test
+
+Set up, evaluate, and conclude in context a hypothesis test at $\alpha = 0.05$.
+
+
+## Paired Data, hypothesis test
+The natural hypotheses are
+
+$$ H_0: \mu_{diff} = 0 \text{ versus } H_1: \mu_{diff} \ne 0. $$
+
+## Paired Data, hypothesis test
+
+```{r}
+d <- books$amazNew - books$uclaNew # create new variable
+t.test(d, mu = 0, conf.level = 0.95)
+```
+
+
+## Paired Data, hypothesis test
+
+Becuase p-value$<0.0001 < \alpha = 0.05$, we reject $H_0$.  There is
+insufficient evidence to claim that Amazon.com and UCLA's book prices are the
+same.
+
+# Two Sample t-test
+
+
+## Two Sample t-test
+
+Two sample t-tests estimate the difference between two population means from two
+independent samples of data.  We estimate $\mu_a - \mu_b$ with the point
+estimator $\bar{X}_a - \bar{X}_b$.
+
+
+## Two Sample t-test, confidence interval
+
+Confidence intervals for two sample t-tests follow the same pattern as before,
+
+$$ (\bar{X}_a - \bar{X}_b) \pm t^*_{df} \cdot s_{\bar{X}_a - \bar{X}_b}. $$
+
+## Two Sample t-test, hypothesis tests
+
+Test statistics for two sample t-tests follow the same pattern as before, and
+p-values are exactly the same.
+
+
+
+# Two Sample t-test, example
+
+
+# Two Sample t-test, example
+
+Consider the data set `ape::carnivora`.  Calculate a $98$\% confidence
+interval for the difference in mean longevity between the two SuperFamilies
+Caniformia and Feliformia.
+
+```{r}
+suppressMessages(library(ape))
+data(carnivora)
+# ?carnivora
+# look at importing data
+```
+
+
+## Two Sample t-test, confidence interval
+
+A $98$\% CI, difference in longevity by Caniformia and Feliformia.
+
+```{r}
+#| echo: false
+model <- t.test(LY~SuperFamily, data=carnivora, conf.level=0.98)
+```
+
+```{r}
+t.test(LY~SuperFamily, data=carnivora,
+       conf.level=0.98)
+```
+
+
+## Two Sample t-test, confidence interval
+
+We are $98$\% confidence that the population difference in mean longevity
+between the SuperFamlies Caniformia and Feliformia is between
+`r round(model$conf.int[1], 1)` and `r round(model$conf.int[2], 1)`.
+
+
+## Two Sample t-test, hypothesis test
+
+Set up, evaluate, and conclude in context a hypothesis test at $\alpha = 0.02$.
+
+
+
+## Two Sample t-test, hypothesis test
+
+The natural hypotheses are
+
+$$ H_0: \mu_C = \mu_F \text{ versus } H_1: \mu_C \ne \mu_F $$
+
+and $\alpha = 0.02$.
+
+
+## Two Sample t-test, hypothesis test
+
+Because p-value $=`r round(model$p.value, 2)` > \alpha = 0.02$, we fail to
+reject $H_0$.  There is insufficient evidence to claim that the true difference
+in mean longevity between Caniformia and Feliformia is different.
+
+
+# Take Away
+
+## Take Away
+
+Overall things have stayed pretty much the same: confidence intervals,
+hypothesis tests, and interpretations.  Now we have new types of data we can
+work with.
+
+
+* Paired data
+    * Two variables are intimately connected $\Rightarrow$ their difference has meaning
+    * create one variable from the two $\Rightarrow$ one sample t-test
+
+* Two sample data
+    * Two variables are independent
+    * Point estimate is difference of means
+    * Standard error follows from independence
