@@ -154,6 +154,153 @@
     "text": "Code\n\n\n\n\nLectures by Edward A. Roualdes"
   },
   {
+    "objectID": "315/twosamplettest/main.html#recap-t-distribution",
+    "href": "315/twosamplettest/main.html#recap-t-distribution",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Recap: \\(t\\)-distribution",
+    "text": "Recap: \\(t\\)-distribution\nSo far, we have used the t-distribution for confidence intervals or hypothesis tests of one mean (proportions are means).\n\nt.test(df$x, mu = some_value, conf.level = 0.95)"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-definition",
+    "href": "315/twosamplettest/main.html#paired-data-definition",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, definition",
+    "text": "Paired Data, definition\nPaired data are somehow intimately connected.\nTwo sets of observations are paired if each observation in one set has a special correspondence or connection with exactly one observation in the other data set."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-by-example",
+    "href": "315/twosamplettest/main.html#paired-data-by-example",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, by example",
+    "text": "Paired Data, by example\nTell me whether or not these data are paired.\n\ntwo website’s price for the same book\neye sight ratings by person\njumping spider vertical (jump height)\nupper verse lower bird beak lengths\nweights of male and female babies"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-t-test",
+    "href": "315/twosamplettest/main.html#paired-data-t-test",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, t-test",
+    "text": "Paired Data, t-test\nIf the data are paired, their difference has direct and interpretable meaning both in English and in statistics; \\(X_{i,diff} = X_{i,a} - X_{i,b}\\) has meaning. Therefore\n\\[\\bar{X}_{diff} \\quad \\text{ and } \\quad s_{\\bar{X}_{diff}}\\]\nare simply fancy ways to write new random variables."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-confidence-interval",
+    "href": "315/twosamplettest/main.html#paired-data-confidence-interval",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, confidence interval",
+    "text": "Paired Data, confidence interval\nAre textbooks actually cheaper online? Compare the price of textbooks at the University of California, Los Angeles’ (UCLA’s) bookstore and prices at Amazon.com. Seventy-three UCLA courses were randomly sampled in Spring 2010.\n\nbooks &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/master/books.csv\")\n## look at data in RStudio\n## what plot should we make?"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-confidence-interval-2",
+    "href": "315/twosamplettest/main.html#paired-data-confidence-interval-2",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, confidence interval",
+    "text": "Paired Data, confidence interval\nCalculate and interpret a 95% confidence interval of the difference in Amazon.com versus UCLA’s book prices."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-confidence-interval-3",
+    "href": "315/twosamplettest/main.html#paired-data-confidence-interval-3",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, confidence interval",
+    "text": "Paired Data, confidence interval\n\nd &lt;- books$amazNew - books$uclaNew # create new variable\n# now the same as before\nt.test(d, conf.level = 0.95)\n\n\n    One Sample t-test\n\ndata:  d\nt = -7.6488, df = 72, p-value = 6.928e-11\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n -16.087652  -9.435636\nsample estimates:\nmean of x \n-12.76164"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-confidence-interval-4",
+    "href": "315/twosamplettest/main.html#paired-data-confidence-interval-4",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, confidence interval",
+    "text": "Paired Data, confidence interval\nWe are \\(95\\)% confident that the true mean difference in price between Amazon.com and UCLA’s books is between -16.09 and -9.44."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-hypothesis-test",
+    "href": "315/twosamplettest/main.html#paired-data-hypothesis-test",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, hypothesis test",
+    "text": "Paired Data, hypothesis test\nSet up, evaluate, and conclude in context a hypothesis test at \\(\\alpha = 0.05\\)."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-hypothesis-test-1",
+    "href": "315/twosamplettest/main.html#paired-data-hypothesis-test-1",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, hypothesis test",
+    "text": "Paired Data, hypothesis test\nThe natural hypotheses are\n\\[ H_0: \\mu_{diff} = 0 \\text{ versus } H_1: \\mu_{diff} \\ne 0. \\]"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-hypothesis-test-2",
+    "href": "315/twosamplettest/main.html#paired-data-hypothesis-test-2",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, hypothesis test",
+    "text": "Paired Data, hypothesis test\n\nd &lt;- books$amazNew - books$uclaNew # create new variable\nt.test(d, mu = 0, conf.level = 0.95)\n\n\n    One Sample t-test\n\ndata:  d\nt = -7.6488, df = 72, p-value = 6.928e-11\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n -16.087652  -9.435636\nsample estimates:\nmean of x \n-12.76164"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#paired-data-hypothesis-test-3",
+    "href": "315/twosamplettest/main.html#paired-data-hypothesis-test-3",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Paired Data, hypothesis test",
+    "text": "Paired Data, hypothesis test\nBecuase p-value\\(&lt;0.0001 &lt; \\alpha = 0.05\\), we reject \\(H_0\\). There is insufficient evidence to claim that Amazon.com and UCLA’s book prices are the same."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-1",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-1",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test",
+    "text": "Two Sample t-test\nTwo sample t-tests estimate the difference between two population means from two independent samples of data. We estimate \\(\\mu_a - \\mu_b\\) with the point estimator \\(\\bar{X}_a - \\bar{X}_b\\)."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-confidence-interval",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-confidence-interval",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, confidence interval",
+    "text": "Two Sample t-test, confidence interval\nConfidence intervals for two sample t-tests follow the same pattern as before,\n\\[ (\\bar{X}_a - \\bar{X}_b) \\pm t^*_{df} \\cdot s_{\\bar{X}_a - \\bar{X}_b}. \\]"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-tests",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-tests",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, hypothesis tests",
+    "text": "Two Sample t-test, hypothesis tests\nTest statistics for two sample t-tests follow the same pattern as before, and p-values are exactly the same."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-confidence-interval-1",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-confidence-interval-1",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, confidence interval",
+    "text": "Two Sample t-test, confidence interval\nA \\(98\\)% CI, difference in longevity by Caniformia and Feliformia.\n\nt.test(LY~SuperFamily, data=carnivora,\n       conf.level=0.98)\n\n\n    Welch Two Sample t-test\n\ndata:  LY by SuperFamily\nt = 1.0243, df = 37.394, p-value = 0.3123\nalternative hypothesis: true difference in means between group Caniformia and group Feliformia is not equal to 0\n98 percent confidence interval:\n -28.13845  69.13511\nsample estimates:\nmean in group Caniformia mean in group Feliformia \n                192.4583                 171.9600"
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-confidence-interval-2",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-confidence-interval-2",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, confidence interval",
+    "text": "Two Sample t-test, confidence interval\nWe are \\(98\\)% confidence that the population difference in mean longevity between the SuperFamlies Caniformia and Feliformia is between -28.1 and 69.1."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-test",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-test",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, hypothesis test",
+    "text": "Two Sample t-test, hypothesis test\nSet up, evaluate, and conclude in context a hypothesis test at \\(\\alpha = 0.02\\)."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-test-1",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-test-1",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, hypothesis test",
+    "text": "Two Sample t-test, hypothesis test\nThe natural hypotheses are\n\\[ H_0: \\mu_C = \\mu_F \\text{ versus } H_1: \\mu_C \\ne \\mu_F \\]\nand \\(\\alpha = 0.02\\)."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-test-2",
+    "href": "315/twosamplettest/main.html#two-sample-t-test-hypothesis-test-2",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Two Sample t-test, hypothesis test",
+    "text": "Two Sample t-test, hypothesis test\nBecause p-value \\(=0.31 &gt; \\alpha = 0.02\\), we fail to reject \\(H_0\\). There is insufficient evidence to claim that the true difference in mean longevity between Caniformia and Feliformia is different."
+  },
+  {
+    "objectID": "315/twosamplettest/main.html#take-away-1",
+    "href": "315/twosamplettest/main.html#take-away-1",
+    "title": "Paired and Two Sample t-tests",
+    "section": "Take Away",
+    "text": "Take Away\nOverall things have stayed pretty much the same: confidence intervals, hypothesis tests, and interpretations. Now we have new types of data we can work with.\n\nPaired data\n\nTwo variables are intimately connected \\(\\Rightarrow\\) their difference has meaning\ncreate one variable from the two \\(\\Rightarrow\\) one sample t-test\n\nTwo sample data\n\nTwo variables are independent\nPoint estimate is difference of means\nStandard error follows from independence"
+  },
+  {
     "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
     "href": "315/plottingData/main.html#visualizing-categorical-variables",
     "title": "Plotting Data",
@@ -1832,6 +1979,160 @@
     "title": "Exam 01 Practice, solutions",
     "section": "",
     "text": "horse &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/horse_prices.csv\")\n\n\nobservational study, because horse prices were likely not assigned by the researcher\n\n\n\nsuppressMessages(library(dplyr))\nlibrary(ggplot2)\n\n\nquantitative/numeric: Price, Age, Height qualitative/categorical/factor: Sex\nexplanatory: Age or Height response: Price\n\n\n\nggplot(horse, aes(Price)) + geom_histogram(bins=11)\n\n\n\n\n\n\n\n\n\n\n\n\nmean(horse$Price, na.rm = TRUE)\n\n[1] 26840\n\nmedian(horse$Price, na.rm = TRUE)\n\n[1] 25000\n\n\nThe histogram looks more or less symmetric, but because of the one potential outlier near $60,000, the mean is larger than the median.\n\n\n\n\nggplot(horse, aes(Sex, Price)) + geom_boxplot()\n\n\n\n\n\n\n\n\nThe median horse price for male horses is higher than the female median price. There is one potential outlier for the female horse prices. The mean does not show up on box plots.\n\n\n\n\nhorse %&gt;%\n  group_by(Sex) %&gt;%\n  summarize(m = mean(Price),\n            s = sd(Price),\n            n())\n\n# A tibble: 2 × 4\n  Sex       m      s `n()`\n  &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;\n1 f     16505 11043.    20\n2 m     33730 13285.    30\n\n\nThe variability in horse prices is greater for male horses, than it is for female horses, as is seen by the larger standard deviation of male horse prices. In this dataset, there were 20 female horses and 30 male horses.\n\n\n\n\nThe mean and standard deviation for dataset 2. is larger, because of the relatively large value 20 pulling up the mean and the standard deviation.\n\n\nx &lt;- c(3,5,5,5,8,11,11,11,13)\ny &lt;- c(3,5,5,5,8,11,11,11,20)\nmean(x)\n\n[1] 8\n\nsd(x)\n\n[1] 3.605551\n\nmean(y)\n\n[1] 8.777778\n\nsd(y)\n\n[1] 5.214829\n\n\n\nThe mean is smaller for dataset 2., because of the relatively extreme negative value -40. However, the standard deviation is larger for 2., because the -40 is further from the mean in this dataset.\n\n\nx &lt;- c(-20,0,0,0,15,25,30,30)\ny &lt;- c(-40,0,0,0,15,25,30,30)\nmean(x)\n\n[1] 10\n\nsd(x)\n\n[1] 17.92843\n\nmean(y)\n\n[1] 7.5\n\nsd(y)\n\n[1] 23.29929"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#motivating-hypothesis-testing-framekwork",
+    "href": "315/hypothesistesting/main.html#motivating-hypothesis-testing-framekwork",
+    "title": "Hypothesis Testing",
+    "section": "Motivating Hypothesis Testing Framekwork",
+    "text": "Motivating Hypothesis Testing Framekwork\nSuppose your buddy claims he shoots 90% from the free throw line. Since we are all statisticians, we a) don’t believe them, and b) insist upon testing their claim empirically. So we collect some data. They step up and start shooting. At what point do we reject their claim?"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#motivating-hypothesis-testing-framekwork-1",
+    "href": "315/hypothesistesting/main.html#motivating-hypothesis-testing-framekwork-1",
+    "title": "Hypothesis Testing",
+    "section": "Motivating Hypothesis Testing Framekwork",
+    "text": "Motivating Hypothesis Testing Framekwork\nImplicitly, we used logical framework to evaluate our buddy’s claim. Let’s unpack that framework and give it a name.\n\nEstablish two hypotheses\n\nthey shoot as well as they say they do, \\(p = 0.9\\)\nthey do not shoot as well as they claim, \\(p &lt; 0.9\\).\n\nCollect data\n\nHe took \\(n\\) shots from the line.\n\nAnalyze the data\n\nEstimated \\(p\\) with \\(\\hat{p}\\)\nDetermined the probability of observing \\(\\hat{p}\\) if indeed he shoots as well as he claims.\n\nMake a conclusion based on your analysis\n\nGiven his claim, if \\(\\hat{p}\\) seems too unlikely, the claim is probably not true."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-test-another-example",
+    "href": "315/hypothesistesting/main.html#hypothesis-test-another-example",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Test, another example",
+    "text": "Hypothesis Test, another example\nSuppose Giggle wants to test their browser Chime. They sample 1014 randomly selected websites and make a simple decision, this website was displayed properly on Chime or it was not. They found that 984 websites displayed correctly. Test whether or not Chime displays 99% of webpages correctly, and compare your conclusion to a confidence interval. Choose \\(\\alpha = 0.05\\).\n\nEstablish two hypotheses\nCollect data\nAnalyze data \\(\\Rightarrow\\) calculate z-score-like thing\nMake decision"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-test-another-example-continued",
+    "href": "315/hypothesistesting/main.html#hypothesis-test-another-example-continued",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Test, another example continued",
+    "text": "Hypothesis Test, another example continued\nHypothesis Test:\n\\[H_0: p = .99 \\quad \\text{ versus } \\quad H_1: p \\ne .99\\]\n\n\nCode\nn &lt;- 1014\nx &lt;- rep(0, n)\nx[1:984] &lt;- 1\nt.test(x, mu = 0.99, conf.level = 0.99) # or\n\n\n\n    One Sample t-test\n\ndata:  x\nt = -3.679, df = 1013, p-value = 0.0002465\nalternative hypothesis: true mean is not equal to 0.99\n99 percent confidence interval:\n 0.9566753 0.9841531\nsample estimates:\nmean of x \n0.9704142 \n\n\nCode\n# prop.test(sum(x), n) # if you're being picky\n# compare p-value to α = 0.05"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-framework",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-framework",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing Framework",
+    "text": "Hypothesis Testing Framework\nWe call this framework hypothesis testing. Let’s rephrase hypothesis testing into the language of statistics.\n\nState hypotheses, null \\(H_0\\) and alternative \\(H_1\\).\nCollect data.\nCalculate test statistic and p-value.\nConclude by comparing p-value to level of significance."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypotheses",
+    "href": "315/hypothesistesting/main.html#hypotheses",
+    "title": "Hypothesis Testing",
+    "section": "hypotheses",
+    "text": "hypotheses\nThe null and alternative hypotheses generally follow some conventions.\n\n\\(H_0\\) and \\(H_1\\) are statements about population parameters\n\\(H_0\\) declares the parameter of interest to be equal to some value.\n\n\\(H_0: p = 0.99\\) or \\(H_0: \\mu = 10\\)\n\n\\(H_1\\) declares the (same) parameter of interest to be less than, greater than, or not equal to the same value in the null hypothesis \\(H_0\\) – the researcher chooses one before collecting data, let alone conducting the test.\n\n\\(H_1: p \\ne 0.99\\) or \\(H_1: \\mu \\; \\{&lt;,&gt;,\\ne\\} \\; 10\\)"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#test-statistic",
+    "href": "315/hypothesistesting/main.html#test-statistic",
+    "title": "Hypothesis Testing",
+    "section": "test statistic",
+    "text": "test statistic\n\nA test statistic is a summary statistic that is particularly useful for evaluating a hypothesis test or calculating the p-value.\n\n\n\nCode\nt.test(x, mu = 0.99, conf.level = 0.99)\n\n\n\n    One Sample t-test\n\ndata:  x\nt = -3.679, df = 1013, p-value = 0.0002465\nalternative hypothesis: true mean is not equal to 0.99\n99 percent confidence interval:\n 0.9566753 0.9841531\nsample estimates:\nmean of x \n0.9704142"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#p-value",
+    "href": "315/hypothesistesting/main.html#p-value",
+    "title": "Hypothesis Testing",
+    "section": "p-value",
+    "text": "p-value\n\nThe p-value is a probability, which provides weights evidence against \\(H_0\\) (but never provides evidence in favor of anything, let alone \\(H_1\\))\n\n\n\n\n\n\n\nNote\n\n\nIt’s too easy to think you proved something when p-value \\(&lt; \\alpha\\), however statistics rarely proves anything. At best, statistics, via p-values, provides evidence against a specific conclusion, namely \\(H_0\\)."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#p-value-1",
+    "href": "315/hypothesistesting/main.html#p-value-1",
+    "title": "Hypothesis Testing",
+    "section": "p-value",
+    "text": "p-value\n\np-value. The probability of observing the test statistic we did, or something more extreme1, assuming the null hypothesis is true.\n\n\n\n\n\n\n\nNote\n\n\nBecause the p-value is a probability, there’s two sides to it. The other side results in an error in decision making.\n\n\n\nCommon values of \\(\\alpha\\) are \\(0.05\\) and \\(0.01\\)."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#p-value-in-picture",
+    "href": "315/hypothesistesting/main.html#p-value-in-picture",
+    "title": "Hypothesis Testing",
+    "section": "p-value, in picture",
+    "text": "p-value, in picture\nFor an alternative hypothesis of \\(\\ne\\), namely \\(H_1: mu \\ne 0\\),"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#level-of-significance",
+    "href": "315/hypothesistesting/main.html#level-of-significance",
+    "title": "Hypothesis Testing",
+    "section": "level of significance",
+    "text": "level of significance\n\nWe define a largest level at which we are willing to incorrectly conclude. We call this value the level of significance, and give it the symbol \\(\\alpha\\)1.\nlevel of significance. The largest probability of incorrectly rejecting \\(H_0\\) when in fact \\(H_0\\) is true.\n\nCommon values of \\(\\alpha\\) are \\(0.05\\) and \\(0.01\\)."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-conclusions-via-p-value",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-conclusions-via-p-value",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing, conclusions via p-value",
+    "text": "Hypothesis Testing, conclusions via p-value\nWe evaluate hypotheses by comparing the p-value to the significance level, \\(\\alpha\\). If our sample statistic (observed data) is so unusual with respect to the null hypothesis that it casts doubt on the validity of \\(H_0\\), then we have some evidence against \\(H_0\\) (but not confirming \\(H_1\\))."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#evidence-against-h_0",
+    "href": "315/hypothesistesting/main.html#evidence-against-h_0",
+    "title": "Hypothesis Testing",
+    "section": "evidence against H_0",
+    "text": "evidence against H_0\nHypothesis testing never confirms anything, it provides some evidence against the null hypothesis.\nWhen\n\np-value \\(\\leq \\alpha \\Rightarrow\\) reject \\(H_0\\)\np-value \\(&gt; \\alpha \\Rightarrow\\) fail to reject \\(H_0\\)\n\n\n\n\n\n\n\nNote\n\n\nDespite the overly cautious words above (some, evidence, probably), the world of statistics continues to use the strong phrases “reject” and “fail to reject”."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#last-example-finch-beak-height",
+    "href": "315/hypothesistesting/main.html#last-example-finch-beak-height",
+    "title": "Hypothesis Testing",
+    "section": "Last Example, finch beak height",
+    "text": "Last Example, finch beak height\nConsider again Darwin’s finch data set. Formally test that the mean beak height is equal to 9mm versus not equal to, at \\(\\alpha = 0.05\\).\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/finches.csv\"\nfinch &lt;- read.csv(url)"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#last-example-finch-beak-height-1",
+    "href": "315/hypothesistesting/main.html#last-example-finch-beak-height-1",
+    "title": "Hypothesis Testing",
+    "section": "Last Example, finch beak height",
+    "text": "Last Example, finch beak height\n\n\\(H_0: \\mu = 9\\) versus \\(H_1: \\mu \\ne 9\\); \\(\\alpha = 0.05\\).\ncalculate test statistic\ncalculate p-value from test statistic\nconclude\n\n\n\nCode\nt.test(finch$beakheight, mu = 9, conf.level = 0.95)\n\n\n\n    One Sample t-test\n\ndata:  finch$beakheight\nt = 14.63, df = 67, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 9\n95 percent confidence interval:\n 12.33744 13.39197\nsample estimates:\nmean of x \n 12.86471"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#last-example-finch-beak-height-2",
+    "href": "315/hypothesistesting/main.html#last-example-finch-beak-height-2",
+    "title": "Hypothesis Testing",
+    "section": "Last Example, finch beak height",
+    "text": "Last Example, finch beak height\nGiven \\(H_0: \\mu = 9\\) and \\(H_1: \\mu \\ne 9\\), we reject the null hypothesis because the p-value \\(2.2e-16 &lt; \\alpha = 0.05\\). There is sufficient evidence to say that the true population mean beak height of finches from the Galapagos islands is not equal to 9mm."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-the-decision",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-the-decision",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing, the decision",
+    "text": "Hypothesis Testing, the decision\nWe conclude a formal hypothesis test by making a decision between \\(H_0\\) and \\(H_1\\). But did we decide correctly?"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-decision-errors",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-decision-errors",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing, decision errors",
+    "text": "Hypothesis Testing, decision errors\nWe essentially made a choice, but our choice could be correct or incorrect.\n\n\n\n\nfail to reject \\(H_0\\)\nreject \\(H_0\\)\n\n\n\n\n\\(H_0\\) true\ncorrect\ntype 1 error\n\n\n\\(H_1\\) true\ntype 2 error\ncorrect"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-errors",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-errors",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing, errors",
+    "text": "Hypothesis Testing, errors\n\nType 1 Error\n\nA type 1 error is rejecting the null hypothesis when \\(H_0\\) is actually true.\n\nType 2 Error\n\nA type 2 error is failing to reject the null hypothesis when the alternative is actually true."
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-error-trade-offs",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-error-trade-offs",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing, error trade offs",
+    "text": "Hypothesis Testing, error trade offs\nOS4 Example 5.26. How could we reduce the Type 2 Error rate in US courts? What influence would this have on the Type 1 Error rate?\n\n\n\n\nfound innocent\nfound guilty\n\n\n\n\ndidn’t commit crime\ncorrect\ntype 1 error\n\n\ndid commit crime\ntype 2 error\ncorrect\n\n\n\n\nLower Type 2 Error by convicting more people; change standards from “beyond a reasonable doubt” to “beyond a little doubt”.\nWhat then of wrongful convictions, i.e. Type 1 Error rates?"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#hypothesis-testing-connection-to-cis",
+    "href": "315/hypothesistesting/main.html#hypothesis-testing-connection-to-cis",
+    "title": "Hypothesis Testing",
+    "section": "Hypothesis Testing, Connection to CIs",
+    "text": "Hypothesis Testing, Connection to CIs\nConfidence intervals can be used to conclude hypothesis tests if\n\ntwo sided alternative\n\\(\\alpha\\) is equal to \\(1 - confidence\\).\n\nRe finch beak height. So what if we tested \\(H_0: \\mu = 13\\) versus \\(H_1: \\mu \\ne\n13\\)? Would we reject or fail to reject \\(H_0\\)?"
+  },
+  {
+    "objectID": "315/hypothesistesting/main.html#take-away",
+    "href": "315/hypothesistesting/main.html#take-away",
+    "title": "Hypothesis Testing",
+    "section": "Take Away",
+    "text": "Take Away\nHypothesis testing\n\nformalizes someone’s intuition and logical thought process\nrelies on new words: hypotheses, test statistic, p-value, level of significance\nright or wrong, is ubiquitous in statistcs\nconnects to confidence intervals in specific ways"
   },
   {
     "objectID": "315/clt/main.html#recap-point-estimates",
