@@ -6,7 +6,6 @@ format:
   revealjs:
     incremental: true
     scrollable: true
-    code-fold: true
     self-contained: true
 tbl-cap-location: bottom
 execute:
@@ -294,11 +293,11 @@ Type I Error rate.
 Suppose you chose a level of significance of $\alpha = 0.05$.  What's the
 probability of observing at least one significant result just by chance?
 
-This is just a binomial distribution, $X \sim$ Binomial$(28, 0.05)$, and we want to know $P(X \ge 1)$.
+This is just a binomial distribution, $X \sim$ Binomial$(`r choose(9, 2)`, 0.05)$, and we want to know $P(X \ge 1)$.
 
 ```{r}
 #| echo: false
-1 - pbinom(0, 28, 0.05)
+1 - pbinom(0, choose(9, 2), 0.05)
 ```
 
 

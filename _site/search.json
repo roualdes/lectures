@@ -158,28 +158,28 @@
     "href": "315/anova/main.html#baseball-example-plot",
     "title": "ANOVA",
     "section": "Baseball example, plot",
-    "text": "Baseball example, plot\nLoad the data and make a plot.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+    "text": "Baseball example, plot\nLoad the data and make a plot.\n\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/mlb.csv\"\nmlb &lt;- read.csv(url)\nsuppressMessages(library(tidyverse))\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
   },
   {
     "objectID": "315/anova/main.html#baseball-example-r-code",
     "href": "315/anova/main.html#baseball-example-r-code",
     "title": "ANOVA",
     "section": "Baseball example, R code",
-    "text": "Baseball example, R code\nThe R code to run ANOVA\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
+    "text": "Baseball example, R code\nThe R code to run ANOVA\n\nlinear_model &lt;- lm(salary ~ position, data = mlb)\nanova(linear_model)"
   },
   {
     "objectID": "315/anova/main.html#baseball-example-r-code-details",
     "href": "315/anova/main.html#baseball-example-r-code-details",
     "title": "ANOVA",
     "section": "Baseball example, R code details",
-    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\n\nCode\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
+    "text": "Baseball example, R code details\nThe tilde \\(\\sim\\) is meant to be read as, predict the left hand side with the right hand side. Hence, we read the following as, predict salary by different levels of position.\n\nlinear_model &lt;- lm(salary ~ position, data = mlb)"
   },
   {
     "objectID": "315/anova/main.html#baseball-example-r-output",
     "href": "315/anova/main.html#baseball-example-r-output",
     "title": "ANOVA",
     "section": "Baseball example, R output",
-    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\n\nCode\nanova(linear_model)\n\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+    "text": "Baseball example, R output\nThe degrees of freedom, F-statistic, and p-value are the most important pieces of information to extract from an ANOVA table.\n\nanova(linear_model)\n\nAnalysis of Variance Table\n\nResponse: salary\n           Df     Sum Sq  Mean Sq F value    Pr(&gt;F)    \nposition    8 6.0975e+08 76219146  3.9307 0.0001422 ***\nResiduals 819 1.5881e+10 19390502                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
   },
   {
     "objectID": "315/anova/main.html#baseball-example-conclusion",
@@ -193,7 +193,7 @@
     "href": "315/anova/main.html#multiple-comparisons-the-problem",
     "title": "ANOVA",
     "section": "Multiple Comparisons, the problem",
-    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\n\nCode\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
+    "text": "Multiple Comparisons, the problem\nSay you’ve got some data and you want to test equality of the means. What to do? ANOVA!\n\nggplot(data = mlb, aes(position, salary)) +\n    geom_boxplot() +\n    theme(axis.text.x = element_text(angle = 45, hjust=1))"
   },
   {
     "objectID": "315/anova/main.html#multiple-comparisons-the-problem-1",
@@ -207,28 +207,28 @@
     "href": "315/anova/main.html#multiple-comparisons-how-bad-a-problem",
     "title": "ANOVA",
     "section": "Multiple Comparisons, how bad a problem",
-    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((28, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.7621731"
+    "text": "Multiple Comparisons, how bad a problem\nSuppose you chose a level of significance of \\(\\alpha = 0.05\\). What’s the probability of observing at least one significant result just by chance?\nThis is just a binomial distribution, \\(X \\sim\\) Binomial\\((36, 0.05)\\), and we want to know \\(P(X \\ge 1)\\).\n\n\n[1] 0.8422208"
   },
   {
     "objectID": "315/anova/main.html#multiple-comparisons-a-solution",
     "href": "315/anova/main.html#multiple-comparisons-a-solution",
     "title": "ANOVA",
     "section": "Multiple Comparisons, a solution",
-    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\n\nCode\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
+    "text": "Multiple Comparisons, a solution\nMany solutions exist. A simple one, in R, is Tukey’s honest significant difference (HSD). Only use this if you have first run ANOVA and rejected \\(H_0\\).\n\nmodel &lt;- lm(salary ~ position, data = mlb) # if reject H0\nTukeyHSD(aov(model)) # do in R"
   },
   {
     "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
     "href": "315/anova/main.html#carnivora-brain-weights-by-family-plot",
     "title": "ANOVA",
     "section": "Carnivora Brain Weights by Family, plot",
-    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\n\nCode\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
+    "text": "Carnivora Brain Weights by Family, plot\nConsider brain weights of the Families of the order Carnivora. Let’s compare mean brain weights by Family.\n\nsuppressMessages({library(tidyverse)\n  library(ape)\n  data(carnivora)})\nggplot(data = carnivora, aes(Family, SB)) +\n    geom_boxplot() +\n    labs(y=\"Brain weights (g)\") +\n    theme(axis.text.x=element_text(angle=45, hjust=1))"
   },
   {
     "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
     "href": "315/anova/main.html#carnivora-brain-weights-by-family-not-all-groups",
     "title": "ANOVA",
     "section": "Carnivora Brain Weights by Family, not all groups",
-    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\n\nCode\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
+    "text": "Carnivora Brain Weights by Family, not all groups\nSince some groups don’t have enough data, let’s remove them.\n\ncarnivs &lt;- filter(carnivora,\n                  !(Family %in% c(\"Ailuridae\",\n                                  \"Procyonidae\",\n                                  \"Viverridae\")))"
   },
   {
     "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-hypotheses",
@@ -242,7 +242,7 @@
     "href": "315/anova/main.html#carnivora-brain-weights-by-family-r-code",
     "title": "ANOVA",
     "section": "Carnivora Brain Weights by Family, R code",
-    "text": "Carnivora Brain Weights by Family, R code\n\n\nCode\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+    "text": "Carnivora Brain Weights by Family, R code\n\nmod &lt;- lm(SB ~ Family, data = carnivs)\nanova(mod)\n\nAnalysis of Variance Table\n\nResponse: SB\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     4 354999   88750  37.333 &lt; 2.2e-16 ***\nResiduals 70 166406    2377                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
   },
   {
     "objectID": "315/anova/main.html#carnivora-brain-weights-by-family-conclusion",
@@ -256,7 +256,7 @@
     "href": "315/anova/main.html#carnivora-brain-weights-by-family-post-hoc-analysis",
     "title": "ANOVA",
     "section": "Carnivora Brain Weights by Family, post-hoc analysis",
-    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\n\nCode\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
+    "text": "Carnivora Brain Weights by Family, post-hoc analysis\n\nTukeyHSD(aov(mod), conf.level = 0.99) # do in R"
   },
   {
     "objectID": "315/anova/main.html#take-away",
