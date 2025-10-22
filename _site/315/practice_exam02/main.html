@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ttest – lectures</title>
+<title>main – lectures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,35 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -145,119 +116,166 @@ window.Quarto = {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">ttest</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<section id="math-315-practice-exam-02" class="level1">
+<h1>MATH 315 Practice Exam 02</h1>
+<ol type="1">
+<li><p>Describe the Central Limit Theorem and also include why it’s appropriate to use a symmetric confidence interval.</p></li>
+<li><p>Consider the variable <code>LS</code> (litter size) from the carnivora dataset. The output of a t-test is below. Answer the following question based on this output.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>A single sample t-test, appropriate for one numerical variable, on the weight of donkeys.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Weight, <span class="at">conf.level =</span> <span class="fl">0.95</span>, <span class="at">mu =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>carnivora <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/carnivora.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(carnivora<span class="sc">$</span>LS, <span class="at">mu =</span> <span class="dv">2</span>, <span class="at">conf.level =</span> <span class="fl">0.9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    One Sample t-test
+ One Sample t-test
 
-data:  df$Weight
-t = 107.44, df = 543, p-value &lt; 2.2e-16
-alternative hypothesis: true mean is not equal to 30
-95 percent confidence interval:
- 149.8724 154.3372
+data:  carnivora$LS
+t = 9.87, df = 109, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 2
+90 percent confidence interval:
+ 3.024773 3.438863
 sample estimates:
 mean of x 
- 152.1048 </code></pre>
+ 3.231818 </code></pre>
 </div>
 </div>
-<p>Preparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.</p>
+<ol type="a">
+<li><p>How many observations were measured / what is the sample size?</p></li>
+<li><p>Interpret, in context of these data, the confidence interval.</p></li>
+<li><p>Did this confidence interval capture the true population parameter it is targeting?</p></li>
+<li><p>If we had instead more observations in the sample, would the confidence interval be narrower or wider? Explain why, using concepts and keywords from this class.</p></li>
+<li><p>If we instead made a 98% confidence interval, would the confidence interval be narrower or wider? Explain why, using concepts and keywords from this class.</p></li>
+</ol></li>
+<li><p>Consider again the carnivora dataset, where GL represents gestation length in days and WA represents weaning age in days. The output of a t-test is below. Answer the following questions based on this output.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(Weight),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">s =</span> <span class="fu">sd</span>(Weight),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> s <span class="sc">/</span> n,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">t =</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, n <span class="sc">-</span> <span class="dv">1</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_lb =</span> m <span class="sc">-</span> t <span class="sc">*</span> s, <span class="co"># if pop is roughly normal</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_ub =</span> m <span class="sc">+</span> t <span class="sc">*</span> s,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">m_lb =</span> m <span class="sc">-</span> t <span class="sc">*</span> se, <span class="co"># pop not necessarily normal</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">m_ub =</span> m <span class="sc">+</span> t <span class="sc">*</span> se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>carnivora<span class="sc">$</span>diff <span class="ot">&lt;-</span> carnivora<span class="sc">$</span>GL <span class="sc">-</span> carnivora<span class="sc">$</span>WA</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(carnivora<span class="sc">$</span>diff, <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ One Sample t-test
+
+data:  carnivora$diff
+t = -2.5586, df = 57, p-value = 0.01319
+alternative hypothesis: true mean is not equal to 0
+99 percent confidence interval:
+ -69.848307   1.420721
+sample estimates:
+mean of x 
+-34.21379 </code></pre>
 </div>
-<p>Notice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size <span class="math inline">\(n\)</span>. As the sample size increases, the standard error decreases. As the sample size decreases, the standard error increases.</p>
+</div>
+<ol type="a">
+<li><p>What type of hypothesis test is this, what is the proper name?</p></li>
+<li><p>Write the corresponding null and alternative hypotheses using proper statistical symbols.</p></li>
+<li><p>What is the value for the level of significance?</p></li>
+<li><p>Write a statistical conclusion using the p-value.</p></li>
+<li><p>Write an interpretation of the conclusion from d.&nbsp;with minimal statistical jargon.</p></li>
+<li><p>Explain why the confidence interval supports the same conclusion as the p-value.</p></li>
+</ol></li>
+<li><p>Consider again the carnivora dataset. The output of a t-test is below. Answer the following questions based on this output.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> Weight)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> Weight)) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> m)) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">ymin =</span> p_lb, <span class="at">ymax =</span> p_ub)) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> m)) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">ymin =</span> m_lb, <span class="at">ymax =</span> m_ub)) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(LS <span class="sc">~</span> SuperFamily, <span class="at">data =</span> carnivora, <span class="at">conf.level =</span> <span class="fl">0.9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Welch Two Sample t-test
+
+data:  LS by SuperFamily
+t = 4.4126, df = 76.408, p-value = 3.306e-05
+alternative hypothesis: true difference in means between group Caniformia and group Feliformia is not equal to 0
+90 percent confidence interval:
+ 0.620908 1.373465
+sample estimates:
+mean in group Caniformia mean in group Feliformia 
+                3.712281                 2.715094 </code></pre>
+</div>
+</div>
+<ol type="a">
+<li><p>What type of hypothesis test is this, what is the proper name?</p></li>
+<li><p>Write the corresponding null and alternative hypotheses using proper statistical symbols.</p></li>
+<li><p>What does this output tell you about these data? Write a conclusion with little to no statistical jargon, citing the hypothesis test or the confidence interval to support your claim.</p></li>
+</ol></li>
+<li><p>Consider again the carnivora dataset, where BW represents birth weight in grams. Based on the following code, answer the questions below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(carnivora, <span class="fu">aes</span>(Family, BW)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 50 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ttest_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="main_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-</div>
-<p>A t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/roualdes/data/master/articles.csv"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>article <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url) <span class="co"># look at data in RStudio</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(article<span class="sc">$</span>is_data_shared, <span class="at">conf.level =</span> <span class="fl">0.99</span>, <span class="at">mu =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(BW <span class="sc">~</span> Family, <span class="at">data =</span> carnivora)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
+<pre><code>Analysis of Variance Table
 
-data:  article$is_data_shared
-t = -1.2556, df = 396, p-value = 0.21
-alternative hypothesis: true mean is not equal to 0.5
-99 percent confidence interval:
- 0.4036094 0.5334183
-sample estimates:
-mean of x 
-0.4685139 </code></pre>
+Response: BW
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Family     7 3256952  465279   6.142 2.648e-05 ***
+Residuals 54 4090670   75753                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(fit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = fit)
+
+$Family
+                              diff         lwr        upr     p adj
+Canidae-Ailuridae        101.68182  -804.63402 1007.99765 0.9999624
+Felidae-Ailuridae        313.26250  -581.17450 1207.69950 0.9531564
+Hyaenidae-Ailuridae      991.70000   -71.04952 2054.44952 0.0839689
+Mustelidae-Ailuridae     -47.33933  -943.52842  848.84975 0.9999998
+Procyonidae-Ailuridae      6.30000  -963.85314  976.45314 1.0000000
+Ursidae-Ailuridae        537.40000  -464.56985 1539.36985 0.6928677
+Viverridae-Ailuridae      -8.20000  -918.28431  901.88431 1.0000000
+Felidae-Canidae          211.58068  -128.28776  551.44912 0.5157207
+Hyaenidae-Canidae        890.01818   222.98779 1557.04857 0.0023455
+Mustelidae-Canidae      -149.02115  -493.47417  195.43186 0.8692106
+Procyonidae-Canidae      -95.38182  -602.02777  411.26413 0.9988257
+Ursidae-Canidae          435.71818  -129.46904 1000.90540 0.2480542
+Viverridae-Canidae      -109.88182  -489.02093  269.25730 0.9834466
+Hyaenidae-Felidae        678.43750    27.63899 1329.23601 0.0352976
+Mustelidae-Felidae      -360.60183  -672.46244  -48.74123 0.0130218
+Procyonidae-Felidae     -306.96250  -792.03907  178.11407 0.4946297
+Ursidae-Felidae          224.13750  -321.79817  770.07317 0.8970179
+Viverridae-Felidae      -321.46250  -671.25619   28.33119 0.0932343
+Mustelidae-Hyaenidae   -1039.03933 -1692.24376 -385.83491 0.0001564
+Procyonidae-Hyaenidae   -985.40000 -1736.87739 -233.92261 0.0029540
+Ursidae-Hyaenidae       -454.30000 -1246.42672  337.82672 0.6174485
+Viverridae-Hyaenidae    -999.90000 -1672.04181 -327.75819 0.0004772
+Procyonidae-Mustelidae    53.63933  -434.66037  541.93904 0.9999674
+Ursidae-Mustelidae       584.73933    35.93784 1133.54082 0.0290616
+Viverridae-Mustelidae     39.13933  -315.11051  393.38917 0.9999661
+Ursidae-Procyonidae      531.10000  -131.64076 1193.84076 0.2066827
+Viverridae-Procyonidae   -14.50000  -527.85679  498.85679 1.0000000
+Viverridae-Ursidae      -545.60000 -1116.81070   25.61070 0.0710874</code></pre>
 </div>
 </div>
+<ol type="a">
+<li><p>Is the group degrees of freedom correct? Explain.</p></li>
+<li><p>What is the appropriate statistical conclusion from this test?</p></li>
+<li><p>Write an interpretation of the conclusion with minimal statistical jargon.</p></li>
+<li><p>Explain why it is appropriate to use Tukey’s HSD here.</p></li>
+<li><p>What does Tukey’s HSD tell you about these possums?</p></li>
+</ol></li>
+</ol>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -711,68 +729,100 @@ mean of x
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "ttest"</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv"</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>A single sample t-test, appropriate for one numerical variable, on the weight of donkeys.  </span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Weight, <span class="at">conf.level =</span> <span class="fl">0.95</span>, <span class="at">mu =</span> <span class="dv">30</span>)</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>Preparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.  </span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(Weight),</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">s =</span> <span class="fu">sd</span>(Weight),</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> s <span class="sc">/</span> n,</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">t =</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, n <span class="sc">-</span> <span class="dv">1</span>),</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_lb =</span> m <span class="sc">-</span> t <span class="sc">*</span> s, <span class="co"># if pop is roughly normal</span></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">p_ub =</span> m <span class="sc">+</span> t <span class="sc">*</span> s,</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">m_lb =</span> m <span class="sc">-</span> t <span class="sc">*</span> se, <span class="co"># pop not necessarily normal</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">m_ub =</span> m <span class="sc">+</span> t <span class="sc">*</span> se)</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>Notice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size $n$.  As the sample size increases, the standard error decreases.  As the sample size decreases, the standard error increases.</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span></span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> Weight)) <span class="sc">+</span></span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> Weight)) <span class="sc">+</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> m)) <span class="sc">+</span></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">ymin =</span> p_lb, <span class="at">ymax =</span> p_ub)) <span class="sc">+</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> m)) <span class="sc">+</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">data =</span> dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">ymin =</span> m_lb, <span class="at">ymax =</span> m_ub)) <span class="sc">+</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>A t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/roualdes/data/master/articles.csv"</span></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>article <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url) <span class="co"># look at data in RStudio</span></span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(article<span class="sc">$</span>is_data_shared, <span class="at">conf.level =</span> <span class="fl">0.99</span>, <span class="at">mu =</span> <span class="fl">0.5</span>)</span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># MATH 315 Practice Exam 02</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Describe the Central Limit Theorem and also include why it's appropriate to use a symmetric confidence interval.</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Consider the variable <span class="in">`LS`</span> (litter size) from the carnivora dataset.  The output of a t-test is below.  Answer the following question based on this output.</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>   carnivora <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/carnivora.csv"</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>   <span class="fu">t.test</span>(carnivora<span class="sc">$</span>LS, <span class="at">mu =</span> <span class="dv">2</span>, <span class="at">conf.level =</span> <span class="fl">0.9</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>   a. How many observations were measured / what is the sample size?</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>   b. Interpret, in context of these data, the confidence interval.</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>   c. Did this confidence interval capture the true population</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>   parameter it is targeting?</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>   d. If we had instead more observations in the sample, would the confidence interval</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>   be narrower or wider? Explain why, using concepts and keywords from</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>   this class.</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>   e. If we instead made a 98% confidence interval, would the</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>   confidence interval be narrower or wider? Explain why, using concepts</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>   and keywords from this class.</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Consider again the carnivora dataset, where GL represents gestation length in days and WA represents weaning age in days.  The output of a t-test is below.</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>   Answer the following questions based on this output.</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>   carnivora<span class="sc">$</span>diff <span class="ot">&lt;-</span> carnivora<span class="sc">$</span>GL <span class="sc">-</span> carnivora<span class="sc">$</span>WA</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>   <span class="fu">t.test</span>(carnivora<span class="sc">$</span>diff, <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>   a. What type of hypothesis test is this, what is the proper name?</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>   b. Write the corresponding null and alternative hypotheses using proper statistical symbols.</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>   c. What is the value for the level of significance?</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>   d. Write a statistical conclusion using the p-value.</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>   e. Write an interpretation of the conclusion from d. with minimal</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>   statistical jargon.</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>   f. Explain why the confidence interval supports the same conclusion</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>   as the p-value.</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Consider again the carnivora dataset.  The output of a t-test is below.</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>   Answer the following questions based on this output.</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>   <span class="fu">t.test</span>(LS <span class="sc">~</span> SuperFamily, <span class="at">data =</span> carnivora, <span class="at">conf.level =</span> <span class="fl">0.9</span>)</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>   a. What type of hypothesis test is this, what is the proper name?</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>   b. Write the corresponding null and alternative hypotheses using</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>   proper statistical symbols.</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>   c. What does this output tell you about these data? Write a</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>   conclusion with little to no statistical jargon, citing the</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>   hypothesis test or the confidence interval to support your claim.</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Consider again the carnivora dataset, where BW represents birth weight in grams.  Based on the following code, answer the questions below.</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(carnivora, <span class="fu">aes</span>(Family, BW)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>   fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(BW <span class="sc">~</span> Family, <span class="at">data =</span> carnivora)</span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>   <span class="fu">anova</span>(fit)</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>   <span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(fit))</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>   a. Is the group degrees of freedom correct? Explain.</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>   b. What is the appropriate statistical conclusion from this test?</span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>   c. Write an interpretation of the conclusion with minimal statistical jargon.</span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>   d. Explain why it is appropriate to use Tukey's HSD here.</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>   e. What does Tukey's HSD tell you about these possums?</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
