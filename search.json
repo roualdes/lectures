@@ -1148,6 +1148,76 @@
     "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
   },
   {
+    "objectID": "315/practice_exam02/main.html",
+    "href": "315/practice_exam02/main.html",
+    "title": "",
+    "section": "",
+    "text": "Code\n\n\n\n\n\nMATH 315 Practice Exam 02\n\nDescribe the Central Limit Theorem and also include why it’s appropriate to use a symmetric confidence interval.\nConsider the variable LS (litter size) from the carnivora dataset. The output of a t-test is below. Answer the following question based on this output.\n\ncarnivora &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/carnivora.csv\")\nt.test(carnivora$LS, mu = 2, conf.level = 0.9)\n\n\n One Sample t-test\n\ndata:  carnivora$LS\nt = 9.87, df = 109, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 2\n90 percent confidence interval:\n 3.024773 3.438863\nsample estimates:\nmean of x \n 3.231818 \n\n\n\nHow many observations were measured / what is the sample size?\nInterpret, in context of these data, the confidence interval.\nDid this confidence interval capture the true population parameter it is targeting?\nIf we had instead more observations in the sample, would the confidence interval be narrower or wider? Explain why, using concepts and keywords from this class.\nIf we instead made a 98% confidence interval, would the confidence interval be narrower or wider? Explain why, using concepts and keywords from this class.\n\nConsider again the carnivora dataset, where GL represents gestation length in days and WA represents weaning age in days. The output of a t-test is below. Answer the following questions based on this output.\n\ncarnivora$diff &lt;- carnivora$GL - carnivora$WA\nt.test(carnivora$diff, conf.level = 0.99)\n\n\n One Sample t-test\n\ndata:  carnivora$diff\nt = -2.5586, df = 57, p-value = 0.01319\nalternative hypothesis: true mean is not equal to 0\n99 percent confidence interval:\n -69.848307   1.420721\nsample estimates:\nmean of x \n-34.21379 \n\n\n\nWhat type of hypothesis test is this, what is the proper name?\nWrite the corresponding null and alternative hypotheses using proper statistical symbols.\nWhat is the value for the level of significance?\nWrite a statistical conclusion using the p-value.\nWrite an interpretation of the conclusion from d. with minimal statistical jargon.\nExplain why the confidence interval supports the same conclusion as the p-value.\n\nConsider again the carnivora dataset. The output of a t-test is below. Answer the following questions based on this output.\n\nt.test(LS ~ SuperFamily, data = carnivora, conf.level = 0.9)\n\n\n Welch Two Sample t-test\n\ndata:  LS by SuperFamily\nt = 4.4126, df = 76.408, p-value = 3.306e-05\nalternative hypothesis: true difference in means between group Caniformia and group Feliformia is not equal to 0\n90 percent confidence interval:\n 0.620908 1.373465\nsample estimates:\nmean in group Caniformia mean in group Feliformia \n                3.712281                 2.715094 \n\n\n\nWhat type of hypothesis test is this, what is the proper name?\nWrite the corresponding null and alternative hypotheses using proper statistical symbols.\nWhat does this output tell you about these data? Write a conclusion with little to no statistical jargon, citing the hypothesis test or the confidence interval to support your claim.\n\nConsider again the carnivora dataset, where BW represents birth weight in grams. Based on the following code, answer the questions below.\n\nggplot(carnivora, aes(Family, BW)) + geom_boxplot()\n\nWarning: Removed 50 rows containing non-finite outside the scale range\n(`stat_boxplot()`).\n\n\n\n\n\n\n\n\nfit &lt;- lm(BW ~ Family, data = carnivora)\nanova(fit)\n\nAnalysis of Variance Table\n\nResponse: BW\n          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    \nFamily     7 3256952  465279   6.142 2.648e-05 ***\nResiduals 54 4090670   75753                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nTukeyHSD(aov(fit))\n\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = fit)\n\n$Family\n                              diff         lwr        upr     p adj\nCanidae-Ailuridae        101.68182  -804.63402 1007.99765 0.9999624\nFelidae-Ailuridae        313.26250  -581.17450 1207.69950 0.9531564\nHyaenidae-Ailuridae      991.70000   -71.04952 2054.44952 0.0839689\nMustelidae-Ailuridae     -47.33933  -943.52842  848.84975 0.9999998\nProcyonidae-Ailuridae      6.30000  -963.85314  976.45314 1.0000000\nUrsidae-Ailuridae        537.40000  -464.56985 1539.36985 0.6928677\nViverridae-Ailuridae      -8.20000  -918.28431  901.88431 1.0000000\nFelidae-Canidae          211.58068  -128.28776  551.44912 0.5157207\nHyaenidae-Canidae        890.01818   222.98779 1557.04857 0.0023455\nMustelidae-Canidae      -149.02115  -493.47417  195.43186 0.8692106\nProcyonidae-Canidae      -95.38182  -602.02777  411.26413 0.9988257\nUrsidae-Canidae          435.71818  -129.46904 1000.90540 0.2480542\nViverridae-Canidae      -109.88182  -489.02093  269.25730 0.9834466\nHyaenidae-Felidae        678.43750    27.63899 1329.23601 0.0352976\nMustelidae-Felidae      -360.60183  -672.46244  -48.74123 0.0130218\nProcyonidae-Felidae     -306.96250  -792.03907  178.11407 0.4946297\nUrsidae-Felidae          224.13750  -321.79817  770.07317 0.8970179\nViverridae-Felidae      -321.46250  -671.25619   28.33119 0.0932343\nMustelidae-Hyaenidae   -1039.03933 -1692.24376 -385.83491 0.0001564\nProcyonidae-Hyaenidae   -985.40000 -1736.87739 -233.92261 0.0029540\nUrsidae-Hyaenidae       -454.30000 -1246.42672  337.82672 0.6174485\nViverridae-Hyaenidae    -999.90000 -1672.04181 -327.75819 0.0004772\nProcyonidae-Mustelidae    53.63933  -434.66037  541.93904 0.9999674\nUrsidae-Mustelidae       584.73933    35.93784 1133.54082 0.0290616\nViverridae-Mustelidae     39.13933  -315.11051  393.38917 0.9999661\nUrsidae-Procyonidae      531.10000  -131.64076 1193.84076 0.2066827\nViverridae-Procyonidae   -14.50000  -527.85679  498.85679 1.0000000\nViverridae-Ursidae      -545.60000 -1116.81070   25.61070 0.0710874\n\n\n\nIs the group degrees of freedom correct? Explain.\nWhat is the appropriate statistical conclusion from this test?\nWrite an interpretation of the conclusion with minimal statistical jargon.\nExplain why it is appropriate to use Tukey’s HSD here.\nWhat does Tukey’s HSD tell you about these possums?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#recap-goal-of-statistics",
+    "href": "315/samplingdist/main.html#recap-goal-of-statistics",
+    "title": "Sampling Distribution",
+    "section": "recap: Goal of Statistics",
+    "text": "recap: Goal of Statistics\nStatistics estimates population parameters:\n\npopulation mean \\(\\mu\\) using sample mean, \\(\\bar{X}\\)\npopulation proportion \\(p\\) using sample mean, \\(\\hat{p}\\)\npopulation standard deviation \\(\\sigma\\) using sample standard deviation, \\(s\\)\n…"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#point-estimate",
+    "href": "315/samplingdist/main.html#point-estimate",
+    "title": "Sampling Distribution",
+    "section": "Point Estimate",
+    "text": "Point Estimate\nA calculated sample statistic is known as a point estimate. Statistics thinks of these as random variables, since (abstractly) statistics are just functions of random variables.\n\n\\(\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}\\)\nhttp://onlinestatbook.com/stat_sim/sampling_dist/"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#point-estimates-vary",
+    "href": "315/samplingdist/main.html#point-estimates-vary",
+    "title": "Sampling Distribution",
+    "section": "Point Estimates Vary",
+    "text": "Point Estimates Vary\nConsider a dataset about possums from Australia and New Guinea. Suppose we collected 1000 random samples of 50 possums each and calculated the mean from each sample. So now we have 1000 sample means. What’s the shape of the sample means?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-example",
+    "href": "315/samplingdist/main.html#sampling-distribution-example",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, example",
+    "text": "Sampling Distribution, example"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-definition",
+    "href": "315/samplingdist/main.html#sampling-distribution-definition",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, definition",
+    "text": "Sampling Distribution, definition\nIt is useful to think of a particular point estimate as being drawn from this continuous distribution, the sampling distribution.\n\nThe sampling distribution represents the distribution (shape of histogram) of the point estimates based on samples of a fixed size from a certain population."
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-parameters",
+    "href": "315/samplingdist/main.html#sampling-distribution-parameters",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, parameters",
+    "text": "Sampling Distribution, parameters\nThe sampling distribution has its own mean and standard deviation, called the standard error.\n\nThe standard deviation associated with a point estimator is called the standard error."
+  },
+  {
+    "objectID": "315/samplingdist/main.html#example",
+    "href": "315/samplingdist/main.html#example",
+    "title": "Sampling Distribution",
+    "section": "Example",
+    "text": "Example\nLet’s use the definition \\(\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}\\).\n\nWould you be more trusting of a sample that has \\(100\\) observations or \\(400\\) observations?\nIf \\(\\sigma = 10\\), what is \\(\\sigma_{\\bar{X}}\\) when \\(n=100\\)?\nWhat is \\(\\sigma_{\\bar{X}}\\) when \\(n=400\\)?\nWhat do the respective sampling distributions look like?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#take-away",
+    "href": "315/samplingdist/main.html#take-away",
+    "title": "Sampling Distribution",
+    "section": "Take Away",
+    "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
+  },
+  {
+    "objectID": "315/ttest_code/ttest.html",
+    "href": "315/ttest_code/ttest.html",
+    "title": "ttest",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\ndf &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv\")\n\nA single sample t-test, appropriate for one numerical variable, on the weight of donkeys.\n\nt.test(df$Weight, conf.level = 0.95, mu = 30)\n\n\n    One Sample t-test\n\ndata:  df$Weight\nt = 107.44, df = 543, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 30\n95 percent confidence interval:\n 149.8724 154.3372\nsample estimates:\nmean of x \n 152.1048 \n\n\nPreparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.\n\ndfs &lt;- df %&gt;%\n  summarise(m = mean(Weight),\n            s = sd(Weight),\n            n = n(),\n            se = s / n,\n            t = qt(0.95, n - 1),\n            p_lb = m - t * s, # if pop is roughly normal\n            p_ub = m + t * s,\n            m_lb = m - t * se, # pop not necessarily normal\n            m_ub = m + t * se)\n\nNotice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size \\(n\\). As the sample size increases, the standard error decreases. As the sample size decreases, the standard error increases.\n\nggplot(df) +\n  geom_jitter(aes(x = 0, y = Weight)) +\n  geom_boxplot(aes(x = 1, y = Weight)) +\n  geom_point(data = dfs, aes(x = 1.5, y = m)) +\n  geom_linerange(data = dfs, aes(x = 1.5, ymin = p_lb, ymax = p_ub)) +\n  geom_point(data = dfs, aes(x = 2, y = m)) +\n  geom_linerange(data = dfs, aes(x = 2, ymin = m_lb, ymax = m_ub)) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nA t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.\n\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99, mu = 0.5)\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = -1.2556, df = 396, p-value = 0.21\nalternative hypothesis: true mean is not equal to 0.5\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
+  },
+  {
     "objectID": "315/summariesByGroup/main.html#means-by-group",
     "href": "315/summariesByGroup/main.html#means-by-group",
     "title": "Summaries By Group",
@@ -1279,69 +1349,6 @@
     "title": "Summaries By Group",
     "section": "who?",
     "text": "who?\n\nThese guys Procyonidae\nBut also PNAS article"
-  },
-  {
-    "objectID": "315/ttest_code/ttest.html",
-    "href": "315/ttest_code/ttest.html",
-    "title": "ttest",
-    "section": "",
-    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\ndf &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv\")\n\nA single sample t-test, appropriate for one numerical variable, on the weight of donkeys.\n\nt.test(df$Weight, conf.level = 0.95, mu = 30)\n\n\n    One Sample t-test\n\ndata:  df$Weight\nt = 107.44, df = 543, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 30\n95 percent confidence interval:\n 149.8724 154.3372\nsample estimates:\nmean of x \n 152.1048 \n\n\nPreparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.\n\ndfs &lt;- df %&gt;%\n  summarise(m = mean(Weight),\n            s = sd(Weight),\n            n = n(),\n            se = s / n,\n            t = qt(0.95, n - 1),\n            p_lb = m - t * s, # if pop is roughly normal\n            p_ub = m + t * s,\n            m_lb = m - t * se, # pop not necessarily normal\n            m_ub = m + t * se)\n\nNotice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size \\(n\\). As the sample size increases, the standard error decreases. As the sample size decreases, the standard error increases.\n\nggplot(df) +\n  geom_jitter(aes(x = 0, y = Weight)) +\n  geom_boxplot(aes(x = 1, y = Weight)) +\n  geom_point(data = dfs, aes(x = 1.5, y = m)) +\n  geom_linerange(data = dfs, aes(x = 1.5, ymin = p_lb, ymax = p_ub)) +\n  geom_point(data = dfs, aes(x = 2, y = m)) +\n  geom_linerange(data = dfs, aes(x = 2, ymin = m_lb, ymax = m_ub)) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nA t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.\n\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99, mu = 0.5)\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = -1.2556, df = 396, p-value = 0.21\nalternative hypothesis: true mean is not equal to 0.5\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#recap-goal-of-statistics",
-    "href": "315/samplingdist/main.html#recap-goal-of-statistics",
-    "title": "Sampling Distribution",
-    "section": "recap: Goal of Statistics",
-    "text": "recap: Goal of Statistics\nStatistics estimates population parameters:\n\npopulation mean \\(\\mu\\) using sample mean, \\(\\bar{X}\\)\npopulation proportion \\(p\\) using sample mean, \\(\\hat{p}\\)\npopulation standard deviation \\(\\sigma\\) using sample standard deviation, \\(s\\)\n…"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#point-estimate",
-    "href": "315/samplingdist/main.html#point-estimate",
-    "title": "Sampling Distribution",
-    "section": "Point Estimate",
-    "text": "Point Estimate\nA calculated sample statistic is known as a point estimate. Statistics thinks of these as random variables, since (abstractly) statistics are just functions of random variables.\n\n\\(\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}\\)\nhttp://onlinestatbook.com/stat_sim/sampling_dist/"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#point-estimates-vary",
-    "href": "315/samplingdist/main.html#point-estimates-vary",
-    "title": "Sampling Distribution",
-    "section": "Point Estimates Vary",
-    "text": "Point Estimates Vary\nConsider a dataset about possums from Australia and New Guinea. Suppose we collected 1000 random samples of 50 possums each and calculated the mean from each sample. So now we have 1000 sample means. What’s the shape of the sample means?"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-example",
-    "href": "315/samplingdist/main.html#sampling-distribution-example",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, example",
-    "text": "Sampling Distribution, example"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-definition",
-    "href": "315/samplingdist/main.html#sampling-distribution-definition",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, definition",
-    "text": "Sampling Distribution, definition\nIt is useful to think of a particular point estimate as being drawn from this continuous distribution, the sampling distribution.\n\nThe sampling distribution represents the distribution (shape of histogram) of the point estimates based on samples of a fixed size from a certain population."
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-parameters",
-    "href": "315/samplingdist/main.html#sampling-distribution-parameters",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, parameters",
-    "text": "Sampling Distribution, parameters\nThe sampling distribution has its own mean and standard deviation, called the standard error.\n\nThe standard deviation associated with a point estimator is called the standard error."
-  },
-  {
-    "objectID": "315/samplingdist/main.html#example",
-    "href": "315/samplingdist/main.html#example",
-    "title": "Sampling Distribution",
-    "section": "Example",
-    "text": "Example\nLet’s use the definition \\(\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}\\).\n\nWould you be more trusting of a sample that has \\(100\\) observations or \\(400\\) observations?\nIf \\(\\sigma = 10\\), what is \\(\\sigma_{\\bar{X}}\\) when \\(n=100\\)?\nWhat is \\(\\sigma_{\\bar{X}}\\) when \\(n=400\\)?\nWhat do the respective sampling distributions look like?"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#take-away",
-    "href": "315/samplingdist/main.html#take-away",
-    "title": "Sampling Distribution",
-    "section": "Take Away",
-    "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
   },
   {
     "objectID": "315/anova/main.html#recap-point-estimates",
