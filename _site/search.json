@@ -28,32 +28,39 @@
     "text": "import scipy.stats as st\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\n# 1\nNormal = st.norm(loc = 50_000, scale = 2_000)\nNormal.cdf(48_000) # cumulative distribution function &lt;=\nNormal.ppf(1 - .9)\n\n47436.8968689108\n\n\n\n# 2\nNormal = st.norm(loc = 10, scale = 2)\nNormal.cdf(12) - Normal.cdf(8)# a\n1 - Normal.cdf(14)\n\n0.02275013194817921\n\n\n\nN = st.norm()\nx = np.linspace(-5, 5, 101)\nfx = N.pdf(x)\nplt.plot(x, fx)\n\n\n\n\n\n\n\n\n\nfig = plt.figure()\nax = fig.add_subplot(111, projection=\"3d\")\nX, Y = np.meshgrid(x, x)\nXY = np.dstack((X, Y))\nMvN = st.multivariate_normal(np.zeros(2), np.diag(np.ones(2)))\nZ = MvN.pdf(XY)\nax.plot_surface(X, Y, Z)\n\n\n\n\n\n\n\n\n\nMvN.pdf(XY[1, 4])\n\nnp.float64(2.473314011763375e-11)\n\n\n\nXY[1, 4]\n\narray([-4.6, -4.9])\n\n\n\nN.pdf(-4.6) * N.pdf(-4.9)\n\nnp.float64(2.4733140117633728e-11)"
   },
   {
-    "objectID": "314/quiz05.html",
-    "href": "314/quiz05.html",
+    "objectID": "314/quiz07.html",
+    "href": "314/quiz07.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\nNot a bad idea to solve this one in pieces/two functions.\n\ndef mean(x):\n    s = 0.0\n    N = np.size(x)\n    for n in range(N):\n        s += x[n]\n    return s / N\n\n\ndef var(x):\n    s = 0.0\n    N = np.size(x)\n    m = mean(x)\n    invN = 1 / N # minimizing division is a good idea, even if ineffective here\n    for n in range(N):\n        d = x[n] - m\n        s += d * d # multiplication is faster than powers\n    return s * invN\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\nnp.isclose(np.var(x), var(x))\n\nTrue"
+    "text": "import numpy as np\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\n\n\nm = np.mean(x)\nnp.var(x)\nnp.mean(x &gt; 2)\n\n0.02\n\n\n\nnp.mean(x), np.mean((x - m) ** 2), np.mean(x &gt; 2)\n\n(0.041916703859957584, 1.077890480291087, 0.02)"
   },
   {
-    "objectID": "314/likelihood_computer.html",
-    "href": "314/likelihood_computer.html",
+    "objectID": "314/binomial.html",
+    "href": "314/binomial.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nfrom scipy.optimize import minimize\n\n\nB = st.bernoulli(0.75)\nnp.random.seed(291)\nx = B.rvs(size = 101)\n\n\ndef ll_bernoulli(theta, data):\n    return -np.sum(st.bernoulli(theta).logpmf(data))\n\n\nrng = np.random.default_rng()\ninit = rng.random()\nprint(init)\nminimize(ll_bernoulli, init, args = (x,), bounds = [(1e-5, 1 - 1e-5), ])\n\n0.6442960015361123\n\n\n  message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL\n  success: True\n   status: 0\n      fun: 52.93785788218957\n        x: [ 7.822e-01]\n      nit: 5\n      jac: [ 2.842e-06]\n     nfev: 14\n     njev: 7\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;\n\n\n\ndef ll_exponential(theta, data):\n    return -np.sum(st.expon(scale = theta).logpdf(data))\n\n\nE = st.expon(scale = 5.5)\nx = E.rvs(size = 1001)\ninit = rng.random()\nminimize(ll_exponential, init, args = (x), bounds = [(1e-5, np.inf)])\n\n  message: CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH\n  success: True\n   status: 0\n      fun: 2708.037801958211\n        x: [ 5.503e+00]\n      nit: 13\n      jac: [ 4.547e-05]\n     nfev: 30\n     njev: 15\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;"
+    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
   },
   {
-    "objectID": "314/bernoulli_likelihood.html",
-    "href": "314/bernoulli_likelihood.html",
+    "objectID": "314/plot_densities.html",
+    "href": "314/plot_densities.html",
     "title": "lectures",
     "section": "",
-    "text": "The likelihood function for the Bernoulli distribution based on data \\(x_1, \\ldots, x_N \\sim\\) Bernoulli(\\(p\\)) with unknown parameter \\(p\\) is\n\\[L(p | \\mathbf{x}) = \\prod_{n=1}^N p^{x_n} (1 - p)^{1 - x_n}\\]\nThe log-likelihood function is\n\\[\\ell(p | \\mathbf{x}) = \\log{ L(p | \\mathbf{x}) } = \\log{ \\prod_{n=1}^N p_n^{x_n}(1 - p)^{1 - x_n} }\\]\nwhich simplifies to\n\\[\\ell(p | \\mathbf{x}) = \\sum_{n=1}^N x_n \\log{p} + (1 - x_n) \\log{(1 - p)}\\]\nThe derivative of \\(\\ell\\) with respect to \\(p\\) is\n\\[\\frac{d \\ell}{dp} = \\sum_{n=1}^N \\frac{x_n}{p} - \\frac{1 - x_n}{1-p}\\]\nSet the derivative equal to zero to get\n\\[\\sum_{n=1}^N \\frac{x_n}{p} = \\sum_{n=1}^N \\frac{1-x_n}{1-p}\\]\nSolve for \\(p\\) to find the maximum likelihood estimate of \\(p\\) based on data \\(\\mathbf{x}\\)\n\\[\\hat{p} = N^{-1} \\sum_{n=1}^N x_n\\]"
+    "text": "import matplotlib.pyplot as plt\nimport numpy as np\n\n\nx = np.arange(6) + 1\nfx = np.ones(6) * 1/6\n\n(array([1, 2, 3, 4, 5, 6]),\n array([0.16666667, 0.16666667, 0.16666667, 0.16666667, 0.16666667,\n        0.16666667]))\n\n\n\nplt.scatter(x, fx, color = \"orange\", label = \"uniform density\")\nplt.scatter(np.arange(5) + 1, np.ones(5) / 5, label = \"other\")\nplt.ylabel(\"density\")\nplt.xlabel(\"support\")\nplt.legend()\n\n\n\n\n\n\n\n\n\nrng = np.random.default_rng()\nrng.integers(5, size = 10)\n\narray([3, 2, 3, 2, 0, 1, 3, 1, 1, 2])"
   },
   {
-    "objectID": "314/means_expectations.html",
-    "href": "314/means_expectations.html",
+    "objectID": "314/quiz08.html",
+    "href": "314/quiz08.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\nThe formula for a mean \\(\\frac{1}{N} \\sum_{n=1}^N x_n\\) naturally relates to the definition of an expectation\n\\[\\mathbb{E}[X] = \\sum_{x \\in S} x \\cdot f(x)\\]\nyou just have to squint.\n\n# X ~ Uniform(1, 6)\nx = np.arange(6) + 1\nfx = 1/6\n\n\nnp.sum(x * fx) # E[X]\n\n3.5\n\n\n\nrng = np.random.default_rng()\nx = rng.integers(1, 7, size = 1000000)\n\n\nnp.mean(x)\n\n3.500221\n\n\n\nnp.mean(x == 4) # proportion of x values equal to 4, estimates 1/6\n\n0.166322\n\n\nThe formula for the mean estimates the density function at each value of \\(x\\), e.g. \\(x = 4\\). As such, here are various (numerically inefficient) ways to think about the formula for a mean.\n\ns = 0\nfor i in range(1, 7): # Python for-loop\n    s += np.mean(x == i) * i # s = s + np.mean(x == i) * i\ns\n\n3.500221\n\n\n\nnp.sum([np.mean(x == i) * i for i in range(1, 7)]) # list comprehension\n\n3.500221\n\n\n\nsum(np.mean(x == i) * i for i in range(1, 7)) # generator\n\n3.500221\n\n\n\np = np.zeros(6)\nN = np.size(x)\nfor xi in x:\n    p[xi-1] += 1 / N\nnp.sum(np.arange(1, 7) * p) \n# we should be able to re-use variables from above to simplify this, but I used x for both\n# the random numbers and the values in the support of the Uniform(1, 6) distribution.\n# For shame, Edward.\n\n3.500221000003066"
+    "text": "import numpy as np\nimport scipy.stats as st\n\n\nPoisson = st.poisson\n\n\nl = 1.5 / 100 * 48\n\n\nX = Poisson(l)\nX.pmf(0)\n\n0.4867522559599717\n\n\n\nnp.sum(X.pmf(np.arange(6)))\n\n0.9998951831177709\n\n\n\nY = Poisson(1.5 / 100 * 24)\n1 - np.sum(Y.pmf(np.arange(3)))\n\n0.00595077061399496"
+  },
+  {
+    "objectID": "314/clt.html",
+    "href": "314/clt.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\n\nR = 1000\nN = 101\nrng = np.random.default_rng()\ncms = np.zeros(R)\nfor r in range(R):          \n    x = rng.binomial(10, 0.5, size = N)\n    cms[r] = np.mean(x)\n\n\nBinomial = st.binom\nB = Binomial(10, 0.5)\n(B.mean(), B.var())\n\n(5.0, 2.5)\n\n\n\nNormal = st.norm\nNd = Normal(loc = B.mean(), scale = np.sqrt(B.var() / N))\n\n\nxx = np.linspace(3, 7, 201)\nfx = Nd.pdf(xx)\nplt.plot(xx, fx)\nplt.hist(cms, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\nplt.hist(x, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\nx = rng.binomial(10, 0.5, size = N)\n\n\nnp.mean(x) - Normal().ppf(0.975) * np.sqrt(np.var(x) / N)\n\n4.614056484048096\n\n\n\nnp.mean(x) + Normal().ppf(0.975) * np.sqrt(np.var(x) / N)\n\n5.1681217337736856"
   },
   {
     "objectID": "index.html",
@@ -2261,32 +2268,39 @@
     "text": "import numpy as np\nimport scipy.stats as st\nfrom scipy.optimize import minimize\nimport matplotlib.pyplot as plt\n\n\nN = 101\nK = 10\np = 0.75\nB = st.binom(K, p)\nnp.random.seed(291)\nx = B.rvs(size = N)\n\n\ndef ll_binomial(theta, data):\n    sx = np.sum(data[\"x\"])\n    K = data[\"K\"]\n    N = data[\"N\"]\n    l1p = np.log1p(-theta) # np.log(1 + -p)\n    out = np.log(theta) * sx + l1p * (N * K - sx)\n    return -out\n\n\nrng = np.random.default_rng()\ninit = rng.random()\ndata = {\"x\": x, \"K\": K, \"N\": np.size(x)}\nminimize(ll_binomial, init, args = (data,), bounds = [(1e-5, 1 - 1e-5)])\n\n  message: CONVERGENCE: NORM OF PROJECTED GRADIENT &lt;= PGTOL\n  success: True\n   status: 0\n      fun: 576.050536971854\n        x: [ 7.426e-01]\n      nit: 7\n      jac: [ 0.000e+00]\n     nfev: 18\n     njev: 9\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;"
   },
   {
-    "objectID": "314/quiz08.html",
-    "href": "314/quiz08.html",
+    "objectID": "314/means_expectations.html",
+    "href": "314/means_expectations.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\n\n\nPoisson = st.poisson\n\n\nl = 1.5 / 100 * 48\n\n\nX = Poisson(l)\nX.pmf(0)\n\n0.4867522559599717\n\n\n\nnp.sum(X.pmf(np.arange(6)))\n\n0.9998951831177709\n\n\n\nY = Poisson(1.5 / 100 * 24)\n1 - np.sum(Y.pmf(np.arange(3)))\n\n0.00595077061399496"
+    "text": "import numpy as np\n\nThe formula for a mean \\(\\frac{1}{N} \\sum_{n=1}^N x_n\\) naturally relates to the definition of an expectation\n\\[\\mathbb{E}[X] = \\sum_{x \\in S} x \\cdot f(x)\\]\nyou just have to squint.\n\n# X ~ Uniform(1, 6)\nx = np.arange(6) + 1\nfx = 1/6\n\n\nnp.sum(x * fx) # E[X]\n\n3.5\n\n\n\nrng = np.random.default_rng()\nx = rng.integers(1, 7, size = 1000000)\n\n\nnp.mean(x)\n\n3.500221\n\n\n\nnp.mean(x == 4) # proportion of x values equal to 4, estimates 1/6\n\n0.166322\n\n\nThe formula for the mean estimates the density function at each value of \\(x\\), e.g. \\(x = 4\\). As such, here are various (numerically inefficient) ways to think about the formula for a mean.\n\ns = 0\nfor i in range(1, 7): # Python for-loop\n    s += np.mean(x == i) * i # s = s + np.mean(x == i) * i\ns\n\n3.500221\n\n\n\nnp.sum([np.mean(x == i) * i for i in range(1, 7)]) # list comprehension\n\n3.500221\n\n\n\nsum(np.mean(x == i) * i for i in range(1, 7)) # generator\n\n3.500221\n\n\n\np = np.zeros(6)\nN = np.size(x)\nfor xi in x:\n    p[xi-1] += 1 / N\nnp.sum(np.arange(1, 7) * p) \n# we should be able to re-use variables from above to simplify this, but I used x for both\n# the random numbers and the values in the support of the Uniform(1, 6) distribution.\n# For shame, Edward.\n\n3.500221000003066"
   },
   {
-    "objectID": "314/plot_densities.html",
-    "href": "314/plot_densities.html",
+    "objectID": "314/bernoulli_likelihood.html",
+    "href": "314/bernoulli_likelihood.html",
     "title": "lectures",
     "section": "",
-    "text": "import matplotlib.pyplot as plt\nimport numpy as np\n\n\nx = np.arange(6) + 1\nfx = np.ones(6) * 1/6\n\n(array([1, 2, 3, 4, 5, 6]),\n array([0.16666667, 0.16666667, 0.16666667, 0.16666667, 0.16666667,\n        0.16666667]))\n\n\n\nplt.scatter(x, fx, color = \"orange\", label = \"uniform density\")\nplt.scatter(np.arange(5) + 1, np.ones(5) / 5, label = \"other\")\nplt.ylabel(\"density\")\nplt.xlabel(\"support\")\nplt.legend()\n\n\n\n\n\n\n\n\n\nrng = np.random.default_rng()\nrng.integers(5, size = 10)\n\narray([3, 2, 3, 2, 0, 1, 3, 1, 1, 2])"
+    "text": "The likelihood function for the Bernoulli distribution based on data \\(x_1, \\ldots, x_N \\sim\\) Bernoulli(\\(p\\)) with unknown parameter \\(p\\) is\n\\[L(p | \\mathbf{x}) = \\prod_{n=1}^N p^{x_n} (1 - p)^{1 - x_n}\\]\nThe log-likelihood function is\n\\[\\ell(p | \\mathbf{x}) = \\log{ L(p | \\mathbf{x}) } = \\log{ \\prod_{n=1}^N p_n^{x_n}(1 - p)^{1 - x_n} }\\]\nwhich simplifies to\n\\[\\ell(p | \\mathbf{x}) = \\sum_{n=1}^N x_n \\log{p} + (1 - x_n) \\log{(1 - p)}\\]\nThe derivative of \\(\\ell\\) with respect to \\(p\\) is\n\\[\\frac{d \\ell}{dp} = \\sum_{n=1}^N \\frac{x_n}{p} - \\frac{1 - x_n}{1-p}\\]\nSet the derivative equal to zero to get\n\\[\\sum_{n=1}^N \\frac{x_n}{p} = \\sum_{n=1}^N \\frac{1-x_n}{1-p}\\]\nSolve for \\(p\\) to find the maximum likelihood estimate of \\(p\\) based on data \\(\\mathbf{x}\\)\n\\[\\hat{p} = N^{-1} \\sum_{n=1}^N x_n\\]"
   },
   {
-    "objectID": "314/binomial.html",
-    "href": "314/binomial.html",
+    "objectID": "314/likelihood_computer.html",
+    "href": "314/likelihood_computer.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
+    "text": "import numpy as np\nimport scipy.stats as st\nfrom scipy.optimize import minimize\n\n\nB = st.bernoulli(0.75)\nnp.random.seed(291)\nx = B.rvs(size = 101)\n\n\ndef ll_bernoulli(theta, data):\n    return -np.sum(st.bernoulli(theta).logpmf(data))\n\n\nrng = np.random.default_rng()\ninit = rng.random()\nprint(init)\nminimize(ll_bernoulli, init, args = (x,), bounds = [(1e-5, 1 - 1e-5), ])\n\n0.6442960015361123\n\n\n  message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL\n  success: True\n   status: 0\n      fun: 52.93785788218957\n        x: [ 7.822e-01]\n      nit: 5\n      jac: [ 2.842e-06]\n     nfev: 14\n     njev: 7\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;\n\n\n\ndef ll_exponential(theta, data):\n    return -np.sum(st.expon(scale = theta).logpdf(data))\n\n\nE = st.expon(scale = 5.5)\nx = E.rvs(size = 1001)\ninit = rng.random()\nminimize(ll_exponential, init, args = (x), bounds = [(1e-5, np.inf)])\n\n  message: CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH\n  success: True\n   status: 0\n      fun: 2708.037801958211\n        x: [ 5.503e+00]\n      nit: 13\n      jac: [ 4.547e-05]\n     nfev: 30\n     njev: 15\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;"
   },
   {
-    "objectID": "314/quiz07.html",
-    "href": "314/quiz07.html",
+    "objectID": "314/quiz05.html",
+    "href": "314/quiz05.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\n\n\nm = np.mean(x)\nnp.var(x)\nnp.mean(x &gt; 2)\n\n0.02\n\n\n\nnp.mean(x), np.mean((x - m) ** 2), np.mean(x &gt; 2)\n\n(0.041916703859957584, 1.077890480291087, 0.02)"
+    "text": "import numpy as np\n\nNot a bad idea to solve this one in pieces/two functions.\n\ndef mean(x):\n    s = 0.0\n    N = np.size(x)\n    for n in range(N):\n        s += x[n]\n    return s / N\n\n\ndef var(x):\n    s = 0.0\n    N = np.size(x)\n    m = mean(x)\n    invN = 1 / N # minimizing division is a good idea, even if ineffective here\n    for n in range(N):\n        d = x[n] - m\n        s += d * d # multiplication is faster than powers\n    return s * invN\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\nnp.isclose(np.var(x), var(x))\n\nTrue"
+  },
+  {
+    "objectID": "314/histogram.html",
+    "href": "314/histogram.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 10000)\n\n\nplt.hist(x, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\ny = rng.exponential(size = 1000)\nplt.hist(y, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\nz = rng.poisson(size = 10000)\n\n\nplt.hist(z, density = True, histtype = \"step\", bins = 9);\n\n\n\n\n\n\n\n\n\nR = 100\nN = 501\nrng = np.random.default_rng()\nndx = np.arange(N) + 1\nfor r in range(R):          \n    x = rng.normal(size = N)\n    cm = np.cumsum(x) / ndx       \n    plt.plot(ndx, cm) \n\n\n\n\n\n\n\n\n\ncms = np.zeros(R)\nfor r in range(R):          \n    x = rng.normal(size = N)\n    cms[r] = np.mean(x)\n\n\nplt.hist(cms, density = True, histtype = \"step\");"
   },
   {
     "objectID": "314/quiz06.html",
