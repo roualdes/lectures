@@ -133,18 +133,25 @@
     "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\ndef cummean(x):\n    N = np.size(x)\n    out = np.zeros(N) # np.zeros_like(x)\n    s = 0\n    for n in range(N):\n        s += x[n]\n        out[n] = s / (n + 1)\n    return out\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 100)\n\n\nplt.plot(np.arange(100), cummean(x))"
   },
   {
-    "objectID": "314/means_expectations.html",
-    "href": "314/means_expectations.html",
+    "objectID": "314/clt.html",
+    "href": "314/clt.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\n\nThe formula for a mean \\(\\frac{1}{N} \\sum_{n=1}^N x_n\\) naturally relates to the definition of an expectation\n\\[\\mathbb{E}[X] = \\sum_{x \\in S} x \\cdot f(x)\\]\nyou just have to squint.\n\n# X ~ Uniform(1, 6)\nx = np.arange(6) + 1\nfx = 1/6\n\n\nnp.sum(x * fx) # E[X]\n\n3.5\n\n\n\nrng = np.random.default_rng()\nx = rng.integers(1, 7, size = 1000000)\n\n\nnp.mean(x)\n\n3.500221\n\n\n\nnp.mean(x == 4) # proportion of x values equal to 4, estimates 1/6\n\n0.166322\n\n\nThe formula for the mean estimates the density function at each value of \\(x\\), e.g. \\(x = 4\\). As such, here are various (numerically inefficient) ways to think about the formula for a mean.\n\ns = 0\nfor i in range(1, 7): # Python for-loop\n    s += np.mean(x == i) * i # s = s + np.mean(x == i) * i\ns\n\n3.500221\n\n\n\nnp.sum([np.mean(x == i) * i for i in range(1, 7)]) # list comprehension\n\n3.500221\n\n\n\nsum(np.mean(x == i) * i for i in range(1, 7)) # generator\n\n3.500221\n\n\n\np = np.zeros(6)\nN = np.size(x)\nfor xi in x:\n    p[xi-1] += 1 / N\nnp.sum(np.arange(1, 7) * p) \n# we should be able to re-use variables from above to simplify this, but I used x for both\n# the random numbers and the values in the support of the Uniform(1, 6) distribution.\n# For shame, Edward.\n\n3.500221000003066"
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\n\nR = 1000\nN = 101\nrng = np.random.default_rng()\ncms = np.zeros(R)\nfor r in range(R):          \n    x = rng.binomial(10, 0.5, size = N)\n    cms[r] = np.mean(x)\n\n\nBinomial = st.binom\nB = Binomial(10, 0.5)\n(B.mean(), B.var())\n\n(5.0, 2.5)\n\n\n\nNormal = st.norm\nNd = Normal(loc = B.mean(), scale = np.sqrt(B.var() / N))\n\n\nxx = np.linspace(3, 7, 201)\nfx = Nd.pdf(xx)\nplt.plot(xx, fx)\nplt.hist(cms, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\nplt.hist(x, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\nx = rng.binomial(10, 0.5, size = N)\n\n\nnp.mean(x) - Normal().ppf(0.975) * np.sqrt(np.var(x) / N)\n\n4.614056484048096\n\n\n\nnp.mean(x) + Normal().ppf(0.975) * np.sqrt(np.var(x) / N)\n\n5.1681217337736856"
   },
   {
-    "objectID": "314/quiz08.html",
-    "href": "314/quiz08.html",
+    "objectID": "314/binomial.html",
+    "href": "314/binomial.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\n\n\nPoisson = st.poisson\n\n\nl = 1.5 / 100 * 48\n\n\nX = Poisson(l)\nX.pmf(0)\n\n0.4867522559599717\n\n\n\nnp.sum(X.pmf(np.arange(6)))\n\n0.9998951831177709\n\n\n\nY = Poisson(1.5 / 100 * 24)\n1 - np.sum(Y.pmf(np.arange(3)))\n\n0.00595077061399496"
+    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
+  },
+  {
+    "objectID": "314/histogram.html",
+    "href": "314/histogram.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\n\nrng = np.random.default_rng()\nx = rng.normal(size = 10000)\n\n\nplt.hist(x, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\ny = rng.exponential(size = 1000)\nplt.hist(y, density = True, histtype = \"step\");\n\n\n\n\n\n\n\n\n\nz = rng.poisson(size = 10000)\n\n\nplt.hist(z, density = True, histtype = \"step\", bins = 9);\n\n\n\n\n\n\n\n\n\nR = 100\nN = 501\nrng = np.random.default_rng()\nndx = np.arange(N) + 1\nfor r in range(R):          \n    x = rng.normal(size = N)\n    cm = np.cumsum(x) / ndx       \n    plt.plot(ndx, cm) \n\n\n\n\n\n\n\n\n\ncms = np.zeros(R)\nfor r in range(R):          \n    x = rng.normal(size = N)\n    cms[r] = np.mean(x)\n\n\nplt.hist(cms, density = True, histtype = \"step\");"
   },
   {
     "objectID": "314/likelihood_computer.html",
@@ -2261,11 +2268,18 @@
     "text": "import scipy.stats as st\nimport numpy as np\n\n\nExponential = st.expon\n\n\nX = Exponential(scale = 5000)\n\n\nX.cdf(2500) # cumulative distribition function\n\n0.3934693402873666\n\n\n\n1 - X.cdf(6000)\n\n0.3011942119122022\n\n\n\n# 2 b\nX.ppf(.1)\n\n526.8025782891316\n\n\n\n-5000 * np.log(1 - 0.1)\n\n526.8025782891314\n\n\n\n# 3 a\nX = Exponential(scale = 20)\nX.cdf(10)\n\n0.3934693402873666\n\n\n\nX.ppf(0.5)\n\n13.862943611198906\n\n\n\nX.ppf(1)\n\ninf\n\n\n\nX.pdf(2)\n\n0.04524187090179797"
   },
   {
-    "objectID": "314/binomial.html",
-    "href": "314/binomial.html",
+    "objectID": "314/quiz08.html",
+    "href": "314/quiz08.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nBinomial = st.binom\n\n\nB = Binomial(5, 0.5) # K, p\n\n\nB.rvs(size = 10) # random variables / random numbers\n\narray([2, 4, 4, 1, 3, 2, 3, 5, 4, 4])\n\n\n\nB.pmf(2) # f( x = 2 |K, p) / probability mass function / density function\n\n0.3125\n\n\n\nB.pmf(3)\n\n0.31249999999999994\n\n\n\nx = np.arange(6)\nf = B.pmf(x)\nf\n\narray([0.03125, 0.15625, 0.3125 , 0.3125 , 0.15625, 0.03125])\n\n\n\nnp.sum(f)\n\n0.9999999999999999\n\n\n\nplt.scatter(x, f)\n\n\n\n\n\n\n\n\n\n# https://roualdes.us/lecturenotes/binomial\n# Q2\n# a.\nX = Binomial(10, 0.95)\nfx = X.pmf(10)\nfx\n\n0.5987369392383787\n\n\n\n# b.\nnp.sum(X.pmf(np.array([8, 9, 10])))\n\n0.9884964426207032\n\n\n\ns = np.arange(11)\nplt.scatter(s, X.pmf(s))"
+    "text": "import numpy as np\nimport scipy.stats as st\n\n\nPoisson = st.poisson\n\n\nl = 1.5 / 100 * 48\n\n\nX = Poisson(l)\nX.pmf(0)\n\n0.4867522559599717\n\n\n\nnp.sum(X.pmf(np.arange(6)))\n\n0.9998951831177709\n\n\n\nY = Poisson(1.5 / 100 * 24)\n1 - np.sum(Y.pmf(np.arange(3)))\n\n0.00595077061399496"
+  },
+  {
+    "objectID": "314/means_expectations.html",
+    "href": "314/means_expectations.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import numpy as np\n\nThe formula for a mean \\(\\frac{1}{N} \\sum_{n=1}^N x_n\\) naturally relates to the definition of an expectation\n\\[\\mathbb{E}[X] = \\sum_{x \\in S} x \\cdot f(x)\\]\nyou just have to squint.\n\n# X ~ Uniform(1, 6)\nx = np.arange(6) + 1\nfx = 1/6\n\n\nnp.sum(x * fx) # E[X]\n\n3.5\n\n\n\nrng = np.random.default_rng()\nx = rng.integers(1, 7, size = 1000000)\n\n\nnp.mean(x)\n\n3.500221\n\n\n\nnp.mean(x == 4) # proportion of x values equal to 4, estimates 1/6\n\n0.166322\n\n\nThe formula for the mean estimates the density function at each value of \\(x\\), e.g. \\(x = 4\\). As such, here are various (numerically inefficient) ways to think about the formula for a mean.\n\ns = 0\nfor i in range(1, 7): # Python for-loop\n    s += np.mean(x == i) * i # s = s + np.mean(x == i) * i\ns\n\n3.500221\n\n\n\nnp.sum([np.mean(x == i) * i for i in range(1, 7)]) # list comprehension\n\n3.500221\n\n\n\nsum(np.mean(x == i) * i for i in range(1, 7)) # generator\n\n3.500221\n\n\n\np = np.zeros(6)\nN = np.size(x)\nfor xi in x:\n    p[xi-1] += 1 / N\nnp.sum(np.arange(1, 7) * p) \n# we should be able to re-use variables from above to simplify this, but I used x for both\n# the random numbers and the values in the support of the Uniform(1, 6) distribution.\n# For shame, Edward.\n\n3.500221000003066"
   },
   {
     "objectID": "314/quiz05.html",
