@@ -2,150 +2,154 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://roualdes.github.io/lectures/misc/klhr/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.420Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.278Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/plot_densities.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/bernoulli_likelihood.html</loc>
-    <lastmod>2025-10-23T20:59:34.200Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.057Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/convergence_probability.html</loc>
-    <lastmod>2025-10-23T20:59:34.200Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.058Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/quiz04.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/quiz06.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/clt.html</loc>
-    <lastmod>2025-10-23T20:59:34.200Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.058Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/binomial.html</loc>
-    <lastmod>2025-10-23T20:59:34.200Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.057Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/histogram.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/314/likelihood_computer.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/twosamplettest_code/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/twosamplettest/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/plottingData/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.211Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/exams/exam02practice_solutions.html</loc>
-    <lastmod>2025-10-23T20:59:34.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.209Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/clt_code/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/summaryStats/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.221Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/summariesByGroup/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.221Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/ttest_code/ttest.html</loc>
-    <lastmod>2025-10-23T20:59:34.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/samplingdist/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.221Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/confint/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/randomVariables/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.216Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/exams/exam02practice.html</loc>
-    <lastmod>2025-10-23T20:59:34.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/exams/exam01practice.html</loc>
-    <lastmod>2025-10-23T20:59:34.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/hypothesistesting/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/315/clt/main.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://roualdes.github.io/lectures/index.html</loc>
-    <lastmod>2025-10-23T20:59:34.418Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.059Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/exponential.html</loc>
-    <lastmod>2025-10-23T20:59:34.200Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.058Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/index.html</loc>
+    <lastmod>2025-10-28T01:33:45.276Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/clt/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/hypothesistesting/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/exams/exam01practice.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/exams/exam02practice.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/randomVariables/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.075Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/confint/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/anova/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/samplingdist/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.079Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/ttest_code/ttest.html</loc>
+    <lastmod>2025-10-28T01:33:45.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/summariesByGroup/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/summaryStats/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/clt_code/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/introductionData/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.068Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/exams/exam02practice_solutions.html</loc>
+    <lastmod>2025-10-28T01:33:45.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/plottingData/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.069Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/twosamplettest/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/315/twosamplettest_code/main.html</loc>
+    <lastmod>2025-10-28T01:33:45.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/likelihood_computer.html</loc>
+    <lastmod>2025-10-28T01:33:45.059Z</lastmod>
+  </url>
+  <url>
+    <loc>https://roualdes.github.io/lectures/314/confidence_intervals.html</loc>
+    <lastmod>2025-10-28T01:33:45.058Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/quiz08.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/means_expectations.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.059Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/quiz05.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/normal.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/quiz07.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/likelihood_computer_take2.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.059Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/poisson.html</loc>
-    <lastmod>2025-10-23T20:59:34.202Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://roualdes.github.io/lectures/314/intropython.html</loc>
-    <lastmod>2025-10-23T20:59:34.201Z</lastmod>
+    <lastmod>2025-10-28T01:33:45.059Z</lastmod>
   </url>
 </urlset>
