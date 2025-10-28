@@ -1526,102 +1526,11 @@
     "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
   },
   {
-    "objectID": "misc/klhr/main.html#metropolis-hastings",
-    "href": "misc/klhr/main.html#metropolis-hastings",
-    "title": "KLHR Sampler",
-    "section": "Metropolis-Hastings",
-    "text": "Metropolis-Hastings\n\\[\n\\begin{align}\n\\theta^* & \\sim \\text{Normal}(\\theta^{(m)}, \\Sigma)  \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{normal}(\\theta^{(m)} | \\theta^*, \\Sigma)}{p(\\theta^{(m)}) \\cdot \\text{normal}(\\theta^* | \\theta^{(m)}, \\Sigma)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
-  },
-  {
-    "objectID": "misc/klhr/main.html#hit-and-run-sampler",
-    "href": "misc/klhr/main.html#hit-and-run-sampler",
-    "title": "KLHR Sampler",
-    "section": "Hit and Run Sampler",
-    "text": "Hit and Run Sampler\n\\[\n\\begin{align}\n\\rho & \\sim G \\quad \\# \\in \\mathbb{R}^D; \\text{ direction} \\\\\n\\xi^* & \\sim f(\\xi) = \\frac{p(\\rho\\xi + \\theta^{(m)})}{\\int p(\\rho \\xi + \\theta^{(m)}) d\\xi}  \\\\\n\\theta^{(m + 1)} & = \\rho \\xi^* + \\theta^{(m)} \\\\\n\\end{align}\n\\]\n\nA Hit and Run sampler reference\nNo-Underrun Sampler"
-  },
-  {
-    "objectID": "misc/klhr/main.html#klhr-sampler",
-    "href": "misc/klhr/main.html#klhr-sampler",
-    "title": "KLHR Sampler",
-    "section": "KLHR Sampler",
-    "text": "KLHR Sampler\nKullback–Leibler Hit and Run\n\\[\n\\begin{align}\n\\rho & \\sim Normal(...) \\\\\n\\rho & = \\rho / ||\\rho|| \\quad \\# \\text{ unit direction}\\\\\n\\eta^* & = \\text{argmin}_{\\eta} \\text{KL}(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n\\xi^* & \\sim Q(\\eta^*) \\\\\n\\theta^* &= \\rho \\xi^* + \\theta^{(m)} \\\\\nu & \\sim U(0, 1) \\\\\nr & = \\text{min}\\left(1, \\frac{p(\\theta^*) \\cdot \\text{q}(0 | \\eta^*)}{p(\\theta^{(m)}) \\cdot \\text{q}(\\xi^* | \\eta^*)} \\right) \\\\\na & = u &lt;= r \\\\\n\\theta^{(m + 1)} & = a \\cdot \\theta^* + (1 - a) \\cdot \\theta^{(m)} \\\\\n\\end{align}\n\\]"
-  },
-  {
-    "objectID": "misc/klhr/main.html#approximate-kl",
-    "href": "misc/klhr/main.html#approximate-kl",
-    "title": "KLHR Sampler",
-    "section": "approximate KL",
-    "text": "approximate KL\nWhen \\(Q\\) represents the family of one dimensional Normal distirbutions with density function \\(q\\), where \\(\\eta = (\\mu, \\sigma)\\)\n\\[\n\\begin{align}\n\\text{KL}&(\\, q(\\xi | \\eta) \\, || \\, p(\\rho \\xi + \\theta^{(m)}) \\,) \\\\\n& = \\int_{\\mathbb{R}} (\\log{q(\\xi | \\eta)} - \\log{p(\\rho \\xi + \\theta^{(m)})}) q(\\xi | \\eta) d\\xi\\\\\n& \\approx -\\log{\\sigma} - \\sum_{n} w_n \\log{p( \\, l(x_n | \\eta) \\, )} \\\\\n& =: L(\\eta)\n\\end{align}\n\\]\nwhere \\(x_n, w_n\\) are the roots of the Hermite polynomials and associated weights from Gauss-Hermite quadrature."
-  },
-  {
-    "objectID": "misc/klhr/main.html#approximate-kl-take-2",
-    "href": "misc/klhr/main.html#approximate-kl-take-2",
-    "title": "KLHR Sampler",
-    "section": "approximate KL, take 2",
-    "text": "approximate KL, take 2\n\\(Q\\) represents the family of sinh-arcsinh distributions, where \\(\\eta = (\\mu, \\sigma, \\delta, \\epsilon)\\)\n\n\\(\\delta \\in \\mathbb{R}^+ \\Rightarrow\\) tail weight\n\\(\\epsilon \\in \\mathbb{R} \\Rightarrow\\) skew\n\nLet \\(Z \\sim \\text{Normal}(0, 1)\\). Then \\(Q \\sim T(Z)\\) where\n\\[T(z) = \\mu + \\sigma \\text{sinh}\\left( \\frac{\\text{arsinh}(z) + \\epsilon}{\\delta} \\right)\\]"
-  },
-  {
-    "objectID": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
-    "href": "misc/klhr/main.html#sinh-arcsinh-vs-normal",
-    "title": "KLHR Sampler",
-    "section": "sinh-arcsinh vs normal",
-    "text": "sinh-arcsinh vs normal"
-  },
-  {
-    "objectID": "misc/klhr/main.html#minimize-leta",
-    "href": "misc/klhr/main.html#minimize-leta",
-    "title": "KLHR Sampler",
-    "section": "minimize \\(L(\\eta)\\)",
-    "text": "minimize \\(L(\\eta)\\)\n\\(\\eta \\in \\mathbb{R}^d\\) where \\(d \\in \\{2, 4\\}\\). Use scipy and Bridgestan JAX Bridgestan\n\nBFGS\ntrust-{ncg, krylov, exact}\n?"
-  },
-  {
-    "objectID": "misc/klhr/main.html#generate-xi-from-qeta",
-    "href": "misc/klhr/main.html#generate-xi-from-qeta",
-    "title": "KLHR Sampler",
-    "section": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)",
-    "text": "generate \\(\\xi^*\\) from \\(Q(\\eta^*)\\)\n\nindependent draw from \\(Q(\\eta^*)\\)\nRadford Neal’s Ordered over-relaxation\n?"
-  },
-  {
-    "objectID": "misc/klhr/main.html#generate-random-direction-rho",
-    "href": "misc/klhr/main.html#generate-random-direction-rho",
-    "title": "KLHR Sampler",
-    "section": "generate random direction \\(\\rho\\)",
-    "text": "generate random direction \\(\\rho\\)\n\nlearn \\(\\Sigma\\) during warmup\n\n\\(\\rho \\sim \\text{Normal}(\\mathbf{0}_D, \\Sigma)\\)\n\nlearn \\(J\\) PCAs/eigenvectors \\(\\mathbf{v}_j \\in \\mathbb{R}^D\\) and values \\(\\lambda_j\\) during warmup\n\n\\(j' \\sim \\text{Multinoulli}\\left(\\{1,\\ldots, J \\}, \\mathbf{p} = \\frac{\\mathbf{\\lambda}}{\\sum_{j=1}^J \\lambda_j}\\right)\\) \\(\\rho \\sim \\text{Normal}(\\mathbf{v}_{j'}, \\Sigma)\\); or\n\\(\\rho \\sim \\text{Normal}\\left(\\sum_{j=1}^J \\lambda_j \\mathbf{v}_j, \\Sigma\\right)\\)\n\n?"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results",
-    "href": "misc/klhr/main.html#preliminary-results",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nfunnel.stan: 11 dimensional funnel; \\(10^7\\) iterations"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results-1",
-    "href": "misc/klhr/main.html#preliminary-results-1",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nearnings.stan: poorly scaled linear regression"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results-2",
-    "href": "misc/klhr/main.html#preliminary-results-2",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nnormal.stan: 100 dimensional isotropic Gaussian\nvs hand tuned MH"
-  },
-  {
-    "objectID": "misc/klhr/main.html#preliminary-results-3",
-    "href": "misc/klhr/main.html#preliminary-results-3",
-    "title": "KLHR Sampler",
-    "section": "preliminary results",
-    "text": "preliminary results\nar1.stan: 100 dimensional AR(1); \\(10^5\\) iterations"
-  },
-  {
-    "objectID": "misc/klhr/main.html#feedback-welcome",
-    "href": "misc/klhr/main.html#feedback-welcome",
-    "title": "KLHR Sampler",
-    "section": "feedback welcome",
-    "text": "feedback welcome\nany thoughts on\n\nminimize \\(L(\\eta)\\) faster\ngenerate \\(\\xi^* \\sim Q(\\eta^*)\\) to increase MSJD\ngenerate \\(\\rho \\sim ?\\) to focus on important directions\nother"
+    "objectID": "misc/klhr.html",
+    "href": "misc/klhr.html",
+    "title": "lectures",
+    "section": "",
+    "text": "import matplotlib.pyplot as plt\nimport numpy as np\nfrom pathlib import Path\n\nimport bridgestan as bs\nfrom bsmodel import BSModel\nfrom klhr import KLHR\n\n\n---------------------------------------------------------------------------\nModuleNotFoundError                       Traceback (most recent call last)\nCell In[1], line 6\n      3 from pathlib import Path\n      5 import bridgestan as bs\n----&gt; 6 from bsmodel import BSModel\n      7 from klhr import KLHR\n\nModuleNotFoundError: No module named 'bsmodel'"
   },
   {
     "objectID": "315/plottingData/main.html#visualizing-categorical-variables",
@@ -2286,7 +2195,7 @@
     "href": "314/confidence_intervals.html",
     "title": "t-Distribution CI",
     "section": "",
-    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\n\nAssuming you have data \\(X_1, \\ldots, X_N \\sim D\\) from which you want to calculate a confidence interval of the expectation of \\(X\\), \\(\\mathbb{E}[X]\\) where \\(X \\sim D\\), there’s two options: t-distribution or bootstrap.\n\nN = 101\nrng = np.random.default_rng()\nx = rng.binomial(10, 0.5, size = N)\n\n\nt-Distribution CI\n\nxbar = np.mean(x)\ns = np.std(x)\nse = s / np.sqrt(N)\nt = st.t(df = N - 1).ppf([0.025, 0.975]) # 95%\nxbar + t * se\n\narray([4.91784634, 5.51779723])\n\n\n\n\nBootstrap CI\n\nR = 1001\nbms = np.zeros(R)\nfor r in range(R):\n    idx = rng.integers(N, size = N)\n    bms[r] = np.mean(x[idx])\nnp.quantile(bms, [0.025, 0.975])\n\narray([4.91089109, 5.5049505 ])"
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\nimport pandas as pd\n\nAssuming you have data \\(X_1, \\ldots, X_N \\sim D\\) from which you want to calculate a confidence interval of the expectation of \\(X\\), \\(\\mathbb{E}[X]\\) where \\(X \\sim D\\), there’s two options: t-distribution or bootstrap.\n\nN = 101\nrng = np.random.default_rng()\nx = rng.binomial(10, 0.5, size = N)\n\n\nt-Distribution CI\n\nxbar = np.mean(x)\ns = np.std(x)\nse = s / np.sqrt(N)\nt = st.t(df = N - 1).ppf([0.025, 0.975]) # 95%\nxbar + t * se\n\narray([4.91784634, 5.51779723])\n\n\n\n\nBootstrap CI\n\nR = 1001\nbms = np.zeros(R)\nfor r in range(R):\n    idx = rng.integers(N, size = N)\n    bms[r] = np.mean(x[idx])\nnp.quantile(bms, [0.025, 0.975])\n\narray([4.91089109, 5.5049505 ])\n\n\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv\")\n\n\ndf.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\n\nx = df[\"bill_length_mm\"]\n\n\nxbar = np.mean(x)\nN = np.sum(~x.isna()) # np.size(x) # NaNs\nse = np.sqrt(np.var(x) / N)\nt = st.t(df = N - 1).ppf([0.025, 0.975])\nxbar + t * se\n\narray([43.34209692, 44.50176273])\n\n\n\nR = 1_000\nrng = np.random.default_rng()\ncms = np.zeros(R)\nfor r in range(R):\n    idx = rng.integers(N, size = N)\n    cms[r] = np.mean(x[idx])\nnp.quantile(cms, [0.025, 0.975])\n\narray([43.30323207, 44.41865553])\n\n\n\nrng = np.random.default_rng()\nidx = rng.integers(N, size = N)\nx[idx]\n\n15     36.6\n69     41.8\n165    48.4\n240    47.5\n193    49.6\n       ... \n241    52.1\n166    45.8\n265    51.5\n94     36.2\n118    35.7\nName: bill_length_mm, Length: 342, dtype: float64"
   },
   {
     "objectID": "314/likelihood_computer.html",
