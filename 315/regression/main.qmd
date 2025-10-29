@@ -1,0 +1,463 @@
+---
+title: "Simple Linear Regression"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: true
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## recap: point estimates
+
+Point estimates are random variables.  Random variables follow shapes, called
+distributions.  Therefore, point estimates follow distributions (and have
+shapes) named sampling distributions.
+
+## recap: standard errors
+
+The standard deviation of a sampling distribution is called a standard error.
+The standard error shrinks with the square root of the sample size.
+
+
+## recap: central limit theorem
+
+The Central Limit Theorem says, "If our sample size is large enough, the sample
+mean will be approximately Normally distributed."
+
+
+## recap: confidence intervals
+
+From the CLT, we can approximate confidence intervals from an approximate
+*sampling distribution*.
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x<qnorm(0.975) & x>qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## recap: hypothesis tests
+
+From the CLT, we can approximate area in tails (p-values) from an approximate
+*sampling distribution*.
+
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x>qnorm(0.975)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    geom_area(data=subset(d, x<qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## recap: ANOVA
+
+ANOVA breaks up means of numerical response variable by levels of one
+categorical variable.
+
+## recap: scatter plot
+
+Scatterplots are  a graphical description of two numerical variables; consider
+Darwin's finch data.
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/master/finches.csv"
+finch <- read.csv(url)
+ggplot(data=finch, aes(middletoelength, winglength)) +
+    geom_point() +
+    labs(xlab="Middle toe length (mm)",
+         ylab="Wing length (mm)")
+```
+
+## recap: scatter plot, take 2
+
+Some keywords to describe scatterplots
+
+* associated or not.
+* direction: positive or negative association.
+* structure: linear or nonlinear.
+
+## Correlation, definition
+
+
+**Correlation** is (often/sometimes) denoted by $R$ and is the numeric analogue
+of the words above.
+
+* **Correlation** describes the strength of the linear relationship between two
+  variables, and always takes values between -1 and 1.
+
+
+## Correlation, notes
+
+Notes on correlation
+
+* More accurate name is Pearson correlation coefficient.
+* Describes linear relationships only.
+* Bounded by -1 and 1.
+* The value $0$ denotes no association.
+* The sign dictates directionality.
+
+
+## Correlation, R code
+
+In R we should just use the function `cor`.
+
+```{r}
+cor(finch$middletoelength, finch$winglength)
+```
+
+```{r}
+#| echo: false
+suppressMessages(library(MASS))
+corVars <- function(n, r) mvrnorm(n, c(0,0), matrix(c(1,r,r,1), nrow=2), empirical=TRUE)
+```
+
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+x <- corVars(100, 0.33)
+qplot(x[,1], x[,2], ylab="", main="R = 0.33", xlab = "")
+```
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+y <- corVars(100, 0.70)
+qplot(y[,1], y[,2], ylab="", main="R = 0.70", xlab = "")
+```
+
+## Correlation, example
+
+```{r}
+#| echo: false
+
+y = corVars(100, 0.95)
+qplot(y[,1], y[,2], ylab="", main="R = 0.95", xlab = "")
+```
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+y <- corVars(100, 0.99)
+qplot(y[,1], y[,2], ylab="", main="R = 0.99", xlab = "")
+```
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+y <- corVars(100, 1)
+qplot(y[,1], y[,2], ylab="", main="R = 1", xlab = "")
+```
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+y <- corVars(100, -1)
+qplot(y[,1], y[,2], ylab="", main="R = -1", xlab = "")
+```
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+y <- corVars(100, -0.70)
+qplot(y[,1], y[,2], ylab="", main="R = -0.70", xlab = "")
+```
+
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+y <- corVars(100, -0.95)
+qplot(y[,1], y[,2], ylab="", main="R = -0.95", xlab = "")
+```
+
+## Correlation,  example
+
+```{r}
+#| echo: false
+
+x <- corVars(100, 0)
+qplot(x[,1], x[,2], ylab="", main="R = 0", xlab = "")
+```
+
+## Correlation, (watch out)  example
+
+```{r}
+#| echo: false
+
+x <- seq(1, 9, length.out=101)
+y <- (x-4)^2+rnorm(101)
+r <- cor(x, y)
+qplot(x, y, ylab="", main=bquote(R == .(r)), xlab = "")
+```
+
+
+## Correlation, (watch out) example
+
+```{r}
+#| echo: false
+
+x <- seq(0, 10, length.out=101)
+y <- sin(x)+rnorm(101, sd=0.2)
+r <- cor(x, y)
+qplot(x, y, ylab="", main=bquote(R == .(r)), xlab = "")
+```
+
+
+## Correlation, plots
+
+This is another reason plots are so important.
+
+
+# Simple Linear Regression
+
+## Linear Regression, introduction
+
+For all of the appropriately linear correlation examples above, it was easy to
+think about a line through the data and then ask, "How closely do the data fall
+onto that line?"  That line through the data however, has a name and a
+mathematical definition.
+
+## lite example
+
+The **least squares line** for Darwin's finch data is plot below in blue.
+
+```{r}
+ggplot(data=finch, aes(middletoelength, winglength)) +
+    geom_point() +
+    labs(xlab="Middle toe length (mm)",
+         ylab="Wing length (mm)") +
+    stat_smooth(method="lm", se=FALSE)
+```
+
+## Linear Regression, idea
+
+Simple linear regression decomposes the response variable $Y$ into three components:
+
+* the **intercept**
+    * the value $Y$ takes on when $X$ is equal to $0$;
+    * above, the length of a wing when the middle toe length is $0$
+
+* the **slope**
+    * on the explanatory variable $X$
+    * represents the increase in $Y$ for a unit increase in $X$;
+    * above, some increase in wing length for every mm increase in the middle toe length
+
+* errors/residuals
+    * some left over bits
+
+## Linear Regression, model
+
+
+Given a response variable $Y$ and an explanatory variable $X$, the simple linear
+regression model is
+
+
+$$Y = \underbrace{\beta_0}_{\text{intercept}} + \underbrace{\beta_1}_{\text{slope}} X + \underbrace{\epsilon}_{\text{errors}}$$
+
+## Simple Linear Regression, parameters
+
+The population parameters $\beta_0$ and $\beta_1$ are estimated with
+$\hat{\beta}_0$ and $\hat{\beta}_1$.  These estimates within the linear
+regression equation are written
+
+
+$$\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X$$
+
+The predicted/fitted value of $Y$ is a function of the estimates of the intercept and
+slope, dependent on some value of $X$.
+
+
+## Linear Regression, residuals
+
+Not every observation will fall of the least squares line.  The difference
+between the true observation $Y_i$ and the predicted value of $\hat{Y}_i$ at
+$X_i$, is the $i$th residual
+
+
+$$e_i = Y_i - \hat{Y}_i = Y_i - (\hat{\beta}_0 + \hat{\beta}_1 X_i)$$
+
+## Simple Linear Regression, residuals by picture
+
+Some residuals will be positive and some negative.
+
+```{r}
+#| echo: false
+
+w1 <- with(finch, which(middletoelength < 17))[1]
+w2 <- with(finch, which(winglength > 77))[1]
+fit <- lm(winglength~middletoelength, data=finch)
+ggplot(data=finch, aes(middletoelength, winglength)) +
+    geom_point() +
+    labs(xlab="Middle toe length (mm)",
+         ylab="Wing length (mm)") +
+    stat_smooth(method="lm", se=FALSE) +
+      geom_segment(aes(x = finch[w1,"middletoelength"],
+                       y = finch[w1,"winglength"],
+                       xend = finch[w1,"middletoelength"],
+                       yend = sum(coef(fit)*c(1,finch[w1,"middletoelength"])),
+                       colour="red")) +
+      annotate("text", x = finch[w1,"middletoelength"] + 0.5,
+               y = 62.5, label = "e[66]", parse=TRUE) +
+      geom_segment(aes(x = finch[w2,"middletoelength"],
+                       y = finch[w2,"winglength"],
+                       xend = finch[w2,"middletoelength"],
+                       yend = sum(coef(fit)*c(1,finch[w2,"middletoelength"])),
+                       colour="red")) +
+      annotate("text", x = finch[w2,"middletoelength"]-0.5,
+               y = 78.5, label = "e[15]", parse=TRUE) +
+      guides(colour="none")
+```
+
+## Simple Linear Regression, best
+
+The word "best" is cleverly defined and not without debate.  The most common
+definition of best means the line that minimizes the sum of the squared
+residuals.  This idea is intuitive.  We are to find the values of $\beta_0$ and
+$\beta_1$ that
+
+* take $e_i = Y_i - \hat{Y}_i$, for all $i$,
+* square each residual, $e_i^2$, and
+* minimize $\frac{1}{n} \sum_{i=1}^n e_i^2$.
+
+
+## Simple Linear Regression in R
+
+In R we use the function `lm` to fit linear regression.
+
+```{r}
+fit <- lm(winglength ~ middletoelength, data = finch)
+## summary(fit) # RStudio
+## yhat <- fitted(fit) # predicted/fitted values
+## e <- residuals(fit) # resiudal values
+```
+
+## Simple Linear Regression, interpretation
+
+The coefficients from the model can be extracted with the function `coefficients`.
+
+```{r}
+(beta <- coefficients(fit))
+```
+
+Thus, our fitted linear model is written as
+
+$$\hat{Y} = `r round(beta[1], 2)` + `r round(beta[2], 2)` X$$
+
+
+# Example
+
+## Elmhurst Colege Data
+
+We'll consider a dataset named  `elmhurst`.  With these data, we might have the
+question, "How is family income related to the amount of gift aid a student
+receives from the college?"
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/master/elmhurst.csv"
+elmhurst <- read.csv(url)
+head(elmhurst)
+```
+
+## Elmhurst College Data
+
+Step 1?
+
+## Elmhurst College Data
+
+Plot the data!
+
+```{r}
+cor(elmhurst$family_income, elmhurst$gift_aid)
+ggplot(data = elmhurst, aes(family_income, gift_aid),
+       ylab="Gift aid ($1000)",
+       xlab="Family income ($1000)") +
+    geom_point()
+```
+
+## Elmhurst College Data
+
+```{r}
+ggplot(data = elmhurst, aes(family_income, gift_aid),
+       ylab="Gift aid ($1000)",
+       xlab="Family income ($1000)") +
+    geom_point() +
+    stat_smooth(method = "lm", se = FALSE) # no standard errors
+```
+
+## Elmhurst College Data
+
+```{r}
+elmReg <- lm(gift_aid ~ family_income, data=elmhurst)
+## summary(elmReg) ## RStudio
+## yhat <- fitted(elmReg)
+## e <- residuals(elmReg)
+```
+
+## Elmhurst College Data
+
+```{r}
+coef(elmReg)
+```
+
+## Elmhurst College Data
+
+Our estimated linear model looks like
+
+$$\widehat{aid} = `r round(beta[1], 2)` + `r round(beta[2], 2)` \times family\_income$$
+
+How do we interpret this?  Can we make causal connections from this model?
+
+
+## Take Away
+
+* Correlation is a helpful summary statistic between two numerical variables
+* Linear regression fits "best" line through scatterplot
+* best means minimized squared residuals
+* expected value of response given some value of explanatory
