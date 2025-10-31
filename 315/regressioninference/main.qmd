@@ -1,0 +1,268 @@
+---
+title: "Linear Regression Inference"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: true
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+```
+
+# Recap
+
+## recap: central limit theorem
+
+The Central Limit Theorem says, "If our sample size is large enough, the sample
+mean will be approximately Normally distributed."
+
+
+## recap: confidence intervals
+
+From the CLT, we can approximate confidence intervals from an approximate
+*sampling distribution*.
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x<qnorm(0.975) & x>qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## recap: hypothesis tests
+
+From the CLT, we can approximate area in tails (p-values) from an approximate
+*sampling distribution*.
+
+
+```{r}
+#| echo: false
+
+p <- ggplot(data.frame(x=c(-4,4)), aes(x)) + stat_function(fun=dnorm) +
+    labs(x="", y="")
+d <- ggplot_build(p)$data[[1]]
+p + geom_area(data=subset(d, x>qnorm(0.975)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    geom_area(data=subset(d, x<qnorm(0.025)),
+              aes(x=x, y=y), fill="black", colour="black") +
+    theme(axis.text.y=element_blank(),
+          axis.ticks=element_blank())
+```
+
+## recap: linear regression
+
+
+Linear regression is a method to fit a line through a scatter plot of data in a
+"best" sense.  Often, interest lies in the relationship between the
+explanatory and the response variable.
+
+
+## recap: linear regression, plot
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/master/elmhurst.csv"
+elmhurst <- read.csv(url)
+ggplot(data = elmhurst, aes(family_income, gift_aid),
+       ylab = "Gift aid ($1000)",
+       xlab = "Family income ($1000)") +
+    geom_point() +
+    stat_smooth(method = "lm", se = FALSE)
+```
+
+## recap: linear regression, code
+
+```{r}
+elmReg <- lm(gift_aid ~ family_income, data=elmhurst)
+## summary(elmReg) ## RStudio
+## yhat <- fitted(elmReg)
+## e <- residuals(elmReg)
+beta <- coef(elmReg)
+```
+
+$$\widehat{aid} = `r round(beta[1], 2)` + `r round(beta[2], 2)` \times
+family\_income$$
+
+# Linear Regression Inference
+
+## Estimating $\beta_0, \beta_1$
+
+Linear regression estimates the population parameters $\beta_0$ (intercept) and
+$\beta_1$ (slope), just like every other parameter we have estimated.  As
+such, the estimators $\hat{\beta}_0$ and $\hat{\beta}_1$ of these parameters
+have their own sampling distributions.
+
+## Inference $\beta_0, \beta_1$
+
+It turns out that the sampling distribution of $\hat{\beta}$ is approximately
+normally distributed when the sample size is sufficiently large; CLT (again).
+
+## Linear regression hypothesis tests
+
+Hypothesis testing naturally follows.  The most common hypothesis test for
+linear regression parameters is
+
+
+\begin{align*}
+    H_0: \quad & \beta = 0 \\
+    H_1: \quad & \beta \ne 0
+\end{align*}
+
+with $\alpha = 0.05$.
+
+
+## Standard Output
+
+The hypothesis test above has a natural and informative interpretation in most
+contexts.
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/master/elmhurst.csv"
+elmhurst <- read.csv(url)
+elmReg <- lm(gift_aid ~ family_income, data = elmhurst)
+# summary(elmReg) # RStudio
+```
+
+## Standard Output
+
+Be sure to understand and be able to find at least,
+
+* p-values
+* adjusted $R^2$
+
+and knowing
+
+* standard errors
+* t values (test statistics)
+
+will just make you sound smart.
+
+
+## linear regression confidence intervals
+
+If we can do hypothesis testing, we can do confidence intervals.  The function
+`confint` in `R` is extremely helpful.
+
+```{r}
+#| eval: false
+
+# use lm fitted model, elmReg from above
+confint(elmReg) # default is 95%
+confint(elmReg, level = 0.98) # can specify confidence
+```
+
+## linear regression predictions
+
+We can make predictions with
+
+```{r}
+#| eval: false
+
+# use lm fitted model, elmReg from above
+predict(elmReg, newdata = data.frame(family_income = 50))
+predict(elmReg,
+        newdata = data.frame(family_income = 50),
+        interval = "confidence",
+        level = 0.98)
+```
+
+
+# $R^2$
+
+## $R^2$
+
+It is common to use the square of the (Pearson) correlation to explain the
+strength of a linear fit.
+
+The $R^2$ of a linear model describes the amount of variation in the response
+variable $y$ that is explained by the least squares line on the explanatory
+variable $x$.
+
+
+## $R^2$, example
+
+Using the data frame `elmhurst`, the correlation between gift aid and family
+income is $R =$ `r round(with(elmhurst, cor(gift_aid, family_income)), 4)`.
+Thus, $R^2 =$ `r round(with(elmhurst, cor(gift_aid, family_income)^2), 4)`.
+
+We say `r round(with(elmhurst, 100*cor(gift_aid, family_income)^2), 2)`% of the
+variation in `gift_aid` is explained by the least squares line on
+`family_income`.
+
+
+# Extrapolation
+
+## Extrapolation, example
+
+At age $8$, Shaquille O'Neal was 4'8".  At age 16, he was 6'8".  Can we use
+these data to predict how tall Shaq is now that he is 43?
+
+## Extrapolation, example
+
+At age $8$, Shaquille O'Neal was 4'8".  At age 16, he was 6'8".  Can we use
+these data to predict how tall Shaq is now that he is 50?
+
+In eight years, Shaq grew 2 feet.  34 years later, Shaq should be an
+additional 8'6" taller than he was at 16, thus 15'2".  Sound
+reasonable?
+
+## Extrapolation, example
+
+At age $8$, Shaquille O'Neal was 4'8".  At age 16, he was 6'8".  Can we use
+these data to predict how tall Shaq is now that he is 50?
+
+In eight years, Shaq grew 2 feet.  34 years later, Shaq should be an
+additional 8'6" taller than he was at 16, thus 15'2".  Sound
+reasonable?
+
+Note: Shaq is 7'1".
+
+
+## Extrapolation, definition
+
+Applying a model to values outside of the range of the original data is called
+**extrapolation**.
+
+:::{.callout-note}
+Extrapolation is in general dangerous.  Sometimes it works, but not often, so
+watch out.
+:::
+
+
+## Extrapolation, example
+
+How much gift aid would a student expect to receive if their family
+income\footnote{Don't forget family income is in units of $\$1000$.} was $\$1$
+million?  Using our least squares line,
+
+$$\widehat{aid} = `r round(beta[1], 2)` + `r round(beta[2], 2)` \times family\_income$$
+
+
+* we'd estimate `r round(beta[1] + 1000*beta[2], 2)` thousand dollars.
+
+
+## Take Away
+
+* confidence intervals and hypothesis testing for linear regression
+* predictions from linear regression
+* $R^2$ to summarize the fit of a linear model
+* extrapolation, predictions are more difficult outside the range of your data
