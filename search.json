@@ -1267,6 +1267,216 @@
     "text": "Take Away\n\nSummarizing data is crucial to statistics\nMean and standard deviation are by far most important\n\nstudy their interpretations and intuitions\nsee OS4 section 2.1.2 and 2.1.4\n\nwe would prefer everything to be a mean, of sorts."
   },
   {
+    "objectID": "315/regressioninference/main.html#recap-central-limit-theorem",
+    "href": "315/regressioninference/main.html#recap-central-limit-theorem",
+    "title": "Linear Regression Inference",
+    "section": "recap: central limit theorem",
+    "text": "recap: central limit theorem\nThe Central Limit Theorem says, “If our sample size is large enough, the sample mean will be approximately Normally distributed.”"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#recap-confidence-intervals",
+    "href": "315/regressioninference/main.html#recap-confidence-intervals",
+    "title": "Linear Regression Inference",
+    "section": "recap: confidence intervals",
+    "text": "recap: confidence intervals\nFrom the CLT, we can approximate confidence intervals from an approximate sampling distribution."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#recap-hypothesis-tests",
+    "href": "315/regressioninference/main.html#recap-hypothesis-tests",
+    "title": "Linear Regression Inference",
+    "section": "recap: hypothesis tests",
+    "text": "recap: hypothesis tests\nFrom the CLT, we can approximate area in tails (p-values) from an approximate sampling distribution."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#recap-linear-regression",
+    "href": "315/regressioninference/main.html#recap-linear-regression",
+    "title": "Linear Regression Inference",
+    "section": "recap: linear regression",
+    "text": "recap: linear regression\nLinear regression is a method to fit a line through a scatter plot of data in a “best” sense. Often, interest lies in the relationship between the explanatory and the response variable."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#recap-linear-regression-plot",
+    "href": "315/regressioninference/main.html#recap-linear-regression-plot",
+    "title": "Linear Regression Inference",
+    "section": "recap: linear regression, plot",
+    "text": "recap: linear regression, plot\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/elmhurst.csv\"\nelmhurst &lt;- read.csv(url)\nggplot(data = elmhurst, aes(family_income, gift_aid),\n       ylab = \"Gift aid ($1000)\",\n       xlab = \"Family income ($1000)\") +\n    geom_point() +\n    stat_smooth(method = \"lm\", se = FALSE)"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#recap-linear-regression-code",
+    "href": "315/regressioninference/main.html#recap-linear-regression-code",
+    "title": "Linear Regression Inference",
+    "section": "recap: linear regression, code",
+    "text": "recap: linear regression, code\n\n\nCode\nelmReg &lt;- lm(gift_aid ~ family_income, data=elmhurst)\n## summary(elmReg) ## RStudio\n## yhat &lt;- fitted(elmReg)\n## e &lt;- residuals(elmReg)\nbeta &lt;- coef(elmReg)\n\n\n\\[\\widehat{aid} = 24.32 + -0.04 \\times\nfamily\\_income\\]"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#estimating-beta_0-beta_1",
+    "href": "315/regressioninference/main.html#estimating-beta_0-beta_1",
+    "title": "Linear Regression Inference",
+    "section": "Estimating \\(\\beta_0, \\beta_1\\)",
+    "text": "Estimating \\(\\beta_0, \\beta_1\\)\nLinear regression estimates the population parameters \\(\\beta_0\\) (intercept) and \\(\\beta_1\\) (slope), just like every other parameter we have estimated. As such, the estimators \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) of these parameters have their own sampling distributions."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#inference-beta_0-beta_1",
+    "href": "315/regressioninference/main.html#inference-beta_0-beta_1",
+    "title": "Linear Regression Inference",
+    "section": "Inference \\(\\beta_0, \\beta_1\\)",
+    "text": "Inference \\(\\beta_0, \\beta_1\\)\nIt turns out that the sampling distribution of \\(\\hat{\\beta}\\) is approximately normally distributed when the sample size is sufficiently large; CLT (again)."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#linear-regression-hypothesis-tests",
+    "href": "315/regressioninference/main.html#linear-regression-hypothesis-tests",
+    "title": "Linear Regression Inference",
+    "section": "Linear regression hypothesis tests",
+    "text": "Linear regression hypothesis tests\nHypothesis testing naturally follows. The most common hypothesis test for linear regression parameters is\n\\[\\begin{align*}\n    H_0: \\quad & \\beta = 0 \\\\\n    H_1: \\quad & \\beta \\ne 0\n\\end{align*}\\]\nwith \\(\\alpha = 0.05\\)."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#standard-output",
+    "href": "315/regressioninference/main.html#standard-output",
+    "title": "Linear Regression Inference",
+    "section": "Standard Output",
+    "text": "Standard Output\nThe hypothesis test above has a natural and informative interpretation in most contexts.\n\n\nCode\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/elmhurst.csv\"\nelmhurst &lt;- read.csv(url)\nelmReg &lt;- lm(gift_aid ~ family_income, data = elmhurst)\n# summary(elmReg) # RStudio"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#standard-output-1",
+    "href": "315/regressioninference/main.html#standard-output-1",
+    "title": "Linear Regression Inference",
+    "section": "Standard Output",
+    "text": "Standard Output\nBe sure to understand and be able to find at least,\n\np-values\nadjusted \\(R^2\\)\n\nand knowing\n\nstandard errors\nt values (test statistics)\n\nwill just make you sound smart."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#linear-regression-confidence-intervals",
+    "href": "315/regressioninference/main.html#linear-regression-confidence-intervals",
+    "title": "Linear Regression Inference",
+    "section": "linear regression confidence intervals",
+    "text": "linear regression confidence intervals\nIf we can do hypothesis testing, we can do confidence intervals. The function confint in R is extremely helpful.\n\n\nCode\n# use lm fitted model, elmReg from above\nconfint(elmReg) # default is 95%\nconfint(elmReg, level = 0.98) # can specify confidence"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#linear-regression-predictions",
+    "href": "315/regressioninference/main.html#linear-regression-predictions",
+    "title": "Linear Regression Inference",
+    "section": "linear regression predictions",
+    "text": "linear regression predictions\nWe can make predictions with\n\n\nCode\n# use lm fitted model, elmReg from above\npredict(elmReg, newdata = data.frame(family_income = 50))\npredict(elmReg,\n        newdata = data.frame(family_income = 50),\n        interval = \"confidence\",\n        level = 0.98)"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#r2-1",
+    "href": "315/regressioninference/main.html#r2-1",
+    "title": "Linear Regression Inference",
+    "section": "\\(R^2\\)",
+    "text": "\\(R^2\\)\nIt is common to use the square of the (Pearson) correlation to explain the strength of a linear fit.\nThe \\(R^2\\) of a linear model describes the amount of variation in the response variable \\(y\\) that is explained by the least squares line on the explanatory variable \\(x\\)."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#r2-example",
+    "href": "315/regressioninference/main.html#r2-example",
+    "title": "Linear Regression Inference",
+    "section": "\\(R^2\\), example",
+    "text": "\\(R^2\\), example\nUsing the data frame elmhurst, the correlation between gift aid and family income is \\(R =\\) -0.4986. Thus, \\(R^2 =\\) 0.2486.\nWe say 24.86% of the variation in gift_aid is explained by the least squares line on family_income."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#extrapolation-example",
+    "href": "315/regressioninference/main.html#extrapolation-example",
+    "title": "Linear Regression Inference",
+    "section": "Extrapolation, example",
+    "text": "Extrapolation, example\nAt age \\(8\\), Shaquille O’Neal was 4’8”. At age 16, he was 6’8”. Can we use these data to predict how tall Shaq is now that he is 43?"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#extrapolation-example-1",
+    "href": "315/regressioninference/main.html#extrapolation-example-1",
+    "title": "Linear Regression Inference",
+    "section": "Extrapolation, example",
+    "text": "Extrapolation, example\nAt age \\(8\\), Shaquille O’Neal was 4’8”. At age 16, he was 6’8”. Can we use these data to predict how tall Shaq is now that he is 50?\nIn eight years, Shaq grew 2 feet. 34 years later, Shaq should be an additional 8’6” taller than he was at 16, thus 15’2”. Sound reasonable?"
+  },
+  {
+    "objectID": "315/regressioninference/main.html#extrapolation-example-2",
+    "href": "315/regressioninference/main.html#extrapolation-example-2",
+    "title": "Linear Regression Inference",
+    "section": "Extrapolation, example",
+    "text": "Extrapolation, example\nAt age \\(8\\), Shaquille O’Neal was 4’8”. At age 16, he was 6’8”. Can we use these data to predict how tall Shaq is now that he is 50?\nIn eight years, Shaq grew 2 feet. 34 years later, Shaq should be an additional 8’6” taller than he was at 16, thus 15’2”. Sound reasonable?\nNote: Shaq is 7’1”."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#extrapolation-definition",
+    "href": "315/regressioninference/main.html#extrapolation-definition",
+    "title": "Linear Regression Inference",
+    "section": "Extrapolation, definition",
+    "text": "Extrapolation, definition\nApplying a model to values outside of the range of the original data is called extrapolation.\n\n\n\n\n\n\nNote\n\n\nExtrapolation is in general dangerous. Sometimes it works, but not often, so watch out."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#extrapolation-example-3",
+    "href": "315/regressioninference/main.html#extrapolation-example-3",
+    "title": "Linear Regression Inference",
+    "section": "Extrapolation, example",
+    "text": "Extrapolation, example\nHow much gift aid would a student expect to receive if their family income was \\(\\$1\\) million? Using our least squares line,\n\\[\\widehat{aid} = 24.32 + -0.04 \\times family\\_income\\]\n\nwe’d estimate -18.75 thousand dollars."
+  },
+  {
+    "objectID": "315/regressioninference/main.html#take-away",
+    "href": "315/regressioninference/main.html#take-away",
+    "title": "Linear Regression Inference",
+    "section": "Take Away",
+    "text": "Take Away\n\nconfidence intervals and hypothesis testing for linear regression\npredictions from linear regression\n\\(R^2\\) to summarize the fit of a linear model\nextrapolation, predictions are more difficult outside the range of your data"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#recap-goal-of-statistics",
+    "href": "315/samplingdist/main.html#recap-goal-of-statistics",
+    "title": "Sampling Distribution",
+    "section": "recap: Goal of Statistics",
+    "text": "recap: Goal of Statistics\nStatistics estimates population parameters:\n\npopulation mean \\(\\mu\\) using sample mean, \\(\\bar{X}\\)\npopulation proportion \\(p\\) using sample mean, \\(\\hat{p}\\)\npopulation standard deviation \\(\\sigma\\) using sample standard deviation, \\(s\\)\n…"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#point-estimate",
+    "href": "315/samplingdist/main.html#point-estimate",
+    "title": "Sampling Distribution",
+    "section": "Point Estimate",
+    "text": "Point Estimate\nA calculated sample statistic is known as a point estimate. Statistics thinks of these as random variables, since (abstractly) statistics are just functions of random variables.\n\n\\(\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}\\)\nhttp://onlinestatbook.com/stat_sim/sampling_dist/"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#point-estimates-vary",
+    "href": "315/samplingdist/main.html#point-estimates-vary",
+    "title": "Sampling Distribution",
+    "section": "Point Estimates Vary",
+    "text": "Point Estimates Vary\nConsider a dataset about possums from Australia and New Guinea. Suppose we collected 1000 random samples of 50 possums each and calculated the mean from each sample. So now we have 1000 sample means. What’s the shape of the sample means?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-example",
+    "href": "315/samplingdist/main.html#sampling-distribution-example",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, example",
+    "text": "Sampling Distribution, example"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-definition",
+    "href": "315/samplingdist/main.html#sampling-distribution-definition",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, definition",
+    "text": "Sampling Distribution, definition\nIt is useful to think of a particular point estimate as being drawn from this continuous distribution, the sampling distribution.\n\nThe sampling distribution represents the distribution (shape of histogram) of the point estimates based on samples of a fixed size from a certain population."
+  },
+  {
+    "objectID": "315/samplingdist/main.html#sampling-distribution-parameters",
+    "href": "315/samplingdist/main.html#sampling-distribution-parameters",
+    "title": "Sampling Distribution",
+    "section": "Sampling Distribution, parameters",
+    "text": "Sampling Distribution, parameters\nThe sampling distribution has its own mean and standard deviation, called the standard error.\n\nThe standard deviation associated with a point estimator is called the standard error."
+  },
+  {
+    "objectID": "315/samplingdist/main.html#example",
+    "href": "315/samplingdist/main.html#example",
+    "title": "Sampling Distribution",
+    "section": "Example",
+    "text": "Example\nLet’s use the definition \\(\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}\\).\n\nWould you be more trusting of a sample that has \\(100\\) observations or \\(400\\) observations?\nIf \\(\\sigma = 10\\), what is \\(\\sigma_{\\bar{X}}\\) when \\(n=100\\)?\nWhat is \\(\\sigma_{\\bar{X}}\\) when \\(n=400\\)?\nWhat do the respective sampling distributions look like?"
+  },
+  {
+    "objectID": "315/samplingdist/main.html#take-away",
+    "href": "315/samplingdist/main.html#take-away",
+    "title": "Sampling Distribution",
+    "section": "Take Away",
+    "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
+  },
+  {
+    "objectID": "315/ttest_code/ttest.html",
+    "href": "315/ttest_code/ttest.html",
+    "title": "ttest",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\ndf &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv\")\n\nA single sample t-test, appropriate for one numerical variable, on the weight of donkeys.\n\nt.test(df$Weight, conf.level = 0.95, mu = 30)\n\n\n    One Sample t-test\n\ndata:  df$Weight\nt = 107.44, df = 543, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 30\n95 percent confidence interval:\n 149.8724 154.3372\nsample estimates:\nmean of x \n 152.1048 \n\n\nPreparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.\n\ndfs &lt;- df %&gt;%\n  summarise(m = mean(Weight),\n            s = sd(Weight),\n            n = n(),\n            se = s / n,\n            t = qt(0.95, n - 1),\n            p_lb = m - t * s, # if pop is roughly normal\n            p_ub = m + t * s,\n            m_lb = m - t * se, # pop not necessarily normal\n            m_ub = m + t * se)\n\nNotice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size \\(n\\). As the sample size increases, the standard error decreases. As the sample size decreases, the standard error increases.\n\nggplot(df) +\n  geom_jitter(aes(x = 0, y = Weight)) +\n  geom_boxplot(aes(x = 1, y = Weight)) +\n  geom_point(data = dfs, aes(x = 1.5, y = m)) +\n  geom_linerange(data = dfs, aes(x = 1.5, ymin = p_lb, ymax = p_ub)) +\n  geom_point(data = dfs, aes(x = 2, y = m)) +\n  geom_linerange(data = dfs, aes(x = 2, ymin = m_lb, ymax = m_ub)) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nA t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.\n\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99, mu = 0.5)\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = -1.2556, df = 396, p-value = 0.21\nalternative hypothesis: true mean is not equal to 0.5\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
+  },
+  {
     "objectID": "315/summariesByGroup/main.html#means-by-group",
     "href": "315/summariesByGroup/main.html#means-by-group",
     "title": "Summaries By Group",
@@ -1398,69 +1608,6 @@
     "title": "Summaries By Group",
     "section": "who?",
     "text": "who?\n\nThese guys Procyonidae\nBut also PNAS article"
-  },
-  {
-    "objectID": "315/ttest_code/ttest.html",
-    "href": "315/ttest_code/ttest.html",
-    "title": "ttest",
-    "section": "",
-    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\ndf &lt;- read.csv(\"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv\")\n\nA single sample t-test, appropriate for one numerical variable, on the weight of donkeys.\n\nt.test(df$Weight, conf.level = 0.95, mu = 30)\n\n\n    One Sample t-test\n\ndata:  df$Weight\nt = 107.44, df = 543, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 30\n95 percent confidence interval:\n 149.8724 154.3372\nsample estimates:\nmean of x \n 152.1048 \n\n\nPreparation for a plot to help understand/comprehend the different scales of the standard deviations versus the standard error. The standard deviation estimates the standard deviation of the population of interest. The standard error estimates the standard deviation of the distribution of theoretical means.\n\ndfs &lt;- df %&gt;%\n  summarise(m = mean(Weight),\n            s = sd(Weight),\n            n = n(),\n            se = s / n,\n            t = qt(0.95, n - 1),\n            p_lb = m - t * s, # if pop is roughly normal\n            p_ub = m + t * s,\n            m_lb = m - t * se, # pop not necessarily normal\n            m_ub = m + t * se)\n\nNotice the standard error is on a much smaller scale, since it is scaled by the square root of the number of data, namely the sample size \\(n\\). As the sample size increases, the standard error decreases. As the sample size decreases, the standard error increases.\n\nggplot(df) +\n  geom_jitter(aes(x = 0, y = Weight)) +\n  geom_boxplot(aes(x = 1, y = Weight)) +\n  geom_point(data = dfs, aes(x = 1.5, y = m)) +\n  geom_linerange(data = dfs, aes(x = 1.5, ymin = p_lb, ymax = p_ub)) +\n  geom_point(data = dfs, aes(x = 2, y = m)) +\n  geom_linerange(data = dfs, aes(x = 2, ymin = m_lb, ymax = m_ub)) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nA t-test is less common for tests of proportions, but is nearly equivalent to more traditional methods.\n\nurl &lt;- \"https://raw.githubusercontent.com/roualdes/data/master/articles.csv\"\narticle &lt;- read.csv(url) # look at data in RStudio\nt.test(article$is_data_shared, conf.level = 0.99, mu = 0.5)\n\n\n    One Sample t-test\n\ndata:  article$is_data_shared\nt = -1.2556, df = 396, p-value = 0.21\nalternative hypothesis: true mean is not equal to 0.5\n99 percent confidence interval:\n 0.4036094 0.5334183\nsample estimates:\nmean of x \n0.4685139"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#recap-goal-of-statistics",
-    "href": "315/samplingdist/main.html#recap-goal-of-statistics",
-    "title": "Sampling Distribution",
-    "section": "recap: Goal of Statistics",
-    "text": "recap: Goal of Statistics\nStatistics estimates population parameters:\n\npopulation mean \\(\\mu\\) using sample mean, \\(\\bar{X}\\)\npopulation proportion \\(p\\) using sample mean, \\(\\hat{p}\\)\npopulation standard deviation \\(\\sigma\\) using sample standard deviation, \\(s\\)\n…"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#point-estimate",
-    "href": "315/samplingdist/main.html#point-estimate",
-    "title": "Sampling Distribution",
-    "section": "Point Estimate",
-    "text": "Point Estimate\nA calculated sample statistic is known as a point estimate. Statistics thinks of these as random variables, since (abstractly) statistics are just functions of random variables.\n\n\\(\\bar{X} = \\frac{\\sum_{i=1}^N X_i}{N}\\)\nhttp://onlinestatbook.com/stat_sim/sampling_dist/"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#point-estimates-vary",
-    "href": "315/samplingdist/main.html#point-estimates-vary",
-    "title": "Sampling Distribution",
-    "section": "Point Estimates Vary",
-    "text": "Point Estimates Vary\nConsider a dataset about possums from Australia and New Guinea. Suppose we collected 1000 random samples of 50 possums each and calculated the mean from each sample. So now we have 1000 sample means. What’s the shape of the sample means?"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-example",
-    "href": "315/samplingdist/main.html#sampling-distribution-example",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, example",
-    "text": "Sampling Distribution, example"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-definition",
-    "href": "315/samplingdist/main.html#sampling-distribution-definition",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, definition",
-    "text": "Sampling Distribution, definition\nIt is useful to think of a particular point estimate as being drawn from this continuous distribution, the sampling distribution.\n\nThe sampling distribution represents the distribution (shape of histogram) of the point estimates based on samples of a fixed size from a certain population."
-  },
-  {
-    "objectID": "315/samplingdist/main.html#sampling-distribution-parameters",
-    "href": "315/samplingdist/main.html#sampling-distribution-parameters",
-    "title": "Sampling Distribution",
-    "section": "Sampling Distribution, parameters",
-    "text": "Sampling Distribution, parameters\nThe sampling distribution has its own mean and standard deviation, called the standard error.\n\nThe standard deviation associated with a point estimator is called the standard error."
-  },
-  {
-    "objectID": "315/samplingdist/main.html#example",
-    "href": "315/samplingdist/main.html#example",
-    "title": "Sampling Distribution",
-    "section": "Example",
-    "text": "Example\nLet’s use the definition \\(\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n}\\).\n\nWould you be more trusting of a sample that has \\(100\\) observations or \\(400\\) observations?\nIf \\(\\sigma = 10\\), what is \\(\\sigma_{\\bar{X}}\\) when \\(n=100\\)?\nWhat is \\(\\sigma_{\\bar{X}}\\) when \\(n=400\\)?\nWhat do the respective sampling distributions look like?"
-  },
-  {
-    "objectID": "315/samplingdist/main.html#take-away",
-    "href": "315/samplingdist/main.html#take-away",
-    "title": "Sampling Distribution",
-    "section": "Take Away",
-    "text": "Take Away\n\nStatistics imagines repeated sampling, even if it never happens\nMathematically, repeated sampling can/does happen\nStandard Error (error in estimate) decreases as sample size goes up\n\nintuition comes from standard error of the sample mean, \\(\\frac{\\sigma}{\\sqrt{n}}\\)\n\nWe use these lessons to build new tools to learn about populations of interest"
   },
   {
     "objectID": "315/anova/main.html#recap-point-estimates",
