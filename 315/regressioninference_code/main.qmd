@@ -1,0 +1,66 @@
+---
+title: "Regression Inference"
+format: html
+editor: visual
+---
+
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+```
+
+
+```{r}
+elmhurst <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/elmhurst.csv")
+```
+
+Want to predict `gift_aid`, measured in \$1,000, using `family_income` also measured in \$1,000.
+
+```{r}
+ggplot(elmhurst, aes(family_income, gift_aid)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+There appears to be a moderate, negative, and linear relationship between family income and gift aid.
+```{r}
+cor(elmhurst$family_income, elmhurst$gift_aid)
+```
+
+```{r}
+fit <- lm(gift_aid ~ family_income, data = elmhurst)
+summary(fit)
+```
+
+Fitted regression equation
+
+expected gift aid = 24.32 + -0.04 * family income
+
+or 
+
+$$\widehat{gift\_aid} = 24.32 + -0.04 * family\_income$$
+Use ~~multiple~~ Adjusted R^2: 23.29% of the variation in gift aid is explained by this linear regression model of family income.
+
+Intercept: For a family with \$0 in income, we expect their gift aid to be \$`{r} 24.32 * 1000`. 
+
+Slope: For every \$1,000 increase in family income, we expect gift aid to go down by \$`r 0.04 * 1000`.
+
+Prediction: For a family with income of \$200,000, we expect the student to receive \$`r 15.705 * 1000` in gift aid.
+
+```{r}
+predict(fit, newdata = data.frame(family_income = 200),         
+        interval = "confidence", 
+        level = 0.95)
+```
+
+Prediction confidence interval: We are 95% confident that for a family with income of \$200,000, we expect the student to receive gift aid between \$`r 13.17 * 1000` and \$`r 18.24* 1000`.
+
+
+```{r}
+confint(fit, level = 0.98)
+```
+
+Confidence interval for the intercept: We are 98% confident that for a family with \$0 in income, we expect the student to receive between \$`r 21.21 * 1000` and \$`r 27.43 * 1000`.
+
+Confidence interval for the slope: We are 98% confident that for each next \$1,000 a family earns in income, we expect that amount of gift aid the student receives to go down by between \$`r 0.02 * 1000` and \$`r 0.07 * 1000`.
+
