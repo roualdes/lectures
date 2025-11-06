@@ -122,62 +122,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div id="5fd2a37f-acf9-4726-9998-8f9dd3b80bc8" class="cell" data-execution_count="11">
+<div id="5fd2a37f-acf9-4726-9998-8f9dd3b80bc8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="78669bb1-8de9-45b9-b976-8ec2ba483cbb" class="cell" data-execution_count="12">
+<div id="78669bb1-8de9-45b9-b976-8ec2ba483cbb" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/donkeys.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df[<span class="st">"Weight"</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.size(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Mean</strong></p>
-<div id="650075b1-1dda-47c8-97ac-8a46ca39f7f4" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>array([149.95386029, 154.16433824])</code></pre>
+<div id="650075b1-1dda-47c8-97ac-8a46ca39f7f4" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>,) <span class="op">+</span> (<span class="dv">3</span>,) <span class="op">+</span> (<span class="dv">5</span>,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>(1, 3, 5)</code></pre>
 </div>
 </div>
-<div id="a3cf85dc-5528-4c9a-9d81-f14f358aa9be" class="cell" data-execution_count="128">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bootstrap(T, data, R <span class="op">=</span> <span class="dv">1_000</span>, conflevel <span class="op">=</span> <span class="fl">0.95</span>):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    Ts <span class="op">=</span> np.zeros(R)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.shape(data)[<span class="dv">0</span>] <span class="co"># updated</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> conflevel) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> rng.integers(N, size <span class="op">=</span> N)   </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        Ts[r] <span class="op">=</span> T(data[idx])</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.quantile(Ts, [a, <span class="dv">1</span> <span class="op">-</span> a])    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a3cf85dc-5528-4c9a-9d81-f14f358aa9be" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bootstrap(T, data, R <span class="op">=</span> <span class="dv">1_000</span>, conflevel <span class="op">=</span> <span class="fl">0.95</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    shp <span class="op">=</span> np.shape(T(data, <span class="op">**</span>kwargs))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Ts <span class="op">=</span> np.zeros((R,) <span class="op">+</span> shp)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.shape(data)[<span class="dv">0</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> conflevel) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> rng.integers(N, size <span class="op">=</span> N)   </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        Ts[r] <span class="op">=</span> T(data[idx], <span class="op">**</span>kwargs)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.quantile(Ts, [a, <span class="dv">1</span> <span class="op">-</span> a], axis <span class="op">=</span> <span class="dv">0</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cd2d542e-85db-418d-84fc-29f07cdf9a37" class="cell" data-execution_count="129">
+<div id="cd2d542e-85db-418d-84fc-29f07cdf9a37" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bootstrap(np.mean, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="129">
-<pre><code>array([150.00680147, 154.37279412])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>array([149.80675551, 154.35491728])</code></pre>
 </div>
 </div>
-<div id="2fb359a0-067a-42a2-8d6d-da856d4577ea" class="cell" data-execution_count="21">
+<div id="2fb359a0-067a-42a2-8d6d-da856d4577ea" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bootstrap(np.median, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([152., 158.])</code></pre>
 </div>
 </div>
-<div id="e89c9a74-4a32-4acd-b99f-1c917dbd5f36" class="cell" data-execution_count="22">
+<div id="e89c9a74-4a32-4acd-b99f-1c917dbd5f36" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bootstrap(np.std, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>array([24.49565467, 28.28237091])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>array([24.52093543, 28.42205867])</code></pre>
 </div>
 </div>
-<div id="921ca807-5327-4a64-9f8d-916f85b69498" class="cell" data-execution_count="26">
+<div id="921ca807-5327-4a64-9f8d-916f85b69498" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bootstrap(<span class="kw">lambda</span> z: np.sqrt(np.var(z)), x, conflevel <span class="op">=</span> <span class="fl">0.98</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>array([24.18437635, 28.61959558])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([24.20485749, 28.84863963])</code></pre>
 </div>
 </div>
 <p><strong>Linear regression prediction</strong></p>
-<div id="ba2d2244-cd46-44a2-9b4e-495f65e72e56" class="cell" data-execution_count="27">
+<div id="ba2d2244-cd46-44a2-9b4e-495f65e72e56" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression(theta, data):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> data[<span class="st">"x"</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> data[<span class="st">"y"</span>]</span>
@@ -185,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    b1 <span class="op">=</span> theta[<span class="dv">1</span>]</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>( (y <span class="op">-</span> (b0 <span class="op">+</span> b1 <span class="op">*</span> x)) <span class="op">**</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="911fb707-e234-4023-ad49-d9dd37c9a51e" class="cell" data-execution_count="28">
+<div id="911fb707-e234-4023-ad49-d9dd37c9a51e" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_grad(theta, data):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> data[<span class="st">"x"</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> data[<span class="st">"y"</span>]</span>
@@ -196,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    db1 <span class="op">=</span> np.<span class="bu">sum</span>( x <span class="op">*</span> (y <span class="op">-</span> lm) )</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> np.array([db0, db1])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b03c5beb-b953-41ff-8af2-522cf17999d5" class="cell" data-execution_count="38">
+<div id="b03c5beb-b953-41ff-8af2-522cf17999d5" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>init <span class="op">=</span> rng.normal(size <span class="op">=</span> <span class="dv">2</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
@@ -205,13 +206,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>o <span class="op">=</span> minimize(ll_regression, init, jac <span class="op">=</span> ll_grad, args <span class="op">=</span> (d,))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="535c7872-131b-4e01-871b-6d79deb81722" class="cell" data-execution_count="30">
+<div id="535c7872-131b-4e01-871b-6d79deb81722" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>o.x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
-<pre><code>array([-309.30049357,    4.55262576])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>array([-309.30049353,    4.55262576])</code></pre>
 </div>
 </div>
-<div id="78162fa1-3b11-4857-aa5d-128b884e20cc" class="cell" data-execution_count="34">
+<div id="78162fa1-3b11-4857-aa5d-128b884e20cc" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(df[<span class="st">"Height"</span>], df[<span class="st">"Weight"</span>])</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y0 <span class="op">=</span> np.<span class="bu">sum</span>(o.x <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">50</span>]))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> np.<span class="bu">sum</span>(o.x <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">120</span>]))</span>
@@ -224,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="eb76b04a-4ed3-455d-bf27-4bd6becb4970" class="cell" data-execution_count="72">
+<div id="eb76b04a-4ed3-455d-bf27-4bd6becb4970" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># work in progress; right idea, but needed new</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. function T</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. data structure</span></span>
@@ -243,103 +244,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        ws[r] <span class="op">=</span> np.<span class="bu">sum</span>(o.x <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">80</span>]))</span>
 <span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.quantile(ws, [<span class="fl">0.025</span>, <span class="fl">0.975</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1fa6aa06-59e6-4bc2-a79c-df2667172e1d" class="cell" data-execution_count="39">
+<div id="1fa6aa06-59e6-4bc2-a79c-df2667172e1d" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(o.x <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">80</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
-<pre><code>54.909567021620944</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>54.909567021646296</code></pre>
 </div>
 </div>
-<div id="7659b730-679f-40f0-8493-36efd521374a" class="cell" data-execution_count="46">
+<div id="7659b730-679f-40f0-8493-36efd521374a" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># leaving this here so we can reproduce it</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(df[<span class="st">"Height"</span>], df[<span class="st">"Weight"</span>])</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    y0 <span class="op">=</span> np.<span class="bu">sum</span>(coefs[r] <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">50</span>]))</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    y1 <span class="op">=</span> np.<span class="bu">sum</span>(coefs[r] <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">120</span>]))</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.array([<span class="dv">50</span>, <span class="dv">120</span>]), np.array([y0, y1]), color <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[15], line 4</span>
+<span class="ansi-green-fg ansi-bold">      2</span> plt<span style="color:rgb(98,98,98)">.</span>scatter(df[<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Height</span><span style="color:rgb(175,0,0)">"</span>], df[<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Weight</span><span style="color:rgb(175,0,0)">"</span>])
+<span class="ansi-green-fg ansi-bold">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> r <span style="font-weight:bold;color:rgb(175,0,255)">in</span> <span style="color:rgb(0,135,0)">range</span>(R):
+<span class="ansi-green-fg">----&gt; 4</span>     y0 <span style="color:rgb(98,98,98)">=</span> np<span style="color:rgb(98,98,98)">.</span>sum(<span class="ansi-yellow-bg">coefs</span>[r] <span style="color:rgb(98,98,98)">*</span> np<span style="color:rgb(98,98,98)">.</span>array([<span style="color:rgb(98,98,98)">1</span>, <span style="color:rgb(98,98,98)">50</span>]))
+<span class="ansi-green-fg ansi-bold">      5</span>     y1 <span style="color:rgb(98,98,98)">=</span> np<span style="color:rgb(98,98,98)">.</span>sum(coefs[r] <span style="color:rgb(98,98,98)">*</span> np<span style="color:rgb(98,98,98)">.</span>array([<span style="color:rgb(98,98,98)">1</span>, <span style="color:rgb(98,98,98)">120</span>]))
+<span class="ansi-green-fg ansi-bold">      6</span>     plt<span style="color:rgb(98,98,98)">.</span>plot(np<span style="color:rgb(98,98,98)">.</span>array([<span style="color:rgb(98,98,98)">50</span>, <span style="color:rgb(98,98,98)">120</span>]), np<span style="color:rgb(98,98,98)">.</span>array([y0, y1]), color <span style="color:rgb(98,98,98)">=</span> <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">black</span><span style="color:rgb(175,0,0)">"</span>, alpha <span style="color:rgb(98,98,98)">=</span> <span style="color:rgb(98,98,98)">0.01</span>);
+
+<span class="ansi-red-fg">NameError</span>: name 'coefs' is not defined</pre>
+</div>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="bootstrap_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="bootstrap_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="b6e97b7f-b056-49c9-8cb2-e1ec9d03019d" class="cell" data-execution_count="113">
+<div id="b6e97b7f-b056-49c9-8cb2-e1ec9d03019d" class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">6</span>], [<span class="dv">2</span>, <span class="dv">7</span>], [<span class="dv">3</span>, <span class="dv">8</span>], [<span class="dv">4</span>, <span class="dv">9</span>], [<span class="dv">5</span>, <span class="dv">10</span>]])</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="113">
-<pre><code>array([[ 1,  6],
-       [ 2,  7],
-       [ 3,  8],
-       [ 4,  9],
-       [ 5, 10]])</code></pre>
 </div>
+<div id="0e607ba2-1dcd-43df-811d-e23c5784a0d6" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a[[<span class="dv">2</span>, <span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0e607ba2-1dcd-43df-811d-e23c5784a0d6" class="cell" data-execution_count="114">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a[[<span class="dv">2</span>, <span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="114">
-<pre><code>array([[3, 8],
-       [2, 7]])</code></pre>
+<div id="4fe25afb-8da5-4e67-8de8-f1404358b55f" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>: , <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="c15302b0-6415-4178-b096-db184e06f5dd" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">2</span>:<span class="dv">4</span>, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4fe25afb-8da5-4e67-8de8-f1404358b55f" class="cell" data-execution_count="115">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>: , <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="115">
-<pre><code>array([ 7,  8,  9, 10])</code></pre>
+<div id="2e4d390e-90d2-4e4a-91b2-657eb3b6dd23" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(a, axis <span class="op">=</span> <span class="dv">0</span>) <span class="co"># collapse 0th axis, left with 2 columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="d4c61868-4324-4ce9-926e-5b671b28f141" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(a, axis <span class="op">=</span> <span class="dv">1</span>) <span class="co"># collapse 1st axis, left with 5 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c15302b0-6415-4178-b096-db184e06f5dd" class="cell" data-execution_count="117">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">2</span>:<span class="dv">4</span>, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="117">
-<pre><code>array([8, 9])</code></pre>
+<div id="99a92737-5f4d-4a04-8945-4d7f906be1c1" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.shape(df)[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="5ee8d9af-4a70-47c9-8716-a20f81fe3980" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.c_[df[<span class="st">"Weight"</span>], np.ones(N), df[<span class="st">"Height"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2e4d390e-90d2-4e4a-91b2-657eb3b6dd23" class="cell" data-execution_count="134">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(a, axis <span class="op">=</span> <span class="dv">0</span>) <span class="co"># collapse 0th axis, left with 2 columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="134">
-<pre><code>array([15, 40])</code></pre>
+<div id="b4434baa-51c8-460f-afd6-b675c76a22c0" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression(theta, data):</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> data[:, <span class="dv">1</span>:]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> data[:, <span class="dv">0</span>]</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    lm <span class="op">=</span> np.<span class="bu">sum</span>(X <span class="op">*</span> theta, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>( (y <span class="op">-</span> lm) <span class="op">**</span> <span class="dv">2</span> )</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_grad(theta, data):</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> data[:, <span class="dv">1</span>:]</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> X[:, <span class="dv">1</span>]</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> data[:, <span class="dv">0</span>]</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    lm <span class="op">=</span> np.<span class="bu">sum</span>(X <span class="op">*</span> theta, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    db0 <span class="op">=</span> np.<span class="bu">sum</span>(y <span class="op">-</span> lm)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    db1 <span class="op">=</span> np.<span class="bu">sum</span>( height <span class="op">*</span> (y <span class="op">-</span> lm) )</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> np.array([db0, db1])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="e7640550-b1d7-46c4-8d7f-f7f0540edbd1" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression_prediction(data, <span class="op">**</span>kwargs):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    init <span class="op">=</span> rng.normal(size <span class="op">=</span> np.shape(data[:, <span class="dv">1</span>:])[<span class="dv">1</span>])</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    o <span class="op">=</span> minimize(ll_regression, init, jac <span class="op">=</span> ll_grad, args <span class="op">=</span> (data,))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(o.x <span class="op">*</span> np.array(kwargs[<span class="st">"xnew"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d4c61868-4324-4ce9-926e-5b671b28f141" class="cell" data-execution_count="135">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(a, axis <span class="op">=</span> <span class="dv">1</span>) <span class="co"># collapse 1st axis, left with 5 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="135">
-<pre><code>array([ 7,  9, 11, 13, 15])</code></pre>
-</div>
-</div>
-<div id="99a92737-5f4d-4a04-8945-4d7f906be1c1" class="cell" data-execution_count="118">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.shape(df)[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="5ee8d9af-4a70-47c9-8716-a20f81fe3980" class="cell" data-execution_count="124">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.c_[df[<span class="st">"Weight"</span>], np.ones(N), df[<span class="st">"Height"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="b4434baa-51c8-460f-afd6-b675c76a22c0" class="cell" data-execution_count="125">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression(theta, data):</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> data[:, <span class="dv">1</span>:]</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> data[:, <span class="dv">0</span>]</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    lm <span class="op">=</span> np.<span class="bu">sum</span>(X <span class="op">*</span> theta, axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>( (y <span class="op">-</span> lm) <span class="op">**</span> <span class="dv">2</span> )</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return np.sum( (y - (b0 + b1 * x)) ** 2)</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_grad(theta, data):</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> data[:, <span class="dv">1</span>:]</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> X[:, <span class="dv">1</span>]</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> data[:, <span class="dv">0</span>]</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    lm <span class="op">=</span> np.<span class="bu">sum</span>(X <span class="op">*</span> theta, axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    db0 <span class="op">=</span> np.<span class="bu">sum</span>(y <span class="op">-</span> lm)</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    db1 <span class="op">=</span> np.<span class="bu">sum</span>( height <span class="op">*</span> (y <span class="op">-</span> lm) )</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> np.array([db0, db1])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="e7640550-b1d7-46c4-8d7f-f7f0540edbd1" class="cell" data-execution_count="131">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression_prediction(data):</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng()</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    init <span class="op">=</span> rng.normal(size <span class="op">=</span> np.shape(data[:, <span class="dv">1</span>:])[<span class="dv">1</span>])</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    o <span class="op">=</span> minimize(ll_regression, init, jac <span class="op">=</span> ll_grad, args <span class="op">=</span> (data,))</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(o.x <span class="op">*</span> np.array([<span class="dv">1</span>, <span class="dv">80</span>])) <span class="co"># hard-coded x-axis value; FIX ME</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="4651a8fd-e05a-45a3-b861-af679c9eebb2" class="cell" data-execution_count="132">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>bootstrap(ll_regression_prediction, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="132">
-<pre><code>array([46.93162516, 62.56315071])</code></pre>
+<div id="4651a8fd-e05a-45a3-b861-af679c9eebb2" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>bootstrap(ll_regression_prediction, data, xnew <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">80</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>array([46.64412514, 63.03909406])</code></pre>
 </div>
 </div>
 
