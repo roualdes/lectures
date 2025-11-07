@@ -1,0 +1,324 @@
+---
+title: "Linear Regression Assumptions"
+affiliation: "CSU, Chico MATH 315"
+author: "Edward A. Roualdes"
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    code-fold: true
+    self-contained: true
+tbl-cap-location: bottom
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+library(dplyr)
+
+theme_set(
+    theme_minimal(base_size = 16)
+)
+update_geom_defaults("line", list(size = 1.1))
+
+lmData <- function(n, int=-1, sd=1, slope=pi, from=0, to=10) {
+    x = seq(from=from, to=to, length.out=n)
+    y = int + slope*x + rnorm(n, sd=sd)
+    data.frame(x=x, y=y)
+}
+
+nlmData <- function(n, sign=1, sd=10, from=0, to=5) {
+    x = seq(from=from, to=to, length.out=n)
+    y = sign*exp(x) + rnorm(n, sd=sd)
+    data.frame(x=x, y=y)
+}
+```
+
+
+## Linear Regression Assumptions
+
+There are four assumptions about linear regression, three of which are
+relatively straightforward
+
+* Linearity -- the data should show a linear trend.
+
+* Independent observations -- no two points are dependent on each
+  other.
+
+* Constant Variability -- variation of points around least squares
+  line remains roughly constant.
+
+* Normality -- the residuals should be nearly normal.
+
+## Checking Assumptions, linearity and constant variation
+
+Scatter plots of (standardized) residuals (y-axis) on fitted values (x-axis) help you
+check the assumptions
+
+* linearity
+* constant variation
+
+## Linearity
+
+Good.
+
+```{r echo = FALSE}
+data <- lmData(113)
+fit <- lm(y~x, data=data)
+dfr <- data.frame(yhat = fitted(fit), r = rstandard(fit))
+
+ggplot(data = dfr, aes(yhat, r)) +
+    geom_point() +
+    geom_hline(aes(yintercept=0)) +
+    labs(xlab=expression(hat(y)), ylab="Residuals")
+```
+
+## Linearity
+
+What do we like about the above plot?
+
+* Linearity?  Yes, because no consistent pattern to the data.
+
+## Linearity
+
+Imagine we fit linear regression to non-linear data.
+
+```{r echo = FALSE}
+data2 <- nlmData(104)
+qplot(x, y, data=data2) + stat_smooth(method="lm", se=FALSE)
+```
+
+## Linearity
+
+Bad. The residuals are not randomly scattered about, but instead have
+a clear pattern.
+
+```{r echo = FALSE}
+nlfit <- lm(y~x, data=data2)
+qplot(fitted(nlfit), rstandard(nlfit), xlab=expression(hat(y)), ylab="Residuals") +
+    geom_hline(aes(yintercept=0))
+```
+
+## Linearity
+
+Good.
+
+```{r echo=FALSE}
+data <- lmData(113)
+fit <- lm(y~x, data=data)
+qplot(fitted(fit), rstandard(fit), xlab=expression(hat(y)), ylab="Residuals") +
+        geom_hline(aes(yintercept=0))
+```
+
+Residuals show no clear pattern as a function of $\hat{y}$.
+
+## Constant Variation
+
+What do we like about the above plot?
+
+* Linearity?  Yes, because no consistent trend to the data.
+
+* Constant Variability?  Yes, because no (horizontal) megaphone/cone
+  (nor alligator/pacman mouth).
+
+## Constant Variation
+
+Imagine we fit linear regression to data with non-constant variability.
+
+```{r}
+vardata <- lmData(125, sd=seq(1, 10, length.out=125))
+qplot(x, y, data=vardata) + stat_smooth(method="lm", se=FALSE)
+```
+
+## Constant Variation
+
+Bad. The residuals have non-constant variation along the fitted values.
+
+```{r echo = FALSE}
+vardata <- lmData(125, sd=seq(1, 10, length.out=125))
+varfit <- lm(y~x, data=vardata)
+qplot(fitted(varfit), rstandard(varfit), xlab=expression(hat(y)), ylab="Residuals") +
+    geom_hline(aes(yintercept=0))
+```
+
+## Constant Variation
+
+Good.
+
+```{r echo = FALSE}
+data <- lmData(113)
+fit <- lm(y~x, data=data)
+dfr <- data.frame(
+    yhat = fitted(fit),
+    r = rstandard(fit)
+)
+ggplot(dfr, aes(yhat, r)) +
+    geom_point() +
+    geom_hline(aes(yintercept=0)) +
+    labs(xlab=expression(hat(y)), ylab="Residuals")
+```
+
+
+
+* residuals show no clear pattern as a function of $\hat{y}$, and
+* all residuals have roughly equal (vertical) width.
+
+## Residuals on Fitted Values
+
+To make plots of the residuals on the fitted values,
+
+```{r eval = FALSE}
+## fake code
+fit <- lm(y~x, data=data) # first fit a model
+dfr <- data.frame(
+    yhat = fitted(fit), # fitted values
+    r = rstandard(fit)  # standardized residuals
+)
+ggplot(dfr, aes(yhat, r)) +
+    geom_point() +
+    geom_hline(aes(yintercept=0))
+```
+
+## Normality
+
+To check the normality of the residuals, make a histogram of the
+residuals.  Ask, do they seem normal-ish?
+
+```{r echo = FALSE}
+ggplot(dfr, aes(r)) + geom_histogram(bins = 15)
+```
+
+## Histogram of Residuals
+
+To make histograms of standardized residuals,
+
+```{r eval = FALSE}
+## fake code
+fit <- lm(y~x, data=data)
+dfr <- data.frame(r = rstandard(fit))
+ggplot(dfr, aes(r)) + geom_histogram()
+```
+
+## Independence
+
+If the information is available, you could plot residuals in the order
+that they were recorded, though this information is not always
+available.
+
+Often times you simply need think carefully about how the data were
+collected.
+
+## Potential Outliers
+
+We could define outliers as observations that have large residuals.
+Naturally then, the next question is, ``How large is large?''  We use
+the normality assumption to help answer this question.
+
+## Potential Outliers
+
+Let's standardize the residuals to the standard normal distribution,
+$N(0,1)$.  Since the mean of the residuals will always\footnote{This
+is a mathematical fact.} be equal to zero, we simply divide by the
+appropriate standard deviation
+
+$$r_i = \frac{e_i}{\sigma_{e_i}}$$
+
+The `R` function `rstandard` will do this for you.
+
+## Potential Outliers
+
+Any observation more than three standard deviations away from the mean
+could be considered an outlier.  It isn't difficult to find such
+standardized residuals, but it is difficult to find the observations
+these large residuals correspond to.
+
+```{r eval = FALSE}
+## fake code
+r <- rstandard(fit) # standardized residuals
+## named indices where r is greater than 3
+which(abs(r) > 3)
+```
+
+## Potential Outliers
+
+Outliers in linear regression are tough.  Sometimes they heavily
+influence your least squares line.  General recommendations:
+
+* fit linear regression with and without outliers
+* report qualitative and quantitative differences in the models
+* if you are convinced that the outlier(s) is(are) in error
+  - you better have good reason to justify exclusion, state the reason
+  - not liking the model with the point(s) included is not good reason
+
+
+
+## Example
+
+Let's return to the data frame \texttt{openintro::elmhurst}.  First
+use linear regression to predict \texttt{gift\_aid} with
+\texttt{family\_income}, then calculate the data we need.
+
+```{r}
+url <- "https://raw.githubusercontent.com/roualdes/data/refs/heads/master/elmhurst.csv"
+elmhurst <- read.csv(url)
+fit <- lm(gift_aid ~ family_income, data=elmhurst)
+dfr <- data.frame(
+    yhat = fitted(fit),
+    r = rstandard(fit)
+)
+```
+
+## Example
+
+Residuals on fitted values
+
+```{r}
+ggplot(dfr, aes(yhat, r)) +
+    geom_point() +
+    geom_hline(aes(yintercept = 0))
+```
+
+## Example
+
+Histogram of residuals
+
+```{r}
+ggplot(dfr, aes(r)) +
+    geom_histogram(binwidth = 1/3)
+```
+
+## Example
+
+```{r}
+r <- dfr$r
+(idx <- which(abs(r) > 3))
+(jdx <- which(abs(r) > 2))
+(xout <- elmhurst[jdx, "family_income"])
+(yout <- elmhurst[jdx, "gift_aid"])
+```
+
+
+## Example
+
+```{r}
+ggplot(data=elmhurst, aes(family_income, gift_aid),
+       ylab="Gift aid ($1000)",
+       xlab="Family income ($1000)") +
+    geom_point() +
+    stat_smooth(method="lm", se=FALSE) +
+    geom_point(data=data.frame(x=xout, y=yout), aes(x, y), colour="red")
+```
+
+## Take Away
+
+Checking model assumptions is not easy skill, but the plots aren't bad.  Plots, yet again, help.
+
+* Use standardized residuals.
+* Common plots to help check assumptions
+  - Residuals on fitted -- scatter plot
+  - histogram of residuals
+* Outliers are tough
+  - You better have good, explicitly stated reason to report only the
+    data set and subsequent model with the outliers removed
