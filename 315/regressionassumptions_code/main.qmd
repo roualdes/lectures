@@ -1,0 +1,106 @@
+---
+title: "Multiple Linear Regression, unique intercepts"
+format: html
+editor: visual
+---
+
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+```
+
+We'll use the dataset that is built into R named `mtcars` to predict `mpg` using both `cyl`, the number of cylinders the car has, and `wt`, the weight of the car in thousands of pounds. First we'll fit the model and then immediately check assumptions before interpretting the model -- you don't want to waste your time interpretting a not good model.
+
+```{r}
+data(mtcars)
+```
+
+```{r}
+# Step 0: plot the data!
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+```
+
+```{r}
+fit <- lm(mpg ~ factor(cyl) + wt, data = mtcars)
+```
+
+
+```{r}
+yhat <- fitted(fit)
+#r <- residuals(fit)
+r <- rstandard(fit) # also check for outliers
+df <- data.frame(yhat = yhat, residuals = r)
+```
+
+Using the scatter plot of standardized residuals on yhat, we can check both linearity and constant variation.
+
+```{r}
+ggplot(df, aes(yhat, residuals)) + 
+  geom_point()
+```
+
+There is slight indication of a broken assumption, specifically constant variation.  But because there are no obvious outliers which are contributing to breaking the assumption of constant variation, were kind of stuck in the gray area.  I'd personally note the slight aberration and then go about my business interpreting the model.
+
+Check normality with a histogram of the standardized residuals.  Any departures from normality indicate the assumption of normality is broken.  If any standardized residual is greater than 3 or less than -3, the observation that residual came from could be considered an outlier.
+
+```{r}
+ggplot(df, aes(residuals)) + 
+  geom_histogram(bins = 13)
+# adjust the bins until it looks reasonable
+```
+
+The plot doesn't look strictly normal, but it is fairly symmetric and unimodel (one hump), so that's good enough.
+
+Next, we'll interpret the output.
+
+```{r}
+summary(fit)
+```
+
+The rest of this tries to capture follow up points made about the models and/or questions asked in class.
+
+Notice that including the variable `cyl` as a numeric variable in the model does increase the adjusted $R^2$. Because we can't have $3.14$ cylinders in a car, though, we should include `cyl` as a categorical/factor explanatory variable.
+
+```{r}
+summary(lm(mpg ~ wt, data = mtcars))$adj.r.squared
+# add cyl as numeric, increases R^2, but not great in theory
+summary(lm(mpg ~ cyl + wt, data = mtcars))$adj.r.squared
+# add cyl as factor, best
+summary(lm(mpg ~ factor(cyl) + wt, data = mtcars))$adj.r.squared
+```
+
+"Can we plot the model we just fit, where we have unique intercepts (per level of `cyl`) and a shared slope across the numeric variable `wt`?"
+
+Yes, but not easily. It's not easy, because by default ggplot2 plots unique intercepts and unique slopes.  The model we fit above has unique intercepts and a shared slope (parallel lines).
+
+```{r}
+ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+To get an appropriate representation of the model we fit, you have to ask ggplot2 real nice.
+
+
+```{r}
+beta <- coef(fit)
+lvls <- factor(unique(mtcars$cyl))
+ints <- predict(fit, newdata = data.frame(cyl = lvls, wt = 0))
+slp <- beta[4]
+
+dfp <- data.frame(intercept = ints, slope = slp, g = lvls)
+
+ggplot() +
+  geom_point(data = mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_abline(data = dfp, 
+              aes(intercept = intercept, 
+                  slope = slope, 
+                  color = g))
+# making you all reproduce this code is mean, but how about interpreting the code?
+```
+
+
+
+
