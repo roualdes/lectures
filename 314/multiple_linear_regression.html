@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quiz06 – lectures</title>
+<title>multiple_linear_regression – lectures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -116,38 +119,322 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="quiz06.out.ipynb" download="quiz06.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="multiple_linear_regression.out.ipynb" download="multiple_linear_regression.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
-<div id="290e7a1d-3439-48e9-b160-8544ac8bf23c" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="16a47198-130e-4552-9d9f-9593ef46716b" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm <span class="co"># pip install -U statsmodels patsy </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> patsy <span class="im">as</span> pt </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="54e740ba-c8cf-4dc8-b6e6-aafb6aa8a844" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cummean(x):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.size(x)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> np.zeros(N) <span class="co"># np.zeros_like(x)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(N):</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        s <span class="op">+=</span> x[n]</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        out[n] <span class="op">=</span> s <span class="op">/</span> (n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a67e17c8-3bbc-4aff-828c-6902eff2b8ee" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/finches.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="92d93063-7e78-4acc-b34a-0456d6502ec4" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng()</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> rng.normal(size <span class="op">=</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="701c5fb3-c4cd-4e52-a02d-a4571fa4a1e2" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">winglength</th>
+<th data-quarto-table-cell-role="th">taillength</th>
+<th data-quarto-table-cell-role="th">beakwidth</th>
+<th data-quarto-table-cell-role="th">beakheight</th>
+<th data-quarto-table-cell-role="th">lowerbeaklength</th>
+<th data-quarto-table-cell-role="th">upperbeaklength</th>
+<th data-quarto-table-cell-role="th">tarsuslength</th>
+<th data-quarto-table-cell-role="th">middletoelength</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>santacruz</td>
+<td>63.5</td>
+<td>40.0</td>
+<td>9.0</td>
+<td>11.0</td>
+<td>9.0</td>
+<td>16.0</td>
+<td>20.0</td>
+<td>18.5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>santacruz</td>
+<td>69.5</td>
+<td>41.0</td>
+<td>9.0</td>
+<td>12.0</td>
+<td>8.5</td>
+<td>16.0</td>
+<td>21.2</td>
+<td>19.5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>santacruz</td>
+<td>70.0</td>
+<td>44.0</td>
+<td>9.2</td>
+<td>12.0</td>
+<td>8.5</td>
+<td>16.0</td>
+<td>21.0</td>
+<td>18.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>santacruz</td>
+<td>70.0</td>
+<td>43.5</td>
+<td>9.2</td>
+<td>11.2</td>
+<td>8.5</td>
+<td>16.2</td>
+<td>20.5</td>
+<td>19.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>santacruz</td>
+<td>70.5</td>
+<td>42.0</td>
+<td>9.5</td>
+<td>12.0</td>
+<td>8.5</td>
+<td>16.5</td>
+<td>22.0</td>
+<td>19.2</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<div id="b64e1d74-ce84-4b1c-bf84-3b1665b887c4" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.arange(<span class="dv">100</span>), cummean(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="67372215-f873-4d2d-9bec-6632622730ad" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(df[<span class="st">"beakwidth"</span>], df[<span class="st">"winglength"</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="quiz06_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="multiple_linear_regression_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
+</div>
+</div>
+</div>
+<div id="612d1399-deb3-486e-9a20-318228cfdecc" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y, X <span class="op">=</span> pt.dmatrices(<span class="st">"winglength ~ beakwidth"</span>, data <span class="op">=</span> df) <span class="co"># design matricess</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="d95ddd6b-a448-499b-a8d5-4d9eb8cadc0e" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">"winglength ~ island + beakwidth"</span>, data <span class="op">=</span> df)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> model.fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="726fe3ab-a23b-4b1b-adf3-72d0284c7111" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>OLS Regression Results</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dep. Variable:</th>
+<td>winglength</td>
+<th data-quarto-table-cell-role="th">R-squared:</th>
+<td>0.763</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Model:</th>
+<td>OLS</td>
+<th data-quarto-table-cell-role="th">Adj. R-squared:</th>
+<td>0.752</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Method:</th>
+<td>Least Squares</td>
+<th data-quarto-table-cell-role="th">F-statistic:</th>
+<td>68.81</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Date:</th>
+<td>Wed, 12 Nov 2025</td>
+<th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
+<td>5.32e-20</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Time:</th>
+<td>13:30:28</td>
+<th data-quarto-table-cell-role="th">Log-Likelihood:</th>
+<td>-141.84</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">No. Observations:</th>
+<td>68</td>
+<th data-quarto-table-cell-role="th">AIC:</th>
+<td>291.7</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Df Residuals:</th>
+<td>64</td>
+<th data-quarto-table-cell-role="th">BIC:</th>
+<td>300.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Df Model:</th>
+<td>3</td>
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Covariance Type:</th>
+<td>nonrobust</td>
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">[0.025</th>
+<th data-quarto-table-cell-role="th">0.975]</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Intercept</th>
+<td>48.6534</td>
+<td>1.632</td>
+<td>29.821</td>
+<td>0.000</td>
+<td>45.394</td>
+<td>51.913</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">island[T.sancristobal]</th>
+<td>-1.6948</td>
+<td>0.578</td>
+<td>-2.932</td>
+<td>0.005</td>
+<td>-2.849</td>
+<td>-0.540</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">island[T.santacruz]</th>
+<td>-1.5701</td>
+<td>0.660</td>
+<td>-2.379</td>
+<td>0.020</td>
+<td>-2.889</td>
+<td>-0.251</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">beakwidth</th>
+<td>2.3520</td>
+<td>0.165</td>
+<td>14.284</td>
+<td>0.000</td>
+<td>2.023</td>
+<td>2.681</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Omnibus:</th>
+<td>3.560</td>
+<th data-quarto-table-cell-role="th">Durbin-Watson:</th>
+<td>1.897</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Prob(Omnibus):</th>
+<td>0.169</td>
+<th data-quarto-table-cell-role="th">Jarque-Bera (JB):</th>
+<td>2.913</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Skew:</th>
+<td>-0.390</td>
+<th data-quarto-table-cell-role="th">Prob(JB):</th>
+<td>0.233</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Kurtosis:</th>
+<td>2.351</td>
+<th data-quarto-table-cell-role="th">Cond. No.</th>
+<td>69.8</td>
+</tr>
+</tbody>
+</table>
+<br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</div>
+</div>
+<div id="d952ba91-044c-4bc0-8626-224d9d2f4581" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, gdf <span class="kw">in</span> df.groupby([<span class="st">"island"</span>]):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(gdf[<span class="st">"beakwidth"</span>], gdf[<span class="st">"winglength"</span>], label <span class="op">=</span> name[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="multiple_linear_regression_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="217fada6-b855-4b16-a454-15369f531411" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xnew <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">12</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"beakwidth"</span>: xnew, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"island"</span>: [<span class="st">"floreana"</span>, <span class="st">"floreana"</span>]})</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ndf[<span class="st">"yhat"</span>] <span class="op">=</span> fit.predict(ndf)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ndf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">beakwidth</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">yhat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>5</td>
+<td>floreana</td>
+<td>60.413616</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>12</td>
+<td>floreana</td>
+<td>76.877965</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
