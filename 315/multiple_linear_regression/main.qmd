@@ -1,0 +1,51 @@
+---
+title: "Multiple Linear Regression"
+format: html
+editor: visual
+---
+
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+
+data(mtcars)
+```
+
+
+# linear regression is linear in a special way
+
+In linear regression, we mean linear in the coefficients. So transformations on $y$ or $x$ are encouraged.
+
+```{r}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() + 
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2),
+              se = FALSE)
+
+fit <- lm(mpg ~ poly(wt, 2), data = mtcars)
+```
+
+
+```{r}
+fit <- lm(log10(mpg) ~ log10(wt), data = mtcars)
+
+o <- order(mtcars$wt)
+yhat <- 10 ^ predict(fit, newdata = data.frame(wt = mtcars$wt[o]))
+df <- data.frame(yhat = yhat, wt = mtcars$wt[o])
+
+ggplot() +
+  geom_point(data = mtcars, aes(wt, mpg)) +
+  geom_line(data = df, aes(wt, yhat))
+```
+
+# linear regression with multiple numeric explanatory variables
+
+
+```{r}
+fit <- lm(mpg ~ wt + disp + hp, data = mtcars)
+summary(fit)
+predict(fit, newdata = data.frame(wt = 4, disp = 160, hp = 93))
+confint(fit)
+```
+
+
