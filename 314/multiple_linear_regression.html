@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div id="16a47198-130e-4552-9d9f-9593ef46716b" class="cell" data-execution_count="12">
+<div id="16a47198-130e-4552-9d9f-9593ef46716b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -134,12 +134,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> patsy <span class="im">as</span> pt </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a67e17c8-3bbc-4aff-828c-6902eff2b8ee" class="cell" data-execution_count="2">
+<div id="a67e17c8-3bbc-4aff-828c-6902eff2b8ee" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/finches.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="701c5fb3-c4cd-4e52-a02d-a4571fa4a1e2" class="cell" data-execution_count="3">
+<div id="701c5fb3-c4cd-4e52-a02d-a4571fa4a1e2" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -225,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="67372215-f873-4d2d-9bec-6632622730ad" class="cell" data-execution_count="5">
+<div id="67372215-f873-4d2d-9bec-6632622730ad" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(df[<span class="st">"beakwidth"</span>], df[<span class="st">"winglength"</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -235,16 +235,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="612d1399-deb3-486e-9a20-318228cfdecc" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y, X <span class="op">=</span> pt.dmatrices(<span class="st">"winglength ~ beakwidth"</span>, data <span class="op">=</span> df) <span class="co"># design matricess</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="612d1399-deb3-486e-9a20-318228cfdecc" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y, X <span class="op">=</span> pt.dmatrices(<span class="st">"winglength ~ island + beakwidth"</span>, data <span class="op">=</span> df) <span class="co"># design matricess</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X[<span class="dv">20</span>:<span class="dv">40</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>array([[ 1. ,  1. ,  0. , 10. ],
+       [ 1. ,  1. ,  0. , 10.2],
+       [ 1. ,  1. ,  0. , 11. ],
+       [ 1. ,  1. ,  0. , 10.5],
+       [ 1. ,  1. ,  0. , 11. ],
+       [ 1. ,  1. ,  0. , 10. ],
+       [ 1. ,  1. ,  0. , 12. ],
+       [ 1. ,  1. ,  0. , 11. ],
+       [ 1. ,  1. ,  0. , 11. ],
+       [ 1. ,  1. ,  0. ,  9.5],
+       [ 1. ,  1. ,  0. , 11. ],
+       [ 1. ,  1. ,  0. , 10.2],
+       [ 1. ,  1. ,  0. , 12. ],
+       [ 1. ,  1. ,  0. , 11.5],
+       [ 1. ,  1. ,  0. , 11.5],
+       [ 1. ,  1. ,  0. , 11.2],
+       [ 1. ,  1. ,  0. , 12. ],
+       [ 1. ,  1. ,  0. , 12.2],
+       [ 1. ,  1. ,  0. , 12.5],
+       [ 1. ,  1. ,  0. , 11.5]])</code></pre>
 </div>
-<div id="d95ddd6b-a448-499b-a8d5-4d9eb8cadc0e" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">"winglength ~ island + beakwidth"</span>, data <span class="op">=</span> df)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> model.fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="726fe3ab-a23b-4b1b-adf3-72d0284c7111" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div id="d95ddd6b-a448-499b-a8d5-4d9eb8cadc0e" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">"winglength ~ island * beakwidth"</span>, data <span class="op">=</span> df)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> model.fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="726fe3ab-a23b-4b1b-adf3-72d0284c7111" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <table class="simpletable caption-top table table-sm table-striped small">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -252,47 +275,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">Dep. Variable:</th>
 <td>winglength</td>
 <th data-quarto-table-cell-role="th">R-squared:</th>
-<td>0.763</td>
+<td>0.771</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Model:</th>
 <td>OLS</td>
 <th data-quarto-table-cell-role="th">Adj. R-squared:</th>
-<td>0.752</td>
+<td>0.753</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Method:</th>
 <td>Least Squares</td>
 <th data-quarto-table-cell-role="th">F-statistic:</th>
-<td>68.81</td>
+<td>41.82</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Wed, 12 Nov 2025</td>
+<td>Thu, 13 Nov 2025</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
-<td>5.32e-20</td>
+<td>1.30e-18</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>13:30:28</td>
+<td>13:49:11</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
-<td>-141.84</td>
+<td>-140.68</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">No. Observations:</th>
 <td>68</td>
 <th data-quarto-table-cell-role="th">AIC:</th>
-<td>291.7</td>
+<td>293.4</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Df Residuals:</th>
-<td>64</td>
+<td>62</td>
 <th data-quarto-table-cell-role="th">BIC:</th>
-<td>300.6</td>
+<td>306.7</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Df Model:</th>
-<td>3</td>
+<td>5</td>
 <th data-quarto-table-cell-role="th"></th>
 <td></td>
 </tr>
@@ -319,39 +342,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Intercept</th>
-<td>48.6534</td>
-<td>1.632</td>
-<td>29.821</td>
+<td>49.0160</td>
+<td>2.211</td>
+<td>22.172</td>
 <td>0.000</td>
-<td>45.394</td>
-<td>51.913</td>
+<td>44.597</td>
+<td>53.435</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">island[T.sancristobal]</th>
-<td>-1.6948</td>
-<td>0.578</td>
-<td>-2.932</td>
-<td>0.005</td>
-<td>-2.849</td>
-<td>-0.540</td>
+<td>-0.0065</td>
+<td>3.812</td>
+<td>-0.002</td>
+<td>0.999</td>
+<td>-7.627</td>
+<td>7.615</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">island[T.santacruz]</th>
-<td>-1.5701</td>
-<td>0.660</td>
-<td>-2.379</td>
-<td>0.020</td>
-<td>-2.889</td>
-<td>-0.251</td>
+<td>-7.6337</td>
+<td>4.943</td>
+<td>-1.544</td>
+<td>0.128</td>
+<td>-17.514</td>
+<td>2.247</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">beakwidth</th>
-<td>2.3520</td>
-<td>0.165</td>
-<td>14.284</td>
+<td>2.3143</td>
+<td>0.226</td>
+<td>10.229</td>
 <td>0.000</td>
-<td>2.023</td>
-<td>2.681</td>
+<td>1.862</td>
+<td>2.767</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">island[T.sancristobal]:beakwidth</th>
+<td>-0.1547</td>
+<td>0.367</td>
+<td>-0.421</td>
+<td>0.675</td>
+<td>-0.889</td>
+<td>0.579</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">island[T.santacruz]:beakwidth</th>
+<td>0.5926</td>
+<td>0.484</td>
+<td>1.226</td>
+<td>0.225</td>
+<td>-0.374</td>
+<td>1.559</td>
 </tr>
 </tbody>
 </table>
@@ -361,37 +402,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Omnibus:</th>
-<td>3.560</td>
+<td>7.089</td>
 <th data-quarto-table-cell-role="th">Durbin-Watson:</th>
-<td>1.897</td>
+<td>2.007</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Prob(Omnibus):</th>
-<td>0.169</td>
+<td>0.029</td>
 <th data-quarto-table-cell-role="th">Jarque-Bera (JB):</th>
-<td>2.913</td>
+<td>3.781</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Skew:</th>
-<td>-0.390</td>
+<td>-0.362</td>
 <th data-quarto-table-cell-role="th">Prob(JB):</th>
-<td>0.233</td>
+<td>0.151</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Kurtosis:</th>
-<td>2.351</td>
+<td>2.100</td>
 <th data-quarto-table-cell-role="th">Cond. No.</th>
-<td>69.8</td>
+<td>256.</td>
 </tr>
 </tbody>
 </table>
 <br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 </div>
 </div>
-<div id="d952ba91-044c-4bc0-8626-224d9d2f4581" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, gdf <span class="kw">in</span> df.groupby([<span class="st">"island"</span>]):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(gdf[<span class="st">"beakwidth"</span>], gdf[<span class="st">"winglength"</span>], label <span class="op">=</span> name[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d952ba91-044c-4bc0-8626-224d9d2f4581" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, gdf <span class="kw">in</span> df.groupby([<span class="st">"island"</span>]):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(gdf[<span class="st">"beakwidth"</span>], gdf[<span class="st">"winglength"</span>], label <span class="op">=</span> name[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -400,13 +441,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="217fada6-b855-4b16-a454-15369f531411" class="cell" data-execution_count="28">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xnew <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">12</span>])</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"beakwidth"</span>: xnew, </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"island"</span>: [<span class="st">"floreana"</span>, <span class="st">"floreana"</span>]})</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ndf[<span class="st">"yhat"</span>] <span class="op">=</span> fit.predict(ndf)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ndf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div id="217fada6-b855-4b16-a454-15369f531411" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>xnew <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">12</span>])</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"beakwidth"</span>: xnew, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"island"</span>: [<span class="st">"floreana"</span>, <span class="st">"floreana"</span>]})</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ndf[<span class="st">"yhat"</span>] <span class="op">=</span> fit.predict(ndf)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ndf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -424,17 +465,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">0</th>
 <td>5</td>
 <td>floreana</td>
-<td>60.413616</td>
+<td>60.587695</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>12</td>
 <td>floreana</td>
-<td>76.877965</td>
+<td>76.788024</td>
 </tr>
 </tbody>
 </table>
 
+</div>
+</div>
+</div>
+<div id="14655b92-2367-43d8-b3a4-52d744f35308" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, gdf <span class="kw">in</span> df.groupby([<span class="st">"island"</span>]):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(gdf[<span class="st">"beakwidth"</span>], gdf[<span class="st">"winglength"</span>], label <span class="op">=</span> name[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    xnew <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">12</span>])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"beakwidth"</span>: xnew, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"island"</span>: [name[<span class="dv">0</span>], name[<span class="dv">0</span>]]})</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    ndf[<span class="st">"yhat"</span>] <span class="op">=</span> fit.predict(ndf)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    plt.plot(xnew, ndf[<span class="st">"yhat"</span>])</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="multiple_linear_regression_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
 </div>
