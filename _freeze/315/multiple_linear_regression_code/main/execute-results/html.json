@@ -1,0 +1,17 @@
+{
+  "hash": "decabce6fc1cb2ec8174e5d3a94c0c37",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Multiple Linear Regression\"\nformat: html\neditor: visual\n---\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(ggplot2)\nsuppressMessages(library(dplyr))\n\ndata(mtcars)\n```\n:::\n\n\n\n# linear regression is linear in a special way\n\nIn linear regression, we mean linear in the coefficients. So transformations on $y$ or $x$ are encouraged.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point() + \n  geom_smooth(method = \"lm\", formula = y ~ poly(x, 2),\n              se = FALSE)\n```\n\n::: {.cell-output-display}\n![](main_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n\n```{.r .cell-code}\nfit <- lm(mpg ~ poly(wt, 2), data = mtcars)\n```\n:::\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nfit <- lm(log10(mpg) ~ log10(wt), data = mtcars)\n\no <- order(mtcars$wt)\nyhat <- 10 ^ predict(fit, newdata = data.frame(wt = mtcars$wt[o]))\ndf <- data.frame(yhat = yhat, wt = mtcars$wt[o])\n\nggplot() +\n  geom_point(data = mtcars, aes(wt, mpg)) +\n  geom_line(data = df, aes(wt, yhat))\n```\n\n::: {.cell-output-display}\n![](main_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n# linear regression with multiple numeric explanatory variables\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nfit <- lm(mpg ~ wt + disp + hp, data = mtcars)\nsummary(fit)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\nCall:\nlm(formula = mpg ~ wt + disp + hp, data = mtcars)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-3.891 -1.640 -0.172  1.061  5.861 \n\nCoefficients:\n             Estimate Std. Error t value Pr(>|t|)    \n(Intercept) 37.105505   2.110815  17.579  < 2e-16 ***\nwt          -3.800891   1.066191  -3.565  0.00133 ** \ndisp        -0.000937   0.010350  -0.091  0.92851    \nhp          -0.031157   0.011436  -2.724  0.01097 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.639 on 28 degrees of freedom\nMultiple R-squared:  0.8268,\tAdjusted R-squared:  0.8083 \nF-statistic: 44.57 on 3 and 28 DF,  p-value: 8.65e-11\n```\n\n\n:::\n\n```{.r .cell-code}\npredict(fit, newdata = data.frame(wt = 4, disp = 160, hp = 93))\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n       1 \n18.85446 \n```\n\n\n:::\n\n```{.r .cell-code}\nconfint(fit)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n                  2.5 %       97.5 %\n(Intercept) 32.78169625 41.429314293\nwt          -5.98488310 -1.616898063\ndisp        -0.02213750  0.020263482\nhp          -0.05458171 -0.007731388\n```\n\n\n:::\n:::\n\n\n\n",
+    "supporting": [
+      "main_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
