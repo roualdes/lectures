@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>hw08 – lectures</title>
+<title>hw08_solutions – lectures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw08.out.ipynb" download="hw08.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw08_solutions.out.ipynb" download="hw08_solutions.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hw08_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="hw08_solutions_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -195,25 +195,25 @@ dtype: float64</code></pre>
 <li><p>reuse our linear regression functions and <code>bootsrap</code> to answer</p></li>
 </ol>
 <p>In either case, we’ll use our function <code>bootstrap</code>, so here it is.</p>
+<div id="c357bfc2-502f-4209-b5f4-4aaba8594f9a" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bootstrap(T, data, R <span class="op">=</span> <span class="dv">1_000</span>, conflevel <span class="op">=</span> <span class="fl">0.95</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    shp <span class="op">=</span> np.shape(T(data, <span class="op">**</span>kwargs))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    Ts <span class="op">=</span> np.zeros((R,) <span class="op">+</span> shp)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.shape(data)[<span class="dv">0</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> conflevel) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> rng.integers(N, size <span class="op">=</span> N)   </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        Ts[r] <span class="op">=</span> T(data[idx], <span class="op">**</span>kwargs)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.quantile(Ts, [a, <span class="dv">1</span> <span class="op">-</span> a], axis <span class="op">=</span> <span class="dv">0</span>)    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="a">
 <li>What we want to be able to do, is write a function that can be passed into our function <code>bootstrap</code> and have it just work. Here’s the idea, even if it doesn’t work.</li>
 </ol>
 <div id="097fdd90-5efd-40f1-ab06-c8a8951fb748" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression_prediction(df, <span class="op">**</span>kwargs):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    fit <span class="op">=</span> smf.ols(<span class="st">"winglength ~ island * beakwidth"</span>, data <span class="op">=</span> df).fit()</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fit.predict(kwargs[<span class="st">"ndf"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="c357bfc2-502f-4209-b5f4-4aaba8594f9a" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bootstrap(T, data, R <span class="op">=</span> <span class="dv">1_000</span>, conflevel <span class="op">=</span> <span class="fl">0.95</span>, <span class="op">**</span>kwargs):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    shp <span class="op">=</span> np.shape(T(data, <span class="op">**</span>kwargs))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng()</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    Ts <span class="op">=</span> np.zeros((R,) <span class="op">+</span> shp)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.shape(data)[<span class="dv">0</span>]</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> conflevel) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> rng.integers(N, size <span class="op">=</span> N)   </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        Ts[r] <span class="op">=</span> T(data[idx], <span class="op">**</span>kwargs)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.quantile(Ts, [a, <span class="dv">1</span> <span class="op">-</span> a], axis <span class="op">=</span> <span class="dv">0</span>)    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_regression_prediction(df, <span class="op">**</span>kwargs):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    fit <span class="op">=</span> smf.ols(<span class="st">"winglength ~ island * beakwidth"</span>, data <span class="op">=</span> df).fit()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fit.predict(kwargs[<span class="st">"ndf"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="0f85b07b-4c14-4281-921c-5af9107a5446" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bootstrap(ll_regression_prediction, df, ndf <span class="op">=</span> ndf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
