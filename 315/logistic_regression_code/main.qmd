@@ -1,0 +1,126 @@
+---
+title: "Logistic Regression"
+author: "Edward"
+format: html
+editor: visual
+---
+
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+# normal link: elmhurst -> hospital
+hospital <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/hospital.csv")
+```
+
+## Linear Regression
+
+```{r}
+ggplot(hospital, aes(stay, infection_risk)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+fit <- lm(infection_risk ~ nurses + stay, data = hospital)
+summary(fit)
+```
+
+```{r}
+df <- data.frame(
+  yhat = fitted(fit),
+  r = rstandard(fit)
+)
+```
+
+```{r}
+ggplot(df, aes(yhat, r)) +
+  geom_point()
+```
+
+```{r}
+ggplot(df, aes(r)) +
+  geom_histogram(bins = 9)
+```
+
+When the number of nurses is fixed at 50, we expect a one day increase in the number of days stayed in a hospital to increase the infection risk by 0.317.
+
+```{r}
+fit %>%
+  predict(newdata = data.frame(stay = c(10, 11),
+                               nurses = c(50, 50))) %>%
+  diff
+```
+
+When the number of days in a hospital is fixed at 11, we expect each next nurse to increase the infection risk by 0.002.
+
+```{r}
+fit %>%
+  predict(newdata = data.frame(stay = c(11, 11),
+                               nurses = c(50, 51))) %>%
+  diff
+```
+
+## Logistic Regression
+
+```{r}
+## normal link: hospital -> possum
+possum <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/possum.csv")
+```
+
+```{r}
+ggplot(possum, aes(tailL, pop)) +
+  geom_point()
+```
+
+```{r}
+possum <- possum %>%
+  mutate(vic = as.numeric(pop == "vic"))
+```
+
+```{r}
+fitl <- glm(vic ~ tailL, data = possum, family = binomial())
+summary(fitl)
+```
+
+```{r}
+o <- order(possum$tailL)
+df <- data.frame(
+  tailL = possum$tailL[o],
+  yhat = fitted(fitl, type = "response")[o]
+)
+```
+
+```{r}
+ggplot() +
+  geom_point(data = possum, aes(tailL, vic)) +
+  geom_line(data = df, aes(tailL, yhat))
+```
+
+When tail length increases by 1 cm, from 32 to 33 centimeters, we expect the probability that a possum is from "vic" to go down by 0.04.
+
+```{r}
+fitl %>%
+  predict(newdata = data.frame(tailL = c(32, 33)), type = "response") %>%
+  diff
+```
+
+When tail length is increased by 1 cm, from 42 to 43 centimeters, we expect that probability that a possum is from "vic" to go down by 0.01.
+
+```{r}
+fitl %>%
+  predict(newdata = data.frame(tailL = c(42, 43)), type = "response") %>%
+  diff
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
