@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="43e939ee-b33e-42ac-8147-094e930a1725" class="cell" data-execution_count="6">
+<div id="43e939ee-b33e-42ac-8147-094e930a1725" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -150,10 +150,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> patsy <span class="im">as</span> pt </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="09885df4-e375-420f-9a71-a58147f4ddab" class="cell" data-execution_count="8">
+<div id="09885df4-e375-420f-9a71-a58147f4ddab" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hospital <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/hospital.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="c9c9cae8-276b-4852-96a9-840f88801510" class="cell" data-execution_count="15">
+<div id="c9c9cae8-276b-4852-96a9-840f88801510" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(hospital[<span class="st">"stay"</span>], hospital[<span class="st">"infection_risk"</span>])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Stay (days)"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Infection risk"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -165,10 +165,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="fc33b6c0-6df2-4002-b11d-6b017bd0a7be" class="cell" data-execution_count="29">
+<div id="fc33b6c0-6df2-4002-b11d-6b017bd0a7be" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> smf.ols(<span class="st">"infection_risk ~ nurses * stay"</span>, data <span class="op">=</span> hospital).fit()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <table class="simpletable caption-top table table-sm table-striped small">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -192,13 +192,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Mon, 01 Dec 2025</td>
+<td>Tue, 02 Dec 2025</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>3.48e-10</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>13:33:21</td>
+<td>22:24:29</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-168.73</td>
 </tr>
@@ -312,18 +312,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br>[2] The condition number is large, 2.27e+04. This might indicate that there are<br>strong multicollinearity or other numerical problems.
 </div>
 </div>
-<div id="27c48e13-8d0e-4c53-ba43-ffbd52439d13" class="cell" data-execution_count="30">
+<div id="27c48e13-8d0e-4c53-ba43-ffbd52439d13" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"stay"</span>: [<span class="dv">20</span>, <span class="dv">20</span>], <span class="st">"nurses"</span>: [<span class="dv">100</span>, <span class="dv">101</span>]})</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>np.diff(fit.predict(ndf))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([-0.00447639])</code></pre>
 </div>
 </div>
 <p>For each extra nurse, when stay is equal to 20, we expect infection risk to <strong>decrease</strong> by 0.004.</p>
-<div id="344be5f2-9622-435f-a601-5a7dfc23803e" class="cell" data-execution_count="32">
+<div id="344be5f2-9622-435f-a601-5a7dfc23803e" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"stay"</span>: [<span class="dv">10</span>, <span class="dv">10</span>], <span class="st">"nurses"</span>: [<span class="dv">100</span>, <span class="dv">101</span>]})</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>np.diff(fit.predict(ndf))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([0.00221305])</code></pre>
 </div>
 </div>
@@ -335,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>possum <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/possum.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="1ddaf0f0-0ab8-470a-97d0-7266f3f85153" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>possum[<span class="st">"vic"</span>] <span class="op">=</span> (possum[<span class="st">"pop"</span>] <span class="op">==</span> <span class="st">"vic"</span>).astype(np.float64)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>possum[<span class="st">"vic"</span>] <span class="op">=</span> (possum[<span class="st">"pop"</span>].astype(<span class="st">"string"</span>) <span class="op">==</span> <span class="st">"vic"</span>).astype(np.float64)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="b406c957-5271-4aa0-8898-bfbbcf7b0960" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng()</span>
@@ -350,13 +350,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="292ab888-d21b-4a6e-8ac5-1ca3b4192e0b" class="cell" data-execution_count="16">
+<div id="292ab888-d21b-4a6e-8ac5-1ca3b4192e0b" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> smf.glm(<span class="st">"vic ~ age * tailL"</span>, data <span class="op">=</span> possum, </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>              family <span class="op">=</span> sm.families.Binomial()).fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e1af3737-baea-4787-8c81-e2de519368ed" class="cell" data-execution_count="17">
+<div id="e1af3737-baea-4787-8c81-e2de519368ed" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <table class="simpletable caption-top table table-sm table-striped small">
 <caption>Generalized Linear Model Regression Results</caption>
 <tbody>
@@ -398,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>13:19:41</td>
+<td>22:24:29</td>
 <th data-quarto-table-cell-role="th">Pearson chi2:</th>
 <td>113.</td>
 </tr>
@@ -469,13 +469,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<div id="72591d04-05d2-4df2-8f4d-4b44abc70584" class="cell" data-execution_count="18">
+<div id="72591d04-05d2-4df2-8f4d-4b44abc70584" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">32</span>, <span class="dv">44</span>, <span class="dv">101</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.mean(possum[<span class="st">"age"</span>])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"tailL"</span>: x, <span class="st">"age"</span>: np.full(<span class="dv">101</span>, m)})</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> fit.predict(ndf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="210140be-0f58-4a13-87a8-2c1c4a0569d6" class="cell" data-execution_count="19">
+<div id="210140be-0f58-4a13-87a8-2c1c4a0569d6" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(possum[<span class="st">"tailL"</span>] <span class="op">+</span> rng.uniform(size <span class="op">=</span> N) <span class="op">*</span> <span class="fl">0.25</span>, possum[<span class="st">"vic"</span>], </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>            alpha <span class="op">=</span> <span class="fl">0.25</span>)<span class="op">;</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, yhat)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -487,10 +487,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="7c52a2e8-db84-4bf9-982b-43f80b3c1ce2" class="cell" data-execution_count="20">
+<div id="7c52a2e8-db84-4bf9-982b-43f80b3c1ce2" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> pd.DataFrame.from_dict({<span class="st">"tailL"</span>: [<span class="dv">37</span>, <span class="dv">38</span>], <span class="st">"age"</span>: [m, m]})</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>np.diff(fit.predict(ndf))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>array([-0.16145695])</code></pre>
 </div>
 </div>
