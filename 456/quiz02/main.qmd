@@ -1,0 +1,71 @@
+---
+title: "Quiz 02"
+format: html
+editor: visual
+---
+
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+df <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv")
+```
+
+Consider [this](https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv) data set about penguins. We'll use the variables `species`, `bill_length_mm`, and `body_mass_g`. The bill lengths are measured in millimeters and body mass is measured in grams.
+
+```{r fig.width=5, fig.height=2, fig.align='center'}
+ggplot(data = df, aes(species, bill_length_mm)) +
+  geom_boxplot() +
+  labs(x = "Species", y = "Bill length (mm)")
+```
+
+```{r}
+fit <- lm(bill_length_mm ~ species, data = df)
+anova(fit)
+```
+
+1.  Write appropriately matching hypotheses for the model (and plot) above.
+
+2.  Use the output above to conclude the hypothesis test. Justify your conclusion, citing a p-value.
+
+3.  What does your conclusion mean in English?
+
+```{r}
+summary(fit)
+```
+
+4.  Use the output above to calculate and interpret, in context of the data, an intercept for the Species Chinstrap.
+
+```{r fig.width=5, fig.height=2, fig.align='center'}
+ggplot(data = df, aes(bill_length_mm, body_mass_g)) + 
+  geom_point() +
+  labs(x = "Bill length (mm)", y = "Body mass (g)")
+```
+
+```{r}
+fit <- lm(body_mass_g ~ bill_length_mm, data = df)
+summary(fit)
+```
+
+5.  Write appropriately matching hypotheses for the intercept for the model (and plot) above.
+
+6. Use the output above to conclude the hypothesis test. Justify your conclusion, citing a p-value.
+
+7.  Interpret the intercept in context of the data.
+
+8.  Interpret the slope in context of the data.
+
+9.  What units does the slope have?
+
+```{r}
+confint(fit)
+```
+
+10.  Use the output above to interpret a confidence interval for a term of your choice in context of the data.
+
+```{r}
+predict(fit, newdata = data.frame(bill_length_mm = c(40, 10)))
+```
+
+11. Interpret a prediction in context of the data.
+
+12. One of the two predictions is generally considered unreasonable. Which and why?
