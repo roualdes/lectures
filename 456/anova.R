@@ -14,20 +14,22 @@ dfs <- df |> # pipe operator from R
             lb = mn - qnorm(0.975) * sd / sqrt(n),
             ub = mn + qnorm(0.975)* sd / sqrt(n))
 
+fit <- lm(body_mass_g ~ island, data = df) # linear model (just like linear regression)
+
+y <- fit$model$body_mass_g
+(ybar <- mean(y))
+
 ggplot() +
   #geom_jitter(data = df, aes(island, body_mass_g)) +
   geom_point(data = dfs, aes(island, mn)) +
   geom_linerange(data = dfs, aes(island, ymin = lb, ymax=ub)) +
   geom_abline(intercept = ybar)
 
-fit <- lm(body_mass_g ~ island, data = df) # linear model (just like linear regression)
 anova(fit)
 
 # re-creating the ANOVA table, by uh hand.
-y <- fit$model$body_mass_g
 (m <- dfs$mn)
 (n <- dfs$n)
-(ybar <- mean(y))
 (yhat <- predict(fit))
 (SSR <- sum((y - yhat) ^ 2)) # sum of squares residual
 (SSA <- sum(n * (m - ybar) ^ 2)) # sum of squares within/amongst
@@ -35,3 +37,6 @@ y <- fit$model$body_mass_g
 (MSR <- SSR / 339) # mean squares residuals
 (F <- MSA / MSR) # F test statistic
 1 - pf(F, 2, 339) # p-value
+
+summary(fit)
+TukeyHSD(aov(fit))
