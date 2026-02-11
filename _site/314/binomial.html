@@ -127,17 +127,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="46e2a066-2f94-4bf2-a9d2-acac4ecb7702" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> st.binom(<span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># random variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="46e2a066-2f94-4bf2-a9d2-acac4ecb7702" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> st.binom(<span class="dv">1000</span>, <span class="fl">0.001</span>) <span class="co"># random variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="585d7e63-e32f-4b72-afb1-9b6e98b54c2e" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.arange(<span class="dv">4</span>)</span>
+<div id="585d7e63-e32f-4b72-afb1-9b6e98b54c2e" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.arange(<span class="dv">1001</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>B.pmf(k) <span class="co"># density function, AKA probability mass function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>array([0.5787037 , 0.34722222, 0.06944444, 0.00462963])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>array([0.36769542, 0.36806349, 0.18403174, ..., 0.        , 0.        ,
+       0.        ])</code></pre>
 </div>
 </div>
-<div id="6c8d01c8-16cd-4f90-8f90-24d1ca4a977b" class="cell" data-execution_count="5">
+<div id="6c8d01c8-16cd-4f90-8f90-24d1ca4a977b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(k, B.pmf(k))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -145,6 +146,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="binomial_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+<div id="f101bcd7-e255-440a-a639-cff9d845d2a8" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(B.pmf(np.arange(<span class="dv">100</span>, <span class="dv">1001</span>))) <span class="co"># P[X &gt;= 100]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>2.6181505053540243e-161</code></pre>
 </div>
 </div>
 
