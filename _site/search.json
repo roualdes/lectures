@@ -74,7 +74,7 @@
     "href": "314/binomial.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nB = st.binom(1000, 0.001) # random variable\n\n\nk = np.arange(1001)\nB.pmf(k) # density function, AKA probability mass function\n\narray([0.36769542, 0.36806349, 0.18403174, ..., 0.        , 0.        ,\n       0.        ])\n\n\n\nplt.scatter(k, B.pmf(k));\n\n\n\n\n\n\n\n\n\nnp.sum(B.pmf(np.arange(100, 1001))) # P[X &gt;= 100]\n\n2.6181505053540243e-161"
+    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nB = st.binom(1000, 0.001) # random variable\n\n\nk = np.arange(1001)\nB.pmf(k) # density function, AKA probability mass function\n\narray([0.36769542, 0.36806349, 0.18403174, ..., 0.        , 0.        ,\n       0.        ])\n\n\n\nplt.scatter(k, B.pmf(k));\n\n\n\n\n\n\n\n\n\nnp.sum(B.pmf(np.arange(100, 1001))) # P[X &gt;= 100]\n\n2.6181505053540243e-161\n\n\n\nnp.sum(B.pmf(np.arange(51))) # P[X &lt;= 50]\n\n1.0\n\n\nSome examples from https://roualdes.us/lecturenotes/binomial\n\n# 1.\nB1 = st.binom(10, 0.95)\nB1.pmf(10) # a\nB1.pmf(8)  # b\n\n0.07463479852001967\n\n\n\n# 2.\nB2 = st.binom(50, 0.1)\nnp.sum(B2.pmf(np.arange(3, 51)))\n\n0.8882712436536537\n\n\n\n# 3.\nB3 = st.binom(10, 0.7)\nnp.sum(B3.pmf(np.arange(8, 11)))\n\n0.3827827864000003"
   },
   {
     "objectID": "314/likelihood_computer.html",
