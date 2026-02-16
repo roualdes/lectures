@@ -3084,7 +3084,7 @@
     "href": "314/poisson.html",
     "title": "lectures",
     "section": "",
-    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\n\nPoisson = st.poisson\n\n\nX = Poisson(3.5)\nX.pmf(2)\n\n0.18495897346170082\n\n\n\n1 - np.sum(X.pmf(np.arange(3)))\n\n0.6791528011378659\n\n\n\nnp.sum(X.pmf(np.arange(3, 10000)))\n\n0.679152801137866\n\n\n\n# 2\nX = Poisson(5)\nX.pmf(7)\n\n0.10444486295705395\n\n\n\nnp.sum(X.pmf(np.arange(4)))\n\n0.26502591529736164\n\n\n\nY = Poisson(10)\n1 - np.sum(Y.pmf(np.arange(11)))\n\n0.4169602498070133\n\n\n\nX = Poisson(5)\nX.pmf(3) # a\nX.pmf(0) # b\nY = Poisson(20) # c\n1 - np.sum(Y.pmf(np.arange(21)))\n\n0.44090741576867676"
+    "text": "import numpy as np\nimport scipy.stats as st\nimport matplotlib.pyplot as plt\n\nPoisson examples from https://roualdes.us/lecturenotes/poisson\n\n# 1. \nP = st.poisson(3.5) # random variable with rate parameter\n\n\n# a.\nP.pmf(2) # density function, probability mass function\n\n0.18495897346170082\n\n\n\n# b.\n1 - np.sum(P.pmf(np.arange(3)))\n\n0.6791528011378659\n\n\n\n# c.\nP = st.poisson(3.5 * 7) # average per week\nnp.sum(P.pmf(np.arange(6)))\n\n2.091682196839196e-06"
   },
   {
     "objectID": "314/convergence_probability.html",
