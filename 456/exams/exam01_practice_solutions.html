@@ -167,6 +167,7 @@ window.Quarto = {
 
 
 <p>Consider a data set about finches (little birds) from the Galapagos islands. We’ll consider the variables <code>beakwidth</code> measured in millimeters (mm), <code>taillength</code> also in mm, and <code>island</code>.</p>
+<!--# EAR  -->
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -294,13 +295,13 @@ beakwidth    0.9837041  1.459652</code></pre>
 <ol start="11" type="1">
 <li>Write the null and alternative hypotheses for the hypothesis test of the intercept. Specify a level of significance.</li>
 </ol>
-<p><span class="math inline">\(H_0: \beta_0\)</span></p>
-<p><span class="math inline">\(H_1: \beta_1\)</span></p>
+<p><span class="math inline">\(H_0: \beta_0 = 0\)</span></p>
+<p><span class="math inline">\(H_1: \beta_0 \ne 0\)</span></p>
 <p><span class="math inline">\(\alpha = 0.05\)</span></p>
 <ol start="12" type="1">
 <li>Make the appropriate conclusion from the hypothesis test above. Quote the appropriate p-value.</li>
 </ol>
-<p>p-value $ &lt; 0.0001 &lt; = 0.05$, therefore reject <span class="math inline">\(H_0\)</span>.</p>
+<p>p-value <span class="math inline">\(&lt; 0.0001 &lt; \alpha = 0.05\)</span>, therefore reject <span class="math inline">\(H_0\)</span>.</p>
 <ol start="13" type="1">
 <li>Interpret your conclusion in context of the data.</li>
 </ol>
@@ -312,14 +313,16 @@ beakwidth    0.9837041  1.459652</code></pre>
 <ol start="15" type="1">
 <li>Interpret adjusted <span class="math inline">\(R^2\)</span> in context of the data.</li>
 </ol>
-<p><span class="math inline">\(52.6\)</span> of the variation in <code>taillength</code> is explained by this linear regression model on <code>beakwdith</code>.</p>
+<p><span class="math inline">\(51.92\)</span>% of the variation in <code>taillength</code> is explained by this linear regression model on <code>beakwdith</code>.</p>
 <ol start="16" type="1">
 <li>Provide two reasons <span class="math inline">\(R^2\)</span> is worse than adjusted <span class="math inline">\(R^2\)</span>?</li>
 </ol>
+<!-- -->
 <ol type="i">
 <li><span class="math inline">\(R^2\)</span> goes up (inappropriately) even when poor predictors are added to the model.</li>
 <li><span class="math inline">\(R^2\)</span> provides a more clearly biased estimate of the percent of the variation that is accounted for by the linear model.</li>
 </ol>
+<!-- -->
 <ol start="17" type="1">
 <li><p>Interpret in context of the data a 90% confidence interval for the intercept.</p>
 <p>We are 90% confident that when beakwidth is equal to 0mm, the tail length of finches from any of these three islands is between 29.14 and 34.04mm.</p></li>
@@ -824,171 +827,163 @@ beakwidth    0.9837041  1.459652</code></pre>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/finches.csv"</span>)</span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>Consider a data set about finches (little birds) from the Galapagos islands.  We'll consider the variables <span class="in">`beakwidth`</span> measured in millimeters (mm), <span class="in">`taillength`</span> also in mm, and <span class="in">`island`</span>.</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>Consider a data set about finches (little birds) from the Galapagos islands. We'll consider the variables <span class="in">`beakwidth`</span> measured in millimeters (mm), <span class="in">`taillength`</span> also in mm, and <span class="in">`island`</span>.</span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 3</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(island, taillength)) <span class="sc">+</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>fita <span class="ot">&lt;-</span> <span class="fu">lm</span>(taillength <span class="sc">~</span> island, <span class="at">data =</span> df)</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>dfa <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">lapply</span>(<span class="fu">as.data.frame</span>(<span class="fu">anova</span>(fita)), \(x) <span class="cf">if</span>(<span class="fu">is.numeric</span>(x)) { <span class="fu">round</span>(x, <span class="dv">4</span>)} <span class="cf">else</span> {x}))</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dfa) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Df"</span>, <span class="st">"Sum Sq"</span>, <span class="st">"Mean Sq"</span>, <span class="st">"F value"</span>, <span class="st">"Pr(&gt;F)"</span>)</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(dfa) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"island"</span>, <span class="st">"Residuals"</span>)</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>dfa<span class="sc">$</span><span class="st">`</span><span class="at">F value</span><span class="st">`</span>[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">"-"</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>dfa<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">"-"</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>dfa<span class="sc">$</span><span class="st">`</span><span class="at">Df</span><span class="st">`</span>[<span class="dv">1</span>] <span class="ot">=</span> <span class="st">"-"</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dfa)</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fita)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(fita))</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Write three sentences about three different statistics from the box</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>   plot above.  Each sentence must be about a different island.</span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>   The median tail length for finches from Floreana is about 44mm.  The minimum tail length for finches from San Cristobal is about 35mm.  The third quartile of tail length for finches from the island Santa Cruz is about 44mm.</span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Write the null and alternative hypotheses for ANOVA based on the</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>   box plot above. Specify a level of significance.</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>   $H_0: \mu_f = \mu_l = \mu_z$</span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>   $H_1:$ at least one mean is different</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>   $\alpha = 0.05$</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Compare the p-value to the level of significance and make a conclusion.</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--# EAR  --&gt;</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 3</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(island, taillength)) <span class="sc">+</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>fita <span class="ot">&lt;-</span> <span class="fu">lm</span>(taillength <span class="sc">~</span> island, <span class="at">data =</span> df)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>dfa <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">lapply</span>(<span class="fu">as.data.frame</span>(<span class="fu">anova</span>(fita)), \(x) <span class="cf">if</span>(<span class="fu">is.numeric</span>(x)) { <span class="fu">round</span>(x, <span class="dv">4</span>)} <span class="cf">else</span> {x}))</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dfa) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Df"</span>, <span class="st">"Sum Sq"</span>, <span class="st">"Mean Sq"</span>, <span class="st">"F value"</span>, <span class="st">"Pr(&gt;F)"</span>)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(dfa) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"island"</span>, <span class="st">"Residuals"</span>)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>dfa<span class="sc">$</span><span class="st">`</span><span class="at">F value</span><span class="st">`</span>[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">"-"</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>dfa<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">"-"</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>dfa<span class="sc">$</span><span class="st">`</span><span class="at">Df</span><span class="st">`</span>[<span class="dv">1</span>] <span class="ot">=</span> <span class="st">"-"</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dfa)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fita)</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(fita))</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Write three sentences about three different statistics from the box plot above. Each sentence must be about a different island.</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    The median tail length for finches from Floreana is about 44mm. The minimum tail length for finches from San Cristobal is about 35mm. The third quartile of tail length for finches from the island Santa Cruz is about 44mm.</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Write the null and alternative hypotheses for ANOVA based on the box plot above. Specify a level of significance.</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    $H_0: \mu_f = \mu_l = \mu_z$</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    $H_1:$ at least one mean is different</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    $\alpha = 0.05$</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Compare the p-value to the level of significance and make a conclusion.</span>
 <span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>The p-value $= 0.3513 &gt; \alpha = 0.05$. Therefore fail to reject $H_0$.</span>
 <span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Interpret your conclusion in context of the data.</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Interpret your conclusion in context of the data.</span>
 <span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>The mean tail lengths of finches from three islands are nearly equivalent.</span>
 <span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>What should the degrees of freedom for <span class="in">`island`</span> be for the ANOVA above?</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>What should the degrees of freedom for <span class="in">`island`</span> be for the ANOVA above?</span>
 <span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>number of groups - 1 $ = 2$</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>number of groups - 1 \$ = 2\$</span>
 <span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Reproduce the F statistic (named F.value in the output above).</span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Reproduce the F statistic (named F.value in the output above).</span>
 <span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>$7.3367 / 6.9008$</span>
 <span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Write down the fitted regression equation for the model above.</span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Write down the fitted regression equation for the model above.</span>
 <span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>$\widehat{taillength} = 44.01 + 0.461_l - 0.77 1_z$</span>
 <span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Using Tukey's HSD, write down appropriate null and alternative</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>    hypotheses for one comparison. Make a conclusion by quoting an appropriate p-value and then interpret your conclusion in context of the data.</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>Silly, Edward, Tukey's HSD isn't appropriate here since we failed to reject the null hypothesis from ANOVA.</span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fita, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">island =</span> <span class="st">"floreana"</span>))</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Still using the ANOVA model from above, named <span class="in">`fita`</span>, interpret the</span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>   prediction in context of the data.</span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>   We expect a finch from Floreana to have a tail length of around 44.01mm.</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Using Tukey's HSD, write down appropriate null and alternative hypotheses for one comparison. Make a conclusion by quoting an appropriate p-value and then interpret your conclusion in context of the data.</span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>Silly, Edward, Tukey's HSD isn't appropriate here since we failed to reject the null hypothesis from ANOVA.</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fita, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">island =</span> <span class="st">"floreana"</span>))</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Still using the ANOVA model from above, named <span class="in">`fita`</span>, interpret the prediction in context of the data.</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>    We expect a finch from Floreana to have a tail length of around 44.01mm.</span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Explain why all finches from the island Floreana have the same prediction for this model.</span>
 <span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Explain why all finches from the island Floreana have the same</span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>    prediction for this model.</span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>    ANOVA as a predictive model, predicts each group (island, in this case) by the group mean.  The mean for finches from Floreana is 44.01mm.</span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 3</span></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(beakwidth, taillength)) <span class="sc">+</span></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>fitl <span class="ot">&lt;-</span> <span class="fu">lm</span>(taillength <span class="sc">~</span> beakwidth, <span class="at">data =</span> df)</span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitl)</span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fitl, <span class="at">level =</span> <span class="fl">0.9</span>)</span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Write the null and alternative hypotheses for the hypothesis test</span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a>   of the intercept. Specify a level of significance.</span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a>   $H_0: \beta_0$</span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a>   $H_1: \beta_1$</span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a>   $\alpha = 0.05$</span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Make the appropriate conclusion from the hypothesis test above. Quote the appropriate p-value.</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>    ANOVA as a predictive model, predicts each group (island, in this case) by the group mean. The mean for finches from Floreana is 44.01mm.</span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 3</span></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(beakwidth, taillength)) <span class="sc">+</span></span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>fitl <span class="ot">&lt;-</span> <span class="fu">lm</span>(taillength <span class="sc">~</span> beakwidth, <span class="at">data =</span> df)</span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitl)</span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fitl, <span class="at">level =</span> <span class="fl">0.9</span>)</span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Write the null and alternative hypotheses for the hypothesis test of the intercept. Specify a level of significance.</span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>$H_0: \beta_0 = 0$</span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a>$H_1: \beta_0 \ne 0$</span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a>$\alpha = 0.05$</span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Make the appropriate conclusion from the hypothesis test above. Quote the appropriate p-value.</span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a>p-value $&lt; 0.0001 &lt; \alpha = 0.05$, therefore reject $H_0$.</span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Interpret your conclusion in context of the data.</span>
 <span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>p-value $ &lt; 0.0001 &lt; \alpha = 0.05$, therefore reject $H_0$.</span>
+<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>When <span class="in">`beakwidth`</span> is equal to 0mm, we expect the tail length of the finches to be statistically significantly different from zero, and specifically to be about 31.59mm.</span>
 <span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Interpret your conclusion in context of the data.</span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Write down the fitted regression equation for the model above.</span>
 <span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>When <span class="in">`beakwidth`</span> is equal to 0mm, we expect the tail length of the finches to be statistically significantly different from zero, and specifically to be about 31.59mm.  </span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>$\widehat{taillength} = 31.59 + 1.22 * beakwidth$</span>
 <span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Write down the fitted regression equation for the model above.</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Interpret adjusted $R^2$ in context of the data.</span>
 <span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>$\widehat{taillength} = 31.59 + 1.22 * beakwidth$</span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>$51.92$% of the variation in <span class="in">`taillength`</span> is explained by this linear regression model on <span class="in">`beakwdith`</span>.</span>
 <span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Interpret adjusted $R^2$ in context of the data.</span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Provide two reasons $R^2$ is worse than adjusted $R^2$?</span>
 <span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>$52.6$ of the variation in <span class="in">`taillength`</span> is explained by this linear regression model on <span class="in">`beakwdith`</span>.</span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- --&gt;</span></span>
 <span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Provide two reasons $R^2$ is worse than adjusted $R^2$?</span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>i. $R^2$ goes up (inappropriately) even when poor predictors are added to the model.</span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>ii.  $R^2$ provides a more clearly biased estimate of the percent of the variation that is accounted for by the linear model.</span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>i.  $R^2$ goes up (inappropriately) even when poor predictors are added to the model.</span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>ii. $R^2$ provides a more clearly biased estimate of the percent of the variation that is accounted for by the linear model.</span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- --&gt;</span></span>
 <span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Interpret in context of the data a 90% confidence interval for the</span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>    intercept.</span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>    We are 90% confident that when beakwidth is equal to 0mm, the tail length of finches from any of these three islands is between 29.14 and 34.04mm.</span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>Does the intercept make sense in context of the data.  Why or why</span>
-<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>    not?</span>
-<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a>    Not really, as there are not likely to be any living finches with a beak width of 0mm.  </span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fitl, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">beakwidth=</span><span class="dv">5</span>), <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Interpret in context of the data a 90% confidence interval for the intercept.</span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>    We are 90% confident that when beakwidth is equal to 0mm, the tail length of finches from any of these three islands is between 29.14 and 34.04mm.</span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>Does the intercept make sense in context of the data. Why or why not?</span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>    Not really, as there are not likely to be any living finches with a beak width of 0mm.</span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fitl, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">beakwidth=</span><span class="dv">5</span>), <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>Interpret in context of the data a 95% confidence interval for a prediction of the mean <span class="in">`taillength`</span> based on the output above.</span>
 <span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>Interpret in context of the data a 95% confidence interval for a</span>
-<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>    prediction of the mean <span class="in">`taillength`</span> based on the output above.</span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>    We are 95% confident that when a finch from any of these three islands has a beak width of 5mm, we expect that tail length to be between 36.16 and 39.24mm.</span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>Without doing any calculations, write the regression equation for</span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>    the prediction above.</span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>    $31.59 + 1.22 * 5$</span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a><span class="ss">21. </span>Name two ways to make more narrow the width of a confidence</span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>    interval for a mean <span class="in">`taillength`</span>?</span>
-<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>    i. increase the sample size (the number of data),</span>
-<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>    ii. decrease the confidence level,</span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>    iii. for linear regression, make a confidence interval from a prediction (of a mean) closer to the mean of the x-axis (beakwidth, in this case) variable.</span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="ss">22. </span>Here is pseudo-code for a function that would be passed to</span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>    <span class="in">`optim`</span>, <span class="in">`R`</span>'s built in optimization function, in order to</span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>    calculate linear regression coefficients.  Explain what each line</span>
-<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>    of code is doing.</span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a>ll_lm <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) { <span class="co"># declare function of two variables, optim will minimize over the first</span></span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> data<span class="sc">$</span>x <span class="co"># extract x-axis variable from data</span></span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> data<span class="sc">$</span>y <span class="co"># extract y-axis variable from data</span></span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a>    yhat <span class="ot">&lt;-</span> theta[<span class="dv">1</span>] <span class="sc">+</span> theta[<span class="dv">2</span>] <span class="sc">*</span> x <span class="co"># make prediction from line on x</span></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> y <span class="sc">-</span> yhat <span class="co"># calculate residuals</span></span>
-<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sum</span>( r <span class="sc">^</span> <span class="dv">2</span> )) <span class="co"># sum of squared residuals, scalar to be minimized</span></span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>    We are 95% confident that when a finch from any of these three islands has a beak width of 5mm, we expect that tail length to be between 36.16 and 39.24mm.</span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>Without doing any calculations, write the regression equation for the prediction above.</span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>    $31.59 + 1.22 * 5$</span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="ss">21. </span>Name two ways to make more narrow the width of a confidence interval for a mean <span class="in">`taillength`</span>?</span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>    i.  increase the sample size (the number of data),</span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>    ii. decrease the confidence level,</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>    iii. for linear regression, make a confidence interval from a prediction (of a mean) closer to the mean of the x-axis (beakwidth, in this case) variable.</span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a><span class="ss">22. </span>Here is pseudo-code for a function that would be passed to <span class="in">`optim`</span>, <span class="in">`R`</span>'s built in optimization function, in order to calculate linear regression coefficients. Explain what each line of code is doing.</span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>ll_lm <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) { <span class="co"># declare function of two variables, optim will minimize over the first</span></span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> data<span class="sc">$</span>x <span class="co"># extract x-axis variable from data</span></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> data<span class="sc">$</span>y <span class="co"># extract y-axis variable from data</span></span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>    yhat <span class="ot">&lt;-</span> theta[<span class="dv">1</span>] <span class="sc">+</span> theta[<span class="dv">2</span>] <span class="sc">*</span> x <span class="co"># make prediction from line on x</span></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> y <span class="sc">-</span> yhat <span class="co"># calculate residuals</span></span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sum</span>( r <span class="sc">^</span> <span class="dv">2</span> )) <span class="co"># sum of squared residuals, scalar to be minimized</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
