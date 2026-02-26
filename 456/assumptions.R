@@ -3,23 +3,27 @@ library(dplyr)
 
 df <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/finches.csv")
 
+# linear model with no predictors, is just a mean
 m <- mean(df$beakwidth)
 s <- sd(df$beakwidth)
 
+# by finding m, s (mean, standard deviation)
+# we're effectively fitting/training a normal model to the one variable
 ggplot(data = df) + 
   geom_histogram(aes(x = beakwidth,
                      y = after_stat(density)), bins = 11) +
   geom_function(fun = \(x) dnorm(x, m, s))
 
+# residuals for a model of just the mean
 dfr <- data.frame(
   r = df$beakwidth - m
 )
 
+# residuals should look normal with scale relative to s
 ggplot(data = dfr) +
   geom_histogram(aes(x=r, y=after_stat(density)), bins = 11)
 
 (5 - m) / s
-
 pnorm((5 - m) / s) * 100
 
 # question about different cutoffs for outliers
@@ -39,9 +43,11 @@ summary(fit)
 
 dfr <- data.frame(
   # r = residuals(fit)
+  # standardized residuals are scaled to have standard deviation 1
   r = rstandard(fit)
 )
 
+# standardized residuals should look like standard Normal
 ggplot(data = dfr) + 
   geom_histogram(aes(r), bins = 11)
 
@@ -96,5 +102,10 @@ ggplot(data = state, aes(Illiteracy, Income)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE)
 
+# (standardized) residuals on yhat plot
+# helps us see potential outliers,
+# an potential mis-fits of our model
+# non-linearity, or
+# ...
 ggplot(data = state) +
   geom_point(aes(yhat, r))
