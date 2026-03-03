@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>likelihood – lectures</title>
+<title>Bernoulli – lectures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,9 +117,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         
     <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="likelihood.out.ipynb" download="likelihood.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bernoulli</h1>
+</div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <div id="c9ddc1ea-d37c-48b6-bf43-7e711b857a8b" class="cell" data-execution_count="1">
@@ -128,32 +144,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8cabcc74-841a-4de0-8d8c-a96d6113e5ef" class="cell" data-execution_count="5">
+<div id="8cabcc74-841a-4de0-8d8c-a96d6113e5ef" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_bernoulli(p, x):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.size(x)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    sx <span class="op">=</span> np.<span class="bu">sum</span>(x)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>sx <span class="op">*</span> np.log(p) <span class="op">+</span> (sx <span class="op">-</span> N) <span class="op">*</span> np.log1p(<span class="op">-</span>p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a75fa6fb-4ab1-4447-b55d-a2e4e6f17893" class="cell" data-execution_count="6">
+<div id="a75fa6fb-4ab1-4447-b55d-a2e4e6f17893" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> rng.binomial(<span class="dv">1</span>, <span class="fl">0.3</span>, size <span class="op">=</span> <span class="dv">1001</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>minimize(ll_bernoulli, rng.uniform(), args <span class="op">=</span> (data,), </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         method <span class="op">=</span> <span class="st">"L-BFGS-B"</span>, bounds <span class="op">=</span> [(<span class="fl">1e-5</span>, <span class="dv">1</span> <span class="op">-</span> <span class="fl">1e-5</span>),])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         method <span class="op">=</span> <span class="st">"L-BFGS-B"</span>, bounds <span class="op">=</span> [(<span class="fl">1e-5</span>, <span class="dv">1</span> <span class="op">-</span> <span class="fl">1e-5</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>  message: CONVERGENCE: RELATIVE REDUCTION OF F &lt;= FACTR*EPSMCH
   success: True
    status: 0
-      fun: 607.7876846319684
-        x: [ 2.957e-01]
+      fun: 599.7817030610631
+        x: [ 2.867e-01]
       nit: 6
-      jac: [-1.592e-04]
+      jac: [-1.137e-04]
      nfev: 16
      njev: 8
  hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;</code></pre>
 </div>
 </div>
+<div id="70f0cb81-8e8c-4fb1-9e1f-0d92ab072789" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>np.mean(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>0.2867132867132867</code></pre>
+</div>
+</div>
+<section id="exponential" class="level1">
+<h1>Exponential</h1>
+<div id="6caeca95-7c48-4b53-9d1e-98e72b28148d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_exponential(l, x):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.size(x)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>N <span class="op">*</span> np.log(l) <span class="op">+</span> l <span class="op">*</span> np.<span class="bu">sum</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="10c5ec9e-b1aa-4847-9ac3-b30993c1411f" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> rng.exponential(<span class="fl">0.2</span>, size <span class="op">=</span> <span class="dv">1001</span>) <span class="co"># answer should be close to 5</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>minimize(ll_exponential, rng.uniform(), args <span class="op">=</span> (data,), </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         method <span class="op">=</span> <span class="st">"L-BFGS-B"</span>, bounds <span class="op">=</span> [(<span class="fl">1e-5</span>, np.inf)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>  message: CONVERGENCE: NORM OF PROJECTED GRADIENT &lt;= PGTOL
+  success: True
+   status: 0
+      fun: -577.1229029655424
+        x: [ 4.838e+00]
+      nit: 18
+      jac: [ 0.000e+00]
+     nfev: 102
+     njev: 51
+ hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;</code></pre>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
