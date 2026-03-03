@@ -62,6 +62,14 @@ ggplot(data=mtcars, aes(wt, mpg)) +
   geom_point() + 
   geom_smooth(se = FALSE, method = "lm")
 
+# look for the non-linearity in the 
+# scatter plot: standardized residuals on yhat
+fit <- lm(mpg ~ wt, data = mtcars)
+mtcars$r <- rstandard(fit)
+mtcars$yhat <- predict(fit)
+
+ggplot(data=mtcars) + geom_point(aes(yhat, r))
+
 # add a quadratic term in wt
 fit <- lm(mpg ~  wt + I(wt * wt), data = mtcars)
 summary(fit)
@@ -74,15 +82,18 @@ summary(fit)
 # but doing it this way has annoying side effects
 
 o <- order(mtcars$wt)
+x <- seq(min(mtcars$wt), max(mtcars$wt), length.out=101)
 mtcars <- mtcars |>
   mutate(
     wt = wt[o],
-    mpg = mpg[o],
-    yhat = predict(fit)[o])
+    mpg = mpg[o])
 
-ggplot(data=mtcars) +
-  geom_point(aes(wt, mpg)) + 
- geom_line(aes(wt, yhat), color = "blue")
+dfr <- data.frame(x = x,
+                   yhat = predict(fit, newdata = data.frame(wt = x)))
+
+ggplot() +
+  geom_point(data=mtcars, aes(wt, mpg)) + 
+ geom_line(data = dfr, aes(x, yhat), color = "blue")
 
 dfr <- data.frame(
   r = rstandard(fit)
@@ -103,3 +114,19 @@ diff(predict(fit, newdata = data.frame(wt = c(4, 5))))
 # the highest order term specified
 fit <- lm(Income ~ Population * Area, data = state)
 summary(fit)
+
+# non-linear in multiple ways
+fit <- lm(log10(mpg) ~ log10(wt), data = mtcars)
+summary(fit)
+
+dfl <- data.frame(
+  x = x,
+  yhat = 10^predict(fit, newdata = data.frame(wt = x))
+)
+
+ggplot() +
+  geom_point(data = mtcars, aes(wt, mpg)) +
+  geom_line(data = dfl, aes(x, yhat), color = "blue")
+
+yhat <- predict(fit)
+mean((10^yhat - mtcars$mpg)^2) # Mean Squared Error for mpg; undo log10(mpg)
