@@ -93,9 +93,9 @@
   {
     "objectID": "314/likelihood.html",
     "href": "314/likelihood.html",
-    "title": "lectures",
+    "title": "Bernoulli",
     "section": "",
-    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\nfrom scipy.optimize import minimize\n\n\ndef ll_bernoulli(p, x):\n    N = np.size(x)\n    sx = np.sum(x)\n    return -sx * np.log(p) + (sx - N) * np.log1p(-p)\n\n\nrng = np.random.default_rng()\ndata = rng.binomial(1, 0.3, size = 1001)\nminimize(ll_bernoulli, rng.uniform(), args = (data,), \n         method = \"L-BFGS-B\", bounds = [(1e-5, 1 - 1e-5),])\n\n  message: CONVERGENCE: RELATIVE REDUCTION OF F &lt;= FACTR*EPSMCH\n  success: True\n   status: 0\n      fun: 607.7876846319684\n        x: [ 2.957e-01]\n      nit: 6\n      jac: [-1.592e-04]\n     nfev: 16\n     njev: 8\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;"
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\nfrom scipy.optimize import minimize\n\n\ndef ll_bernoulli(p, x):\n    N = np.size(x)\n    sx = np.sum(x)\n    return -sx * np.log(p) + (sx - N) * np.log1p(-p)\n\n\nrng = np.random.default_rng()\ndata = rng.binomial(1, 0.3, size = 1001)\nminimize(ll_bernoulli, rng.uniform(), args = (data,), \n         method = \"L-BFGS-B\", bounds = [(1e-5, 1 - 1e-5)])\n\n  message: CONVERGENCE: RELATIVE REDUCTION OF F &lt;= FACTR*EPSMCH\n  success: True\n   status: 0\n      fun: 599.7817030610631\n        x: [ 2.867e-01]\n      nit: 6\n      jac: [-1.137e-04]\n     nfev: 16\n     njev: 8\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;\n\n\n\nnp.mean(data)\n\n0.2867132867132867\n\n\n\nExponential\n\ndef ll_exponential(l, x):\n    N = np.size(x)\n    return -N * np.log(l) + l * np.sum(x)\n\n\ndata = rng.exponential(0.2, size = 1001) # answer should be close to 5\nminimize(ll_exponential, rng.uniform(), args = (data,), \n         method = \"L-BFGS-B\", bounds = [(1e-5, np.inf)])\n\n  message: CONVERGENCE: NORM OF PROJECTED GRADIENT &lt;= PGTOL\n  success: True\n   status: 0\n      fun: -577.1229029655424\n        x: [ 4.838e+00]\n      nit: 18\n      jac: [ 0.000e+00]\n     nfev: 102\n     njev: 51\n hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;"
   },
   {
     "objectID": "314/optimization.html",
