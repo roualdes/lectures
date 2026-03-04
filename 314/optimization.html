@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="6460b379-e341-426a-a9c0-e3b9493bac9b" class="cell" data-execution_count="3">
+<div id="6460b379-e341-426a-a9c0-e3b9493bac9b" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f1(x):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""some function to minimize"""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> x</span>
@@ -162,16 +162,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""gradient of f(x)"""</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="bc4ed73d-e9f1-43d3-b319-90f151f21ca8" class="cell" data-execution_count="4">
+<div id="bc4ed73d-e9f1-43d3-b319-90f151f21ca8" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent_step(grad, init, stepsize):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> init <span class="op">-</span> stepsize <span class="op">*</span> grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e602f854-a570-45be-9841-9cc9dd4059e4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000,&quot;referenced_widgets&quot;:[&quot;27afa4c58e0e48019235f3524171cfa0&quot;,&quot;f87a8b466fdb45f1a0836e470d140461&quot;,&quot;2bec79dc0c484a5d8957b866514e2ce2&quot;,&quot;5eb3cff9d1274457ad1594fec319da58&quot;,&quot;0932a1604a8f4c13a143bc9f3af3af28&quot;,&quot;73491d4089364acc876622cdb7b4bb25&quot;,&quot;22e31bd0a698423db1b04a01a70a6d9b&quot;]}}" data-outputid="b4a29d99-9a29-495a-936c-0216dc988695" data-execution_count="9">
+<div id="e602f854-a570-45be-9841-9cc9dd4059e4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000,&quot;referenced_widgets&quot;:[&quot;27afa4c58e0e48019235f3524171cfa0&quot;,&quot;f87a8b466fdb45f1a0836e470d140461&quot;,&quot;2bec79dc0c484a5d8957b866514e2ce2&quot;,&quot;5eb3cff9d1274457ad1594fec319da58&quot;,&quot;0932a1604a8f4c13a143bc9f3af3af28&quot;,&quot;73491d4089364acc876622cdb7b4bb25&quot;,&quot;22e31bd0a698423db1b04a01a70a6d9b&quot;]}}" data-outputid="b4a29d99-9a29-495a-936c-0216dc988695" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@interact</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> widgets.IntSlider(value<span class="op">=</span><span class="dv">1</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">0</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">100</span>, step<span class="op">=</span><span class="dv">1</span>, description <span class="op">=</span> <span class="st">"steps"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_gradient_descent(S):</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    stepsize <span class="op">=</span> <span class="dv">5</span> <span class="co"># range from 0 to 2</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    stepsize <span class="op">=</span> <span class="fl">0.1</span> <span class="co"># range from 0 to 2</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">5</span>))</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">301</span>)</span>
@@ -200,24 +200,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].set_ylabel(<span class="st">"loss"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"0bbe97b74a5d4087aeeda30f19728d60","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"31491dd8eabf4b22b03366b64483e35b","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
 <section id="optimization-is-hard" class="level1">
 <h1>Optimization is Hard</h1>
-<div id="d06a63cf-bdb8-4bf0-8d98-ce6854122cf3" class="cell" data-execution_count="10">
+<div id="d06a63cf-bdb8-4bf0-8d98-ce6854122cf3" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f2(x):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">4</span> <span class="op">-</span> <span class="dv">5</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">*</span> x</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g2(x):</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">4</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">3</span> <span class="op">-</span> <span class="dv">10</span> <span class="op">*</span> x <span class="op">-</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="00eae643-95f5-4aaf-aebf-3fc9988e8917" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:537,&quot;referenced_widgets&quot;:[&quot;5cbf522e2dfd4bd09771dd427b00cd7a&quot;,&quot;526fad1c363b40e580938f4bdd47bdc4&quot;,&quot;6664ce47441a4ac381fb2344a0fcd744&quot;,&quot;b054b7f862374b8198303ce3bd42663a&quot;,&quot;b9f2936f1a5340a5bc90a5312f088578&quot;,&quot;1a1d610d85774f6c8bef9838a3d9b98c&quot;,&quot;fc5717520873404a835a2aa0db9c5929&quot;]}}" data-outputid="3b90b301-8a7b-4f61-c619-283a2ed6883f" data-execution_count="13">
+<div id="00eae643-95f5-4aaf-aebf-3fc9988e8917" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:537,&quot;referenced_widgets&quot;:[&quot;5cbf522e2dfd4bd09771dd427b00cd7a&quot;,&quot;526fad1c363b40e580938f4bdd47bdc4&quot;,&quot;6664ce47441a4ac381fb2344a0fcd744&quot;,&quot;b054b7f862374b8198303ce3bd42663a&quot;,&quot;b9f2936f1a5340a5bc90a5312f088578&quot;,&quot;1a1d610d85774f6c8bef9838a3d9b98c&quot;,&quot;fc5717520873404a835a2aa0db9c5929&quot;]}}" data-outputid="3b90b301-8a7b-4f61-c619-283a2ed6883f" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">@interact</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> widgets.IntSlider(value<span class="op">=</span><span class="dv">1</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">0</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">100</span>, step<span class="op">=</span><span class="dv">1</span>, description <span class="op">=</span> <span class="st">"steps"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_gradient_descent(S):</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    stepsize <span class="op">=</span> <span class="fl">0.07</span> <span class="co"># change stepsize</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    stepsize <span class="op">=</span> <span class="fl">0.01</span> <span class="co"># change stepsize</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">5</span>))</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">301</span>)</span>
@@ -246,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].set_ylabel(<span class="st">"loss"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"f299a2bdb5d0425cbb8ddb853aaa98c2","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"67a68cd7080d454fa5880d5f7ad8e2ed","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
