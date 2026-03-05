@@ -130,3 +130,16 @@ ggplot() +
 
 yhat <- predict(fit)
 mean((10^yhat - mtcars$mpg)^2) # Mean Squared Error for mpg; undo log10(mpg)
+
+# interaction terms between a categorical and numeric explanatory variable
+df <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/carnivora.csv")
+
+ggplot(data = df, aes(GL, LY, color = SuperFamily)) +
+  geom_point()
+
+
+fit <- lm(LY ~ SuperFamily * GL, data = df)
+summary(fit)
+
+# looking forward to optimization
+model.matrix(fit)
