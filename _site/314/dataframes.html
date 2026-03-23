@@ -125,17 +125,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div id="6b3332f5-b609-45e5-9ab2-d815d0d7eb22" class="cell" data-execution_count="19">
+<div id="6b3332f5-b609-45e5-9ab2-d815d0d7eb22" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> spicy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="65e48378-570c-4432-bec8-ebb9738eb2c3" class="cell" data-execution_count="3">
+<div id="65e48378-570c-4432-bec8-ebb9738eb2c3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8256564b-bf34-4ca6-9367-85c2e51409d1" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="8256564b-bf34-4ca6-9367-85c2e51409d1" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -155,59 +155,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.1</td>
-<td>18.7</td>
-<td>181.0</td>
-<td>3750.0</td>
+<td data-quarto-table-cell-role="th">339</td>
+<td>Chinstrap</td>
+<td>Dream</td>
+<td>55.8</td>
+<td>19.8</td>
+<td>207.0</td>
+<td>4000.0</td>
 <td>male</td>
-<td>2007</td>
+<td>2009</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.5</td>
-<td>17.4</td>
-<td>186.0</td>
-<td>3800.0</td>
+<td data-quarto-table-cell-role="th">340</td>
+<td>Chinstrap</td>
+<td>Dream</td>
+<td>43.5</td>
+<td>18.1</td>
+<td>202.0</td>
+<td>3400.0</td>
 <td>female</td>
-<td>2007</td>
+<td>2009</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>40.3</td>
-<td>18.0</td>
-<td>195.0</td>
-<td>3250.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>36.7</td>
-<td>19.3</td>
+<td data-quarto-table-cell-role="th">341</td>
+<td>Chinstrap</td>
+<td>Dream</td>
+<td>49.6</td>
+<td>18.2</td>
 <td>193.0</td>
-<td>3450.0</td>
+<td>3775.0</td>
+<td>male</td>
+<td>2009</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">342</td>
+<td>Chinstrap</td>
+<td>Dream</td>
+<td>50.8</td>
+<td>19.0</td>
+<td>210.0</td>
+<td>4100.0</td>
+<td>male</td>
+<td>2009</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">343</td>
+<td>Chinstrap</td>
+<td>Dream</td>
+<td>50.2</td>
+<td>18.7</td>
+<td>198.0</td>
+<td>3775.0</td>
 <td>female</td>
-<td>2007</td>
+<td>2009</td>
 </tr>
 </tbody>
 </table>
@@ -215,26 +215,121 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="b7d1cb62-57eb-4db7-a828-d05a6b08cc56" class="cell" data-execution_count="31">
+<div id="b7d1cb62-57eb-4db7-a828-d05a6b08cc56" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">=</span> np.mean(df[<span class="st">"bill_length_mm"</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.std(df[<span class="st">"bill_length_mm"</span>])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(<span class="op">~</span>df[<span class="st">"bill_length_mm"</span>].isna())</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> spicy.t(df <span class="op">=</span> N <span class="op">-</span> <span class="dv">1</span>).ppf([<span class="fl">0.025</span>, <span class="fl">0.975</span>]) <span class="co"># ppf(0.975)</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">+</span> t <span class="op">*</span> s <span class="op">/</span> np.sqrt(N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([43.34209692, 44.50176273])</code></pre>
 </div>
 </div>
-<div id="dd12e446-e20b-4899-be6f-085f7f7c0b58" class="cell" data-execution_count="21">
+<div id="dd12e446-e20b-4899-be6f-085f7f7c0b58" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.shape(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>(344, 8)</code></pre>
 </div>
 </div>
-<div id="6cff9051-5686-4790-bdb4-f7ddbda9058f" class="cell" data-execution_count="27">
+<div id="6cff9051-5686-4790-bdb4-f7ddbda9058f" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>N</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>342</code></pre>
+</div>
+</div>
+<div id="4d786592-cfc3-430a-a487-a5ee7541d8b1" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> df.groupby([<span class="st">"sex"</span>, <span class="st">"island"</span>], as_index <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="74d664df-e448-40d6-b904-4d975b30e7b3" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, grouped_df <span class="kw">in</span> gdf:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(np.mean(grouped_df[<span class="st">"bill_length_mm"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>('female', 'Biscoe')
+43.30749999999999
+('female', 'Dream')
+42.29672131147541
+('female', 'Torgersen')
+37.55416666666667
+('male', 'Biscoe')
+47.11927710843374
+('male', 'Dream')
+46.116129032258065
+('male', 'Torgersen')
+40.58695652173913</code></pre>
+</div>
+</div>
+<div id="44e08fc8-1735-41ab-91c8-8d1661674cd3" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sdf <span class="op">=</span> gdf.aggregate(mn <span class="op">=</span> (<span class="st">"bill_length_mm"</span>, np.mean),</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                   sd <span class="op">=</span> (<span class="st">"bill_length_mm"</span>, np.std))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># creates a new grouped dataframe </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># based on given parameters, where</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># parameters follow this pattern</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># name_var = (col_name, function)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="87c8d552-d7c6-4608-81f6-43c1adeb0131" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">mn</th>
+<th data-quarto-table-cell-role="th">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>female</td>
+<td>Biscoe</td>
+<td>43.307500</td>
+<td>4.151439</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>female</td>
+<td>Dream</td>
+<td>42.296721</td>
+<td>5.488288</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>female</td>
+<td>Torgersen</td>
+<td>37.554167</td>
+<td>2.161400</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>male</td>
+<td>Biscoe</td>
+<td>47.119277</td>
+<td>4.662655</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>male</td>
+<td>Dream</td>
+<td>46.116129</td>
+<td>5.720512</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>male</td>
+<td>Torgersen</td>
+<td>40.586957</td>
+<td>2.960949</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 
