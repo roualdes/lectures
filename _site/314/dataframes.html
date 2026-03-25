@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -66,15 +66,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -102,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -142,43 +141,133 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="6b3332f5-b609-45e5-9ab2-d815d0d7eb22" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div id="6b3332f5-b609-45e5-9ab2-d815d0d7eb22" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> spicy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> spicy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="65e48378-570c-4432-bec8-ebb9738eb2c3" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="65e48378-570c-4432-bec8-ebb9738eb2c3" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8256564b-bf34-4ca6-9367-85c2e51409d1" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8256564b-bf34-4ca6-9367-85c2e51409d1" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <div id="b7d1cb62-57eb-4db7-a828-d05a6b08cc56" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">=</span> np.mean(df[<span class="st">"bill_length_mm"</span>])</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">=</span> np.mean(df[<span class="st">"bill_length_mm"</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.std(df[<span class="st">"bill_length_mm"</span>])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(<span class="op">~</span>df[<span class="st">"bill_length_mm"</span>].isna())</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> spicy.t(df <span class="op">=</span> N <span class="op">-</span> <span class="dv">1</span>).ppf([<span class="fl">0.025</span>, <span class="fl">0.975</span>]) <span class="co"># ppf(0.975)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">+</span> t <span class="op">*</span> s <span class="op">/</span> np.sqrt(N)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">+</span> t <span class="op">*</span> s <span class="op">/</span> np.sqrt(N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="dd12e446-e20b-4899-be6f-085f7f7c0b58" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>np.shape(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dd12e446-e20b-4899-be6f-085f7f7c0b58" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>np.shape(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>(344, 8)</code></pre>
+</div>
+</div>
+<div id="c54f9d4c-36cd-4990-a5ef-c331f45f9454" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>Index(['species', 'island', 'bill_length_mm', 'bill_depth_mm',
+       'flipper_length_mm', 'body_mass_g', 'sex', 'year'],
+      dtype='str')</code></pre>
+</div>
 </div>
 <div id="6cff9051-5686-4790-bdb4-f7ddbda9058f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>N</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>N</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="4d786592-cfc3-430a-a487-a5ee7541d8b1" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> df.groupby([<span class="st">"sex"</span>, <span class="st">"island"</span>], as_index <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> df.groupby([<span class="st">"sex"</span>, <span class="st">"island"</span>], as_index <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="982b94a5-6930-49c1-9c24-96e1d94a3b81" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gdf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>&lt;pandas.api.typing.DataFrameGroupBy object at 0x1438c8380&gt;</code></pre>
 </div>
 </div>
 <div id="74d664df-e448-40d6-b904-4d975b30e7b3" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, grouped_df <span class="kw">in</span> gdf:</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(np.mean(grouped_df[<span class="st">"bill_length_mm"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, grouped_df <span class="kw">in</span> gdf:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(name)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(np.mean(grouped_df[<span class="st">"bill_length_mm"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>('female', 'Biscoe')
 43.30749999999999
@@ -195,20 +284,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="44e08fc8-1735-41ab-91c8-8d1661674cd3" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sdf <span class="op">=</span> gdf.aggregate(mn <span class="op">=</span> (<span class="st">"bill_length_mm"</span>, np.mean),</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                   sd <span class="op">=</span> (<span class="st">"bill_length_mm"</span>, np.std))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># creates a new grouped dataframe </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># based on given parameters, where</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># parameters follow this pattern</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># name_var = (col_name, function)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sdf <span class="op">=</span> gdf.aggregate(mn <span class="op">=</span> (<span class="st">"bill_length_mm"</span>, np.mean),</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                   sd <span class="op">=</span> (<span class="st">"bill_length_mm"</span>, np.std))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># creates a new grouped dataframe </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># based on given parameters, where</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># parameters follow this pattern</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># name_var = (col_name, function)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="87c8d552-d7c6-4608-81f6-43c1adeb0131" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sdf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -220,42 +309,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
+<td data-quarto-table-cell-role="th">0</td>
 <td>female</td>
 <td>Biscoe</td>
 <td>43.307500</td>
 <td>4.151439</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
+<td data-quarto-table-cell-role="th">1</td>
 <td>female</td>
 <td>Dream</td>
 <td>42.296721</td>
 <td>5.488288</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
+<td data-quarto-table-cell-role="th">2</td>
 <td>female</td>
 <td>Torgersen</td>
 <td>37.554167</td>
 <td>2.161400</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
+<td data-quarto-table-cell-role="th">3</td>
 <td>male</td>
 <td>Biscoe</td>
 <td>47.119277</td>
 <td>4.662655</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
+<td data-quarto-table-cell-role="th">4</td>
 <td>male</td>
 <td>Dream</td>
 <td>46.116129</td>
 <td>5.720512</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
+<td data-quarto-table-cell-role="th">5</td>
 <td>male</td>
 <td>Torgersen</td>
 <td>40.586957</td>
@@ -270,8 +359,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="indexing-dataframes" class="level2">
 <h2 class="anchored" data-anchor-id="indexing-dataframes">Indexing DataFrames</h2>
 <div id="744d33ed-f886-4c49-8807-7e31d793e8c7" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>]) <span class="co"># np.arange(4)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sdf[<span class="st">"mn"</span>][idx] <span class="co"># not really my recommended strategy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>]) <span class="co"># np.arange(4)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sdf[<span class="st">"mn"</span>][idx] <span class="co"># not really my recommended strategy</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>0    43.307500
 2    37.554167
@@ -281,7 +370,7 @@ Name: mn, dtype: float64</code></pre>
 </div>
 </div>
 <div id="d7d88ff3-2483-46b5-b414-a51f754bf48c" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sdf[<span class="st">"mn"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sdf[<span class="st">"mn"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0    43.307500
 1    42.296721
@@ -293,12 +382,12 @@ Name: mn, dtype: float64</code></pre>
 </div>
 </div>
 <div id="cb013d43-25da-4e15-ac8c-c8c134fd6894" class="cell" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -314,7 +403,7 @@ Name: mn, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
+<td data-quarto-table-cell-role="th">0</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>39.1</td>
@@ -325,7 +414,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
+<td data-quarto-table-cell-role="th">1</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>39.5</td>
@@ -336,7 +425,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
+<td data-quarto-table-cell-role="th">2</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>40.3</td>
@@ -347,7 +436,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
+<td data-quarto-table-cell-role="th">3</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>NaN</td>
@@ -358,7 +447,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
+<td data-quarto-table-cell-role="th">4</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>36.7</td>
@@ -375,23 +464,26 @@ Name: mn, dtype: float64</code></pre>
 </div>
 </div>
 <div id="0890c29d-a337-4b87-bccf-b26afc55a346" class="cell" data-execution_count="29">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bdx <span class="op">=</span> df[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">40</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df.loc[bdx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bdx <span class="op">=</span> df[<span class="st">"bill_length_mm"</span>] <span class="op">&gt;</span> <span class="dv">40</span> <span class="co"># create a boolean array</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df.loc[bdx] <span class="co"># use method loc to index df by boolean array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>False</code></pre>
 </div>
 </div>
 <div id="7135c31a-a917-4459-a2e7-457361d31cc2" class="cell" data-execution_count="43">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sdx <span class="op">=</span> df[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"male"</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> df[<span class="st">"island"</span>] <span class="op">==</span> <span class="st">"Dream"</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ndx <span class="op">=</span> <span class="op">~</span>df[<span class="st">"body_mass_g"</span>].isna()</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>bbdx <span class="op">=</span> df[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">4000</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>df.loc[sdx <span class="op">&amp;</span> idx <span class="op">&amp;</span> ndx <span class="op">&amp;</span> bbdx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sdx <span class="op">=</span> df[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"male"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> df[<span class="st">"island"</span>] <span class="op">==</span> <span class="st">"Dream"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ndx <span class="op">=</span> <span class="op">~</span>df[<span class="st">"body_mass_g"</span>].isna()</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>bbdx <span class="op">=</span> df[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">4000</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># find the male penguins from the island dream</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># with not missing data in the column body mass</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># whose weight is greater than 4000</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>df.loc[sdx <span class="op">&amp;</span> idx <span class="op">&amp;</span> ndx <span class="op">&amp;</span> bbdx]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="43">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -407,7 +499,7 @@ Name: mn, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">35</th>
+<td data-quarto-table-cell-role="th">35</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.2</td>
@@ -418,7 +510,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">39</th>
+<td data-quarto-table-cell-role="th">39</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.8</td>
@@ -429,7 +521,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">43</th>
+<td data-quarto-table-cell-role="th">43</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>44.1</td>
@@ -440,7 +532,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">45</th>
+<td data-quarto-table-cell-role="th">45</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.6</td>
@@ -451,7 +543,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">49</th>
+<td data-quarto-table-cell-role="th">49</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>42.3</td>
@@ -462,7 +554,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">91</th>
+<td data-quarto-table-cell-role="th">91</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>41.1</td>
@@ -473,7 +565,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">93</th>
+<td data-quarto-table-cell-role="th">93</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.6</td>
@@ -484,7 +576,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">95</th>
+<td data-quarto-table-cell-role="th">95</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>40.8</td>
@@ -495,7 +587,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">97</th>
+<td data-quarto-table-cell-role="th">97</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>40.3</td>
@@ -506,7 +598,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">99</th>
+<td data-quarto-table-cell-role="th">99</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>43.2</td>
@@ -517,7 +609,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">133</th>
+<td data-quarto-table-cell-role="th">133</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>37.5</td>
@@ -528,7 +620,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">139</th>
+<td data-quarto-table-cell-role="th">139</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.7</td>
@@ -539,7 +631,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">146</th>
+<td data-quarto-table-cell-role="th">146</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.2</td>
@@ -550,7 +642,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">289</th>
+<td data-quarto-table-cell-role="th">289</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>52.0</td>
@@ -561,7 +653,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">291</th>
+<td data-quarto-table-cell-role="th">291</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>50.5</td>
@@ -572,7 +664,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">295</th>
+<td data-quarto-table-cell-role="th">295</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>49.2</td>
@@ -583,7 +675,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">301</th>
+<td data-quarto-table-cell-role="th">301</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>52.0</td>
@@ -594,7 +686,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">305</th>
+<td data-quarto-table-cell-role="th">305</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>52.8</td>
@@ -605,7 +697,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">307</th>
+<td data-quarto-table-cell-role="th">307</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>54.2</td>
@@ -616,7 +708,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">309</th>
+<td data-quarto-table-cell-role="th">309</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>51.0</td>
@@ -627,7 +719,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">313</th>
+<td data-quarto-table-cell-role="th">313</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>52.0</td>
@@ -638,7 +730,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">315</th>
+<td data-quarto-table-cell-role="th">315</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>53.5</td>
@@ -649,7 +741,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">321</th>
+<td data-quarto-table-cell-role="th">321</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>50.8</td>
@@ -660,7 +752,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">323</th>
+<td data-quarto-table-cell-role="th">323</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>49.0</td>
@@ -671,7 +763,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">329</th>
+<td data-quarto-table-cell-role="th">329</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>50.7</td>
@@ -682,7 +774,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">333</th>
+<td data-quarto-table-cell-role="th">333</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>49.3</td>
@@ -693,7 +785,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">342</th>
+<td data-quarto-table-cell-role="th">342</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>50.8</td>
@@ -710,13 +802,13 @@ Name: mn, dtype: float64</code></pre>
 </div>
 </div>
 <div id="c718eadb-bf88-43c6-819d-641703aab438" class="cell" data-execution_count="50">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>jdx <span class="op">=</span> (df[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">40</span>) <span class="op">|</span> (df[<span class="st">"body_mass_g"</span>] <span class="op">&lt;</span> <span class="dv">35</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df.loc[jdx <span class="op">&amp;</span> idx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>jdx <span class="op">=</span> (df[<span class="st">"body_mass_g"</span>] <span class="op">&gt;</span> <span class="dv">40</span>) <span class="op">|</span> (df[<span class="st">"body_mass_g"</span>] <span class="op">&lt;</span> <span class="dv">35</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df.loc[jdx <span class="op">&amp;</span> idx]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="50">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -732,7 +824,7 @@ Name: mn, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">30</th>
+<td data-quarto-table-cell-role="th">30</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.5</td>
@@ -743,7 +835,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">31</th>
+<td data-quarto-table-cell-role="th">31</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>37.2</td>
@@ -754,7 +846,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">32</th>
+<td data-quarto-table-cell-role="th">32</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>39.5</td>
@@ -765,7 +857,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">33</th>
+<td data-quarto-table-cell-role="th">33</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>40.9</td>
@@ -776,7 +868,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">34</th>
+<td data-quarto-table-cell-role="th">34</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>36.4</td>
@@ -787,7 +879,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">...</th>
+<td data-quarto-table-cell-role="th">...</td>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -798,7 +890,7 @@ Name: mn, dtype: float64</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">339</th>
+<td data-quarto-table-cell-role="th">339</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>55.8</td>
@@ -809,7 +901,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">340</th>
+<td data-quarto-table-cell-role="th">340</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>43.5</td>
@@ -820,7 +912,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">341</th>
+<td data-quarto-table-cell-role="th">341</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>49.6</td>
@@ -831,7 +923,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">342</th>
+<td data-quarto-table-cell-role="th">342</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>50.8</td>
@@ -842,7 +934,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">343</th>
+<td data-quarto-table-cell-role="th">343</td>
 <td>Chinstrap</td>
 <td>Dream</td>
 <td>50.2</td>
@@ -859,14 +951,14 @@ Name: mn, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="5126b644-2ff2-4c56-93cf-d657bcc815f0" class="cell" data-execution_count="56">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>bdf <span class="op">=</span> df.sort_values(<span class="st">"bill_length_mm"</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>bdf.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="56">
+<div id="5126b644-2ff2-4c56-93cf-d657bcc815f0" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bdf <span class="op">=</span> df.sort_values(<span class="st">"bill_length_mm"</span>) <span class="co"># sort an entire dataframe by a column</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>bdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -882,7 +974,7 @@ Name: mn, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">142</th>
+<td data-quarto-table-cell-role="th">142</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>32.1</td>
@@ -893,7 +985,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">98</th>
+<td data-quarto-table-cell-role="th">98</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>33.1</td>
@@ -904,7 +996,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">70</th>
+<td data-quarto-table-cell-role="th">70</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>33.5</td>
@@ -915,7 +1007,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">92</th>
+<td data-quarto-table-cell-role="th">92</td>
 <td>Adelie</td>
 <td>Dream</td>
 <td>34.0</td>
@@ -926,7 +1018,7 @@ Name: mn, dtype: float64</code></pre>
 <td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">8</th>
+<td data-quarto-table-cell-role="th">8</td>
 <td>Adelie</td>
 <td>Torgersen</td>
 <td>34.1</td>
@@ -943,7 +1035,8 @@ Name: mn, dtype: float64</code></pre>
 </div>
 </div>
 <div id="66951a78-0b7e-4d1f-9048-56c0b906fbf6" class="cell" data-execution_count="57">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bdf.iloc[<span class="dv">4</span>] <span class="co"># == bdf.loc[8]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># index by integer location (iloc), not label location (loc)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>bdf.iloc[<span class="dv">4</span>] <span class="co"># == bdf.loc[8]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="57">
 <pre><code>species                 Adelie
 island               Torgersen
@@ -957,7 +1050,7 @@ Name: 8, dtype: object</code></pre>
 </div>
 </div>
 <div id="68c23fcb-46e0-46f7-aa45-d084c7dde60b" class="cell" data-execution_count="58">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bdf.iloc[<span class="dv">0</span>] <span class="co"># == bdf.loc[142]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bdf.iloc[<span class="dv">0</span>] <span class="co"># == bdf.loc[142]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="58">
 <pre><code>species              Adelie
 island                Dream
@@ -971,12 +1064,16 @@ Name: 142, dtype: object</code></pre>
 </div>
 </div>
 <div id="12760ed3-1f82-4857-96de-341a394b4f73" class="cell" data-execution_count="69">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df.loc[bbdx, [<span class="st">"island"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"year"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># index both rows (by boolean array bbdx) and columns by name</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># using loc</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># if columns are specified with a list =&gt; dataframe</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># if column is specified with a str =&gt; Series</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>df.loc[bbdx, [<span class="st">"island"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"year"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="69">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -987,67 +1084,67 @@ Name: 142, dtype: object</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">7</th>
+<td data-quarto-table-cell-role="th">7</td>
 <td>Torgersen</td>
 <td>19.6</td>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">9</th>
+<td data-quarto-table-cell-role="th">9</td>
 <td>Torgersen</td>
 <td>20.2</td>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">14</th>
+<td data-quarto-table-cell-role="th">14</td>
 <td>Torgersen</td>
 <td>21.1</td>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">17</th>
+<td data-quarto-table-cell-role="th">17</td>
 <td>Torgersen</td>
 <td>20.7</td>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">19</th>
+<td data-quarto-table-cell-role="th">19</td>
 <td>Torgersen</td>
 <td>21.5</td>
 <td>2007</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">...</th>
+<td data-quarto-table-cell-role="th">...</td>
 <td>...</td>
 <td>...</td>
 <td>...</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">321</th>
+<td data-quarto-table-cell-role="th">321</td>
 <td>Dream</td>
 <td>18.5</td>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">323</th>
+<td data-quarto-table-cell-role="th">323</td>
 <td>Dream</td>
 <td>19.6</td>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">329</th>
+<td data-quarto-table-cell-role="th">329</td>
 <td>Dream</td>
 <td>19.7</td>
 <td>2009</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">333</th>
+<td data-quarto-table-cell-role="th">333</td>
 <td>Dream</td>
 <td>19.9</td>
 <td>2009</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">342</th>
+<td data-quarto-table-cell-role="th">342</td>
 <td>Dream</td>
 <td>19.0</td>
 <td>2009</td>
@@ -1059,13 +1156,150 @@ Name: 142, dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="6eaf8a67-ed60-4289-8404-9bb745903516" class="cell" data-execution_count="73">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">1</span>:<span class="dv">10</span>, df.columns.get_indexer([<span class="st">"island"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"year"</span>])]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="73">
+<div id="a23e0f4d-ec32-428d-a833-bf5c7a92a0aa" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bdf.loc[np.arange(<span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.3</td>
+<td>20.6</td>
+<td>190.0</td>
+<td>3650.0</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>38.9</td>
+<td>17.8</td>
+<td>181.0</td>
+<td>3625.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.2</td>
+<td>19.6</td>
+<td>195.0</td>
+<td>4675.0</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>34.1</td>
+<td>18.1</td>
+<td>193.0</td>
+<td>3475.0</td>
+<td>NaN</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>42.0</td>
+<td>20.2</td>
+<td>190.0</td>
+<td>4250.0</td>
+<td>NaN</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="6eaf8a67-ed60-4289-8404-9bb745903516" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>bdf.iloc[<span class="dv">1</span>:<span class="dv">10</span>, df.columns.get_indexer([<span class="st">"island"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"year"</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1076,58 +1310,58 @@ Name: 142, dtype: object</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Torgersen</td>
-<td>17.4</td>
-<td>2007</td>
+<td data-quarto-table-cell-role="th">98</td>
+<td>Dream</td>
+<td>16.1</td>
+<td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2</th>
+<td data-quarto-table-cell-role="th">70</td>
 <td>Torgersen</td>
-<td>18.0</td>
-<td>2007</td>
+<td>19.0</td>
+<td>2008</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Torgersen</td>
-<td>NaN</td>
-<td>2007</td>
+<td data-quarto-table-cell-role="th">92</td>
+<td>Dream</td>
+<td>17.1</td>
+<td>2008</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Torgersen</td>
-<td>19.3</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">5</th>
-<td>Torgersen</td>
-<td>20.6</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">6</th>
-<td>Torgersen</td>
-<td>17.8</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">7</th>
-<td>Torgersen</td>
-<td>19.6</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">8</th>
+<td data-quarto-table-cell-role="th">8</td>
 <td>Torgersen</td>
 <td>18.1</td>
 <td>2007</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">9</th>
+<td data-quarto-table-cell-role="th">18</td>
 <td>Torgersen</td>
-<td>20.2</td>
+<td>18.4</td>
 <td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">54</td>
+<td>Biscoe</td>
+<td>18.1</td>
+<td>2008</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">80</td>
+<td>Torgersen</td>
+<td>17.2</td>
+<td>2008</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>Torgersen</td>
+<td>21.1</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">52</td>
+<td>Biscoe</td>
+<td>17.9</td>
+<td>2008</td>
 </tr>
 </tbody>
 </table>
@@ -1136,31 +1370,37 @@ Name: 142, dtype: object</code></pre>
 </div>
 </div>
 <div id="8be8d267-64ab-4d0e-969b-927d9d5dbc84" class="cell" data-execution_count="74">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recommendations for indexing DataFrames</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by boolean array, use loc, whether or not you want columns by name</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># by integer array, use iloc</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># if integer array, and columns by name use  df.columns.get_indexer</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recommendations for indexing DataFrames</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by boolean array, use loc, whether or not you want columns by name</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># by integer array, use iloc</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># if integer array, and columns by name use  df.columns.get_indexer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="9a46c21c-f2ab-429a-a58f-66d2e3bbc77f" class="cell" data-execution_count="76">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, <span class="st">"bill_length_mm"</span>] <span class="op">=</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, <span class="st">"bill_length_mm"</span>] <span class="op">=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="3d5ad2f9-3237-43d8-bb90-33db8666a1a4" class="cell" data-execution_count="78">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, <span class="st">"body_mass_g"</span>] <span class="op">=</span> <span class="dv">1342343</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, <span class="st">"body_mass_g"</span>] <span class="op">=</span> <span class="dv">1342343</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="6fdf628a-2b9d-476a-afe0-cd532e0b21a6" class="cell" data-execution_count="83">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, <span class="st">"bill_depth_mm"</span>] <span class="op">=</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, <span class="st">"bill_depth_mm"</span>] <span class="op">=</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1a4b9123-30e7-4b83-9875-861861714119" class="cell" data-execution_count="88">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df.to_numpy()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="88">
-<pre><code>array([['Adelie', 'Torgersen', 39.1, ..., 3750.0, 'male', 2007],
-       ['Adelie', 'Torgersen', 39.5, ..., 3800.0, 'female', 2007],
-       ['Adelie', 'Torgersen', 40.3, ..., 3250.0, 'female', 2007],
-       ...,
-       ['Chinstrap', 'Dream', 49.6, ..., 3775.0, 'male', 2009],
-       ['Chinstrap', 'Dream', 50.8, ..., 4100.0, 'male', 2009],
-       ['Chinstrap', 'Dream', 50.2, ..., 3775.0, 'female', 2009]],
-      dtype=object)</code></pre>
+<div id="1a4b9123-30e7-4b83-9875-861861714119" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>np.size(df[<span class="st">"bill_depth_mm"</span>])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#df["bill_depth_mm"] = np.arange(344)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>344</code></pre>
+</div>
+</div>
+<div id="f1c5edef-d929-44e2-84bc-498a6d896130" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, [<span class="st">"bill_depth_mm"</span>, <span class="st">"body_mass_g"</span>, <span class="st">"bill_length_mm"</span>]] <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4e389519-0368-4c8b-b42e-8410085934ab" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">3</span>, [<span class="st">"bill_depth_mm"</span>, <span class="st">"body_mass_g"</span>, <span class="st">"bill_length_mm"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>bill_depth_mm     3.0
+body_mass_g       4.0
+bill_length_mm    6.0
+Name: 3, dtype: float64</code></pre>
 </div>
 </div>
 
@@ -1219,14 +1459,13 @@ Name: 142, dtype: object</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
