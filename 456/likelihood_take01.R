@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 
 df <- read.csv("https://raw.githubusercontent.com/roualdes/data/refs/heads/master/carnivora.csv") %>%
-  select(GL, LY) %>%
+  select(GL, LY, SuperFamily) %>%
   na.omit()
 
 # normal distribution
@@ -16,12 +16,11 @@ ll_normal <- function(theta, data) {
 }
 
 set.seed(287)
-df <- data.frame(x = rnorm(1001, 3.14, 2.71))
+data <- data.frame(x = rnorm(1001, 3.14, 2.71))
 
-optim(rexp(2), ll_normal, data = df, 
+optim(rexp(2), ll_normal, data = data, 
       method = "L-BFGS-B", 
       lower = c(-Inf, 1e-5), upper = c(Inf, Inf))
-
 
 # linear regression
 ll_linreg <- function(theta, data) {
@@ -37,3 +36,17 @@ data <- data.frame(x = df$GL, y = df$LY)
 
 optim(rnorm(2), ll_linreg, data = data, method = "L-BFGS-B")
 coef(lm(LY ~ GL, data = df))
+
+# multiple linear regression (multiple predictors)
+fit <- lm(LY ~ SuperFamily * GL, data = df)
+data <- list(X = model.matrix(fit), y = df$LY)
+
+ll_linreg <- function(theta, data) {
+  X <- data$X
+  y <- data$y
+  d <- y - X %*% theta
+  sum(d * d)
+}
+
+optim(rnorm(4), ll_linreg, data = data, method = "L-BFGS-B")
+coef(fit)
