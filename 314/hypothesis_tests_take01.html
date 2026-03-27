@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bernoulli – lectures</title>
+<title>hypothesis_tests_take01 – lectures</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -105,35 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -147,114 +118,64 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="likelihood.out.ipynb" download="likelihood.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hypothesis_tests_take01.out.ipynb" download="hypothesis_tests_take01.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Bernoulli</h1>
+
+
+
+<div id="efe2ebf1-7524-461b-a3b9-189f763d9fca" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> spicy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div id="c9ddc1ea-d37c-48b6-bf43-7e711b857a8b" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The log-likelihood for the Bernoulli distributon is</p>
-<p><span class="math display">\[\ell(p | \mathbf{X}) = \sum_{n=1}^N X_n \log{p} + (1 - X_n) \log{1-p}\]</span></p>
-<p>To find the maximum likelihood estimator for <span class="math inline">\(p\)</span>, we first find <span class="math inline">\(\frac{d\ell}{dp}\)</span>:</p>
-<p><span class="math display">\[\frac{d\ell}{dp} = \sum_{n=1}^N X_n / p - (1 - X_n) / (1 - p)\]</span></p>
-<p>Then set <span class="math inline">\(\frac{d\ell}{dp}\)</span> equal to <span class="math inline">\(0\)</span></p>
-<p><span class="math display">\[(1 - p) \sum_{n=1}^N X_n = p \sum_{n=1}^N (1 - X_n)\]</span></p>
-<p>Last, solve for <span class="math inline">\(p\)</span></p>
-<p><span class="math display">\[\hat{p} = N^{-1}\sum_{n=1}^N X_n\]</span></p>
-<div id="8cabcc74-841a-4de0-8d8c-a96d6113e5ef" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_bernoulli(p, x):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.size(x)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    sx <span class="op">=</span> np.<span class="bu">sum</span>(x)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>sx <span class="op">*</span> np.log(p) <span class="op">+</span> (sx <span class="op">-</span> N) <span class="op">*</span> np.log1p(<span class="op">-</span>p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="a75fa6fb-4ab1-4447-b55d-a2e4e6f17893" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng()</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> rng.binomial(<span class="dv">1</span>, <span class="fl">0.3</span>, size <span class="op">=</span> <span class="dv">1001</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>minimize(ll_bernoulli, rng.uniform(), args <span class="op">=</span> (data,), </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         method <span class="op">=</span> <span class="st">"L-BFGS-B"</span>, bounds <span class="op">=</span> [(<span class="fl">1e-5</span>, <span class="dv">1</span> <span class="op">-</span> <span class="fl">1e-5</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>  message: CONVERGENCE: RELATIVE REDUCTION OF F &lt;= FACTR*EPSMCH
-  success: True
-   status: 0
-      fun: 624.1970903914475
-        x: [ 3.157e-01]
-      nit: 4
-      jac: [ 6.821e-05]
-     nfev: 12
-     njev: 6
- hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;</code></pre>
-</div>
-</div>
-<div id="70f0cb81-8e8c-4fb1-9e1f-0d92ab072789" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>np.mean(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>0.3156843156843157</code></pre>
-</div>
-</div>
-<section id="exponential" class="level1">
-<h1>Exponential</h1>
-<p>The log-likelihood for the Exponential distributon is</p>
-<p><span class="math display">\[\ell( \lambda | \mathbf{X}) = N \log{\lambda} - \lambda \sum_{n=1}^N X_n\]</span></p>
-<p>To find the maximum likelihood estimator for <span class="math inline">\(\lambda\)</span>, we first find <span class="math inline">\(\frac{d\ell}{d\lambda}\)</span>:</p>
-<p><span class="math display">\[\frac{d\ell}{d\lambda} = N / \lambda - \sum_{n=1}^N X_n\]</span></p>
-<p>Then set <span class="math inline">\(\frac{d\ell}{d\lambda}\)</span> equal to <span class="math inline">\(0\)</span></p>
-<p><span class="math display">\[N / \lambda = \sum_{n=1}^N X_n\]</span></p>
-<p>Last, solve for <span class="math inline">\(\lambda\)</span></p>
-<p><span class="math display">\[\hat{\lambda} = N / \sum_{n=1}^N X_n\]</span></p>
-<div id="6caeca95-7c48-4b53-9d1e-98e72b28148d" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ll_exponential(l, x):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> np.size(x)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>N <span class="op">*</span> np.log(l) <span class="op">+</span> l <span class="op">*</span> np.<span class="bu">sum</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="10c5ec9e-b1aa-4847-9ac3-b30993c1411f" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> rng.exponential(<span class="fl">0.2</span>, size <span class="op">=</span> <span class="dv">1001</span>) <span class="co"># answer should be close to 5</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>minimize(ll_exponential, rng.uniform(), args <span class="op">=</span> (data,), </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         method <span class="op">=</span> <span class="st">"L-BFGS-B"</span>, bounds <span class="op">=</span> [(<span class="fl">1e-5</span>, np.inf)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3d8fa785-7811-4b25-9fa4-7d17c5019190" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="fl">2.7</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> spicy.t(df <span class="op">=</span> N <span class="op">-</span> <span class="dv">1</span>).cdf(np.<span class="bu">abs</span>(t))) <span class="co"># p-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>  message: CONVERGENCE: RELATIVE REDUCTION OF F &lt;= FACTR*EPSMCH
-  success: True
-   status: 0
-      fun: -601.80496199843
-        x: [ 4.959e+00]
-      nit: 9
-      jac: [-1.137e-05]
-     nfev: 20
-     njev: 10
- hess_inv: &lt;1x1 LbfgsInvHessProduct with dtype=float64&gt;</code></pre>
+<pre><code>0.011450043798540976</code></pre>
 </div>
 </div>
-<div id="6d4fb897-3dd5-4df6-9506-7f8324948c48" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">/</span> np.mean(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>4.958998267986209</code></pre>
+<div id="d663b9e5-6f1f-4c2f-b5ae-de343f6db6d8" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/roualdes/data/refs/heads/master/penguins.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="8057e3a6-51ac-4164-a31d-a07a042d0d4a" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ndx <span class="op">=</span> <span class="op">~</span>df[<span class="st">"body_mass_g"</span>].isna()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.loc[ndx, <span class="st">"body_mass_g"</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>xbar <span class="op">=</span> np.mean(x)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(ndx)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.std(x, ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (xbar <span class="op">-</span> <span class="dv">4000</span>)<span class="op">/</span> (s <span class="op">/</span> np.sqrt(N))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="51cc3723-45fd-4f6b-bd14-f7c8afbca259" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> spicy.t(df <span class="op">=</span> N <span class="op">-</span> <span class="dv">1</span>).cdf(np.<span class="bu">abs</span>(t)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>4.699770469906994e-06</code></pre>
+</div>
+</div>
+<div id="409937bb-33b9-4a63-98c4-0625b6a4e984" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spicy.ttest_1samp(x, popmean <span class="op">=</span> <span class="dv">4000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>TtestResult(statistic=4.6524990132509805, pvalue=4.699770469917747e-06, df=341)</code></pre>
+</div>
+</div>
+<div id="a5e9ca64-7b2f-4e81-aed9-73f3b155aad9" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>4.6524990132509805</code></pre>
+</div>
+</div>
+<div id="da58974c-ab17-411f-975a-1364e35d927f" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>342</code></pre>
 </div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
